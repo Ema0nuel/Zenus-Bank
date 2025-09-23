@@ -70,6 +70,7 @@ const routeAliases = {
   "edit-profile": "user/edit-profile",
   "crypto": "user/transfer/crypto",
   "interbank-transfer": "user/transfer/interbank",
+  "account-summary": "user/account-summary",
   "locate-us": "locate",
   "switch-now": "switch",
   ...securityRoutes,

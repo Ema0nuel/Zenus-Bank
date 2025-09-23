@@ -102,7 +102,8 @@ const paypalDeposit = async () => {
             const { error: txError } = await supabase.from('transactions').insert([{
                 account_id: account.id,
                 user_id: user.id,
-                type: 'paypal',
+                type: 'deposit', // Changed from 'paypal' to 'deposit'
+                method: 'paypal', // Add a method field to track payment method
                 amount: amount,
                 description: desc,
                 paypal_email: paypalEmail,
