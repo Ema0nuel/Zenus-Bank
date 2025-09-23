@@ -1,0 +1,1 @@
+const i="zenusbanking@gmail.com",t="12345EM@";function r(n,e){return n===i&&e===t?(sessionStorage.setItem("admin_logged_in","true"),!0):!1}function o(){return sessionStorage.getItem("admin_logged_in")==="true"?!0:(window.location.href="/admin-login",!1)}export{r as l,o as r};
