@@ -1,4 +1,4 @@
-import{n as i}from"./navbar-CNAggbqQ.js";import{f as s}from"./footer-FDMuO3g2.js";import{r as n}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const d=()=>{const a=i();n("Financial Abuse");function e(){a.pageEvents()}return{html:`
+import{n as i}from"./navbar-CNAggbqQ.js";import{f as s}from"./footer-DOGfXAWF.js";import{r as n}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const d=()=>{const a=i();n("Financial Abuse");function e(){a.pageEvents()}return{html:`
       ${a.html}
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Breadcrumbs -->

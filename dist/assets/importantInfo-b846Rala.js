@@ -1,4 +1,4 @@
-import{n as a}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js";import{r as s}from"./reset-CYKpHJhn.js";import{N as l}from"./logo-nobg-BVMQOOtC.js";import{L as r}from"./logo-yCyWWFG1.js";const o=[{title:"Codes of practice",icon:"fa-solid fa-scale-balanced",details:`
+import{n as a}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-DOGfXAWF.js";import{r as s}from"./reset-CYKpHJhn.js";import{N as l}from"./logo-nobg-BVMQOOtC.js";import{L as o}from"./logo-yCyWWFG1.js";const r=[{title:"Codes of practice",icon:"fa-solid fa-scale-balanced",details:`
       <p>We comply with a range of codes of practices including:</p>
       <ul>
         <li>Banking Code of Practice</li>
@@ -29,21 +29,21 @@ import{n as a}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
       <p>Target Market Determinations for financial products distributed by Zenus Bank are to ensure that the right products end up in the hands of the right customer. We do this by focusing on our customers in the design and distribution of our financial products.</p>
     `,link:"/",linkText:"Learn more about TMDs"},{title:"Website terms of use",icon:"fa-solid fa-globe",details:`
       <p>The terms of use for the Zenus Bank website sets the rules for using our website with our rights in, and restrictions on your use of, the site, product and services information, third party content and jurisdiction.</p>
-    `,link:"/",linkText:"Read our terms of use"}],f=()=>{const i=a();s("Financial Difficulty");function t(){i.pageEvents()}return{html:`
-      ${i.html}
+    `,link:"/",linkText:"Read our terms of use"}],b=()=>{const t=a();s("Financial Difficulty");function i(){t.pageEvents()}return{html:`
+      ${t.html}
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/policies/creditreportingpolicy/bannerpoliciesglasses.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/policies/creditreportingpolicy/mobilebannerpoliciesglasses.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="absolute inset-0 bg-black/50 dark:bg-brand-navy/70"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
               <img src="${l}" alt="Zenus Bank" class="h-16 w-auto mb-4 block dark:hidden" />
-              <img src="${r}" alt="Zenus Bank" class="h-16 w-auto mb-4 hidden dark:block" />
+              <img src="${o}" alt="Zenus Bank" class="h-16 w-auto mb-4 hidden dark:block" />
               <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">Financial Difficulty</h1>
               <p class="text-white text-lg">Zenus Bank<br>
-                <a href="mailto:zenusbanking@gmail.com" data-nav class="underline">zenusbanking@gmail.com</a> &nbsp;|&nbsp; <a href="tel:+12084132742" data-nav class="underline">+12084132742</a>
+                <a href="mailto:zenusbanking@gmail.com" data-nav class="underline">zenusbanking@gmail.com</a> &nbsp;|&nbsp; <a href="tel:+447529555635" data-nav class="underline">+447529555635</a>
               </p>
             </div>
           </div>
@@ -61,7 +61,7 @@ import{n as a}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
           <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-sun mb-8 text-center">Find information that may be important to you</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              ${o.map(e=>`
+              ${r.map(e=>`
                 <div class="rounded-xl shadow-lg bg-white dark:bg-brand-dark border border-brand-sun/20 p-6 flex flex-col transition-all duration-300 group h-full">
                   <div class="rounded-lg overflow-hidden mb-4 flex justify-center">
                     <i class="${e.icon} text-5xl text-brand-sun"></i>
@@ -76,4 +76,4 @@ import{n as a}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
         </section>
       </main>
       ${n().html}
-    `,pageEvents:t}};export{f as default};
+    `,pageEvents:i}};export{b as default};

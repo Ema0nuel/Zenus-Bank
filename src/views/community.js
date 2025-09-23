@@ -54,8 +54,8 @@ const community = () => {
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/community/headerbannercommunity.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/community/mobilebannercommunity.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
               <h1 class="text-3xl md:text-5xl font-extrabold text-white dark:text-brand-sun mb-4 drop-shadow-lg">Be part of the Zenus Bank community</h1>
@@ -128,8 +128,8 @@ const community = () => {
         </section>
         <!-- Banner Block -->
         <section class="relative w-full min-h-[220px] md:min-h-[320px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90 mt-10">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/switchnow/headerbanner-switchnow.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/switchnow/mobilebanner-switchnow.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="relative z-10 max-w-4xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
               <h3 class="text-2xl md:text-3xl font-bold text-white dark:text-brand-sun mb-2">Switch to Zenus Bank</h3>

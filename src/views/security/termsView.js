@@ -18,8 +18,8 @@ const termsView = () => {
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/termsofuse/bannerpoliciesphone.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/termsofuse/mobilebannerpoliciesphone.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="absolute inset-0 bg-black/50 dark:bg-brand-navy/70"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
@@ -41,7 +41,7 @@ const termsView = () => {
         <section class="py-8">
           <div class="max-w-5xl mx-auto px-4">
             <h2 class="text-2xl font-bold mb-4">1. This website</h2>
-            <p>This website (“<strong>Website</strong>") is owned and operated by Zenus Bank (“<strong>we</strong>”/“<strong>us</strong>”/“<strong>our</strong>”), on our behalf and that of our related bodies corporate. Our registered office is in the United States. Contact: <a href="mailto:zenusbanking@gmail.com" class="text-brand-sun underline">zenusbanking@gmail.com</a> | <a href="tel:+12084132742" class="text-brand-sun underline">+12084132742</a>.</p>
+            <p>This website (“<strong>Website</strong>") is owned and operated by Zenus Bank (“<strong>we</strong>”/“<strong>us</strong>”/“<strong>our</strong>”), on our behalf and that of our related bodies corporate. Our registered office is in the United States. Contact: <a href="mailto:zenusbanking@gmail.com" class="text-brand-sun underline">zenusbanking@gmail.com</a> | <a href="tel:+447529555635" class="text-brand-sun underline">+447529555635</a>.</p>
             <p>These terms of use (the “<strong>Terms</strong>”) govern your use of this Website (the “<strong>Website Content</strong>”). Each time you use this Website, your use indicates your acknowledgment and acceptance of the Terms, which we may revise periodically without notice. If you do not accept these terms and conditions, do not use the Website.</p>
             <h2 class="text-2xl font-bold mt-8 mb-4">2. Our rights in, and restrictions on your use of, this Website</h2>
             <p>The Website Content (including trade marks and logos) is our intellectual property or that of our suppliers. We grant you a non-exclusive, non-transferable and limited right to access and use this Website, view the Website Content on your screen and print copies of such Website Content, solely for your personal, non-commercial use, and provided that you comply fully with these Terms.</p>

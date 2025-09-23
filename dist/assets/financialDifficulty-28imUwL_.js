@@ -1,4 +1,4 @@
-import{n as i}from"./navbar-CNAggbqQ.js";import{f as t}from"./footer-FDMuO3g2.js";import{r as s}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const d=()=>{const e=i();s("Financial Difficulty Assistance");function a(){e.pageEvents()}return{html:`
+import{n as i}from"./navbar-CNAggbqQ.js";import{f as t}from"./footer-DOGfXAWF.js";import{r as s}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const d=()=>{const e=i();s("Financial Difficulty Assistance");function a(){e.pageEvents()}return{html:`
       ${e.html}
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Breadcrumbs -->

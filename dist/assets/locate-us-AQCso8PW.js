@@ -1,15 +1,15 @@
-import{n as t}from"./navbar-CNAggbqQ.js";import{f as r}from"./footer-FDMuO3g2.js";import{r as n}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const l=[{name:"Zenus Bank",address:"36 Main Street<br>Box Hill VIC 3128",email:"zenusbanking@gmail.com"},{name:"ATM iStandard GroupMarketplace",address:"116 - 120 Mitchell Street<br>Zenus Bank 3550"}],c=async()=>{const a=t();n("Locate Us");function s(){a.pageEvents()}return{html:`
+import{n as s}from"./navbar-CNAggbqQ.js";import{f as r}from"./footer-DOGfXAWF.js";import{r as l}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const d=[{name:"Zenus Bank",address:"36 Main Street<br>Box Hill VIC 3128",email:"zenusbanking@gmail.com"},{name:"ATM iStandard GroupMarketplace",address:"116 - 120 Mitchell Street<br>Zenus Bank 3550"}],b=async()=>{const a=s();l("Locate Us");function t(){a.pageEvents()}return{html:`
       ${a.html}
       <main id="mainContent" class="main branchListing bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="branchListing">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center">
           <!-- Overlay for darkening the background image -->
           <div class="absolute inset-0 z-0 hidden md:block">
-            <div class="w-full h-full bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/_sharedassets/bannerstileimages/betterbigbank/headerbanner-betterbigbank.jpg');"></div>
+            <div class="w-full h-full bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
             <div class="absolute inset-0 bg-black/50 dark:bg-brand-navy/70"></div>
           </div>
           <div class="absolute inset-0 z-0 md:hidden">
-            <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/_sharedassets/bannerstileimages/betterbigbank/mobilebanner-betterbigbank.jpg');"></div>
+            <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
             <div class="absolute inset-0 bg-black/60 dark:bg-brand-navy/80"></div>
           </div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
@@ -23,7 +23,7 @@ import{n as t}from"./navbar-CNAggbqQ.js";import{f as r}from"./footer-FDMuO3g2.js
           <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Branch List -->
             <ul class="space-y-6">
-              ${l.map(e=>`
+              ${d.map(e=>`
                 <li class="bg-white dark:bg-brand-dark border border-brand-sun/20 rounded-xl p-6 shadow">
                   <h5 class="font-bold text-lg text-brand-navy dark:text-brand-sun mb-2">${e.name}</h5>
                   <p class="mb-2 text-brand-gray dark:text-brand-light">${e.address}</p>
@@ -48,4 +48,4 @@ import{n as t}from"./navbar-CNAggbqQ.js";import{f as r}from"./footer-FDMuO3g2.js
         </section>
       </main>
       ${r().html}
-    `,pageEvents:s}};export{c as default};
+    `,pageEvents:t}};export{b as default};

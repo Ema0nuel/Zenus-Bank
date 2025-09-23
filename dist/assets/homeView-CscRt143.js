@@ -1,5 +1,5 @@
-import{n as f}from"./navbar-CNAggbqQ.js";import{f as v}from"./footer-FDMuO3g2.js";import{r as y}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const S=()=>{y("Home");const u=f();function g(){u.pageEvents();const e=document.getElementById("hero-highlight-title"),s=document.getElementById("hero-highlight-desc"),n=document.getElementById("hero-highlight-img"),a=document.getElementById("hero-highlight-cta"),c=document.getElementById("hero-highlight-img-wrap");let l=0;const r=[{title:"Express Home Loan: Fast, Flexible, Yours.",desc:"Get approved in as little as 24 hours. Enjoy competitive rates, flexible repayments, and a dedicated team to guide you home.",img:"https://westcoastsgroup.com/siteassets/personal/homeloans/expresshomeloan/headerbanner-express-hl.jpg",cta:"Apply Now",ctaLink:"/login"},{title:"Your Dream Home Awaits.",desc:"Unlock exclusive member rates and personalized support. Start your journey with Zenus Bank today.",img:"https://westcoastsgroup.com/siteassets/homepage/carousel/headerbanner-mostsatisfiedhlcusts.jpg",cta:"Start Now",ctaLink:"/signup"},{title:"Refinance & Save Big.",desc:"Switch your home loan and save with our low rates and zero application fees. See how much you could save in minutes.",img:"https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80",cta:"See Savings",ctaLink:"/login"}];function p(x=!0){!e||!s||!n||!a||!c||(e.classList.add("opacity-0","-translate-y-4"),s.classList.add("opacity-0","-translate-y-4"),n.classList.add("opacity-0","scale-95"),c.classList.add("shadow-none"),a.classList.add("opacity-0","scale-95"),setTimeout(()=>{l=x?(l+1)%r.length:(l-1+r.length)%r.length;const t=r[l];e.textContent=t.title,s.textContent=t.desc,n.src=t.img,a.textContent=t.cta,a.href=t.ctaLink,e.classList.remove("opacity-0","-translate-y-4"),s.classList.remove("opacity-0","-translate-y-4"),n.classList.remove("opacity-0","scale-95"),c.classList.remove("shadow-none"),a.classList.remove("opacity-0","scale-95")},500))}setInterval(()=>p(!0),7e3);const d=document.getElementById("hero-text");d&&(d.classList.add("opacity-0","translate-y-8"),setTimeout(()=>{d.classList.remove("opacity-0","translate-y-8"),d.classList.add("opacity-100","translate-y-0")},100));const i=document.getElementById("hero-cta");i&&(i.classList.add("scale-95","opacity-0"),setTimeout(()=>{i.classList.remove("scale-95","opacity-0"),i.classList.add("scale-100","opacity-100")},400));const o=document.querySelectorAll(".tab-btn"),b=document.querySelectorAll(".tab-pane");o.forEach(x=>{x.addEventListener("click",function(){o.forEach(h=>h.classList.remove("active","bg-brand-sun","text-white")),b.forEach(h=>h.classList.add("hidden")),this.classList.add("active","bg-brand-sun","text-white");const t=this.getAttribute("data-tab"),m=document.getElementById(t);m&&m.classList.remove("hidden")})}),o.length&&b.length&&(o[0].classList.add("active","bg-brand-sun","text-white"),b[0].classList.remove("hidden"))}return{html:`
-${u.html}
+import{n as p}from"./navbar-CNAggbqQ.js";import{f as v}from"./footer-DOGfXAWF.js";import{r as y}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const S=()=>{y("Home");const m=p();function u(){m.pageEvents();const e=document.getElementById("hero-highlight-title"),s=document.getElementById("hero-highlight-desc"),n=document.getElementById("hero-highlight-img"),a=document.getElementById("hero-highlight-cta"),c=document.getElementById("hero-highlight-img-wrap");let l=0;const r=[{title:"Express Home Loan: Fast, Flexible, Yours.",desc:"Get approved in as little as 24 hours. Enjoy competitive rates, flexible repayments, and a dedicated team to guide you home.",img:"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80",cta:"Apply Now",ctaLink:"/login"},{title:"Your Dream Home Awaits.",desc:"Unlock exclusive member rates and personalized support. Start your journey with Zenus Bank today.",img:"https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&w=1200&q=80",cta:"Start Now",ctaLink:"/signup"},{title:"Refinance & Save Big.",desc:"Switch your home loan and save with our low rates and zero application fees. See how much you could save in minutes.",img:"https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",cta:"See Savings",ctaLink:"/login"}];function f(h=!0){!e||!s||!n||!a||!c||(e.classList.add("opacity-0","-translate-y-4"),s.classList.add("opacity-0","-translate-y-4"),n.classList.add("opacity-0","scale-95"),c.classList.add("shadow-none"),a.classList.add("opacity-0","scale-95"),setTimeout(()=>{l=h?(l+1)%r.length:(l-1+r.length)%r.length;const t=r[l];e.textContent=t.title,s.textContent=t.desc,n.src=t.img,a.textContent=t.cta,a.href=t.ctaLink,e.classList.remove("opacity-0","-translate-y-4"),s.classList.remove("opacity-0","-translate-y-4"),n.classList.remove("opacity-0","scale-95"),c.classList.remove("shadow-none"),a.classList.remove("opacity-0","scale-95")},500))}setInterval(()=>f(!0),7e3);const i=document.getElementById("hero-text");i&&(i.classList.add("opacity-0","translate-y-8"),setTimeout(()=>{i.classList.remove("opacity-0","translate-y-8"),i.classList.add("opacity-100","translate-y-0")},100));const d=document.getElementById("hero-cta");d&&(d.classList.add("scale-95","opacity-0"),setTimeout(()=>{d.classList.remove("scale-95","opacity-0"),d.classList.add("scale-100","opacity-100")},400));const o=document.querySelectorAll(".tab-btn"),b=document.querySelectorAll(".tab-pane");o.forEach(h=>{h.addEventListener("click",function(){o.forEach(x=>x.classList.remove("active","bg-brand-sun","text-white")),b.forEach(x=>x.classList.add("hidden")),this.classList.add("active","bg-brand-sun","text-white");const t=this.getAttribute("data-tab"),g=document.getElementById(t);g&&g.classList.remove("hidden")})}),o.length&&b.length&&(o[0].classList.add("active","bg-brand-sun","text-white"),b[0].classList.remove("hidden"))}return{html:`
+${m.html}
 <main id="mainContent" class="main homePage min-h-screen bg-brand-light dark:bg-brand-dark flex flex-col font-sans text-sm" data-pg="HomePage">
   <!-- Animated Hero Section -->
   <section class="relative w-full bg-white dark:bg-brand-dark/90 py-12 px-4 md:px-12 transition-all duration-500 overflow-hidden">
@@ -18,7 +18,7 @@ ${u.html}
       </div>
       <div class="flex-1 flex justify-center md:justify-end w-full">
         <div class="rounded-2xl shadow-2xl overflow-hidden border-4 border-brand-sun bg-white/80 dark:bg-brand-dark/80 backdrop-blur-lg transition-all duration-700 scale-100" id="hero-highlight-img-wrap">
-          <img id="hero-highlight-img" src="https://westcoastsgroup.com/siteassets/personal/homeloans/expresshomeloan/headerbanner-express-hl.jpg" alt="Express Home Loan" class="w-full h-64 md:h-96 object-cover object-center transition-all duration-700" />
+          <img id="hero-highlight-img" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80" alt="Express Home Loan" class="w-full h-64 md:h-96 object-cover object-center transition-all duration-700" />
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@ ${u.html}
           <a id="hero-cta" href="/login" data-nav class="inline-block px-6 py-3 rounded-full bg-white text-brand-navy font-semibold shadow-lg hover:bg-brand-sun hover:text-white transition-all duration-300 scale-100 opacity-100">Switch today</a>
         </div>
         <div class="flex-1 hidden md:block">
-          <img src="https://westcoastsgroup.com/siteassets/homepage/carousel/headerbanner-mostsatisfiedhlcusts.jpg" alt="Home Loan Banner" class="rounded-2xl shadow-xl w-full h-64 object-cover object-center transition-all duration-500" />
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" alt="Home Loan Banner" class="rounded-2xl shadow-xl w-full h-64 object-cover object-center transition-all duration-500" />
         </div>
       </div>
     </div>
@@ -223,7 +223,7 @@ ${u.html}
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 items-center">
       <div class="flex-1 hidden md:block">
         <div class="rounded-2xl shadow-xl overflow-hidden border-4 border-brand-sun bg-white/80 dark:bg-brand-dark/80 backdrop-blur-lg transition-all duration-500">
-          <img src="https://westcoastsgroup.com/siteassets/personal/homeloans/expresshomeloan/headerbanner-express-hl.jpg" alt="Express Home Loan" class="w-full h-64 md:h-96 object-cover object-center" />
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" alt="Express Home Loan" class="w-full h-64 md:h-96 object-cover object-center" />
         </div>
       </div>
     </div>
@@ -234,17 +234,32 @@ ${u.html}
       <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-sun mb-8 text-center">What our members say</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
+          <img src="
+                    param($match)
+                    if ($match -match 'home|property') { $realEstateImages[0] }
+                    elseif ($match -match 'invest|finance') { $wealthManagementImages[1] }
+                    else { $digitalBankingImages[1] }
+                " alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
           <p class="text-brand-gray dark:text-brand-light mb-3">“Switching to Zenus Bank was the best decision for my family. The process was smooth and the rates are unbeatable.”</p>
           <span class="font-semibold text-brand-navy dark:text-brand-sun">James R.</span>
         </div>
         <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
-          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
+          <img src="
+                    param($match)
+                    if ($match -match 'home|property') { $realEstateImages[0] }
+                    elseif ($match -match 'invest|finance') { $wealthManagementImages[1] }
+                    else { $digitalBankingImages[1] }
+                " alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
           <p class="text-brand-gray dark:text-brand-light mb-3">“I love the online tools and how easy it is to manage my accounts. The support team is always helpful.”</p>
           <span class="font-semibold text-brand-navy dark:text-brand-sun">Maria S.</span>
         </div>
         <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
-          <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
+          <img src="
+                    param($match)
+                    if ($match -match 'home|property') { $realEstateImages[0] }
+                    elseif ($match -match 'invest|finance') { $wealthManagementImages[1] }
+                    else { $digitalBankingImages[1] }
+                " alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
           <p class="text-brand-gray dark:text-brand-light mb-3">“Great experience refinancing my home. The team explained everything and I saved a lot!”</p>
           <span class="font-semibold text-brand-navy dark:text-brand-sun">David L.</span>
         </div>
@@ -279,4 +294,4 @@ ${u.html}
   </section>
 </main>
 ${v().html}
-        `,pageEvents:g}};export{S as default};
+        `,pageEvents:u}};export{S as default};

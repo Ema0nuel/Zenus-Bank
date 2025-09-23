@@ -1,10 +1,10 @@
-import{n as e}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js";import{r as t}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const b=()=>{const a=e();t("Support");function s(){a.pageEvents()}return{html:`
+import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-DOGfXAWF.js";import{r as t}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const b=()=>{const a=s();t("Support");function e(){a.pageEvents()}return{html:`
       ${a.html}
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/support/headerbanner-support.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/support/mobilebanner-support.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
               <h1 class="text-3xl md:text-5xl font-extrabold text-white dark:text-brand-sun mb-4 drop-shadow-lg">Support centre</h1>
@@ -133,7 +133,7 @@ import{n as e}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
             <h2 class="text-2xl font-bold text-brand-navy dark:text-brand-sun mb-6">Manage your banking</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div class="bg-white dark:bg-brand-dark border border-brand-sun/20 rounded-xl shadow">
-                <img src="https://westcoastsgroup.com/siteassets/personal/_promotiles/highlightsection-personal.jpg" alt="" class="w-full h-40 object-cover rounded-t-xl" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" alt="" class="w-full h-40 object-cover rounded-t-xl" loading="lazy" />
                 <div class="p-6">
                   <h3 class="text-xl font-bold mb-2">Products</h3>
                   <p class="mb-2">Helping you to manage your products.</p>
@@ -145,7 +145,7 @@ import{n as e}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
                 </div>
               </div>
               <div class="bg-white dark:bg-brand-dark border border-brand-sun/20 rounded-xl shadow">
-                <img src="https://westcoastsgroup.com/siteassets/security/_promotiles/highlightsection-security.jpg" alt="" class="w-full h-40 object-cover rounded-t-xl" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80" alt="" class="w-full h-40 object-cover rounded-t-xl" loading="lazy" />
                 <div class="p-6">
                   <h3 class="text-xl font-bold mb-2">Security</h3>
                   <p class="mb-2">Keeping you and your family safe.</p>
@@ -157,7 +157,7 @@ import{n as e}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
                 </div>
               </div>
               <div class="bg-white dark:bg-brand-dark border border-brand-sun/20 rounded-xl shadow">
-                <img src="https://westcoastsgroup.com/siteassets/waystobank/_promotiles/highlightsection-waystobank.jpg" alt="" class="w-full h-40 object-cover rounded-t-xl" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" alt="" class="w-full h-40 object-cover rounded-t-xl" loading="lazy" />
                 <div class="p-6">
                   <h3 class="text-xl font-bold mb-2">Ways to bank</h3>
                   <p class="mb-2">Supporting you to bank the way you want.</p>
@@ -192,4 +192,4 @@ import{n as e}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
         </section>
       </main>
       ${n().html}
-    `,pageEvents:s}};export{b as default};
+    `,pageEvents:e}};export{b as default};

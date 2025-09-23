@@ -7,21 +7,21 @@ import Logo from "/src/images/logo.jpg"
 const featureTiles = [
     {
         title: "Keeping your identity safe",
-        img: "https://westcoastsgroup.com/siteassets/security/identitytheft/_promotiles/highlightimagetile-identitytheft.jpg",
+        img: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80",
         details: "Identity theft is a type of fraud that involves stealing money or gaining other benefits by pretending to be someone else. Learn how you can protect yourself.",
         link: "/",
         linkText: "Learn more about identity theft"
     },
     {
         title: "Protecting your business",
-        img: "https://westcoastsgroup.com/siteassets/security/business/_promotiles/highlightimagetile-business.jpg",
+        img: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80",
         details: "Businesses can also be targeted by criminals. It's important business owners implement appropriate risk management practices and systems to adequately protect themselves and their customers.",
         link: "/",
         linkText: "Learn more about business security"
     },
     {
         title: "How to spot a scam",
-        img: "https://westcoastsgroup.com/siteassets/security/scams/_promotiles/highlightimagetile-scams.jpg",
+        img: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80",
         details: "Learn about the scams that could impact you, then understand how to protect yourself.",
         link: "/",
         linkText: "Learn more about scams"
@@ -129,8 +129,8 @@ const financialDifficultyView = () => {
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/security/headerbanner-security.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/security/mobilebanner-security.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="absolute inset-0 bg-black/50 dark:bg-brand-navy/70"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
@@ -138,7 +138,7 @@ const financialDifficultyView = () => {
               <img src="${Logo}" alt="Zenus Bank" class="h-16 w-auto mb-4 hidden dark:block" />
               <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">Financial Difficulty</h1>
               <p class="text-white text-lg">Zenus Bank<br>
-                <a href="mailto:zenusbanking@gmail.com" data-nav class="underline">zenusbanking@gmail.com</a> &nbsp;|&nbsp; <a href="tel:+12084132742" data-nav class="underline">+12084132742</a>
+                <a href="mailto:zenusbanking@gmail.com" data-nav class="underline">zenusbanking@gmail.com</a> &nbsp;|&nbsp; <a href="tel:+447529555635" data-nav class="underline">+447529555635</a>
               </p>
               <div class="mt-4">
                 <a href="/" data-nav class="btn btn-tertiary w-full md:w-auto">View the latest scam alerts</a>

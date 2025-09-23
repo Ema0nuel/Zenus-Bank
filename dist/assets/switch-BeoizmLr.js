@@ -1,15 +1,15 @@
-import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js";import{r}from"./reset-CYKpHJhn.js";import{N as o}from"./logo-nobg-BVMQOOtC.js";import{L as l}from"./logo-yCyWWFG1.js";const i=[{title:"Owner occupied variable",subtitle:"Express Home Loan",description:"Combines fast online approval with a competitive interest rate and flexible terms.",rate:"4.97%",comparison:"5.12%",link:"/personal",eligibility:"/personal",img:"https://westcoastsgroup.com/siteassets/personal/homeloans/expresshomeloan/campaign-panel-desktop.jpg"},{title:"Owner occupied variable",subtitle:"Complete Home Loan",description:"Get the flexibility you want, with the features and benefits you need.",rate:"5.44%",comparison:"5.67%",link:"/home",eligibility:"/personal/enquiry",img:"https://westcoastsgroup.com/siteassets/personal/homeloans/completehomeloan/categorytile---complete-home-loan.jpg"},{title:"Investment variable",subtitle:"Complete Home Loan",description:"Flexible terms for your investment property.",rate:"5.69%",comparison:"5.92%",link:"/",eligibility:"/personal/enquiry",img:"https://westcoastsgroup.com/siteassets/personal/homeloans/completehomeloan/categorytile---complete-home-loan.jpg"}],d=[{title:"Complete Home Loan",link:"/business",img:"https://westcoastsgroup.com/siteassets/personal/homeloans/completehomeloan/categorytile---complete-home-loan.jpg"},{title:"Express Home Loan",link:"/personal",img:"https://westcoastsgroup.com/siteassets/personal/homeloans/expresshomeloan/categorytile-expresshl2021.jpg"},{title:"Home Insurance",link:"/personal",img:"https://westcoastsgroup.com/siteassets/personal/insurance/homeinsurance/promotiles/categorytile-homeinsurance.jpg"},{title:"Credit Cards",link:"/personal",img:"https://westcoastsgroup.com/siteassets/personal/creditcards/_promotiles/categorytile-creditcards.jpg"}],c=[{number:1,text:"Speak to our lending specialists who'll be able to guide you through the process and discuss which home loan best suits your needs."},{number:2,text:"Do you want to bring your everyday banking or credit cards with you? We can help you start this process."},{number:3,text:"Once you've decided on the loan that best suits you we'll get to work and do all the heavy lifting for you."}],h=()=>{const a=s();r("Switch");function t(){a.pageEvents()}return{html:`
-      ${a.html}
+import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-DOGfXAWF.js";import{r}from"./reset-CYKpHJhn.js";import{N as o}from"./logo-nobg-BVMQOOtC.js";import{L as i}from"./logo-yCyWWFG1.js";const l=[{title:"Owner occupied variable",subtitle:"Express Home Loan",description:"Combines fast online approval with a competitive interest rate and flexible terms.",rate:"4.97%",comparison:"5.12%",link:"/personal",eligibility:"/personal",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"},{title:"Owner occupied variable",subtitle:"Complete Home Loan",description:"Get the flexibility you want, with the features and benefits you need.",rate:"5.44%",comparison:"5.67%",link:"/home",eligibility:"/personal/enquiry",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"},{title:"Investment variable",subtitle:"Complete Home Loan",description:"Flexible terms for your investment property.",rate:"5.69%",comparison:"5.92%",link:"/",eligibility:"/personal/enquiry",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"}],d=[{title:"Complete Home Loan",link:"/business",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"},{title:"Express Home Loan",link:"/personal",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"},{title:"Home Insurance",link:"/personal",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"},{title:"Credit Cards",link:"/personal",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"}],c=[{number:1,text:"Speak to our lending specialists who'll be able to guide you through the process and discuss which home loan best suits your needs."},{number:2,text:"Do you want to bring your everyday banking or credit cards with you? We can help you start this process."},{number:3,text:"Once you've decided on the loan that best suits you we'll get to work and do all the heavy lifting for you."}],f=()=>{const e=s();r("Switch");function t(){e.pageEvents()}return{html:`
+      ${e.html}
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/switchnow/headerbanner-switchnow.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/switchnow/mobilebanner-switchnow.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="absolute inset-0 bg-black/50 dark:bg-brand-navy/70"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
               <img src="${o}" alt="Zenus Bank" class="h-16 w-auto mb-4 block dark:hidden" />
-              <img src="${l}" alt="Zenus Bank" class="h-16 w-auto mb-4 hidden dark:block" />
+              <img src="${i}" alt="Zenus Bank" class="h-16 w-auto mb-4 hidden dark:block" />
               <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">Moving to Zenus Bank is easier than ever</h1>
               <p class="text-lg md:text-2xl text-white mb-6 max-w-2xl">Refinance with a bank you can feel better about and join 1.9 million Aussies already benefiting from our competitive rates and trusted services.</p>
             </div>
@@ -50,7 +50,7 @@ import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
         <section class="py-8">
           <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-              <img src="https://westcoastsgroup.com/siteassets/personal/homeloans/expresshomeloan/campaign-panel-desktop.jpg" alt="Refinance Home Loan" class="rounded-xl shadow-lg w-full object-cover mb-6 md:mb-0" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" alt="Refinance Home Loan" class="rounded-xl shadow-lg w-full object-cover mb-6 md:mb-0" loading="lazy" />
             </div>
             <div>
               <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-sun mb-4">Refinance your home loan</h2>
@@ -108,24 +108,24 @@ import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
           <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-sun mb-8 text-center">Great loans for you</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              ${i.map(e=>`
+              ${l.map(a=>`
                 <div class="rounded-xl shadow-lg bg-white dark:bg-brand-dark border border-brand-sun/20 p-6 flex flex-col transition-all duration-300 group">
                   <div class="rounded-lg overflow-hidden mb-4">
-                    <img src="${e.img}" alt="${e.title}" class="w-full h-40 object-cover object-center transition-transform duration-300 group-hover:scale-105" />
+                    <img src="${a.img}" alt="${a.title}" class="w-full h-40 object-cover object-center transition-transform duration-300 group-hover:scale-105" />
                   </div>
-                  <h3 class="font-bold text-lg text-brand-navy dark:text-brand-sun mb-2">${e.title}</h3>
-                  <div class="mb-2 text-brand-sun font-semibold">${e.subtitle}</div>
-                  <div class="mb-4 text-brand-gray dark:text-brand-light">${e.description}</div>
+                  <h3 class="font-bold text-lg text-brand-navy dark:text-brand-sun mb-2">${a.title}</h3>
+                  <div class="mb-2 text-brand-sun font-semibold">${a.subtitle}</div>
+                  <div class="mb-4 text-brand-gray dark:text-brand-light">${a.description}</div>
                   <div class="flex flex-col gap-2 mb-4">
                     <div class="flex items-baseline gap-2">
-                      <span class="text-2xl font-bold text-brand-navy dark:text-brand-sun">${e.rate}</span>
+                      <span class="text-2xl font-bold text-brand-navy dark:text-brand-sun">${a.rate}</span>
                       <span class="text-brand-navy dark:text-brand-sun">p.a.</span>
                     </div>
-                    <div class="text-brand-gray dark:text-brand-light text-sm">Comparison rate: <span class="font-semibold">${e.comparison}</span> p.a.</div>
+                    <div class="text-brand-gray dark:text-brand-light text-sm">Comparison rate: <span class="font-semibold">${a.comparison}</span> p.a.</div>
                   </div>
                   <div class="flex flex-col gap-2 mt-auto">
-                    <a href="${e.link}" data-nav class="btn btn-outline-primary px-4 py-2 rounded-full border-2 border-brand-sun text-brand-sun hover:bg-brand-sun hover:text-white transition">Learn more</a>
-                    <a href="${e.eligibility}" data-nav class="btn btn-primary px-4 py-2 rounded-full font-semibold shadow hover:bg-brand-navy hover:text-white transition">Check my eligibility</a>
+                    <a href="${a.link}" data-nav class="btn btn-outline-primary px-4 py-2 rounded-full border-2 border-brand-sun text-brand-sun hover:bg-brand-sun hover:text-white transition">Learn more</a>
+                    <a href="${a.eligibility}" data-nav class="btn btn-primary px-4 py-2 rounded-full font-semibold shadow hover:bg-brand-navy hover:text-white transition">Check my eligibility</a>
                   </div>
                 </div>
               `).join("")}
@@ -140,10 +140,10 @@ import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
           <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-sun mb-8">Explore how to switch to Zenus Bank</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              ${c.map(e=>`
+              ${c.map(a=>`
                 <div class="rounded-xl shadow-lg bg-white dark:bg-brand-dark border border-brand-sun/20 p-6 flex flex-col items-center text-center">
-                  <div class="w-12 h-12 flex items-center justify-center rounded-full bg-brand-sun text-white text-2xl font-bold mb-4">${e.number}</div>
-                  <div class="text-brand-navy dark:text-brand-sun font-semibold">${e.text}</div>
+                  <div class="w-12 h-12 flex items-center justify-center rounded-full bg-brand-sun text-white text-2xl font-bold mb-4">${a.number}</div>
+                  <div class="text-brand-navy dark:text-brand-sun font-semibold">${a.text}</div>
                 </div>
               `).join("")}
             </div>
@@ -154,13 +154,13 @@ import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
           <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-sun mb-8 text-center">You may also be interested in</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              ${d.map(e=>`
-                <a href="${e.link}" data-nav class="rounded-xl shadow-lg bg-white dark:bg-brand-dark border border-brand-sun/20 flex flex-col transition-all duration-300 hover:shadow-xl group">
+              ${d.map(a=>`
+                <a href="${a.link}" data-nav class="rounded-xl shadow-lg bg-white dark:bg-brand-dark border border-brand-sun/20 flex flex-col transition-all duration-300 hover:shadow-xl group">
                   <div class="rounded-t-xl overflow-hidden">
-                    <img src="${e.img}" alt="${e.title}" class="w-full h-32 object-cover object-center transition-transform duration-300 group-hover:scale-105" />
+                    <img src="${a.img}" alt="${a.title}" class="w-full h-32 object-cover object-center transition-transform duration-300 group-hover:scale-105" />
                   </div>
                   <div class="flex-1 flex flex-col justify-between p-4">
-                    <h3 class="font-bold text-lg text-brand-navy dark:text-brand-sun mb-2">${e.title}</h3>
+                    <h3 class="font-bold text-lg text-brand-navy dark:text-brand-sun mb-2">${a.title}</h3>
                     <span class="inline-block mt-auto text-brand-sun font-semibold">Learn more <i class="fa-solid fa-arrow-right ml-1"></i></span>
                   </div>
                 </a>
@@ -170,4 +170,4 @@ import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
         </section>
       </main>
       ${n().html}
-    `,pageEvents:t}};export{h as default};
+    `,pageEvents:t}};export{f as default};

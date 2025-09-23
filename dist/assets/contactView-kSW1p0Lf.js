@@ -1,9 +1,9 @@
-import{n as r}from"./navbar-CNAggbqQ.js";import{f as b}from"./footer-FDMuO3g2.js";import{s as t}from"./toast-Dx2DSKhR.js";import{r as m}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const o="zenusbanking@gmail.com",l="+12084132742",h=()=>{m("Contact Us");function i(){r().pageEvents?.();const e=document.getElementById("contactForm");e&&e.addEventListener("submit",async s=>{s.preventDefault();const n=Object.fromEntries(new FormData(e));if(!n.name||!n.email||!n.message){t("Please fill in all required fields.","error");return}try{e.querySelector('button[type="submit"]').disabled=!0,await new Promise(d=>setTimeout(d,1200)),t("Your message has been sent!","success"),e.reset()}catch{t("Failed to send message. Please try again.","error")}finally{e.querySelector('button[type="submit"]').disabled=!1}});const a=document.getElementById("prevContactForm");a&&a.addEventListener("submit",s=>{s.preventDefault(),t("Form submitted (demo only)","info"),a.reset()})}return{html:`
-      ${r().html}
+import{n as o}from"./navbar-CNAggbqQ.js";import{f as m}from"./footer-DOGfXAWF.js";import{s as t}from"./toast-Dx2DSKhR.js";import{r as c}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const r="zenusbanking@gmail.com",l="+447529555635",h=()=>{c("Contact Us");function i(){o().pageEvents?.();const e=document.getElementById("contactForm");e&&e.addEventListener("submit",async n=>{n.preventDefault();const s=Object.fromEntries(new FormData(e));if(!s.name||!s.email||!s.message){t("Please fill in all required fields.","error");return}try{e.querySelector('button[type="submit"]').disabled=!0,await new Promise(d=>setTimeout(d,1200)),t("Your message has been sent!","success"),e.reset()}catch{t("Failed to send message. Please try again.","error")}finally{e.querySelector('button[type="submit"]').disabled=!1}});const a=document.getElementById("prevContactForm");a&&a.addEventListener("submit",n=>{n.preventDefault(),t("Form submitted (demo only)","info"),a.reset()})}return{html:`
+      ${o().html}
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/_sharedassets/bannerstileimages/betterbigbank/headerbanner-betterbigbank.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/_sharedassets/bannerstileimages/betterbigbank/mobilebanner-betterbigbank.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="absolute inset-0 bg-black/60 dark:bg-brand-navy/80"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
@@ -36,11 +36,11 @@ import{n as r}from"./navbar-CNAggbqQ.js";import{f as b}from"./footer-FDMuO3g2.js
             </form>
             <div class="mt-8">
               <h3 class="text-xl font-bold mb-2">Other ways to contact us</h3>
-              <p>Email: <a href="mailto:${o}" class="text-brand-sun hover:underline">${o}</a></p>
+              <p>Email: <a href="mailto:${r}" class="text-brand-sun hover:underline">${r}</a></p>
               <p>Phone: <a href="tel:${l.replace(/[^+\d]/g,"")}" class="text-brand-sun hover:underline">${l}</a></p>
             </div>
           </div>
         </section>
       </main>
-      ${b().html}
+      ${m().html}
     `,pageEvents:i}};export{h as default};

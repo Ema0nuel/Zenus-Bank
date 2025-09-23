@@ -18,8 +18,8 @@ const privacyView = () => {
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/policies/privacypolicy/bannerpoliciescoffee.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/policies/privacypolicy/mobilebannerpoliciescoffee.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="absolute inset-0 bg-black/50 dark:bg-brand-navy/70"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
@@ -27,7 +27,7 @@ const privacyView = () => {
               <img src="${Logo}" alt="Zenus Bank" class="h-16 w-auto mb-4 hidden dark:block" />
               <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">Privacy Policy</h1>
               <p class="text-white text-lg">Zenus Bank<br>
-                <a href="mailto:zenusbanking@gmail.com" class="underline">zenusbanking@gmail.com</a> &nbsp;|&nbsp; <a href="tel:+12084132742" class="underline">+12084132742</a>
+                <a href="mailto:zenusbanking@gmail.com" class="underline">zenusbanking@gmail.com</a> &nbsp;|&nbsp; <a href="tel:+447529555635" class="underline">+447529555635</a>
               </p>
             </div>
           </div>
@@ -102,7 +102,7 @@ const privacyView = () => {
             <h3 id="contacting-us" class="text-xl font-semibold mt-8 mb-2">Contacting us</h3>
             <p>If you have any questions about this policy, what personal information or credit related information we may hold in relation to you, or about the way we manage your personal information or credit related information you can contact us.</p>
             <p>Email: <a href="mailto:zenusbanking@gmail.com" class="underline">zenusbanking@gmail.com</a><br>
-            Phone: <a href="tel:+12084132742" class="underline">+12084132742</a></p>
+            Phone: <a href="tel:+447529555635" class="underline">+447529555635</a></p>
             <h3 id="privacy-queries-or-complaints" class="text-xl font-semibold mt-8 mb-2">Privacy queries or complaints</h3>
             <p>If you have a query or wish to make a complaint regarding the handling of your personal information, including your credit related information, by us, please contact our Customer Feedback Team. We will promptly investigate your complaint and notify you of the outcome.</p>
             <div class="mt-6">

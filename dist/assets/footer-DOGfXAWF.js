@@ -9,7 +9,7 @@ import{N as a}from"./logo-nobg-BVMQOOtC.js";import{L as r}from"./logo-yCyWWFG1.j
             <br />
             <p class="text-brand-gray dark:text-brand-light text-xs"><strong>Email: </strong>zenusbanking@gmail.com</p>
             <br />
-            <p class="text-brand-gray dark:text-brand-light text-xs"><strong>Contact: </strong>: +12084132742</p>
+            <p class="text-brand-gray dark:text-brand-light text-xs"><strong>Contact: </strong>: +447529555635</p>
           </div>
           <div>
             <div class="font-semibold text-brand-navy dark:text-brand-sun mb-2">Quick links</div>

@@ -7,31 +7,31 @@ import Logo from "/src/images/logo.jpg"
 const goals = [
   {
     title: "Buying a home",
-    img: "https://westcoastsgroup.com/siteassets/personal/homeloans/_promotiles/categorytiles-homeloans.jpg",
+    img: "https://images.unsplash.com/photo-1623282033815-40b05d96c903?auto=format&fit=crop&w=1200&q=80",
     details: "Whether you’re a first home buyer or looking to upgrade, we offer flexible home loan solutions, expert advice, and support every step of the way.",
     link: "/personal-home-loans"
   },
   {
     title: "Buying with credit",
-    img: "https://westcoastsgroup.com/siteassets/personal/creditcards/_promotiles/categorytile-creditcards.jpg",
+    img: "https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1200&q=80",
     details: "Our credit card options are designed to suit your lifestyle, with competitive rates, rewards, and security for your everyday purchases.",
     link: "/personal-credit-cards"
   },
   {
     title: "Managing your money",
-    img: "https://westcoastsgroup.com/siteassets/personal/transactionaccounts/_promotiles/categorytile-transactionaccounts.jpg",
+    img: "https://images.unsplash.com/photo-1557425529-376a1d11a8b4?auto=format&fit=crop&w=1200&q=80",
     details: "From everyday accounts to budgeting tools, we help you stay in control of your finances with easy access and smart features.",
     link: "/transaction-accounts"
   },
   {
     title: "Saving for what's important",
-    img: "https://westcoastsgroup.com/siteassets/personal/savingsaccounts/promotiles/categorytile-savingsaccounts.jpg",
+    img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80",
     details: "Reach your savings goals faster with our range of high-interest savings accounts and flexible deposit options.",
     link: "/savings-accounts"
   },
   {
     title: "Protecting what you love",
-    img: "https://westcoastsgroup.com/siteassets/personal/insurance/_promotiles/personal-insurance-category-tile.jpg",
+    img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80",
     details: "Safeguard your family, home, and valuables with our comprehensive insurance products tailored to your needs.",
     link: "/personal-insurance"
   }
@@ -41,42 +41,42 @@ const featureTiles = [
   {
     title: "Solutions that fit everyone",
     subtitle: "Accessibility & inclusion",
-    img: "https://westcoastsgroup.com/globalassets/globalresources/aboutus/accessibilityinclusion/highlightimagetile-accessibility.jpg",
+    img: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80",
     text: "We value all abilities and capabilities. So, we want our products, services and workplace to be accessible to all people.",
     details: "Our commitment to accessibility means we continually improve our services and facilities to ensure everyone can bank with confidence, regardless of ability.",
   },
   {
     title: "Understand our decisions",
     subtitle: "Environment, social & governance",
-    img: "https://westcoastsgroup.com/globalassets/globalresources/esg/headerbanner-bablesg.jpg",
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
     text: "Zenus Bank and Adelaide Bank's ESG reflects our responsibility to customers, shareholders and the communities in which we are part of.",
     details: "We integrate ESG principles into our business, striving for positive environmental impact, social responsibility, and strong governance.",
   },
   {
     title: "Join our team",
     subtitle: "Careers at Zenus Bank and Adelaide Bank",
-    img: "https://westcoastsgroup.com/globalassets/globalresources/aboutus/careers/highlightimagetile-careers.jpg",
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
     text: "Zenus Bank and Adelaide Bank is the bank you can be proud to work at. We're big enough to offer you every opportunity, but not so big that we lose the community feel that we're famous for.",
     details: "Explore rewarding career opportunities and become part of a team that values growth, diversity, and making a difference.",
   },
   {
     title: "Your money is protected",
     subtitle: "Financial Claims Scheme",
-    img: "https://westcoastsgroup.com/globalassets/globalresources/financialclaimsscheme/highlightimagetile-fcs.jpg",
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
     text: "The Financial Claims Scheme (FCS) is an Australian Government scheme that provides protection and quick access to deposits in banks, building societies and credit unions in the unlikely event that one of these financial institutions fails.",
     details: "With the FCS, your deposits are protected up to the government guarantee limit, giving you peace of mind.",
   },
   {
     title: "We have high standards",
     subtitle: "Codes of Practice",
-    img: "https://westcoastsgroup.com/siteassets/aboutus/codesofpractice/highlightimagetile-betterbigbank.jpg",
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
     text: "At Zenus Bank, we pride ourselves on our commitment to conduct business ethically and to the highest possible standard. In line with this commitment, Zenus Bank complies with a range of codes of practices.",
     details: "Our codes of practice ensure transparency, fairness, and integrity in all our dealings with customers and the community.",
   },
   {
     title: "How we’re performing",
     subtitle: "Zenus Bank and Adelaide Bank Investor Centre",
-    img: "https://westcoastsgroup.com/globalassets/globalresources/investorcentre/highlightimagetile-investors.jpg",
+    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
     text: "Information on our securities, financial results, announcements, sustainability reporting and other disclosures.",
     details: "Stay informed about our financial performance, sustainability initiatives, and investor updates.",
   }
@@ -126,8 +126,8 @@ const aboutView = async () => {
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/aboutus/headerbanner-desktop-aboutus.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/aboutus/headerbanner-mobile-aboutus.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
               <img src="${NoLogo}" alt="Zenus Bank" class="h-16 w-auto mb-4 block dark:hidden" />

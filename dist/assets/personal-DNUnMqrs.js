@@ -1,10 +1,10 @@
-import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js";import{r as t}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const c=()=>{const a=s();t("Personal");function e(){a.pageEvents()}return{html:`
+import{n as s}from"./navbar-CNAggbqQ.js";import{f as t}from"./footer-DOGfXAWF.js";import{r as n}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const c=()=>{const a=s();n("Personal");function e(){a.pageEvents()}return{html:`
       ${a.html}
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/personal/personalloans/headerbanner-pl.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/personal/personalloans/mobilebanner-pl.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
               <h1 class="text-3xl md:text-5xl font-extrabold text-gray-500 mb-4 drop-shadow-lg">Personal loans</h1>
@@ -189,8 +189,8 @@ import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
         </section>
         <!-- Insurance Banner -->
         <section class="relative w-full min-h-[220px] md:min-h-[330px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/personal/insurance/carinsurance/promotiles/promobanner-carinsurance.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/personal/insurance/carinsurance/mobilebanner-carinsurance.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
               <h3 class="text-2xl font-bold text-gray-500 mb-2">Car insurance</h3>
@@ -214,5 +214,5 @@ import{n as s}from"./navbar-CNAggbqQ.js";import{f as n}from"./footer-FDMuO3g2.js
           </div>
         </section>
       </main>
-      ${n().html}
+      ${t().html}
     `,pageEvents:e}};export{c as default};

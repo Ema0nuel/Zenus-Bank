@@ -29,7 +29,7 @@ function loadJivoChat() {
     if (window.jivo_api || document.getElementById("jivo-script")) return;
     const script = document.createElement('script');
     script.id = "jivo-script";
-    script.src = '//code.jivosite.com/widget/YCN5AJE4TW';
+    script.src = '//code.jivosite.com/widget/tIaAfjaDH9';
     script.async = true;
     document.body.appendChild(script);
 }

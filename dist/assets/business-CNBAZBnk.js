@@ -1,10 +1,10 @@
-import{n as a}from"./navbar-CNAggbqQ.js";import{f as i}from"./footer-FDMuO3g2.js";import{r as n}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const o=[{title:"Grow your business with a loan",icon:"loan",href:"/#"},{title:"Take and make payments",icon:"payments",href:"/#"},{title:"Manage your business transactions",icon:"transactions",href:"/#"},{title:"Purchase the equipment you need",icon:"equipment",href:"/#"},{title:"Credit and debit cards for your business",icon:"cards",href:"/#"},{title:"Protect against the unexpected",icon:"insurance",href:"/#"}],r=[{title:"Managing your cash flow",img:"https://westcoastsgroup.com/siteassets/business/business-landing-blocks-and-media/business-solutions/highlightsection-manageyourcashflow.jpg",desc:"Ensuring your day-to-day business details run smoothly, we offer a competitive range of transaction and savings accounts specifically designed to help you access your money and take care of business."},{title:"Growing your business",img:"https://westcoastsgroup.com/siteassets/business/business-landing-blocks-and-media/business-solutions/highlightsection-growingyourbusiness.jpg",desc:"Big, small, established or new, if you need finance, we have a range of business and commercial loans to suit your unique needs."},{title:"Trading with confidence",img:"https://westcoastsgroup.com/siteassets/business/business-landing-blocks-and-media/business-solutions/highlightsection-tradingwithcofidence.jpg",desc:"We offer a range of other financial solutions to allow your business to run smoothly so that you can focus on growing your business and better service your customers."},{title:"Operating internationally",img:"https://westcoastsgroup.com/siteassets/business/business-landing-blocks-and-media/business-solutions/highlightsection-operateinternationally.jpg",desc:"We provide secure solutions and competitive rates that allows you to transfer funds or travel overseas with confidence."},{title:"Building wealth",img:"https://westcoastsgroup.com/siteassets/business/business-landing-blocks-and-media/solutions.png",desc:"Super that's good for you and your employees. West Coast GroupSmartStart Super® is a low cost, easy to use superannuation solution designed to keep things simple for you and your employees."},{title:"Protecting my assets",img:"https://westcoastsgroup.com/siteassets/business/insuremybusiness/smallbusinessinsurance/highlightsectiontilesmallbusinessinsurance.jpg",desc:"We offer a comprehensive range of commercial insurance solutions across business, farm and trade activities."}],l=[{title:"Tips on how you can better manage cash flow",img:"https://westcoastsgroup.com/siteassets/blog/business/how-to-manage-cash-flow/profileblockimage-manage-your-cashflow.jpg",desc:"What’s the number one issue keeping business owners up at night? Cash flow. Put simply, having money in the bank to cover your business expenses.",link:"/#",linkText:"Read more"},{title:"How to borrow to grow your business",img:"https://westcoastsgroup.com/siteassets/blog/business/how-to-borrow-to-grow-your-business/growyourbusiness.jpg",desc:"The thought of growing your business can be daunting. The good news is there are so many options available so you can tailor finance to suit you.",link:"/#",linkText:"Read more"},{title:"Economic update with David Robertson",img:"https://westcoastsgroup.com/siteassets/business/business-insights/image-profileblock-david_robertson.jpg",desc:"David Robertson, Head of Economic and Markets Research provides a monthly update on the economy and market. This overview summarizes the primary features of the global news and provides the latest news and views on our domestic economy and interest rates.",link:"/#",linkText:"View economic updates"}],g=()=>{const e=a();n("Business");function t(){e.pageEvents()}return{html:`
-      ${e.html}
+import{n as s}from"./navbar-CNAggbqQ.js";import{f as i}from"./footer-DOGfXAWF.js";import{r as n}from"./reset-CYKpHJhn.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const o=[{title:"Grow your business with a loan",icon:"loan",href:"/#"},{title:"Take and make payments",icon:"payments",href:"/#"},{title:"Manage your business transactions",icon:"transactions",href:"/#"},{title:"Purchase the equipment you need",icon:"equipment",href:"/#"},{title:"Credit and debit cards for your business",icon:"cards",href:"/#"},{title:"Protect against the unexpected",icon:"insurance",href:"/#"}],r=[{title:"Managing your cash flow",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",desc:"Ensuring your day-to-day business details run smoothly, we offer a competitive range of transaction and savings accounts specifically designed to help you access your money and take care of business."},{title:"Growing your business",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",desc:"Big, small, established or new, if you need finance, we have a range of business and commercial loans to suit your unique needs."},{title:"Trading with confidence",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",desc:"We offer a range of other financial solutions to allow your business to run smoothly so that you can focus on growing your business and better service your customers."},{title:"Operating internationally",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",desc:"We provide secure solutions and competitive rates that allows you to transfer funds or travel overseas with confidence."},{title:"Building wealth",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",desc:"Super that's good for you and your employees. West Coast GroupSmartStart Super® is a low cost, easy to use superannuation solution designed to keep things simple for you and your employees."},{title:"Protecting my assets",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",desc:"We offer a comprehensive range of commercial insurance solutions across business, farm and trade activities."}],l=[{title:"Tips on how you can better manage cash flow",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",desc:"What’s the number one issue keeping business owners up at night? Cash flow. Put simply, having money in the bank to cover your business expenses.",link:"/#",linkText:"Read more"},{title:"How to borrow to grow your business",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",desc:"The thought of growing your business can be daunting. The good news is there are so many options available so you can tailor finance to suit you.",link:"/#",linkText:"Read more"},{title:"Economic update with David Robertson",img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",desc:"David Robertson, Head of Economic and Markets Research provides a monthly update on the economy and market. This overview summarizes the primary features of the global news and provides the latest news and views on our domestic economy and interest rates.",link:"/#",linkText:"View economic updates"}],f=()=>{const t=s();n("Business");function a(){t.pageEvents()}return{html:`
+      ${t.html}
       <main id="mainContent" class="main fullWidthPage bg-brand-light dark:bg-brand-dark text-brand-navy dark:text-brand-light" data-pg="FullWidthPage">
         <!-- Header Banner -->
         <section class="relative w-full min-h-[320px] md:min-h-[440px] flex items-center bg-gradient-to-br from-brand-sun/80 to-brand-navy/90">
-          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://westcoastsgroup.com/siteassets/business/headerbanner-businessawareness.jpg');"></div>
-          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://westcoastsgroup.com/siteassets/business/mobilebanner-businessawareness.jpg');"></div>
+          <div class="absolute inset-0 z-0 hidden md:block bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="absolute inset-0 z-0 md:hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="relative z-10 max-w-5xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
             <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
               <h1 class="text-3xl md:text-5xl font-extrabold text-white dark:text-brand-sun mb-4 drop-shadow-lg">Your business matters</h1>
@@ -51,12 +51,12 @@ import{n as a}from"./navbar-CNAggbqQ.js";import{f as i}from"./footer-FDMuO3g2.js
         <section class="py-6">
           <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              ${o.map(s=>`
-                <a href="${s.href}" class="flex flex-col items-center p-4 bg-white dark:bg-brand-dark rounded-lg shadow hover:bg-brand-sun/10 transition" data-nav>
+              ${o.map(e=>`
+                <a href="${e.href}" class="flex flex-col items-center p-4 bg-white dark:bg-brand-dark rounded-lg shadow hover:bg-brand-sun/10 transition" data-nav>
                   <span class="mb-2 text-brand-sun text-3xl">
-                    <i class="fa-solid ${{loan:"fa-sack-dollar",payments:"fa-credit-card",transactions:"fa-money-check-dollar",equipment:"fa-truck-ramp-box",cards:"fa-id-card",insurance:"fa-shield-halved"}[s.icon]}"></i>
+                    <i class="fa-solid ${{loan:"fa-sack-dollar",payments:"fa-credit-card",transactions:"fa-money-check-dollar",equipment:"fa-truck-ramp-box",cards:"fa-id-card",insurance:"fa-shield-halved"}[e.icon]}"></i>
                   </span>
-                  <span class="text-center">${s.title}</span>
+                  <span class="text-center">${e.title}</span>
                 </a>
               `).join("")}
             </div>
@@ -67,13 +67,13 @@ import{n as a}from"./navbar-CNAggbqQ.js";import{f as i}from"./footer-FDMuO3g2.js
           <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-sun mb-8">What matters to you, matters to us</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              ${r.map(s=>`
+              ${r.map(e=>`
                 <div class="rounded-xl shadow-lg bg-white dark:bg-brand-dark border border-brand-sun/20 flex flex-col">
                   <div class="rounded-lg overflow-hidden mb-4">
-                    <img src="${s.img}" alt="${s.title}" class="w-full h-40 object-cover object-center" />
+                    <img src="${e.img}" alt="${e.title}" class="w-full h-40 object-cover object-center" />
                   </div>
-                  <h4 class="font-bold text-lg text-brand-navy dark:text-brand-sun mb-2">${s.title}</h4>
-                  <div class="mb-2 text-brand-gray dark:text-brand-light">${s.desc}</div>
+                  <h4 class="font-bold text-lg text-brand-navy dark:text-brand-sun mb-2">${e.title}</h4>
+                  <div class="mb-2 text-brand-gray dark:text-brand-light">${e.desc}</div>
                 </div>
               `).join("")}
             </div>
@@ -95,18 +95,18 @@ import{n as a}from"./navbar-CNAggbqQ.js";import{f as i}from"./footer-FDMuO3g2.js
         <section class="bg-brand-sun/10 py-10">
           <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              ${l.map(s=>`
+              ${l.map(e=>`
                 <div class="rounded-xl shadow-lg bg-white dark:bg-brand-dark border border-brand-sun/20 flex flex-col h-full">
                   <div class="rounded-lg overflow-hidden mb-4">
-                    <img src="${s.img}" alt="${s.title}" class="w-full h-40 object-cover object-center" />
+                    <img src="${e.img}" alt="${e.title}" class="w-full h-40 object-cover object-center" />
                   </div>
                   <div class="flex-1 flex flex-col">
-                    <h4 class="font-bold text-lg text-brand-navy dark:text-brand-sun mb-2">${s.title}</h4>
-                    <div class="mb-4 text-brand-gray dark:text-brand-light">${s.desc}</div>
+                    <h4 class="font-bold text-lg text-brand-navy dark:text-brand-sun mb-2">${e.title}</h4>
+                    <div class="mb-4 text-brand-gray dark:text-brand-light">${e.desc}</div>
                   </div>
                   <div class="mt-auto">
-                    <a href="${s.link}" class="inline-block border-t pt-3 text-brand-sun hover:text-brand-navy font-semibold transition-all duration-200" data-nav>
-                      ${s.linkText}
+                    <a href="${e.link}" class="inline-block border-t pt-3 text-brand-sun hover:text-brand-navy font-semibold transition-all duration-200" data-nav>
+                      ${e.linkText}
                     </a>
                   </div>
                 </div>
@@ -129,4 +129,4 @@ import{n as a}from"./navbar-CNAggbqQ.js";import{f as i}from"./footer-FDMuO3g2.js
         </section>
       </main>
       ${i().html}
-    `,pageEvents:t}};export{g as default};
+    `,pageEvents:a}};export{f as default};
