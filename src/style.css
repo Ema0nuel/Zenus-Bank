@@ -33,10 +33,11 @@ body,
 html,
 * {
   font-family: "BankFont" !important;
+  font-size: 14px !important;
 }
 
 body {
-  font-size: 12px !important;
+  font-size: 16px !important;
   @apply bg-white text-black dark:bg-brand-dark dark:text-white transition-colors duration-300;
   font-family:
     "Inter",
