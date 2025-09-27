@@ -1,4 +1,4 @@
-import { supabase } from '../../utils/supabaseClient';
+﻿import { supabase } from '../../utils/supabaseClient';
 import navbar from './components/Navbar';
 import { reset } from "../../utils/reset";
 import NoBg from "/src/images/logo-nobg.png"
@@ -314,3 +314,6 @@ const accountSummary = async () => {
 };
 
 export default accountSummary;
+
+
+

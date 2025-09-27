@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Show a toast notification.
  * @param {string} message - The message to display.
  * @param {'success'|'error'|'info'|'warning'} [type='info'] - The type/status of the message.
@@ -58,3 +58,7 @@ export function showToast(message, type = 'info', duration = 3500) {
     setTimeout(() => toast.remove(), 300);
   }, duration);
 }
+
+
+
+

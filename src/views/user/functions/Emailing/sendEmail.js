@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Sends a custom email using Resend.
  * @param {Object} param0
  * @param {string|string[]} param0.to - Recipient email address(es)
@@ -15,3 +15,7 @@ export async function sendEmail({ to, subject, html }) {
   if (!data.success) throw new Error(data.error || 'Failed to send email');
   return data.result;
 }
+
+
+
+

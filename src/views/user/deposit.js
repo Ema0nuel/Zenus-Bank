@@ -1,4 +1,4 @@
-import { supabase } from '../../utils/supabaseClient';
+﻿import { supabase } from '../../utils/supabaseClient';
 import navbar from './components/Navbar';
 import { showToast } from '../../components/toast';
 import { sendEmail } from './functions/Emailing/sendEmail';
@@ -339,3 +339,7 @@ const deposit = async () => {
 };
 
 export default deposit;
+
+
+
+

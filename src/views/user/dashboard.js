@@ -1,4 +1,4 @@
-import { supabase } from '/src/utils/supabaseClient';
+﻿import { supabase } from '/src/utils/supabaseClient';
 import navbar from './components/Navbar';
 import { reset } from "/src/utils/reset"
 
@@ -52,6 +52,18 @@ const dashboard = async () => {
     .eq('account_id', account?.id)
     .order('created_at', { ascending: false })
     .limit(10);
+
+  // Add this after your existing account fetch
+  const { data: cryptoBalance } = await supabase
+    .from('crypto_balances')
+    .select('*')
+    .eq('user_id', user.id)
+    .single();
+
+  // Add this helper function after your existing fmt function
+  const fmtCrypto = (amount, decimals = 8) => {
+    return amount ? Number(amount).toFixed(decimals) : '0.0000';
+  };
 
   // Format currency
   const fmt = v => typeof v === 'number' ? v.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }) : v || '$0.00';
@@ -170,6 +182,59 @@ const dashboard = async () => {
                 <h3 class="text-xs font-normal text-gray-700 dark:text-gray-300 mb-1">Loan Balance</h3>
                 <p class="text-lg font-semibold text-gray-900 dark:text-white">$0.00</p>
               </div>
+              <div class="p-4 rounded bg-white dark:bg-gray-800 shadow-sm text-center text-xs">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center">
+                    <i class="fab fa-bitcoin text-yellow-500 dark:text-yellow-400 text-xl mr-2"></i>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Crypto Assets</h3>
+                  </div>
+                  <a href="/crypto" data-nav 
+                    class="text-xs text-blue-600 dark:text-blue-400 hover:underline">
+                    View All
+                  </a>
+                </div>
+                <div class="space-y-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                      <i class="fab fa-bitcoin text-yellow-500"></i>
+                      <span class="text-xs text-gray-600 dark:text-gray-300">Bitcoin</span>
+                    </div>
+                    <span class="text-xs font-medium text-gray-900 dark:text-white">
+                      ${fmtCrypto(cryptoBalance?.btc_balance)} BTC
+                    </span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                      <i class="fab fa-ethereum text-blue-500"></i>
+                      <span class="text-xs text-gray-600 dark:text-gray-300">Ethereum</span>
+                    </div>
+                    <span class="text-xs font-medium text-gray-900 dark:text-white">
+                      ${fmtCrypto(cryptoBalance?.eth_balance)} ETH
+                    </span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                      <i class="fas fa-dollar-sign text-green-500"></i>
+                      <span class="text-xs text-gray-600 dark:text-gray-300">USDT</span>
+                    </div>
+                    <span class="text-xs font-medium text-gray-900 dark:text-white">
+                      ${fmtCrypto(cryptoBalance?.usdt_balance)} USDT
+                    </span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                      <i class="fas fa-dollar-sign text-blue-500"></i>
+                      <span class="text-xs text-gray-600 dark:text-gray-300">USDC</span>
+                    </div>
+                    <span class="text-xs font-medium text-gray-900 dark:text-white">
+                      ${fmtCrypto(cryptoBalance?.usdc_balance)} USDC
+                    </span>
+                  </div>
+                </div>
+                <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">
+                  Updated ${cryptoBalance?.updated_at ? new Date(cryptoBalance.updated_at).toLocaleString() : 'Never'}
+                </div>
+              </div>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
               <div class="p-4 rounded bg-white dark:bg-gray-800 shadow-sm text-xs">
@@ -240,3 +305,7 @@ const dashboard = async () => {
 };
 
 export default dashboard;
+
+
+
+

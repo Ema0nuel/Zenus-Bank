@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 * {
@@ -33,7 +33,7 @@ body,
 html,
 * {
   font-family: "BankFont" !important;
-  font-size: 14px !important;
+  font-size: 14px;
 }
 
 body {
@@ -130,3 +130,5 @@ select option {
 .animate-fade-in {
   animation: fade-in 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+

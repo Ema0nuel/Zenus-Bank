@@ -1,4 +1,4 @@
-import navbar from "../../components/navbar";
+﻿import navbar from "../../components/navbar";
 import { reset } from "../../utils/reset";
 import { showToast } from "../../components/toast";
 import NoLogo from "/src/images/logo-nobg.png"
@@ -67,3 +67,7 @@ const authenticationView = async () => {
 };
 
 export default authenticationView;
+
+
+
+

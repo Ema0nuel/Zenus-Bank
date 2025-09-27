@@ -1,4 +1,4 @@
-import navbar from '../../components/navbar';
+﻿import navbar from '../../components/navbar';
 import footer from '../../components/footer';
 import { reset } from '../../utils/reset';
 import NoLogo from "/src/images/logo-nobg.png"
@@ -143,3 +143,7 @@ const financialDifficultyView = () => {
 };
 
 export default financialDifficultyView;
+
+
+
+

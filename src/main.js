@@ -1,4 +1,4 @@
-import './style.css'
+﻿import './style.css'
 import { loadPage, parsePathToRoute } from './router.js'
 
 const app = document.getElementById("app");
@@ -57,3 +57,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         removeJivoChat();
     }
 });
+
+
+
+

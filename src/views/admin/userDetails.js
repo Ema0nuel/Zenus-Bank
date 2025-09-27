@@ -1,4 +1,4 @@
-import { supabase } from "/src/utils/supabaseClient.js";
+﻿import { supabase } from "/src/utils/supabaseClient.js";
 
 import AdminNavbar from "./components/AdminNavbar";
 import { requireAdmin } from "./utils/adminAuth";
@@ -103,3 +103,7 @@ const userDetails = async (userId) => {
   };
 };
 export default userDetails;
+
+
+
+

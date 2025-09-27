@@ -1,4 +1,4 @@
-import { supabase } from "../../utils/supabaseClient";
+﻿import { supabase } from "../../utils/supabaseClient";
 import navbar from "./components/Navbar";
 import { showToast } from "../../components/toast";
 import { reset } from "../../utils/reset";
@@ -289,3 +289,7 @@ const loan = async () => {
 };
 
 export default loan;
+
+
+
+

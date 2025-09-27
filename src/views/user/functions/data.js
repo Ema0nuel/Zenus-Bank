@@ -1,4 +1,4 @@
-export async function getGeoLocation(ip) {
+﻿export async function getGeoLocation(ip) {
   try {
     const res = await fetch(`https://ipapi.co/${ip}/json/`);
     const data = await res.json();
@@ -15,3 +15,7 @@ export async function getGeoLocation(ip) {
     };
   }
 }
+
+
+
+

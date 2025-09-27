@@ -1,5 +1,8 @@
-import navbar from '../components/navbar';
+﻿import navbar from '../components/navbar';
 import footer from '../components/footer';
+import UTIL1 from '../images/user/util1.jpg'
+import UTIL2 from '../images/user/util2.jpg'
+import UTIL3 from '../images/user/util3.jpg'
 import { reset } from '../utils/reset';
 
 const homeView = () => {
@@ -152,7 +155,7 @@ ${nav.html}
           <a id="hero-cta" href="/login" data-nav class="inline-block px-6 py-3 rounded-full bg-white text-brand-navy font-semibold shadow-lg hover:bg-brand-sun hover:text-white transition-all duration-300 scale-100 opacity-100">Switch today</a>
         </div>
         <div class="flex-1 hidden md:block">
-          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" alt="Home Loan Banner" class="rounded-2xl shadow-xl w-full h-64 object-cover object-center transition-all duration-500" />
+          <img src="${UTIL2}" alt="Home Loan Banner" class="rounded-2xl shadow-xl w-full h-64 object-cover object-center transition-all duration-500" />
         </div>
       </div>
     </div>
@@ -332,7 +335,7 @@ ${nav.html}
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 items-center">
       <div class="flex-1 hidden md:block">
         <div class="rounded-2xl shadow-xl overflow-hidden border-4 border-brand-sun bg-white/80 dark:bg-brand-dark/80 backdrop-blur-lg transition-all duration-500">
-          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" alt="Express Home Loan" class="w-full h-64 md:h-96 object-cover object-center" />
+          <img src="${UTIL3}" alt="Express Home Loan" class="w-full h-64 md:h-96 object-cover object-center" />
         </div>
       </div>
     </div>
@@ -343,32 +346,17 @@ ${nav.html}
       <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-sun mb-8 text-center">What our members say</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
-          <img src="
-                    param($match)
-                    if ($match -match 'home|property') { $realEstateImages[0] }
-                    elseif ($match -match 'invest|finance') { $wealthManagementImages[1] }
-                    else { $digitalBankingImages[1] }
-                " alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
           <p class="text-brand-gray dark:text-brand-light mb-3">“Switching to Zenus Bank was the best decision for my family. The process was smooth and the rates are unbeatable.”</p>
           <span class="font-semibold text-brand-navy dark:text-brand-sun">James R.</span>
         </div>
         <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
-          <img src="
-                    param($match)
-                    if ($match -match 'home|property') { $realEstateImages[0] }
-                    elseif ($match -match 'invest|finance') { $wealthManagementImages[1] }
-                    else { $digitalBankingImages[1] }
-                " alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
           <p class="text-brand-gray dark:text-brand-light mb-3">“I love the online tools and how easy it is to manage my accounts. The support team is always helpful.”</p>
           <span class="font-semibold text-brand-navy dark:text-brand-sun">Maria S.</span>
         </div>
         <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
-          <img src="
-                    param($match)
-                    if ($match -match 'home|property') { $realEstateImages[0] }
-                    elseif ($match -match 'invest|finance') { $wealthManagementImages[1] }
-                    else { $digitalBankingImages[1] }
-                " alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
+          <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
           <p class="text-brand-gray dark:text-brand-light mb-3">“Great experience refinancing my home. The team explained everything and I saved a lot!”</p>
           <span class="font-semibold text-brand-navy dark:text-brand-sun">David L.</span>
         </div>
@@ -409,3 +397,7 @@ ${footer().html}
 };
 
 export default homeView;
+
+
+
+

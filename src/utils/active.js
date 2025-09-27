@@ -1,4 +1,4 @@
-import { parsePathToRoute } from '../router';
+﻿import { parsePathToRoute } from '../router';
 
 /**
  * Applies the "active" class to the navigation link that matches the current page.
@@ -24,3 +24,7 @@ export function setActiveNav(currentPage) {
         }
     });
 }
+
+
+
+

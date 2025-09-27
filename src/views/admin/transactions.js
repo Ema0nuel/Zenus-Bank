@@ -1,4 +1,4 @@
-import { supabase } from "/src/utils/supabaseClient.js";
+﻿import { supabase } from "/src/utils/supabaseClient.js";
 import AdminNavbar from "./components/AdminNavbar.js";
 import { requireAdmin } from "./utils/adminAuth.js";
 import { showToast } from "/src/components/toast.js";
@@ -262,7 +262,7 @@ function TransactionDetailModal(tx, user, acc) {
   `;
 }
 
-// Manual Transaction Modal (centered, scrollable, always visible)
+// Update the ManualTransactionModal function
 function ManualTransactionModal(users, accounts) {
   return `
     <div class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center" id="manual-tx-modal">
@@ -286,21 +286,39 @@ function ManualTransactionModal(users, accounts) {
           </div>
           <div class="mb-3">
             <label class="block text-sm mb-1">Type</label>
-            <select name="type" class="w-full border px-3 py-2 rounded" required>
-              <option value="deposit">Deposit</option>
-              <option value="withdrawal">Withdrawal</option>
-              <option value="manual">Manual</option>
+            <select name="type" id="manual-type-select" class="w-full border px-3 py-2 rounded" required>
+              <option value="deposit">Fiat Deposit</option>
+              <option value="withdrawal">Fiat Withdrawal</option>
+              <option value="manual">Manual Adjustment</option>
+              <option value="crypto">Crypto Transaction</option>
             </select>
           </div>
+          <div id="crypto-fields" class="hidden">
+            <div class="mb-3">
+              <label class="block text-sm mb-1">Crypto Asset</label>
+              <select name="crypto_asset" class="w-full border px-3 py-2 rounded">
+                ${Object.entries(CRYPTO_ASSETS).map(([symbol, asset]) =>
+    `<option value="${symbol}">${asset.name} (${symbol})</option>`
+  ).join("")}
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm mb-1">Transaction Direction</label>
+              <select name="crypto_direction" class="w-full border px-3 py-2 rounded">
+                <option value="credit">Credit (Add)</option>
+                <option value="debit">Debit (Subtract)</option>
+              </select>
+            </div>
+          </div>
           <div class="mb-3">
-            <label class="block text-sm mb-1">Amount</label>
-            <input type="number" name="amount" step="0.01" min="0.01" class="w-full border px-3 py-2 rounded" required />
+            <label class="block text-sm mb-1" id="amount-label">Amount</label>
+            <input type="number" name="amount" step="any" min="0" class="w-full border px-3 py-2 rounded" required />
           </div>
           <div class="mb-3">
             <label class="block text-sm mb-1">Description</label>
             <textarea name="description" class="w-full border px-3 py-2 rounded" rows="2"></textarea>
           </div>
-          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Send</button>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Submit Transaction</button>
         </form>
       </div>
     </div>
@@ -331,6 +349,65 @@ function exportCSV(transactions, users, accounts) {
   a.download = "transactions.csv";
   a.click();
   URL.revokeObjectURL(url);
+}
+
+// Add this constant near the top with other constants
+const CRYPTO_ASSETS = {
+  BTC: { name: 'Bitcoin', decimals: 8 },
+  ETH: { name: 'Ethereum', decimals: 8 },
+  USDT: { name: 'Tether USD', decimals: 6 },
+  USDC: { name: 'USD Coin', decimals: 6 },
+  BNB: { name: 'BNB', decimals: 8 },
+  SOL: { name: 'Solana', decimals: 8 }
+};
+
+
+
+// Add this function to handle crypto balance updates
+async function updateCryptoBalance(userId, accountId, asset, amount, direction) {
+  // First, get or create crypto balance record
+  let { data: cryptoBalance } = await supabase
+    .from('crypto_balances')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('account_id', accountId)
+    .single();
+
+  if (!cryptoBalance) {
+    const { data, error } = await supabase
+      .from('crypto_balances')
+      .insert({
+        user_id: userId,
+        account_id: accountId,
+        btc_balance: 0,
+        eth_balance: 0,
+        usdt_balance: 0,
+        usdc_balance: 0,
+        bnb_balance: 0,
+        sol_balance: 0
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+    cryptoBalance = data;
+  }
+
+  // Calculate new balance
+  const balanceKey = `${asset.toLowerCase()}_balance`;
+  const currentBalance = parseFloat(cryptoBalance[balanceKey]) || 0;
+  const newBalance = direction === 'credit'
+    ? currentBalance + parseFloat(amount)
+    : currentBalance - parseFloat(amount);
+
+  // Update the balance
+  const { error } = await supabase
+    .from('crypto_balances')
+    .update({ [balanceKey]: newBalance })
+    .eq('id', cryptoBalance.id);
+
+  if (error) throw error;
+  return newBalance;
 }
 
 const transactions = async () => {
@@ -522,41 +599,70 @@ const transactions = async () => {
       });
       document.getElementById("manual-tx-form").onsubmit = async function (e) {
         e.preventDefault();
-        const user_id = this.user_id.value;
-        const account_id = this.account_id.value;
-        const type = this.type.value;
-        const amount = parseFloat(this.amount.value);
-        const description = this.description.value;
-        if (!user_id || !account_id || !type || !amount) return showToast("Fill all fields", "error");
-        const acc = accounts.find(a => a.id === account_id);
-        const user = users.find(u => u.id === user_id);
-        if (!acc || !user) return showToast("Invalid user/account", "error");
-        const balance_before = parseFloat(acc.balance);
-        let balance_after = balance_before;
-        if (type === "deposit" || type === "manual") balance_after += amount;
-        if (type === "withdrawal") balance_after -= amount;
-        const { error } = await supabase.from("transactions").insert([{
-          user_id, account_id, type, amount, description, balance_before, balance_after, status: "completed"
-        }]);
-        if (error) return showToast("Failed to create transaction", "error");
-        await supabase.from("accounts").update({ balance: balance_after }).eq("id", account_id);
-        // Generate Zenus Bank codes and show modal
-        const cot = getRandomComplexCode();
-        const imf = getRandomComplexCode();
-        const vat = getRandomComplexCode();
-        document.getElementById("codes-panel").innerHTML = CodesModal({ cot, imf, vat, user });
-        document.querySelectorAll(".copy-code-btn").forEach(btn => {
-          btn.onclick = () => {
-            navigator.clipboard.writeText(btn.dataset.code);
-            showToast("Code copied!", "success");
-          };
-        });
-        document.getElementById("close-codes-modal").onclick = () => {
-          document.getElementById("codes-panel").innerHTML = "";
-          render();
-        };
-        document.querySelector(".send-codes-email").onclick = async function () {
-          const emailBody = `
+
+        const formData = Object.fromEntries(new FormData(this));
+
+        try {
+          if (formData.type === 'crypto') {
+            // Handle crypto transaction
+            const newBalance = await updateCryptoBalance(
+              formData.user_id,
+              formData.account_id,
+              formData.crypto_asset,
+              parseFloat(formData.amount),
+              formData.crypto_direction
+            );
+
+            // Create transaction record
+            await supabase.from("transactions").insert({
+              user_id: formData.user_id,
+              account_id: formData.account_id,
+              type: 'crypto',
+              method: 'crypto',
+              crypto_symbol: formData.crypto_asset,
+              crypto_amount: parseFloat(formData.amount),
+              direction: formData.crypto_direction,
+              description: `${formData.crypto_direction === 'credit' ? 'Credit' : 'Debit'} ${formData.amount} ${formData.crypto_asset} - ${formData.description}`,
+              status: 'completed'
+            });
+
+            showToast(`Crypto balance updated successfully! New balance: ${newBalance} ${formData.crypto_asset}`, "success");
+          } else {
+            const user_id = this.user_id.value;
+            const account_id = this.account_id.value;
+            const type = this.type.value;
+            const amount = parseFloat(this.amount.value);
+            const description = this.description.value;
+            if (!user_id || !account_id || !type || !amount) return showToast("Fill all fields", "error");
+            const acc = accounts.find(a => a.id === account_id);
+            const user = users.find(u => u.id === user_id);
+            if (!acc || !user) return showToast("Invalid user/account", "error");
+            const balance_before = parseFloat(acc.balance);
+            let balance_after = balance_before;
+            if (type === "deposit" || type === "manual") balance_after += amount;
+            if (type === "withdrawal") balance_after -= amount;
+            const { error } = await supabase.from("transactions").insert([{
+              user_id, account_id, type, amount, description, balance_before, balance_after, status: "completed"
+            }]);
+            if (error) return showToast("Failed to create transaction", "error");
+            await supabase.from("accounts").update({ balance: balance_after }).eq("id", account_id);
+            // Generate Zenus Bank codes and show modal
+            const cot = getRandomComplexCode();
+            const imf = getRandomComplexCode();
+            const vat = getRandomComplexCode();
+            document.getElementById("codes-panel").innerHTML = CodesModal({ cot, imf, vat, user });
+            document.querySelectorAll(".copy-code-btn").forEach(btn => {
+              btn.onclick = () => {
+                navigator.clipboard.writeText(btn.dataset.code);
+                showToast("Code copied!", "success");
+              };
+            });
+            document.getElementById("close-codes-modal").onclick = () => {
+              document.getElementById("codes-panel").innerHTML = "";
+              render();
+            };
+            document.querySelector(".send-codes-email").onclick = async function () {
+              const emailBody = `
             <div style="font-family:sans-serif">
               <h2>Transaction Codes</h2>
               <p>Dear ${user.full_name},</p>
@@ -570,19 +676,42 @@ const transactions = async () => {
               <p>Zenus Bank</p>
             </div>
           `;
-          try {
-            await sendEmail({
-              to: user.email,
-              subject: "Transaction Codes",
-              html: emailBody
-            });
-            showToast("Codes sent to user email!", "success");
-          } catch {
-            showToast("Failed to send codes email", "error");
+              try {
+                await sendEmail({
+                  to: user.email,
+                  subject: "Transaction Codes",
+                  html: emailBody
+                });
+                showToast("Codes sent to user email!", "success");
+              } catch {
+                showToast("Failed to send codes email", "error");
+              }
+            };
+
           }
-        };
+
+          document.getElementById("manual-tx-panel").innerHTML = "";
+          location.reload();
+        } catch (error) {
+          console.error(error);
+          showToast("Transaction failed", "error");
+        }
       };
     };
+
+    // Add this event listener to toggle crypto fields
+    document.getElementById("manual-type-select")?.addEventListener('change', function () {
+      const cryptoFields = document.getElementById("crypto-fields");
+      const amountLabel = document.getElementById("amount-label");
+
+      if (this.value === 'crypto') {
+        cryptoFields.classList.remove('hidden');
+        amountLabel.textContent = 'Crypto Amount';
+      } else {
+        cryptoFields.classList.add('hidden');
+        amountLabel.textContent = 'Amount';
+      }
+    });
 
     // Generate codes button (standalone)
     document.getElementById("tx-generate-codes").onclick = () => {
@@ -733,3 +862,7 @@ const transactions = async () => {
 };
 
 export default transactions;
+
+
+
+

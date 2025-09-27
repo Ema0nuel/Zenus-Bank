@@ -1,8 +1,10 @@
-import navbar from '../components/navbar';
+﻿import navbar from '../components/navbar';
 import footer from '../components/footer';
 import { reset } from '../utils/reset';
 import NoLogo from "/src/images/logo-nobg.png"
 import Logo from "/src/images/logo.jpg"
+import UTIL2 from '../images/user/util2.jpg'
+
 
 const goals = [
   {
@@ -19,7 +21,7 @@ const goals = [
   },
   {
     title: "Managing your money",
-    img: "https://images.unsplash.com/photo-1557425529-376a1d11a8b4?auto=format&fit=crop&w=1200&q=80",
+    img: UTIL2,
     details: "From everyday accounts to budgeting tools, we help you stay in control of your finances with easy access and smart features.",
     link: "/transaction-accounts"
   },
@@ -246,3 +248,7 @@ const aboutView = async () => {
 };
 
 export default aboutView;
+
+
+
+

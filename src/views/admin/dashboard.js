@@ -1,4 +1,4 @@
-import { supabase } from "/src/utils/supabaseClient.js";
+﻿import { supabase } from "/src/utils/supabaseClient.js";
 import AdminNavbar, { navItems } from "./components/AdminNavbar.js";
 import { requireAdmin } from "./utils/adminAuth.js";
 import { showToast } from "/src/components/toast.js";
@@ -317,3 +317,7 @@ const dashboard = async () => {
 };
 
 export default dashboard;
+
+
+
+

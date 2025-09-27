@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Show a modern animated logo spinner preloader.
  * The logo zooms in/out with a glow and darkens on zoom out.
  * No text, smooth infinite loop, semi-transparent dark background.
@@ -6,17 +6,17 @@
 
 import Logo from "/src/images/logo.jpg"
 export function startLogoSpinner() {
-    if (document.getElementById("logo-spinner-preloader")) return;
+  if (document.getElementById("logo-spinner-preloader")) return;
 
-    const preloader = document.createElement("div");
-    preloader.id = "logo-spinner-preloader";
-    preloader.className = `
+  const preloader = document.createElement("div");
+  preloader.id = "logo-spinner-preloader";
+  preloader.className = `
         fixed inset-0 z-50 flex items-center justify-center
         transition-colors duration-500
     `;
-    preloader.style.background = "rgba(0,0,0,0.5)";
+  preloader.style.background = "rgba(0,0,0,0.5)";
 
-    preloader.innerHTML = `
+  preloader.innerHTML = `
       <div class="relative flex flex-col items-center">
         <img
           src="${Logo}"
@@ -57,11 +57,11 @@ export function startLogoSpinner() {
       </style>
     `;
 
-    // Hide app content while loading
-    const app = document.getElementById("app");
-    if (app) app.classList.add("opacity-0", "transition-opacity", "duration-300");
+  // Hide app content while loading
+  const app = document.getElementById("app");
+  if (app) app.classList.add("opacity-0", "transition-opacity", "duration-300");
 
-    document.body.append(preloader);
+  document.body.append(preloader);
 }
 
 /**
@@ -69,18 +69,28 @@ export function startLogoSpinner() {
  * @param {number} duration - Fade-out duration in ms.
  */
 export function endLogoSpinner(duration = 500) {
-    const preloader = document.getElementById("logo-spinner-preloader");
-    const app = document.getElementById("app");
+  const preloader = document.getElementById("logo-spinner-preloader");
+  const app = document.getElementById("app");
 
-    if (preloader) {
-        preloader.style.transition = "opacity 0.5s";
-        preloader.style.opacity = "0";
-        setTimeout(() => {
-            preloader.remove();
-            if (app) {
-                app.classList.remove("opacity-0");
-                app.classList.add("opacity-100");
-            }
-        }, duration);
-    }
+  if (preloader) {
+    preloader.style.transition = "opacity 0.5s";
+    preloader.style.opacity = "0";
+    setTimeout(() => {
+      preloader.remove();
+      if (app) {
+        app.classList.remove("opacity-0");
+        app.classList.add("opacity-100");
+      }
+    }, duration);
+  }
 }
+
+
+
+
+const spinner = {
+  start: startLogoSpinner,
+  stop: endLogoSpinner,
+}
+
+export default spinner

@@ -1,4 +1,4 @@
-import navbar from "../../components/navbar";
+﻿import navbar from "../../components/navbar";
 import { checkPasswordStrength } from "../../utils/auth";
 import { validateSignupForm } from "../../utils/auth";
 import { showToast } from "../../components/toast";
@@ -845,3 +845,7 @@ const signupView = () => {
 };
 
 export default signupView;
+
+
+
+

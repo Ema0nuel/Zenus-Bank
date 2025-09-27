@@ -1,4 +1,4 @@
-import navbar from '../components/navbar';
+﻿import navbar from '../components/navbar';
 import footer from '../components/footer';
 import { showToast } from '../components/toast';
 import { reset } from '../utils/reset';
@@ -129,3 +129,7 @@ const personalEnquiry = () => {
 };
 
 export default personalEnquiry;
+
+
+
+

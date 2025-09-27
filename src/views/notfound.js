@@ -1,4 +1,4 @@
-import ErrorView from "/src/images/errorPage/page_not_found.svg"
+﻿import ErrorView from "/src/images/errorPage/page_not_found.svg"
 
 const notfound = () => {
   return ({
@@ -19,3 +19,7 @@ const notfound = () => {
 }
 
 export default notfound
+
+
+
+

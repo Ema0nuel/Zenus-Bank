@@ -1,4 +1,4 @@
-import { supabase } from "../../utils/supabaseClient";
+﻿import { supabase } from "../../utils/supabaseClient";
 import navbar from "./components/Navbar";
 import { sendEmail } from "./functions/Emailing/sendEmail";
 import { showToast } from "../../components/toast";
@@ -268,3 +268,7 @@ const profile = async () => {
 };
 
 export default profile;
+
+
+
+

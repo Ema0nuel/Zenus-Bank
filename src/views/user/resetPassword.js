@@ -1,4 +1,4 @@
-import navbar from '../../components/navbar';
+﻿import navbar from '../../components/navbar';
 import { reset } from '../../utils/reset';
 import { showToast } from '../../components/toast';
 import { startLogoSpinner, endLogoSpinner } from '../../utils/spinner';
@@ -123,3 +123,6 @@ const resetPassword = () => {
 };
 
 export default resetPassword;
+
+
+

@@ -1,4 +1,4 @@
-export function formatCountry(countryCode) {
+﻿export function formatCountry(countryCode) {
     return countryCode.toUpperCase();
 }
 
@@ -42,3 +42,7 @@ export function formatCurrency(amount, currency = "USD") {
         minimumFractionDigits: 2
     }).format(amount || 0);
 }
+
+
+
+

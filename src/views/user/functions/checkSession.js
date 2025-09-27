@@ -1,4 +1,4 @@
-import { supabase } from '../../../utils/supabaseClient';
+﻿import { supabase } from '../../../utils/supabaseClient';
 
 /**
  * Checks if a user is logged in and fetches their profile and account data.
@@ -36,3 +36,7 @@ export async function checkSession() {
     
   };
 }
+
+
+
+

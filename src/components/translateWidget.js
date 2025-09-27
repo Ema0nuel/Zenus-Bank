@@ -1,4 +1,4 @@
-export function renderFlagLanguageToggle() {
+﻿export function renderFlagLanguageToggle() {
     const languages = [
         { code: "en", label: "English", flag: "https://flagcdn.com/us.svg" },
         { code: "fr", label: "Français", flag: "https://flagcdn.com/fr.svg" },
@@ -107,3 +107,7 @@ export function renderFlagLanguageToggle() {
 
     return wrapper;
 }
+
+
+
+

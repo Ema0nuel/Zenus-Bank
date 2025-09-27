@@ -1,4 +1,4 @@
-import { supabase } from '../../../utils/supabaseClient';
+﻿import { supabase } from '../../../utils/supabaseClient';
 import { sendOtpEmail } from './Emailing/email';
 
 /**
@@ -77,3 +77,7 @@ export async function loginAndSendOtp(accessID, password) {
   // Show OTP input in your view
   return true;
 }
+
+
+
+

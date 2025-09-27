@@ -1,4 +1,4 @@
-import { supabase } from '../../../utils/supabaseClient';
+﻿import { supabase } from '../../../utils/supabaseClient';
 import { sendWelcomeEmail } from './Emailing/email';
 import { getGeoLocation } from './data';
 
@@ -87,3 +87,7 @@ export async function signupUser(formData, ip) {
   // 5. Redirect to authentication view
   window.location.href = "/user/auth";
 }
+
+
+
+

@@ -1,4 +1,4 @@
-import { supabase } from "../../../utils/supabaseClient";
+﻿import { supabase } from "../../../utils/supabaseClient";
 import { checkSession } from "../functions/checkSession";
 import { showToast } from "../../../components/toast";
 import User from "/src/images/user.png";
@@ -25,97 +25,123 @@ const navbar = () => {
         const notifList = document.getElementById("notif-list");
         if (!notifList) return;
         notifList.innerHTML = notifications.length
-            ? notifications.map(n => `
+            ? notifications
+                .map(
+                    n => `
                 <div class="p-2 border-b ${isDarkMode ? 'border-gray-700 hover:bg-gray-700' : 'border-gray-200 hover:bg-gray-50'} transition-colors cursor-pointer js-message-item" data-id="${n.id}">
                     <div class="flex items-start space-x-2">
-                        <div class="p-1 rounded ${n.type === 'danger' ? (isDarkMode ? 'bg-red-900' : 'bg-red-100') : (isDarkMode ? 'bg-blue-900' : 'bg-blue-100')}">
+                        <div class="p-1 rounded ${n.type === 'danger'
+                            ? (isDarkMode ? 'bg-red-900' : 'bg-red-100')
+                            : (isDarkMode ? 'bg-blue-900' : 'bg-blue-100')}">
                             <i class="fa ${n.type === 'danger' ? 'fa-exclamation-circle text-red-600' : 'fa-envelope text-blue-600'} text-xs"></i>
                         </div>
                         <div class="flex-1">
-                            <p class="text-xs font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}">${n.title || 'Message'}</p>
-                            <p class="text-[11px] ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} truncate">${n.message?.slice(0, 60) || ''}${n.message && n.message.length > 60 ? '...' : ''}</p>
-                            <p class="text-[10px] ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} mt-0.5">${n.created_at?.slice(0, 16).replace('T', ' ')}</p>
+                            <p class="text-xs font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}">
+                                ${n.title || 'Message'}
+                            </p>
+                            <p class="text-[11px] ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} truncate">
+                                ${n.message?.slice(0, 60) || ''}${n.message && n.message.length > 60 ? '...' : ''}
+                            </p>
+                            <p class="text-[10px] ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} mt-0.5">
+                                ${n.created_at?.slice(0, 16).replace('T', ' ')}
+                            </p>
                         </div>
                         ${!n.read ? `<span class="ml-2 mt-1 inline-block w-2 h-2 rounded-full bg-blue-500"></span>` : ''}
                     </div>
                 </div>
-            `).join('')
+            `
+                )
+                .join("")
             : `<div class="text-gray-400 dark:text-gray-500 text-xs p-2">No messages yet.</div>`;
-        // Badge
         const notifBadge = document.getElementById("notif-badge");
-        if (notifBadge) notifBadge.textContent = notifications.length ? notifications.length : "";
+        if (notifBadge)
+            notifBadge.textContent = notifications.filter(n => !n.read).length || "";
     }
 
     function showMessageModal(messageObj) {
-        let modal = document.getElementById('message-detail-modal');
+        let modal = document.getElementById("message-detail-modal");
         if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'message-detail-modal';
+            modal = document.createElement("div");
+            modal.id = "message-detail-modal";
             document.body.appendChild(modal);
         }
         modal.innerHTML = `
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300">
                 <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-md p-6 relative">
                     <button id="close-message-detail-modal" class="absolute top-2 right-3 text-gray-400 hover:text-gray-700 dark:hover:text-white text-lg">&times;</button>
-                    <h4 class="text-base font-semibold mb-2 text-gray-900 dark:text-white">${messageObj.title || 'Message'}</h4>
-                    <div class="mb-2 text-xs text-gray-500 dark:text-gray-300">${messageObj.created_at?.slice(0, 16).replace('T', ' ')}</div>
-                    <div class="mb-4 text-sm text-gray-800 dark:text-gray-100 whitespace-pre-line">${messageObj.message}</div>
+                    <h4 class="text-base font-semibold mb-2 text-gray-900 dark:text-white">
+                        ${messageObj.title || 'Message'}
+                    </h4>
+                    <div class="mb-2 text-xs text-gray-500 dark:text-gray-300">
+                        ${messageObj.created_at?.slice(0, 16).replace('T', ' ')}
+                    </div>
+                    <div class="mb-4 text-sm text-gray-800 dark:text-gray-100 whitespace-pre-line">
+                        ${messageObj.message}
+                    </div>
                     <div class="flex justify-end">
-                        <button id="close-message-detail-modal-btn" class="px-4 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 text-xs">Close</button>
+                        <button id="close-message-detail-modal-btn" class="px-4 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 text-xs">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
         `;
-        modal.className = '';
-        document.getElementById('close-message-detail-modal').onclick =
-            document.getElementById('close-message-detail-modal-btn').onclick = () => {
-                modal.innerHTML = '';
-                modal.className = 'hidden';
-            };
+        modal.className = "";
+        // Separate the assignments for clarity
+        const closeModalFunc = () => {
+            modal.innerHTML = "";
+            modal.className = "hidden";
+        };
+        document.getElementById("close-message-detail-modal").onclick = closeModalFunc;
+        document.getElementById("close-message-detail-modal-btn").onclick = closeModalFunc;
     }
 
     function renderSidebarText() {
         document.querySelectorAll("#sidebar .sidebar-text").forEach(el => {
-            el.style.display = sidebarCollapsed ? "none" : "";
+            el.style.display = sidebarCollapsed ? "none" : "block";
         });
     }
 
     function setDarkMode(dark) {
         isDarkMode = dark;
-        localStorage.setItem('hrcu_dark', dark ? 'true' : 'false');
+        localStorage.setItem("hrcu_dark", dark ? "true" : "false");
         document.documentElement.classList.toggle("dark", isDarkMode);
-        document.getElementById("navbar-root").className = `fixed top-0 left-0 right-0 z-50 h-12 ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'} border-b shadow-sm font-sans`;
-        document.getElementById("sidebar").className = `fixed left-0 top-12 bottom-0 z-40 ${sidebarCollapsed ? 'w-14' : 'w-56'} ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'} border-r shadow-sm transition-all duration-300 font-sans`;
-        document.getElementById("main-content").className = `${sidebarCollapsed ? 'ml-14' : 'ml-56'} pt-14 transition-all duration-300 font-sans min-h-screen`;
+        document.getElementById("navbar-root").className = `fixed top-0 left-0 right-0 z-50 h-12 ${isDarkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"
+            } border-b shadow-sm font-sans`;
+        document.getElementById("sidebar").className = `fixed left-0 top-12 bottom-0 z-40 ${sidebarCollapsed ? "w-14" : "w-56"
+            } ${isDarkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"} border-r shadow-sm transition-all duration-300 font-sans`;
+        document.getElementById("main-content").className = `${sidebarCollapsed ? "ml-14" : "ml-56"
+            } pt-14 transition-all duration-300 font-sans min-h-screen`;
         renderSidebarText();
         renderNotifications();
     }
 
     function setSidebarCollapsed(collapsed) {
         sidebarCollapsed = collapsed;
-        localStorage.setItem('hrcu_sidebar', collapsed ? 'true' : 'false');
-        document.getElementById("sidebar").className = `fixed left-0 top-12 bottom-0 z-40 ${sidebarCollapsed ? 'w-14' : 'w-56'} ${isDarkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'} border-r shadow-sm transition-all duration-300 font-sans`;
-        document.getElementById("main-content").className = `${sidebarCollapsed ? 'ml-14' : 'ml-56'} pt-14 transition-all duration-300 font-sans min-h-screen`;
+        localStorage.setItem("hrcu_sidebar", collapsed ? "true" : "false");
+        document.getElementById("sidebar").className = `fixed left-0 top-12 bottom-0 z-40 ${sidebarCollapsed ? "w-14" : "w-56"
+            } ${isDarkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"} border-r shadow-sm transition-all duration-300 font-sans`;
+        document.getElementById("main-content").className = `${sidebarCollapsed ? "ml-14" : "ml-56"
+            } pt-14 transition-all duration-300 font-sans min-h-screen`;
         renderSidebarText();
     }
 
     async function pageEvents() {
-        // Fetch user session/profile and notifications
         const sessionData = await checkSession();
         if (sessionData && sessionData.profile) {
             profile = sessionData.profile;
-            document.querySelector('.user-name').textContent = profile.full_name;
-            document.querySelector('.user-img').src = profile.avatar_url || "/src/images/user/user.png";
+            document.querySelector(".user-name").textContent = profile.full_name;
+            document.querySelector(".user-img").src = profile.avatar_url || "/src/images/user/user.png";
             await fetchNotifications(sessionData.user.id);
             renderNotifications();
         }
 
-        // Sidebar toggle
+        // Sidebar toggle event
         document.getElementById("sidebar-toggle").onclick = () => {
             setSidebarCollapsed(!sidebarCollapsed);
         };
 
-        // Responsive: collapse sidebar on mobile
+        // Auto-collapse sidebar on mobile
         function handleResize() {
             if (window.innerWidth < 768) {
                 setSidebarCollapsed(true);
@@ -123,29 +149,28 @@ const navbar = () => {
                 setSidebarCollapsed(false);
             }
         }
-        window.addEventListener('resize', handleResize);
+        window.addEventListener("resize", handleResize);
         handleResize();
 
-        // Dropdowns: open sidebar and show submenu
+        // Submenu toggle for sidebar links
         document.querySelectorAll(".js-sub-menu-toggle").forEach(btn => {
             btn.onclick = function (e) {
                 e.preventDefault();
-                if (sidebarCollapsed) {
-                    setSidebarCollapsed(false);
-                }
+                if (sidebarCollapsed) setSidebarCollapsed(false);
                 const submenu = this.nextElementSibling;
                 if (submenu) submenu.classList.toggle("hidden");
-                this.querySelector(".toggle-icon")?.classList.toggle("rotate-90");
+                const toggleIcon = this.querySelector(".toggle-icon");
+                if (toggleIcon) toggleIcon.classList.toggle("rotate-90");
             };
         });
 
-        // Notifications dropdown (mobile and desktop)
-        document.getElementById("notif-btn").onclick = (e) => {
+        // Notifications dropdown toggle
+        document.getElementById("notif-btn").onclick = e => {
             e.stopPropagation();
             showNotifications = !showNotifications;
             document.getElementById("notif-dropdown").classList.toggle("hidden", !showNotifications);
         };
-        document.addEventListener("click", (e) => {
+        document.addEventListener("click", e => {
             const notifDropdown = document.getElementById("notif-dropdown");
             if (notifDropdown && !notifDropdown.contains(e.target) && e.target !== document.getElementById("notif-btn")) {
                 notifDropdown.classList.add("hidden");
@@ -153,17 +178,16 @@ const navbar = () => {
             }
         });
 
-        // Message click: show modal
+        // Notification message click to show modal
         document.getElementById("notif-list").onclick = async function (e) {
-            const item = e.target.closest('.js-message-item');
+            const item = e.target.closest(".js-message-item");
             if (item) {
-                const id = item.getAttribute('data-id');
+                const id = item.getAttribute("data-id");
                 const msg = notifications.find(n => n.id === id);
                 if (msg) {
                     showMessageModal(msg);
-                    // Mark as read in DB and update UI
                     if (!msg.read) {
-                        await supabase.from('notifications').update({ read: true }).eq('id', id);
+                        await supabase.from("notifications").update({ read: true }).eq("id", id);
                         msg.read = true;
                         renderNotifications();
                     }
@@ -171,52 +195,54 @@ const navbar = () => {
             }
         };
 
-        // User dropdown
-        document.getElementById("user-menu-btn").onclick = (e) => {
+        // User menu dropdown toggle
+        document.getElementById("user-menu-btn").onclick = e => {
             e.stopPropagation();
             document.getElementById("user-menu-dropdown").classList.toggle("hidden");
         };
-        document.addEventListener("click", (e) => {
+        document.addEventListener("click", e => {
             if (!document.getElementById("user-menu-dropdown").contains(e.target) && e.target !== document.getElementById("user-menu-btn")) {
                 document.getElementById("user-menu-dropdown").classList.add("hidden");
             }
         });
 
-        // Theme toggle
+        // Theme toggle button
         document.getElementById("theme-toggle").onclick = () => {
             setDarkMode(!isDarkMode);
         };
 
-        // On load, set theme and sidebar from localStorage
+        // Initialize theme and sidebar states
         setDarkMode(isDarkMode);
         setSidebarCollapsed(sidebarCollapsed);
 
-        // Logout
-        document.getElementById("logout").onclick = async () => {
+        // Logout: both link and button
+        const logoutFunc = async () => {
             await supabase.auth.signOut();
             showToast("You have been logged out.", "success");
-            setTimeout(() => window.location.href = "/", 1000);
+            setTimeout(() => (window.location.href = "/"), 1000);
         };
-        document.getElementById("log-out").onclick = async () => {
-            await supabase.auth.signOut();
-            showToast("You have been logged out.", "success");
-            setTimeout(() => window.location.href = "/", 1000);
-        };
+        document.getElementById("logout")?.addEventListener("click", logoutFunc);
+        document.getElementById("log-out")?.addEventListener("click", logoutFunc);
     }
 
     return {
-        html: /*html*/`
+        html: /* html */`
         <div id="navbar-root" class="fixed top-0 left-0 right-0 z-50 h-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm font-sans">
             <div class="flex items-center justify-between h-full px-3">
                 <div class="flex items-center space-x-2">
-                    <button id="sidebar-toggle" class="p-1 rounded text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base">
-                        <i class="fa fa-bars"></i>
+                    <button id="sidebar-toggle" class="p-1 rounded text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-5xl md:text-base">
+                        <i class="fa fa-bars text-3xl md:text-base"></i>
                     </button>
-                    <img src="${Logo}" alt="Logo" class="h-7 w-auto" />
+                    <a href="/dashboard" class="flex items-center space-x-2">
+                        <img src="${Logo}" alt="Logo" class="h-7 w-auto" />
+                        <span class="hidden sm:inline-block text-lg font-semibold text-gray-900 dark:text-white">
+                            Zenus Bank
+                        </span>
+                    </a>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="relative hidden">
-                        <button id="notif-btn" class="relative p-1 rounded text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base">
+                    <div class="relative">
+                        <button id="notif-btn" class="p-1 rounded text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base">
                             <i class="fa fa-envelope text-base"></i>
                             <span id="notif-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center"></span>
                         </button>
@@ -231,26 +257,28 @@ const navbar = () => {
                         </div>
                     </div>
                     <div class="relative">
-                        <button id="user-menu-btn" class="flex items-center space-x-2 btn btn-link dropdown-toggle focus:outline-none">
+                        <button id="user-menu-btn" class="flex items-center space-x-2 focus:outline-none">
                             <img src="${User}" alt="User" class="user-img h-7 w-7 rounded-full object-cover" />
-                            <span class="user-name text-xs font-normal text-gray-900 dark:text-gray-100"></span>
+                            <span class="hidden sm:inline-block user-name text-xs font-normal text-gray-900 dark:text-gray-100"></span>
                             <i class="fa fa-caret-down text-gray-500 dark:text-gray-300 text-xs"></i>
                         </button>
-                        <ul id="user-menu-dropdown" class="dropdown-menu absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-lg z-50 hidden">
+                        <ul id="user-menu-dropdown" class="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-lg z-50 hidden">
                             <li>
                                 <a href="/profile" data-nav class="flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xs font-normal">
-                                    <i class="fa fa-user mr-2"></i> <span class="text">Profile</span>
+                                    <i class="fa fa-user mr-2"></i>
+                                    <span>Profile</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="cursor-pointer flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xs font-normal" id="log-out">
-                                    <i class="fa fa-power-off mr-2"></i> <span class="text">Logout</span>
+                                <a id="log-out" class="cursor-pointer flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xs font-normal">
+                                    <i class="fa fa-power-off mr-2"></i>
+                                    <span>Logout</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <button id="theme-toggle" class="p-1 rounded text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base">
-                        <span id="theme-icon">🌙</span>
+                        <span id="theme-icon">${isDarkMode ? '<i class="fa fa-sun text-yellow-500"></i>' : '<i class="fa fa-moon text-blue-500"></i>'}</span>
                     </button>
                 </div>
             </div>
@@ -260,125 +288,110 @@ const navbar = () => {
                 <nav class="pt-2">
                     <ul class="space-y-1">
                         <li>
-                            <a href="/dashboard" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs">
-                                <i class="fa fa-home mr-2 text-base"></i>
+                            <a href="/dashboard" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fa fa-home mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Dashboard</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/profile" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs">
-                                <i class="fa fa-user mr-2 text-base"></i>
+                            <a href="/profile" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fa fa-user mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">My Profile</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/account-summary" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs">
-                                <i class="fa fa-briefcase mr-2 text-base"></i>
+                            <a href="/account-summary" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fa fa-briefcase mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">History</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/deposit" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs">
-                                <i class="fa fa-dollar-sign mr-2 text-base"></i>
+                            <a href="/deposit" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fa fa-dollar-sign mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Deposit</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/paypal" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs">
-                                <i class="fab fa-paypal mr-2 text-base"></i>
+                            <a href="/paypal" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fab fa-paypal mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Paypal</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/card-payment" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs">
-                                <i class="fas fa-credit-card mr-2 text-base"></i>
+                            <a href="/card-payment" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fas fa-credit-card mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Card Deposit</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs js-sub-menu-toggle">
-                                <i class="fa fa-credit-card mr-2 text-base"></i>
+                            <a href="#" class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-3xl md:text-base font-normal js-sub-menu-toggle">
+                                <i class="fa fa-credit-card mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Funds Transfer</span>
-                                <i class="toggle-icon fa fa-angle-left ml-auto transition-transform text-xs"></i>
+                                <i class="toggle-icon fa fa-angle-left ml-auto transition-transform text-base"></i>
                             </a>
                             <ul class="sub-menu ml-7 mt-1 space-y-1 hidden">
                                 <li>
                                     <a href="/interbank-transfer" data-nav class="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xs font-normal">
-                                        <i class="fa fa-bank mr-2 text-xs"></i>
+                                        <i class="fa fa-bank mr-2 text-3xl md:text-base"></i>
                                         <span class="sidebar-text">Inter-Bank Transfer</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/local-transfer" data-nav class="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xs font-normal">
-                                        <i class="fa fa-street-view mr-2 text-xs"></i>
+                                        <i class="fa fa-street-view mr-2 text-3xl md:text-base"></i>
                                         <span class="sidebar-text">Local Transfer</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/wire-transfer" data-nav class="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xs font-normal">
-                                        <i class="fa fa-coins mr-2 text-xs"></i>
+                                        <i class="fa fa-coins mr-2 text-3xl md:text-base"></i>
                                         <span class="sidebar-text">Wire Transfer</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/crypto" data-nav class="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xs font-normal">
-                                        <i class="fa fa-coins mr-2 text-xs"></i>
+                                        <i class="fa fa-coins mr-2 text-3xl md:text-base"></i>
                                         <span class="sidebar-text">Crypto Transfer</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#" class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs js-sub-menu-toggle">
-                                <i class="fa fa-cog mr-2 text-base"></i>
+                            <a href="#" class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-3xl md:text-base font-normal js-sub-menu-toggle">
+                                <i class="fa fa-cog mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Settings</span>
-                                <i class="toggle-icon fa fa-angle-left ml-auto transition-transform text-xs"></i>
+                                <i class="toggle-icon fa fa-angle-left ml-auto text-base transition-transform"></i>
                             </a>
                             <ul class="sub-menu ml-7 mt-1 space-y-1 hidden">
                                 <li>
                                     <a href="/edit-profile" data-nav class="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xs font-normal">
-                                        <i class="fa fa-edit mr-2 text-xs"></i>
+                                        <i class="fa fa-edit mr-2 text-3xl md:text-base"></i>
                                         <span class="sidebar-text">Edit Profile</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#" class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs js-sub-menu-toggle">
-                                <i class="fa fa-bank mr-2 text-base"></i>
-                                <span class="sidebar-text">Personal Banking</span>
-                                <i class="toggle-icon fa fa-angle-left ml-auto transition-transform text-xs"></i>
-                            </a>
-                            <ul class="sub-menu ml-7 mt-1 space-y-1 hidden">
-                                <li>
-                                    <a href="/contact" data-nav class="flex items-center px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xs font-normal">
-                                        <i class="fa fa-envelope mr-2 text-xs"></i>
-                                        <span class="sidebar-text">Contact Us</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="/withdrawal" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs">
-                                <i class="fa fa-dollar-sign mr-2 text-base"></i>
+                            <a href="/withdrawal" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fa fa-dollar-sign mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Withdrawal</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/loan" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs">
-                                <i class="fa-solid fa-landmark mr-2 text-base"></i>
+                            <a href="/loan" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fa-solid fa-landmark mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Loan</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/cards" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs">
-                                <i class="fa-solid fa-credit-card mr-2 text-base"></i>
+                            <a href="/cards" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fa-solid fa-credit-card mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Credit Cards</span>
                             </a>
                         </li>
                         <li>
-                            <a class="cursor-pointer flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 font-normal text-xs" id="logout">
-                                <i class="fa fa-power-off mr-2 text-base"></i>
+                            <a id="logout" class="cursor-pointer flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
+                                <i class="fa fa-power-off mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Logout</span>
                             </a>
                         </li>

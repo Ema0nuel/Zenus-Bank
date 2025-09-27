@@ -1,4 +1,4 @@
-import navbar from "../../components/navbar";
+﻿import navbar from "../../components/navbar";
 import { reset } from "../../utils/reset";
 import { showToast } from "../../components/toast";
 import { verifyOtp } from "./functions/otp";
@@ -107,3 +107,7 @@ const verifyView = async () => {
 };
 
 export default verifyView;
+
+
+
+

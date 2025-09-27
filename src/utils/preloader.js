@@ -1,4 +1,4 @@
-// src/utils/preloader.js
+﻿// src/utils/preloader.js
 
 export function startPreloader() {
   if (document.getElementById("page-preloader")) return;
@@ -47,3 +47,7 @@ export function endPreloader(duration = 500) {
     }, duration); // match transition duration
   }
 }
+
+
+
+

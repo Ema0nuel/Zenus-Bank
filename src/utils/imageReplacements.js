@@ -45,3 +45,7 @@ const imageMappings = {
 };
 
 module.exports = imageMappings;
+
+
+
+

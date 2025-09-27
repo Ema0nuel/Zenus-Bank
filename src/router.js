@@ -1,4 +1,4 @@
-import { startPreloader, endPreloader } from "./utils/preloader";
+﻿import { startPreloader, endPreloader } from "./utils/preloader";
 import { renderFlagLanguageToggle } from "./components/translateWidget";
 import { setActiveNav } from "./utils/active";
 
@@ -71,6 +71,8 @@ const routeAliases = {
   "crypto": "user/transfer/crypto",
   "interbank-transfer": "user/transfer/interbank",
   "account-summary": "user/account-summary",
+  "user/login": "login",
+  "user/signup": "signup",
   "locate-us": "locate",
   "switch-now": "switch",
   ...securityRoutes,
@@ -217,3 +219,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   document.body.appendChild(renderFlagLanguageToggle());
 });
+
+
+

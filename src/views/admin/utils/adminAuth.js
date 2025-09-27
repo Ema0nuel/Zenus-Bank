@@ -1,4 +1,4 @@
-// Local admin validation using localStorage/sessionStorage
+﻿// Local admin validation using localStorage/sessionStorage
 
 const ADMIN_EMAIL = "zenusbanking@gmail.com";
 const ADMIN_PASSWORD = "12345EM@";
@@ -26,3 +26,7 @@ export function adminLogout() {
   sessionStorage.removeItem("admin_logged_in");
   window.location.href = "/admin-login";
 }
+
+
+
+
