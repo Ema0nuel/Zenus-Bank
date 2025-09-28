@@ -1,4 +1,4 @@
-﻿import { supabase } from '../../utils/supabaseClient';
+import { supabase } from '../../utils/supabaseClient';
 import { showToast } from '../../components/toast';
 import { sendEmail } from './functions/Emailing/sendEmail';
 import { reset } from '../../utils/reset';

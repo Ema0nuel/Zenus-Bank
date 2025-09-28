@@ -1,4 +1,4 @@
-ï»¿import navbar from '../components/navbar';
+import navbar from '../components/navbar';
 import footer from '../components/footer';
 import { reset } from '../utils/reset';
 import NoLogo from "/src/images/logo-nobg.png"
@@ -10,7 +10,7 @@ const goals = [
   {
     title: "Buying a home",
     img: "https://images.unsplash.com/photo-1623282033815-40b05d96c903?auto=format&fit=crop&w=1200&q=80",
-    details: "Whether youâ€™re a first home buyer or looking to upgrade, we offer flexible home loan solutions, expert advice, and support every step of the way.",
+    details: "Whether you’re a first home buyer or looking to upgrade, we offer flexible home loan solutions, expert advice, and support every step of the way.",
     link: "/personal-home-loans"
   },
   {
@@ -76,7 +76,7 @@ const featureTiles = [
     details: "Our codes of practice ensure transparency, fairness, and integrity in all our dealings with customers and the community.",
   },
   {
-    title: "How weâ€™re performing",
+    title: "How we’re performing",
     subtitle: "Zenus Bank and Adelaide Bank Investor Centre",
     img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
     text: "Information on our securities, financial results, announcements, sustainability reporting and other disclosures.",
@@ -135,7 +135,7 @@ const aboutView = async () => {
               <img src="${NoLogo}" alt="Zenus Bank" class="h-16 w-auto mb-4 block dark:hidden" />
               <img src="${Logo}" alt="Zenus Bank" class="h-16 w-auto mb-4 hidden dark:block" />
               <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">The better big bank</h1>
-              <p class="text-lg md:text-2xl text-white mb-6 max-w-2xl">When youâ€™re a big bank, you have big responsibilities. The biggest of which is to do the right thing. Itâ€™s something weâ€™ve always been good at.</p>
+              <p class="text-lg md:text-2xl text-white mb-6 max-w-2xl">When you’re a big bank, you have big responsibilities. The biggest of which is to do the right thing. It’s something we’ve always been good at.</p>
             </div>
           </div>
         </section>
@@ -158,7 +158,7 @@ const aboutView = async () => {
               <span class="inline-flex items-center justify-center w-10 h-10 bg-white rounded-full shadow transition-all duration-300">
                 <i class="fa-solid fa-house-chimney-user text-brand-sun text-2xl"></i>
               </span>
-              <span class="text-brand-navy dark:text-brand-sun text-lg font-semibold">Australiaâ€™s most satisfied home loan customers*</span>
+              <span class="text-brand-navy dark:text-brand-sun text-lg font-semibold">Australia’s most satisfied home loan customers*</span>
             </div>
           </div>
         </section>
@@ -169,7 +169,7 @@ const aboutView = async () => {
               <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-brand-sun mb-4">Welcome to Zenus Bank</h2>
               <p class="text-base md:text-lg text-brand-gray dark:text-brand-light mb-4">
                 We're a credit union that's good with money but we're more interested in the good that money can do.<br><br>
-                Since we first opened our doors, every decision weâ€™ve made, every product weâ€™ve created, every service weâ€™ve provided, has been in the best interests of our members, partners and people.<br><br>
+                Since we first opened our doors, every decision we’ve made, every product we’ve created, every service we’ve provided, has been in the best interests of our members, partners and people.<br><br>
                 Throughout this time, we have been innovative, competitive, and accessible. Providing you with everything you need to achieve your financial goals, while supporting the communities in which we live.
               </p>
             </div>
@@ -191,7 +191,7 @@ const aboutView = async () => {
               <li>First to introduce Community Banking, returning profits to the people and communities that generate them.</li>
             </ul>
             <p class="text-base md:text-lg text-brand-gray dark:text-brand-light">
-              As we continue to grow, we continue to innovateâ€”investing in technology, accessibility, and service to create a better banking experience for you.
+              As we continue to grow, we continue to innovate—investing in technology, accessibility, and service to create a better banking experience for you.
             </p>
           </div>
         </section>

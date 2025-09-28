@@ -1,4 +1,4 @@
-﻿import navbar from "../../components/navbar";
+import navbar from "../../components/navbar";
 import { reset } from "../../utils/reset";
 import { showToast } from "../../components/toast";
 import { verifyOtp } from "./functions/otp";
@@ -84,7 +84,7 @@ const verifyView = async () => {
             />
             <div class="text-sm text-gray-700 dark:text-gray-300">
               <a href="/" data-nav class="text-brand-teal underline">Home</a>
-              &nbsp;|&nbsp; Didn’t receive OTP?
+              &nbsp;|&nbsp; Didn�t receive OTP?
               <button type="button" id="resendBtn" class="text-brand-yellow underline ml-1">Resend OTP</button>
             </div>
             <button

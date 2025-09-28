@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Sends a custom email using Resend.
  * @param {Object} param0
  * @param {string|string[]} param0.to - Recipient email address(es)

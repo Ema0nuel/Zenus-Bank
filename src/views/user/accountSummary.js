@@ -1,4 +1,4 @@
-﻿import { supabase } from '../../utils/supabaseClient';
+import { supabase } from '../../utils/supabaseClient';
 import navbar from './components/Navbar';
 import { reset } from "../../utils/reset";
 import NoBg from "/src/images/logo-nobg.png"
@@ -302,7 +302,7 @@ const accountSummary = async () => {
                 </div>
                 <footer class="p-4 text-center text-gray-600 dark:text-gray-400 text-xs">
                     <p>
-                        <strong>Copyright © ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.
+                        <strong>Copyright � ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.
                     </p>
                 </footer>
             </div>

@@ -1,4 +1,4 @@
-﻿import { showToast } from "../components/toast";
+import { showToast } from "../components/toast";
 
 /**
  * Checks password strength and returns an object with score and label.

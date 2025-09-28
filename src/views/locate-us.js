@@ -1,4 +1,4 @@
-﻿import navbar from '../components/navbar';
+import navbar from '../components/navbar';
 import footer from '../components/footer';
 import { reset } from '../utils/reset';
 

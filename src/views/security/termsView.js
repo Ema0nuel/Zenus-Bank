@@ -1,4 +1,4 @@
-Ôªøimport navbar from '../../components/navbar';
+import navbar from '../../components/navbar';
 import footer from '../../components/footer';
 import { reset } from '../../utils/reset';
 import NoLogo from "/src/images/logo-nobg.png"
@@ -41,8 +41,8 @@ const termsView = () => {
         <section class="py-8">
           <div class="max-w-5xl mx-auto px-4">
             <h2 class="text-2xl font-bold mb-4">1. This website</h2>
-            <p>This website (‚Äú<strong>Website</strong>") is owned and operated by Zenus Bank (‚Äú<strong>we</strong>‚Äù/‚Äú<strong>us</strong>‚Äù/‚Äú<strong>our</strong>‚Äù), on our behalf and that of our related bodies corporate. Our registered office is in the United States. Contact: <a href="mailto:zenusbanking@gmail.com" class="text-brand-sun underline">zenusbanking@gmail.com</a> | <a href="tel:+447529555635" class="text-brand-sun underline">+447529555635</a>.</p>
-            <p>These terms of use (the ‚Äú<strong>Terms</strong>‚Äù) govern your use of this Website (the ‚Äú<strong>Website Content</strong>‚Äù). Each time you use this Website, your use indicates your acknowledgment and acceptance of the Terms, which we may revise periodically without notice. If you do not accept these terms and conditions, do not use the Website.</p>
+            <p>This website (ì<strong>Website</strong>") is owned and operated by Zenus Bank (ì<strong>we</strong>î/ì<strong>us</strong>î/ì<strong>our</strong>î), on our behalf and that of our related bodies corporate. Our registered office is in the United States. Contact: <a href="mailto:zenusbanking@gmail.com" class="text-brand-sun underline">zenusbanking@gmail.com</a> | <a href="tel:+447529555635" class="text-brand-sun underline">+447529555635</a>.</p>
+            <p>These terms of use (the ì<strong>Terms</strong>î) govern your use of this Website (the ì<strong>Website Content</strong>î). Each time you use this Website, your use indicates your acknowledgment and acceptance of the Terms, which we may revise periodically without notice. If you do not accept these terms and conditions, do not use the Website.</p>
             <h2 class="text-2xl font-bold mt-8 mb-4">2. Our rights in, and restrictions on your use of, this Website</h2>
             <p>The Website Content (including trade marks and logos) is our intellectual property or that of our suppliers. We grant you a non-exclusive, non-transferable and limited right to access and use this Website, view the Website Content on your screen and print copies of such Website Content, solely for your personal, non-commercial use, and provided that you comply fully with these Terms.</p>
             <p>While we take reasonable steps to ensure that the Website Content is free from errors or omissions or is suitable for your intended use, we do not represent or warrant the availability, accuracy, adequacy or completeness of the Website Content or that the Website and Website Content is virus-free. You further acknowledge and agree that to the maximum extent permitted by law: (a) this Website and the Website Content are provided on an "as is" and "as available" basis; and (b) we cannot guarantee and do not promise any specific results from use of this Website and the Website Content.</p>
@@ -61,7 +61,7 @@ const termsView = () => {
             </ol>
             <h2 class="text-2xl font-bold mt-8 mb-4">4. Third Party Content</h2>
             <p>Links from this Website to third party websites, or references to products, services or publications other than those of Zenus Bank, do not imply the endorsement or approval of such third party websites, products, services or publications by Zenus Bank. Any access and use you make of such third party material is entirely at your own risk.</p>
-            <p>The opinions or views that Zenus Bank makes available via third party websites or social media providers (such as videos or tweets) (each, a ‚Äú<strong>Publication</strong>‚Äù) are not necessarily the opinions or views of Zenus Bank, and Zenus Bank makes no representation and gives no warranty as to the accuracy, currency or completeness of material contained in any Publication. Zenus Bank does not accept any responsibility to inform you of any matter that subsequently comes to their notice which may affect the accuracy, currency or completeness of the material in any of the Publications.</p>
+            <p>The opinions or views that Zenus Bank makes available via third party websites or social media providers (such as videos or tweets) (each, a ì<strong>Publication</strong>î) are not necessarily the opinions or views of Zenus Bank, and Zenus Bank makes no representation and gives no warranty as to the accuracy, currency or completeness of material contained in any Publication. Zenus Bank does not accept any responsibility to inform you of any matter that subsequently comes to their notice which may affect the accuracy, currency or completeness of the material in any of the Publications.</p>
           </div>
         </section>
       </main>

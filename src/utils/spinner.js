@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Show a modern animated logo spinner preloader.
  * The logo zooms in/out with a glow and darkens on zoom out.
  * No text, smooth infinite loop, semi-transparent dark background.

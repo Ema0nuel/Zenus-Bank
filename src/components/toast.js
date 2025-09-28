@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Show a toast notification.
  * @param {string} message - The message to display.
  * @param {'success'|'error'|'info'|'warning'} [type='info'] - The type/status of the message.
@@ -22,10 +22,10 @@ export function showToast(message, type = 'info', duration = 3500) {
 
   // Icon
   const iconMap = {
-    success: '✔️',
-    error: '❌',
-    info: 'ℹ️',
-    warning: '⚠️',
+    success: '??',
+    error: '?',
+    info: '??',
+    warning: '??',
   };
 
   // Toast element

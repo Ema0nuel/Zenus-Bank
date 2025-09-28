@@ -1,4 +1,4 @@
-﻿import { supabase } from "../../../utils/supabaseClient";
+import { supabase } from "../../../utils/supabaseClient";
 import { checkSession } from "../functions/checkSession";
 import { showToast } from "../../../components/toast";
 import User from "/src/images/user.png";
@@ -309,12 +309,6 @@ const navbar = () => {
                             <a href="/deposit" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
                                 <i class="fa fa-dollar-sign mr-2 text-3xl md:text-base"></i>
                                 <span class="sidebar-text">Deposit</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/paypal" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
-                                <i class="fab fa-paypal mr-2 text-3xl md:text-base"></i>
-                                <span class="sidebar-text">Paypal</span>
                             </a>
                         </li>
                         <li>

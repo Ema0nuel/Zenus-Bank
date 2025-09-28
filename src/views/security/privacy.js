@@ -1,4 +1,4 @@
-ï»¿import navbar from '../../components/navbar';
+import navbar from '../../components/navbar';
 import footer from '../../components/footer';
 import { reset } from '../../utils/reset';
 import NoLogo from "/src/images/logo-nobg.png"
@@ -95,7 +95,7 @@ const privacyView = () => {
             <p>Your personal information is stored within secure systems that are protected in controlled facilities. Our employees and authorised agents are obliged to respect the confidentiality of any personal information held by us.</p>
             <h3 id="our-website-and-the-use-of-cookies" class="text-xl font-semibold mt-8 mb-2">Our websites and the use of cookies</h3>
             <p>We use our best efforts to ensure that information received via our Websites remains secured within our systems. We are regularly reviewing developments in online security; however, you should be aware that there are inherent risks in transmitting information across the internet.</p>
-            <p>We use cookies on our Websites. Cookies can make using our Websites easier by storing information about your preferences and enabling you to take full advantage of our services. Cookies are very small text files that a Website can transfer to your computerâ€™s hard drive or portable electronic deviceâ€™s memory for record keeping.</p>
+            <p>We use cookies on our Websites. Cookies can make using our Websites easier by storing information about your preferences and enabling you to take full advantage of our services. Cookies are very small text files that a Website can transfer to your computer’s hard drive or portable electronic device’s memory for record keeping.</p>
             <p>Most internet web browsers are pre-set to accept cookies to enable full use of websites that employ them. However, if you do not wish to receive any cookies on an internet web browser you may configure your browser to reject them or receive a warning when cookies are being used. In some instances, this may mean that you will not be able to use some or all of the services provided on our Websites. However you may still be able to access information-only pages.</p>
             <h3 id="changes-to-this-policy" class="text-xl font-semibold mt-8 mb-2">Changes to this policy</h3>
             <p>From time to time, it may be necessary for us to review this policy and the information contained in this document. We will notify you of any changes by posting an updated version on our website(s).</p>

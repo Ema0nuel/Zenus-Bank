@@ -1,4 +1,4 @@
-﻿import navbar from "../../components/navbar";
+import navbar from "../../components/navbar";
 import { checkPasswordStrength } from "../../utils/auth";
 import { validateSignupForm } from "../../utils/auth";
 import { showToast } from "../../components/toast";
@@ -79,7 +79,7 @@ const signupView = () => {
             </div>
             <form id="register" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white dark:bg-brand-dark rounded-xl shadow-lg p-8">
               <div class="md:col-span-2">
-                <h5 class="text-yellow-500 font-semibold mb-2">SECTION A – PERSONAL DATA</h5>
+                <h5 class="text-yellow-500 font-semibold mb-2">SECTION A � PERSONAL DATA</h5>
               </div>
               <div>
                 <label class="block text-sm font-medium mb-1" for="title">Title</label>

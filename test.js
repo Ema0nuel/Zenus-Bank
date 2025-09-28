@@ -1,4 +1,4 @@
-﻿Noooooo
+Noooooo
 build the notification on this schema
 CREATE TABLE transactions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -304,7 +304,7 @@ Wonderful UI and very very sharp like this refernce
 			<!-- /main -->
 			<!-- FOOTER -->
 			<footer class="footer">
-				<strong>Copyright ©<script>
+				<strong>Copyright �<script>
 						document.write(new Date().getFullYear());
 					</script>2025 </strong> All rights reserved | West Coast Group.
 			</footer>
@@ -606,8 +606,8 @@ export default {
           navy: '#1e3a8a',
           teal: '#0f766e',
           gray: '#374151',
-          light: '#ffffff', // ✅ used instead of 'white'
-          dark: '#111827'   // ✅ used instead of 'black'
+          light: '#ffffff', // ? used instead of 'white'
+          dark: '#111827'   // ? used instead of 'black'
         }
       }
     }

@@ -1,4 +1,4 @@
-ï»¿import navbar from '../components/navbar';
+import navbar from '../components/navbar';
 import footer from '../components/footer';
 import UTIL1 from '../images/user/util1.jpg'
 import UTIL2 from '../images/user/util2.jpg'
@@ -347,17 +347,17 @@ ${nav.html}
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
           <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
-          <p class="text-brand-gray dark:text-brand-light mb-3">â€œSwitching to Zenus Bank was the best decision for my family. The process was smooth and the rates are unbeatable.â€</p>
+          <p class="text-brand-gray dark:text-brand-light mb-3">“Switching to Zenus Bank was the best decision for my family. The process was smooth and the rates are unbeatable.”</p>
           <span class="font-semibold text-brand-navy dark:text-brand-sun">James R.</span>
         </div>
         <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
           <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
-          <p class="text-brand-gray dark:text-brand-light mb-3">â€œI love the online tools and how easy it is to manage my accounts. The support team is always helpful.â€</p>
+          <p class="text-brand-gray dark:text-brand-light mb-3">“I love the online tools and how easy it is to manage my accounts. The support team is always helpful.”</p>
           <span class="font-semibold text-brand-navy dark:text-brand-sun">Maria S.</span>
         </div>
         <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
           <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Testimonial" class="w-16 h-16 rounded-full mb-4 shadow">
-          <p class="text-brand-gray dark:text-brand-light mb-3">â€œGreat experience refinancing my home. The team explained everything and I saved a lot!â€</p>
+          <p class="text-brand-gray dark:text-brand-light mb-3">“Great experience refinancing my home. The team explained everything and I saved a lot!”</p>
           <span class="font-semibold text-brand-navy dark:text-brand-sun">David L.</span>
         </div>
       </div>

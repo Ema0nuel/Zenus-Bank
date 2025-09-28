@@ -1,4 +1,4 @@
-﻿import navbar from '../../components/navbar';
+import navbar from '../../components/navbar';
 import footer from '../../components/footer';
 import { reset } from '../../utils/reset';
 import NoLogo from "/src/images/logo-nobg.png"
@@ -61,7 +61,7 @@ const targetMarketView = () => {
               <p>A TMD is a document which describes:</p>
               <ul class="list-disc pl-6 mb-4">
                 <li>the persons for which the product has been designed,</li>
-                <li>the conditions around the product’s distribution,</li>
+                <li>the conditions around the product�s distribution,</li>
                 <li>when this TMD will be reviewed, and</li>
                 <li>record keeping and reporting obligations of distributors.</li>
               </ul>

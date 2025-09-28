@@ -1,4 +1,4 @@
-ï»¿import navbar from '../components/navbar';
+import navbar from '../components/navbar';
 import footer from '../components/footer';
 import { reset } from '../utils/reset';
 
@@ -123,7 +123,7 @@ const personal = () => {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col">
                 <h5 class="font-bold text-lg mb-2">Personal Loan</h5>
-                <p class="mb-4">Great for your dream holiday or any number of needs where you donâ€™t offer security.</p>
+                <p class="mb-4">Great for your dream holiday or any number of needs where you don’t offer security.</p>
                 <div class="mb-2 text-brand-sun font-semibold">Rate: 12.79% p.a.</div>
                 <div class="mb-2 text-brand-sun font-semibold">Comparison rate*: 14.89% p.a.</div>
               </div>
@@ -135,7 +135,7 @@ const personal = () => {
               </div>
               <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-6 flex flex-col">
                 <h5 class="font-bold text-lg mb-2">Student Personal Loan</h5>
-                <p class="mb-4">A loan for your dream holiday or any number of needs where you donâ€™t have security.</p>
+                <p class="mb-4">A loan for your dream holiday or any number of needs where you don’t have security.</p>
                 <div class="mb-2 text-brand-sun font-semibold">Rate: 9.99% p.a.</div>
                 <div class="mb-2 text-brand-sun font-semibold">Comparison rate*: 9.99% p.a.</div>
               </div>

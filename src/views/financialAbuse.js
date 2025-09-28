@@ -1,4 +1,4 @@
-ï»¿import navbar from '../components/navbar';
+import navbar from '../components/navbar';
 import footer from '../components/footer';
 import { reset } from '../utils/reset';
 
@@ -39,12 +39,12 @@ const financialAbuseView = () => {
           <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="md:col-span-2">
               <h2 class="text-xl md:text-2xl font-bold mb-4" id="Understanding">How we can help you</h2>
-              <p class="mb-4">There are many different ways we can help you to regain control of your banking. Of course this will depend on your personal circumstances as everyoneâ€™s situation will be different.</p>
+              <p class="mb-4">There are many different ways we can help you to regain control of your banking. Of course this will depend on your personal circumstances as everyone’s situation will be different.</p>
               <p class="mb-4">Our staff will also ensure that we respect your privacy and confidentiality. We know that telling us about your circumstances may be difficult, and our goal is to minimise you repeating your story.</p>
               <p class="mb-4">We have also established a specialised team who can help you, or your authorised representative, regain control of your finances. Our staff will protect your confidentiality and safety at all times.</p>
               <ul class="list-disc pl-6 mb-4">
-                <li>Visit â€“ any of our branches</li>
-                <li>Email â€“ <a href="mailto:zenusbanking@gmail.com" class="text-brand-sun underline">zenusbanking@gmail.com</a> between 8.30am and 5.00pm, Mon-Fri</li>
+                <li>Visit – any of our branches</li>
+                <li>Email – <a href="mailto:zenusbanking@gmail.com" class="text-brand-sun underline">zenusbanking@gmail.com</a> between 8.30am and 5.00pm, Mon-Fri</li>
                 <li>Or complete our online form</li>
               </ul>
             </div>
@@ -69,11 +69,11 @@ const financialAbuseView = () => {
                   <li>undue influence for personal gain</li>
                   <li>misuse of a person's Power of Attorney or Guardianship instructions</li>
                 </ul>
-                <p>In general, all involve improper use of an older personâ€™s assets.</p>
+                <p>In general, all involve improper use of an older person’s assets.</p>
               </div>
               <div class="mb-6">
                 <h3 class="font-semibold text-lg mb-2">Disability</h3>
-                <p class="mb-2">Financial abuse of a disabled person is any act involving the misuse of the personâ€™s money or property. This is done without their full knowledge, consent or understanding.</p>
+                <p class="mb-2">Financial abuse of a disabled person is any act involving the misuse of the person’s money or property. This is done without their full knowledge, consent or understanding.</p>
                 <p>This can be against an individual with a physical and/or mental disability. It deprives them of vital financial resources for their personal needs.</p>
               </div>
               <div class="mb-6">
@@ -106,7 +106,7 @@ const financialAbuseView = () => {
               <h2 class="text-xl md:text-2xl font-bold mb-4">Frequently asked questions</h2>
               <div class="mb-6">
                 <h3 class="font-semibold text-lg mb-2">Why is the Bank focusing on Financial Abuse?</h3>
-                <p>The communityâ€™s expectations have changed over time and it is now recognised that we all have a part to play in assisting those vulnerable members of our community.</p>
+                <p>The community’s expectations have changed over time and it is now recognised that we all have a part to play in assisting those vulnerable members of our community.</p>
               </div>
               <div class="mb-6">
                 <h3 class="font-semibold text-lg mb-2">What is financial abuse?</h3>
@@ -125,11 +125,11 @@ const financialAbuseView = () => {
               </div>
               <div class="mb-6">
                 <h3 class="font-semibold text-lg mb-2">Are there some warning signs I should look out for?</h3>
-                <p>Yes there are many. Hereâ€™s just a few:</p>
+                <p>Yes there are many. Here’s just a few:</p>
                 <ul class="list-disc pl-6 mb-2">
-                  <li>Check your transactions regularly and let us know if there are any transactions you donâ€™t recognise.</li>
-                  <li>Donâ€™t let anyone speak for you or make you feel rushed to make a financial decision. Eg. Withdrawing a large amount of cash from your account, or setting up e-banking.</li>
-                  <li>Donâ€™t allow anyone calling you to access your computer or provide them with your bank account details.</li>
+                  <li>Check your transactions regularly and let us know if there are any transactions you don’t recognise.</li>
+                  <li>Don’t let anyone speak for you or make you feel rushed to make a financial decision. Eg. Withdrawing a large amount of cash from your account, or setting up e-banking.</li>
+                  <li>Don’t allow anyone calling you to access your computer or provide them with your bank account details.</li>
                   <li>Make sure you understand what financial access you are giving to a family member or friend by adding them as a signatory to your account.</li>
                 </ul>
                 <p>Most importantly, if you suspect you are being financially abused, please let us know so we can help you.</p>

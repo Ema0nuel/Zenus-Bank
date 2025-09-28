@@ -1,4 +1,4 @@
-ï»¿import navbar from '../components/navbar';
+import navbar from '../components/navbar';
 import footer from '../components/footer';
 import { reset } from '../utils/reset';
 
@@ -59,7 +59,7 @@ const highlights = [
     {
         title: "Building wealth",
         img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
-        desc: "Super that's good for you and your employees. West Coast GroupSmartStart SuperÂ® is a low cost, easy to use superannuation solution designed to keep things simple for you and your employees.",
+        desc: "Super that's good for you and your employees. West Coast GroupSmartStart Super® is a low cost, easy to use superannuation solution designed to keep things simple for you and your employees.",
     },
     {
         title: "Protecting my assets",
@@ -72,7 +72,7 @@ const profiles = [
     {
         title: "Tips on how you can better manage cash flow",
         img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
-        desc: "Whatâ€™s the number one issue keeping business owners up at night? Cash flow. Put simply, having money in the bank to cover your business expenses.",
+        desc: "What’s the number one issue keeping business owners up at night? Cash flow. Put simply, having money in the bank to cover your business expenses.",
         link: "/#",
         linkText: "Read more",
     },
@@ -233,7 +233,7 @@ const business = () => {
             </div>
             <div>
               <p>Terms, conditions, fees, charges and lending criteria apply. Individual circumstances may vary. You should consult your taxation advisor and read the relevant Terms and Conditions available at Zenus Bank before making a decision. Rates are subject to change.</p>
-              <p>^ Awards are based on information collected from the DBM Atlas research program â€“ feedback from over 80,000 businesses and/or retail customers January 2021 through December 2021.</p>
+              <p>^ Awards are based on information collected from the DBM Atlas research program – feedback from over 80,000 businesses and/or retail customers January 2021 through December 2021.</p>
             </div>
           </div>
         </section>

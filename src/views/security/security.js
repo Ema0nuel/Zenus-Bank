@@ -1,4 +1,4 @@
-ï»¿import navbar from '../../components/navbar';
+import navbar from '../../components/navbar';
 import footer from '../../components/footer';
 import { reset } from '../../utils/reset';
 import NoLogo from "/src/images/logo-nobg.png"
@@ -49,11 +49,11 @@ const highlightTiles = [
         details: `
       <ul>
         <li>Keep your computer up to date by installing the latest security software and patches for your operating system</li>
-        <li>Ensure you have installed anti-virus/spyware software along with a firewall â€“ and keep them up to date</li>
+        <li>Ensure you have installed anti-virus/spyware software along with a firewall – and keep them up to date</li>
         <li>Make sure you have a current backup of your important personal information/files</li>
         <li>Delete spam emails and do not open email attachments or click on links in emails from strangers</li>
         <li>Do not respond to an unsolicited email asking you for personal information or financial details</li>
-        <li>Be aware of email, internet and telephone hoaxes and scams â€“ if something appears too good to be true, it almost certainly is</li>
+        <li>Be aware of email, internet and telephone hoaxes and scams – if something appears too good to be true, it almost certainly is</li>
         <li>If possible avoid using shared computers, such as those at internet cafes, hotels and airports</li>
       </ul>
     `
@@ -77,9 +77,9 @@ const highlightTiles = [
         icon: highlightIcons[2],
         details: `
       <ul>
-        <li>Donâ€™t open suspicious texts, pop up windows or click on links or attachments in unsolicited emails â€“ delete them</li>
-        <li>Donâ€™t enter or provide your card number to unsolicited sites or callers</li>
-        <li>Donâ€™t respond to phone calls about your computer asking for remote access â€“ hang up</li>
+        <li>Don’t open suspicious texts, pop up windows or click on links or attachments in unsolicited emails – delete them</li>
+        <li>Don’t enter or provide your card number to unsolicited sites or callers</li>
+        <li>Don’t respond to phone calls about your computer asking for remote access – hang up</li>
         <li>Keep your personal details secure</li>
         <li>Choose your passwords carefully</li>
         <li>Review your privacy and security settings on social media</li>
@@ -93,7 +93,7 @@ const highlightTiles = [
         icon: highlightIcons[3],
         details: `
       <p>Increasingly, children are being targeted online and can be vulnerable to aggressive behaviour and criminal activity.</p>
-      <p>Children are soft targets â€“ they use the internet regularly and interact via social media, but they're often too inexperienced to recognise when they are being deceived.</p>
+      <p>Children are soft targets – they use the internet regularly and interact via social media, but they're often too inexperienced to recognise when they are being deceived.</p>
       <p>Education is the best way to help protect your children.</p>
     `
     },

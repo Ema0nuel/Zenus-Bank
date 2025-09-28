@@ -1,4 +1,4 @@
-﻿import { localAdminLogin } from "./utils/adminAuth";
+import { localAdminLogin } from "./utils/adminAuth";
 import { showToast } from "/src/components/toast";
 import NoLogo from "/src/images/logo-nobg.png";
 import Logo from "/src/images/logo.jpg";

@@ -1,4 +1,4 @@
-﻿export function reset(pageName) {
+export function reset(pageName) {
     window.scrollTo({
         behavior: "smooth",
         left: 0,

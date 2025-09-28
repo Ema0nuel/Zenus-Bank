@@ -1,4 +1,4 @@
-﻿import { supabase } from '../../../utils/supabaseClient';
+import { supabase } from '../../../utils/supabaseClient';
 import navbar from '../components/Navbar';
 import { showToast } from '../../../components/toast';
 import { reset } from '../../../utils/reset';
@@ -559,7 +559,7 @@ const cryptoTransfer = async () => {
                         </div>
                     </div>
                     <footer class="p-4 text-center text-gray-500 text-xs">
-                        <p>Copyright © ${new Date().getFullYear()} All rights reserved | Zenus Bank</p>
+                        <p>Copyright � ${new Date().getFullYear()} All rights reserved | Zenus Bank</p>
                     </footer>
                 </div>
             </div>

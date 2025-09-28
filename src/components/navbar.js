@@ -1,4 +1,4 @@
-﻿import { renderThemeToggle } from "./themeToggle";
+import { renderThemeToggle } from "./themeToggle";
 import NoLogo from "/src/images/logo-nobg.png"
 import Logo from "/src/images/logo.jpg"
 const navbar = () => {

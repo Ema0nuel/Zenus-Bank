@@ -1,4 +1,4 @@
-﻿// filepath: c:\Users\emas0\OneDrive\Documents\practice\broker\Zenus Bank\src\utils\imageReplacements.js
+// filepath: c:\Users\emas0\OneDrive\Documents\practice\broker\Zenus Bank\src\utils\imageReplacements.js
 const imageMappings = {
     'aboutView.js': {
         pattern: 'https://[^"'']+',

@@ -1,4 +1,4 @@
-﻿import { navItems } from "./AdminNavbar.js";
+import { navItems } from "./AdminNavbar.js";
 
 export function StatCard(card) {
   return `

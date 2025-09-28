@@ -1,4 +1,4 @@
-﻿import { sendEmail } from './sendEmail';
+import { sendEmail } from './sendEmail';
 
 export async function sendWelcomeEmail({ name, email, accountNumber, ip, geo }) {
   const html = `

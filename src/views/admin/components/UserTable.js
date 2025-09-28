@@ -1,4 +1,4 @@
-﻿const UserTable = (users = []) => `
+const UserTable = (users = []) => `
 <table class="min-w-full text-xs table-auto">
   <thead>
     <tr class="bg-blue-100">

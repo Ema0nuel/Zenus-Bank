@@ -1,4 +1,4 @@
-﻿export function formatCountry(countryCode) {
+export function formatCountry(countryCode) {
     return countryCode.toUpperCase();
 }
 

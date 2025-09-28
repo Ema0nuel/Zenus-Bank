@@ -1,4 +1,4 @@
-﻿import AdminNavbar from "./components/AdminNavbar.js";
+import AdminNavbar from "./components/AdminNavbar.js";
 import { requireAdmin } from "./utils/adminAuth.js";
 import { showToast } from "/src/components/toast.js";
 import { supabase } from "/src/utils/supabaseClient.js";
@@ -44,7 +44,7 @@ const SETTINGS_GROUPS = [
     label: "System Settings",
     fields: [
       { key: "system_status", label: "System Status", type: "select", options: ["online", "maintenance"], example: "online" },
-      { key: "maintenance_message", label: "Maintenance Message", type: "text", example: "We’ll be back at 3AM." },
+      { key: "maintenance_message", label: "Maintenance Message", type: "text", example: "We�ll be back at 3AM." },
       { key: "support_email", label: "Support Email", type: "email", example: "support@yourbank.com" }
     ]
   },

@@ -1,4 +1,4 @@
-﻿import { supabase } from "/src/utils/supabaseClient.js";
+import { supabase } from "/src/utils/supabaseClient.js";
 import AdminNavbar from "./components/AdminNavbar.js";
 import { requireAdmin } from "./utils/adminAuth.js";
 import { showToast } from "/src/components/toast.js";
@@ -34,9 +34,9 @@ function formatDate(dt) {
     " " + d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 }
 function statusIcon(status) {
-  if (status === "active" || status === true) return `<span title="Active" class="text-green-600 text-lg">✅</span>`;
-  if (status === "suspended" || status === false) return `<span title="Suspended" class="text-red-600 text-lg">❌</span>`;
-  return `<span title="Pending" class="text-yellow-600 text-lg">⏸</span>`;
+  if (status === "active" || status === true) return `<span title="Active" class="text-green-600 text-lg">?</span>`;
+  if (status === "suspended" || status === false) return `<span title="Suspended" class="text-red-600 text-lg">?</span>`;
+  return `<span title="Pending" class="text-yellow-600 text-lg">?</span>`;
 }
 
 function UserFormModal({ mode, user = {} }) {

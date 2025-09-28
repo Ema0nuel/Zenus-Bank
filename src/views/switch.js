@@ -1,4 +1,4 @@
-﻿import navbar from '../components/navbar';
+import navbar from '../components/navbar';
 import footer from '../components/footer';
 import { reset } from '../utils/reset';
 import NoLogo from "/src/images/logo-nobg.png"
@@ -121,7 +121,7 @@ const SwitchPage = () => {
               <span class="inline-flex items-center justify-center w-10 h-10 bg-white rounded-full shadow transition-all duration-300">
                 <i class="fa-solid fa-house-chimney-user text-brand-sun text-2xl"></i>
               </span>
-              <span class="text-brand-navy dark:text-brand-sun text-lg font-semibold">Australia’s most satisfied home loan customers*</span>
+              <span class="text-brand-navy dark:text-brand-sun text-lg font-semibold">Australia�s most satisfied home loan customers*</span>
             </div>
           </div>
         </section>

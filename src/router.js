@@ -1,4 +1,4 @@
-﻿import { startPreloader, endPreloader } from "./utils/preloader";
+import { startPreloader, endPreloader } from "./utils/preloader";
 import { renderFlagLanguageToggle } from "./components/translateWidget";
 import { setActiveNav } from "./utils/active";
 

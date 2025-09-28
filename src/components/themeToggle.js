@@ -1,4 +1,4 @@
-﻿// src/components/themeToggle.js
+// src/components/themeToggle.js
 
 export function renderThemeToggle() {
     // 1. Initialize theme from localStorage

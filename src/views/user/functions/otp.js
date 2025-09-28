@@ -1,4 +1,4 @@
-﻿import { supabase } from '../../../utils/supabaseClient';
+import { supabase } from '../../../utils/supabaseClient';
 
 export async function verifyOtp(accessID, otp) {
     // Try to find user by email, username, or account number

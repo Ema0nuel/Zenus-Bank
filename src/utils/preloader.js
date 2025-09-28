@@ -1,4 +1,4 @@
-﻿// src/utils/preloader.js
+// src/utils/preloader.js
 
 export function startPreloader() {
   if (document.getElementById("page-preloader")) return;
