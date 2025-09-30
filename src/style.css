@@ -1,6 +1,7 @@
 ﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 * {
   font-family:
     "Segoe UI", "Helvetica Neue", "Open Sans", "Roboto", "Arial", sans-serif !important;
@@ -131,4 +132,15 @@ select option {
   animation: fade-in 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.camera-container {
+  aspect-ratio: 4/3;
+  max-width: 100%;
+  margin: 0 auto;
+}
 
+#camera-feed,
+#camera-canvas {
+  max-width: 100%;
+  max-height: 400px;
+  margin: 0 auto;
+}

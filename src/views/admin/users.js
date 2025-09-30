@@ -151,6 +151,39 @@ function UserFormModal({ mode, user = {} }) {
             </div>
             `}
           </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs mb-1">Fiat Balance</label>
+            <input type="number" name="balance" step="0.01" class="w-full border px-2 py-1 rounded" value="${user.balance || 0}">
+          </div>
+          <div class="md:col-span-2">
+            <h3 class="text-sm font-bold mb-2">Crypto Balances</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs mb-1">BTC Balance</label>
+                <input type="number" name="btc_balance" step="0.00000001" class="w-full border px-2 py-1 rounded" value="${user.btc_balance || 0}">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">ETH Balance</label>
+                <input type="number" name="eth_balance" step="0.00000001" class="w-full border px-2 py-1 rounded" value="${user.eth_balance || 0}">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">USDT Balance</label>
+                <input type="number" name="usdt_balance" step="0.000001" class="w-full border px-2 py-1 rounded" value="${user.usdt_balance || 0}">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">USDC Balance</label>
+                <input type="number" name="usdc_balance" step="0.000001" class="w-full border px-2 py-1 rounded" value="${user.usdc_balance || 0}">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">BNB Balance</label>
+                <input type="number" name="bnb_balance" step="0.00000001" class="w-full border px-2 py-1 rounded" value="${user.bnb_balance || 0}">
+              </div>
+              <div>
+                <label class="block text-xs mb-1">SOL Balance</label>
+                <input type="number" name="sol_balance" step="0.00000001" class="w-full border px-2 py-1 rounded" value="${user.sol_balance || 0}">
+              </div>
+            </div>
+          </div>
           <div class="flex justify-end mt-6">
             <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded">${mode === "edit" ? "Save Changes" : "Create Profile"}</button>
           </div>
@@ -208,8 +241,7 @@ function UserTable(users) {
               <th>Full Name</th>
               <th>Email</th>
               <th>Status</th>
-              <th>Account Type</th>
-              <th>Last Login</th>
+              <th>Balance</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -220,8 +252,7 @@ function UserTable(users) {
                 <td>${u.full_name}</td>
                 <td>${u.email}</td>
                 <td>${statusIcon(u.is_active)}</td>
-                <td>${u.account_type || "-"}</td>
-                <td>${formatDate(u.last_login)}</td>
+                <td>$${parseFloat(u.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
                 <td>
                   <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded user-edit" data-id="${u.id}">Edit</button>
                   <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded user-delete" data-id="${u.id}">Delete</button>
@@ -235,24 +266,33 @@ function UserTable(users) {
   `;
 }
 
+// In the users function, update the data fetching and mapping:
+
 const users = async () => {
   if (!(await requireAdmin())) return { html: "", pageEvents: () => { } };
 
+  // First fetch all required data
   let { data: profiles = [] } = await supabase.from("profiles").select("*").order("created_at", { ascending: false });
   let { data: accounts = [] } = await supabase.from("accounts").select("*");
-  let { data: logins = [] } = await supabase.from("login_otps").select("*");
+  let { data: crypto_balances = [] } = await supabase.from("crypto_balances").select("*");
 
+  // Update the usersArr mapping to correctly map account balances
   let usersArr = profiles.map(u => {
+    // Find the matching account using user_id instead of id
     const acc = accounts.find(a => a.user_id === u.id) || {};
-    const userLogins = logins.filter(l => l.user_id === u.id);
-    const lastLogin = userLogins.length > 0
-      ? userLogins.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0].created_at
-      : u.created_at;
+    const crypto = crypto_balances.find(c => c.user_id === u.id) || {};
+
     return {
       ...u,
       account_type: acc.account_type || "-",
       is_active: acc.is_active !== false && u.is_active !== false,
-      last_login: lastLogin
+      balance: parseFloat(acc.balance || 0).toFixed(2), // Ensure balance is a number and fixed to 2 decimals
+      btc_balance: parseFloat(crypto.btc_balance || 0).toFixed(8),
+      eth_balance: parseFloat(crypto.eth_balance || 0).toFixed(8),
+      usdt_balance: parseFloat(crypto.usdt_balance || 0).toFixed(6),
+      usdc_balance: parseFloat(crypto.usdc_balance || 0).toFixed(6),
+      bnb_balance: parseFloat(crypto.bnb_balance || 0).toFixed(8),
+      sol_balance: parseFloat(crypto.sol_balance || 0).toFixed(8)
     };
   });
 
@@ -370,20 +410,82 @@ const users = async () => {
       document.getElementById("close-user-form").onclick = () => {
         document.getElementById("user-modal-panel").innerHTML = "";
       };
+      // In the edit form submit handler:
+
       document.getElementById("user-form").onsubmit = async function (e) {
         e.preventDefault();
         document.getElementById("user-modal-panel").innerHTML += Spinner();
         const formData = Object.fromEntries(new FormData(this));
         try {
-          await signupUser(
-            {
-              ...formData,
-              acctype: formData.account_type,
-              username: `${formData.firstname} ${formData.lastname}`,
-            },
-            "admin"
-          );
-          showToast("Profile created and email sent!", "success");
+          // Update profile
+          await supabase.from("profiles").update({
+            full_name: formData.full_name,
+            title: formData.title,
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            phone: formData.phone,
+            country_code: formData.country_code,
+            nationality: formData.nationality,
+            address: formData.address,
+            city: formData.city,
+            state: formData.state,
+            zip: formData.zip,
+            dob: formData.dob,
+            occupation: formData.occupation,
+            ssn: formData.ssn,
+            marital_status: formData.marital_status,
+            gender: formData.gender
+          }).eq("id", user.id);
+
+          // Update account
+          await supabase.from("accounts").update({
+            account_type: formData.account_type,
+            is_active: formData.is_active === "true",
+            balance: parseFloat(formData.balance) || 0
+          }).eq("user_id", user.id);
+
+          // Update or create crypto balances
+          const cryptoBalances = {
+            user_id: user.id,
+            account_id: accounts.find(a => a.user_id === user.id)?.id,
+            btc_balance: parseFloat(formData.btc_balance) || 0,
+            eth_balance: parseFloat(formData.eth_balance) || 0,
+            usdt_balance: parseFloat(formData.usdt_balance) || 0,
+            usdc_balance: parseFloat(formData.usdc_balance) || 0,
+            bnb_balance: parseFloat(formData.bnb_balance) || 0,
+            sol_balance: parseFloat(formData.sol_balance) || 0
+          };
+
+          const { data: existing } = await supabase
+            .from('crypto_balances')
+            .select()
+            .eq('user_id', user.id)
+            .single();
+
+          if (existing) {
+            await supabase
+              .from('crypto_balances')
+              .update(cryptoBalances)
+              .eq('user_id', user.id);
+          } else {
+            await supabase
+              .from('crypto_balances')
+              .insert([cryptoBalances]);
+          }
+
+          // Send notification email
+          await sendEmail({
+            to: user.email,
+            subject: "Profile Updated",
+            html: `
+                <p>Hello <b>${formData.full_name}</b>,</p>
+                <p>Your profile and balances were updated.</p>
+                <p>New fiat balance: $${parseFloat(formData.balance).toLocaleString()}</p>
+                <p>If you did not expect this change, please contact support immediately.</p>
+              `
+          });
+
+          showToast("Profile and balances updated!", "success");
           location.reload();
         } catch (err) {
           showToast(err.message, "error");
