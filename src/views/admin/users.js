@@ -412,6 +412,23 @@ const users = async () => {
       };
       // In the edit form submit handler:
 
+      // Use the existing signupHandler for new user creation
+      document.getElementById("user-form").onsubmit = async function (e) {
+        e.preventDefault();
+        document.getElementById("user-modal-panel").innerHTML += Spinner();
+
+        const formData = Object.fromEntries(new FormData(this));
+        try {
+          // Use the existing signupUser function
+          await signupUser(formData, "admin-created");
+          showToast("User profile created successfully!", "success");
+          location.reload();
+        } catch (err) {
+          showToast(err.message, "error");
+          document.querySelector(".flex.justify-center.items-center.py-16")?.remove();
+        }
+      };
+
       document.getElementById("user-form").onsubmit = async function (e) {
         e.preventDefault();
         document.getElementById("user-modal-panel").innerHTML += Spinner();
