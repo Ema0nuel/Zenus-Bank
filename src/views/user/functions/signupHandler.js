@@ -3,7 +3,7 @@ import { sendWelcomeEmail } from './Emailing/email';
 import { getGeoLocation } from './data';
 
 /**
- * Signup a new user, insert full profile, create account, and send welcome email.
+ * Signup a new user, insert full profile, create accounts, and send welcome email.
  * @param {Object} formData - All signup form fields.
  * @param {string} ip - User's IP address.
  */
@@ -36,7 +36,7 @@ export async function signupUser(formData, ip) {
 
   const userId = data.user.id;
 
-  // 2. Insert profile data (all fields as per your schema)
+  // 2. Insert profile data
   const profileData = {
     id: userId,
     full_name: `${firstname} ${lastname}`,
@@ -57,37 +57,54 @@ export async function signupUser(formData, ip) {
     gender: gender || null,
     email,
     username: `${firstname} ${lastname}` || null
-    // created_at will be set by default
   };
 
   const { error: profileError } = await supabase.from("profiles").insert(profileData);
   if (profileError) throw new Error(profileError.message);
 
-  // 3. Create account row
+  // 3. Create fiat account
   const account_number = "10" + Math.floor(1000000000 + Math.random() * 9000000000);
-  const { error: accountError } = await supabase.from("accounts").insert({
-    user_id: userId,
-    account_type: acctype,
-    account_number,
-    balance: 0,
-    interest_rate: acctype === "USD SAVING" ? 2.5 : 4.0
-  });
+  const { data: accountData, error: accountError } = await supabase
+    .from("accounts")
+    .insert({
+      user_id: userId,
+      account_type: acctype,
+      account_number,
+      balance: 0,
+      interest_rate: acctype === "USD SAVING" ? 2.5 : 4.0
+    })
+    .select()
+    .single();
+
   if (accountError) throw new Error(accountError.message);
 
-  // 4. Send welcome email
+  // 4. Create crypto account with default zero balances
+  const { error: cryptoError } = await supabase
+    .from("crypto_balances")
+    .insert({
+      user_id: userId,
+      account_id: accountData.id,
+      btc_balance: 0,
+      eth_balance: 0,
+      usdt_balance: 0,
+      usdc_balance: 0,
+      bnb_balance: 0,
+      sol_balance: 0
+    });
+
+  if (cryptoError) throw new Error(cryptoError.message);
+
+  // 5. Send welcome email with both account details
   const geo = await getGeoLocation(ip);
   await sendWelcomeEmail({
     name: `${firstname} ${lastname}`,
     email,
     accountNumber: account_number,
     ip,
-    geo
+    geo,
+    hasCryptoAccount: true // Add flag to indicate crypto account creation
   });
 
-  // 5. Redirect to authentication view
+  // 6. Redirect to authentication view
   window.location.href = "/user/auth";
 }
-
-
-
-
