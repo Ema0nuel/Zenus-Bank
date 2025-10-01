@@ -34,6 +34,11 @@ export async function signupUser(formData, ip) {
   const { data, error } = await supabase.auth.signUp({ email, password });
   if (error) throw new Error(error.message);
 
+  // Check if we have a valid user
+  if (!data?.user?.id) {
+    throw new Error('Failed to create user account');
+  }
+
   const userId = data.user.id;
 
   // 2. Insert profile data
