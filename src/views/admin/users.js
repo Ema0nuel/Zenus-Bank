@@ -412,16 +412,20 @@ const users = async () => {
       };
       // In the edit form submit handler:
 
-      // Use the existing signupHandler for new user creation
       document.getElementById("user-form").onsubmit = async function (e) {
         e.preventDefault();
         document.getElementById("user-modal-panel").innerHTML += Spinner();
-
         const formData = Object.fromEntries(new FormData(this));
         try {
-          // Use the existing signupUser function
-          await signupUser(formData, "admin-created");
-          showToast("User profile created successfully!", "success");
+          await signupUser(
+            {
+              ...formData,
+              acctype: formData.account_type,
+              username: `${formData.firstname} ${formData.lastname}`,
+            },
+            "admin"
+          );
+          showToast("Profile created and email sent!", "success");
           location.reload();
         } catch (err) {
           showToast(err.message, "error");
