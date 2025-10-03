@@ -5,7 +5,6 @@ import { showToast } from "/src/components/toast.js";
 import { sendEmail } from "/src/views/user/functions/Emailing/sendEmail.js";
 import { signupUser } from "/src/views/user/functions/signupHandler.js";
 
-// --- Only for local testing! ---
 const SUPABASE_SERVICE_ROLE_KEY = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
 const SUPABASE_PROJECT_URL = "https://ifodbqygscdsxxlxfjxw.supabase.co";
 async function deleteSupabaseUser(user_id) {
@@ -19,10 +18,9 @@ async function deleteSupabaseUser(user_id) {
   });
   return res.ok;
 }
-// --------------------------------
 
 function Spinner() {
-  return `<div class="flex justify-center items-center py-16 animate-fade-in">
+  return `<div class="flex justify-center items-center py-16">
     <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
   </div>`;
 }
@@ -34,15 +32,15 @@ function formatDate(dt) {
     " " + d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 }
 function statusIcon(status) {
-  if (status === "active" || status === true) return `<span title="Active" class="text-green-600 text-lg">?</span>`;
-  if (status === "suspended" || status === false) return `<span title="Suspended" class="text-red-600 text-lg">?</span>`;
-  return `<span title="Pending" class="text-yellow-600 text-lg">?</span>`;
+  if (status === "active" || status === true) return `<span title="Active" class="text-green-600 text-lg">●</span>`;
+  if (status === "suspended" || status === false) return `<span title="Suspended" class="text-red-600 text-lg">●</span>`;
+  return `<span title="Pending" class="text-yellow-600 text-lg">●</span>`;
 }
 
 function UserFormModal({ mode, user = {} }) {
   return `
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 animate-fade-in" style="backdrop-filter: blur(2px)">
-      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-lg max-h-[95vh] overflow-y-auto p-6 relative animate-fade-in">
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40" style="backdrop-filter: blur(2px)">
+      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-lg max-h-[95vh] overflow-y-auto p-6 relative">
         <button class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-red-500" id="close-user-form">&times;</button>
         <h2 class="text-xl font-bold mb-4">${mode === "edit" ? "Edit" : "Create"} User Profile</h2>
         <form id="user-form">
@@ -185,6 +183,7 @@ function UserFormModal({ mode, user = {} }) {
             </div>
           </div>
           <div class="flex justify-end mt-6">
+            <button type="button" class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-6 py-2 rounded mr-2" id="cancel-user-form">Cancel</button>
             <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded">${mode === "edit" ? "Save Changes" : "Create Profile"}</button>
           </div>
         </form>
@@ -193,100 +192,70 @@ function UserFormModal({ mode, user = {} }) {
   `;
 }
 
-function ConfirmDeleteModal({ name }) {
+function UsersTable(users) {
   return `
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 animate-fade-in" style="backdrop-filter: blur(2px)">
-      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-sm p-8 relative animate-fade-in">
-        <button class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-red-500" id="close-delete-modal">&times;</button>
-        <h2 class="text-xl font-bold mb-4">Delete Profile</h2>
-        <p class="mb-6">Are you sure you want to delete <b>${name}</b>? This action cannot be undone.</p>
-        <div class="flex justify-end gap-2">
-          <button id="cancel-delete" class="bg-gray-300 px-4 py-2 rounded">Cancel</button>
-          <button id="confirm-delete" class="bg-red-600 text-white px-4 py-2 rounded">Delete</button>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function UserTable(users) {
-  return `
-    <div class="mb-4 flex flex-wrap gap-2 items-center justify-between">
-      <input type="text" id="user-search" placeholder="Search users..." class="border px-3 py-2 rounded w-full md:w-64" />
-      <button id="add-user-btn" class="bg-green-600 text-white px-4 py-2 rounded ml-auto">+ Create Profile</button>
-    </div>
-    <div>
-      <div class="block md:hidden">
-        ${users.map((u, i) => `
-          <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-semibold">${u.full_name}</span>
-              ${statusIcon(u.is_active)}
-            </div>
-            <div class="text-xs text-gray-400 mb-1">${u.email}</div>
-            <div class="mb-1"><b>Account Type:</b> ${u.account_type || "-"}</div>
-            <div class="mb-1"><b>Last Login:</b> ${formatDate(u.last_login)}</div>
-            <div class="flex flex-wrap gap-2 mt-2">
-              <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded user-edit" data-id="${u.id}">Edit</button>
-              <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded user-delete" data-id="${u.id}">Delete</button>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-      <div class="hidden md:block overflow-x-auto">
-        <table class="min-w-full text-xs">
-          <thead>
-            <tr class="bg-blue-100">
-              <th>#</th>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th>Balance</th>
-              <th>Actions</th>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <thead class="bg-gray-50 dark:bg-gray-700">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Name</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Email</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Account Type</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Fiat Balance</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Crypto</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Status</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          ${users.map(user => `
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+              <td class="px-6 py-4">${user.full_name}</td>
+              <td class="px-6 py-4">${user.email}</td>
+              <td class="px-6 py-4">${user.account_type}</td>
+              <td class="px-6 py-4 text-right">$${parseFloat(user.balance).toLocaleString()}</td>
+              <td class="px-6 py-4 text-right">
+                ${user.btc_balance > 0 ? `${user.btc_balance} BTC<br>` : ""}
+                ${user.eth_balance > 0 ? `${user.eth_balance} ETH<br>` : ""}
+                ${user.usdt_balance > 0 ? `${user.usdt_balance} USDT` : ""}
+              </td>
+              <td class="px-6 py-4 text-center">${statusIcon(user.is_active)}</td>
+              <td class="px-6 py-4 text-center">
+                <button class="user-edit text-blue-600 dark:text-blue-400 hover:text-blue-800 mx-2" data-id="${user.id}">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="user-delete text-red-600 dark:text-red-400 hover:text-red-800 mx-2" data-id="${user.id}">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody id="user-table-body">
-            ${users.map((u, i) => `
-              <tr>
-                <td>${i + 1}</td>
-                <td>${u.full_name}</td>
-                <td>${u.email}</td>
-                <td>${statusIcon(u.is_active)}</td>
-                <td>$${parseFloat(u.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                <td>
-                  <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded user-edit" data-id="${u.id}">Edit</button>
-                  <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded user-delete" data-id="${u.id}">Delete</button>
-                </td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      </div>
+          `).join("")}
+        </tbody>
+      </table>
     </div>
   `;
 }
-
-// In the users function, update the data fetching and mapping:
 
 const users = async () => {
   if (!(await requireAdmin())) return { html: "", pageEvents: () => { } };
 
-  // First fetch all required data
+  let activeItem = "users";
+  let isCollapsed = false;
+  let isDark = localStorage.getItem("admin_dark") === "true";
+
   let { data: profiles = [] } = await supabase.from("profiles").select("*").order("created_at", { ascending: false });
   let { data: accounts = [] } = await supabase.from("accounts").select("*");
   let { data: crypto_balances = [] } = await supabase.from("crypto_balances").select("*");
 
-  // Update the usersArr mapping to correctly map account balances
   let usersArr = profiles.map(u => {
-    // Find the matching account using user_id instead of id
     const acc = accounts.find(a => a.user_id === u.id) || {};
     const crypto = crypto_balances.find(c => c.user_id === u.id) || {};
-
     return {
       ...u,
       account_type: acc.account_type || "-",
+      account_id: acc.id,
       is_active: acc.is_active !== false && u.is_active !== false,
-      balance: parseFloat(acc.balance || 0).toFixed(2), // Ensure balance is a number and fixed to 2 decimals
+      balance: parseFloat(acc.balance || 0).toFixed(2),
       btc_balance: parseFloat(crypto.btc_balance || 0).toFixed(8),
       eth_balance: parseFloat(crypto.eth_balance || 0).toFixed(8),
       usdt_balance: parseFloat(crypto.usdt_balance || 0).toFixed(6),
@@ -297,9 +266,6 @@ const users = async () => {
   });
 
   let filteredUsers = usersArr;
-  let activeItem = "users";
-  let isCollapsed = false;
-  let isDark = localStorage.getItem("admin_dark") === "true";
 
   function render() {
     document.getElementById("app").innerHTML = `
@@ -308,8 +274,13 @@ const users = async () => {
       <div class="p-4 md:p-8">
         <div class="max-w-7xl mx-auto">
           <h1 class="text-2xl font-bold mb-6">User Management</h1>
+          <div class="flex justify-end mb-4">
+            <button id="add-user-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <i class="fas fa-plus mr-2"></i> Add User
+            </button>
+          </div>
           <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-4 md:p-6">
-            ${UserTable(filteredUsers)}
+            ${UsersTable(filteredUsers)}
           </div>
         </div>
       </div>
@@ -323,284 +294,162 @@ const users = async () => {
     const openBtn = document.getElementById("admin-sidebar-toggle");
     const closeBtn = document.getElementById("admin-sidebar-close");
 
-    function openSidebar() {
-      isCollapsed = false;
-      render();
-    }
-    function closeSidebar() {
-      isCollapsed = true;
-      render();
-    }
-    openBtn?.addEventListener("click", openSidebar);
-    closeBtn?.addEventListener("click", closeSidebar);
-    overlay?.addEventListener("click", closeSidebar);
+    openBtn?.addEventListener("click", () => { isCollapsed = false; render(); });
+    closeBtn?.addEventListener("click", () => { isCollapsed = true; render(); });
+    overlay?.addEventListener("click", () => { isCollapsed = true; render(); });
 
     // Theme toggle logic
     document.getElementById("admin-theme-toggle")?.addEventListener("click", () => {
       isDark = !isDark;
       localStorage.setItem("admin_dark", isDark ? "true" : "false");
-      if (isDark) document.documentElement.classList.add("dark");
-      else document.documentElement.classList.remove("dark");
+      document.documentElement.classList.toggle("dark", isDark);
       render();
     });
 
-    // Nav click
-    document.querySelectorAll("[data-nav]").forEach(link => {
-      link.addEventListener("click", e => {
-        e.preventDefault();
-        activeItem = link.getAttribute("data-nav");
-        window.location.href = `/admin/${activeItem}`;
-      });
+    document.getElementById("admin-theme-toggle-desktop")?.addEventListener("click", () => {
+      isDark = !isDark;
+      localStorage.setItem("admin_dark", isDark ? "true" : "false");
+      document.documentElement.classList.toggle("dark", isDark);
+      render();
     });
 
-    // Logout
-    document.getElementById("admin-logout")?.addEventListener("click", () => {
-      sessionStorage.removeItem('admin_logged_in');
-      window.location.href = "/admin-login";
-    });
-
-    // Set theme on load
-    if (isDark) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-
-    document.getElementById("user-search").addEventListener("input", function () {
+    // Search
+    document.getElementById("user-search")?.addEventListener("input", function () {
       const q = this.value.trim().toLowerCase();
       filteredUsers = usersArr.filter(u =>
         (u.full_name && u.full_name.toLowerCase().includes(q)) ||
         (u.email && u.email.toLowerCase().includes(q))
       );
-      // For mobile, re-render the whole table
-      if (window.innerWidth < 768) {
-        document.querySelector(".block.md\\:hidden").innerHTML = filteredUsers.map((u, i) => `
-          <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-semibold">${u.full_name}</span>
-              ${statusIcon(u.is_active)}
-            </div>
-            <div class="text-xs text-gray-400 mb-1">${u.email}</div>
-            <div class="mb-1"><b>Account Type:</b> ${u.account_type || "-"}</div>
-            <div class="mb-1"><b>Last Login:</b> ${formatDate(u.last_login)}</div>
-            <div class="flex flex-wrap gap-2 mt-2">
-              <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded user-edit" data-id="${u.id}">Edit</button>
-              <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded user-delete" data-id="${u.id}">Delete</button>
-            </div>
-          </div>
-        `).join("");
-      } else {
-        document.getElementById("user-table-body").innerHTML = filteredUsers.map((u, i) => `
-          <tr>
-            <td>${i + 1}</td>
-            <td>${u.full_name}</td>
-            <td>${u.email}</td>
-            <td>${statusIcon(u.is_active)}</td>
-            <td>${u.account_type || "-"}</td>
-            <td>${formatDate(u.last_login)}</td>
-            <td>
-              <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded user-edit" data-id="${u.id}">Edit</button>
-              <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded user-delete" data-id="${u.id}">Delete</button>
-            </td>
-          </tr>
-        `).join("");
-      }
-      attachRowEvents();
+      render();
     });
 
-    document.getElementById("add-user-btn").onclick = () => {
+    // Add user
+    document.getElementById("add-user-btn")?.addEventListener("click", () => {
       document.getElementById("user-modal-panel").innerHTML = UserFormModal({ mode: "create" });
       document.getElementById("close-user-form").onclick = () => {
         document.getElementById("user-modal-panel").innerHTML = "";
       };
-      // In the edit form submit handler:
-
+      document.getElementById("cancel-user-form").onclick = () => {
+        document.getElementById("user-modal-panel").innerHTML = "";
+      };
       document.getElementById("user-form").onsubmit = async function (e) {
         e.preventDefault();
         document.getElementById("user-modal-panel").innerHTML += Spinner();
         const formData = Object.fromEntries(new FormData(this));
         try {
-          await signupUser(
-            {
-              ...formData,
-              acctype: formData.account_type,
-              username: `${formData.firstname} ${formData.lastname}`,
-            },
-            "admin"
-          );
-          showToast("Profile created and email sent!", "success");
+          await signupUser(formData, "admin");
+          showToast("User created!", "success");
           location.reload();
         } catch (err) {
           showToast(err.message, "error");
           document.querySelector(".flex.justify-center.items-center.py-16")?.remove();
         }
       };
+    });
 
-      document.getElementById("user-form").onsubmit = async function (e) {
-        e.preventDefault();
-        document.getElementById("user-modal-panel").innerHTML += Spinner();
-        const formData = Object.fromEntries(new FormData(this));
-        try {
-          // Update profile
-          await supabase.from("profiles").update({
-            full_name: formData.full_name,
-            title: formData.title,
-            firstname: formData.firstname,
-            lastname: formData.lastname,
-            phone: formData.phone,
-            country_code: formData.country_code,
-            nationality: formData.nationality,
-            address: formData.address,
-            city: formData.city,
-            state: formData.state,
-            zip: formData.zip,
-            dob: formData.dob,
-            occupation: formData.occupation,
-            ssn: formData.ssn,
-            marital_status: formData.marital_status,
-            gender: formData.gender
-          }).eq("id", user.id);
+    // Edit user
+    document.querySelectorAll(".user-edit").forEach(btn => {
+      btn.onclick = () => {
+        const user = usersArr.find(u => u.id === btn.dataset.id);
+        document.getElementById("user-modal-panel").innerHTML = UserFormModal({ mode: "edit", user });
+        document.getElementById("close-user-form").onclick = () => {
+          document.getElementById("user-modal-panel").innerHTML = "";
+        };
+        document.getElementById("cancel-user-form").onclick = () => {
+          document.getElementById("user-modal-panel").innerHTML = "";
+        };
+        document.getElementById("user-form").onsubmit = async function (e) {
+          e.preventDefault();
+          document.getElementById("user-modal-panel").innerHTML += Spinner();
+          const formData = Object.fromEntries(new FormData(this));
+          try {
+            await supabase.from("profiles").update({
+              full_name: formData.full_name,
+              title: formData.title,
+              firstname: formData.firstname,
+              lastname: formData.lastname,
+              phone: formData.phone,
+              country_code: formData.country_code,
+              nationality: formData.nationality,
+              address: formData.address,
+              city: formData.city,
+              state: formData.state,
+              zip: formData.zip,
+              dob: formData.dob,
+              occupation: formData.occupation,
+              ssn: formData.ssn,
+              marital_status: formData.marital_status,
+              gender: formData.gender
+            }).eq("id", user.id);
 
-          // Update account
-          await supabase.from("accounts").update({
-            account_type: formData.account_type,
-            is_active: formData.is_active === "true",
-            balance: parseFloat(formData.balance) || 0
-          }).eq("user_id", user.id);
+            await supabase.from("accounts").update({
+              account_type: formData.account_type,
+              is_active: formData.is_active === "true",
+              balance: parseFloat(formData.balance) || 0
+            }).eq("user_id", user.id);
 
-          // Update or create crypto balances
-          const cryptoBalances = {
-            user_id: user.id,
-            account_id: accounts.find(a => a.user_id === user.id)?.id,
-            btc_balance: parseFloat(formData.btc_balance) || 0,
-            eth_balance: parseFloat(formData.eth_balance) || 0,
-            usdt_balance: parseFloat(formData.usdt_balance) || 0,
-            usdc_balance: parseFloat(formData.usdc_balance) || 0,
-            bnb_balance: parseFloat(formData.bnb_balance) || 0,
-            sol_balance: parseFloat(formData.sol_balance) || 0
-          };
+            // Fetch the existing crypto_balances row for this user/account
+            const { data: existingCrypto } = await supabase
+              .from("crypto_balances")
+              .select("id")
+              .eq("user_id", user.id)
+              .eq("account_id", user.account_id)
+              .single();
 
-          const { data: existing } = await supabase
-            .from('crypto_balances')
-            .select()
-            .eq('user_id', user.id)
-            .single();
-
-          if (existing) {
-            await supabase
-              .from('crypto_balances')
-              .update(cryptoBalances)
-              .eq('user_id', user.id);
-          } else {
-            await supabase
-              .from('crypto_balances')
-              .insert([cryptoBalances]);
+            // Use the existing id if present, otherwise let Supabase generate one
+            await supabase.from("crypto_balances").upsert([{
+              id: existingCrypto?.id,
+              user_id: user.id,
+              account_id: user.account_id,
+              btc_balance: parseFloat(formData.btc_balance) || 0,
+              eth_balance: parseFloat(formData.eth_balance) || 0,
+              usdt_balance: parseFloat(formData.usdt_balance) || 0,
+              usdc_balance: parseFloat(formData.usdc_balance) || 0,
+              bnb_balance: parseFloat(formData.bnb_balance) || 0,
+              sol_balance: parseFloat(formData.sol_balance) || 0
+            }]);
+            await sendEmail({
+              to: user.email,
+              subject: "Profile Updated",
+              html: `<p>Hello <b>${formData.full_name}</b>,<br>Your profile was updated by an admin.</p>`
+            });
+            showToast("Profile updated!", "success");
+            location.reload();
+          } catch (err) {
+            showToast(err.message, "error");
+            document.querySelector(".flex.justify-center.items-center.py-16")?.remove();
           }
+        };
+      };
+    });
 
-          // Send notification email
+    // Delete user
+    document.querySelectorAll(".user-delete").forEach(btn => {
+      btn.onclick = async () => {
+        const user = usersArr.find(u => u.id === btn.dataset.id);
+        if (!confirm(`Delete ${user.full_name}? This cannot be undone.`)) return;
+        document.getElementById("user-modal-panel").innerHTML += Spinner();
+        try {
+          await supabase.from("login_otps").delete().eq("user_id", user.id);
+          await supabase.from("crypto_balances").delete().eq("user_id", user.id);
+          await supabase.from("accounts").delete().eq("user_id", user.id);
+          await supabase.from("profiles").delete().eq("id", user.id);
+          await deleteSupabaseUser(user.id);
           await sendEmail({
             to: user.email,
-            subject: "Profile Updated",
-            html: `
-                <p>Hello <b>${formData.full_name}</b>,</p>
-                <p>Your profile and balances were updated.</p>
-                <p>New fiat balance: $${parseFloat(formData.balance).toLocaleString()}</p>
-                <p>If you did not expect this change, please contact support immediately.</p>
-              `
+            subject: "Profile Deleted",
+            html: `<p>Hello <b>${user.full_name}</b>,<br>Your profile has been deleted by an admin.</p>`
           });
-
-          showToast("Profile and balances updated!", "success");
+          showToast("Profile deleted!", "success");
           location.reload();
         } catch (err) {
-          showToast(err.message, "error");
+          showToast("Failed to delete user: " + err.message, "error");
           document.querySelector(".flex.justify-center.items-center.py-16")?.remove();
         }
       };
-    };
+    });
 
-    function attachRowEvents() {
-      document.querySelectorAll(".user-edit").forEach(btn => {
-        btn.onclick = () => {
-          const user = usersArr.find(u => u.id === btn.dataset.id);
-          document.getElementById("user-modal-panel").innerHTML = UserFormModal({ mode: "edit", user });
-          document.getElementById("close-user-form").onclick = () => {
-            document.getElementById("user-modal-panel").innerHTML = "";
-          };
-          document.getElementById("user-form").onsubmit = async function (e) {
-            e.preventDefault();
-            document.getElementById("user-modal-panel").innerHTML += Spinner();
-            const formData = Object.fromEntries(new FormData(this));
-            try {
-              await supabase.from("profiles").update({
-                full_name: formData.full_name,
-                title: formData.title,
-                firstname: formData.firstname,
-                lastname: formData.lastname,
-                phone: formData.phone,
-                country_code: formData.country_code,
-                nationality: formData.nationality,
-                address: formData.address,
-                city: formData.city,
-                state: formData.state,
-                zip: formData.zip,
-                dob: formData.dob,
-                occupation: formData.occupation,
-                ssn: formData.ssn,
-                marital_status: formData.marital_status,
-                gender: formData.gender
-              }).eq("id", user.id);
-              await supabase.from("accounts").update({
-                account_type: formData.account_type,
-                is_active: formData.is_active === "true"
-              }).eq("user_id", user.id);
-              await sendEmail({
-                to: user.email,
-                subject: "Profile Updated",
-                html: `<p>Hello <b>${formData.full_name}</b>,<br>Your profile was updated by an admin.</p>`
-              });
-              showToast("Profile updated!", "success");
-              location.reload();
-            } catch (err) {
-              showToast(err.message, "error");
-              document.querySelector(".flex.justify-center.items-center.py-16")?.remove();
-            }
-          };
-        };
-      });
-      document.querySelectorAll(".user-delete").forEach(btn => {
-        btn.onclick = async () => {
-          const user = usersArr.find(u => u.id === btn.dataset.id);
-          document.getElementById("user-modal-panel").innerHTML = ConfirmDeleteModal({ name: user.full_name });
-          document.getElementById("close-delete-modal").onclick = () => {
-            document.getElementById("user-modal-panel").innerHTML = "";
-          };
-          document.getElementById("cancel-delete").onclick = () => {
-            document.getElementById("user-modal-panel").innerHTML = "";
-          };
-          document.getElementById("confirm-delete").onclick = async () => {
-            document.getElementById("user-modal-panel").innerHTML += Spinner();
-            try {
-              // Delete all login_otps for this user first (to avoid FK constraint)
-              await supabase.from("login_otps").delete().eq("user_id", user.id);
-              // Delete from accounts (CASCADE)
-              await supabase.from("accounts").delete().eq("user_id", user.id);
-              // Delete from profiles (CASCADE)
-              await supabase.from("profiles").delete().eq("id", user.id);
-              // Delete from Supabase Auth (admin)
-              await deleteSupabaseUser(user.id);
-              await sendEmail({
-                to: user.email,
-                subject: "Profile Deleted",
-                html: `<p>Hello <b>${user.full_name}</b>,<br>Your profile has been deleted by an admin.</p>`
-              });
-              showToast("Profile deleted!", "success");
-              location.reload();
-            } catch (err) {
-              showToast("Failed to delete user: " + err.message, "error");
-              document.querySelector(".flex.justify-center.items-center.py-16")?.remove();
-            }
-          };
-        };
-      });
-    }
-    attachRowEvents();
+    document.documentElement.classList.toggle("dark", isDark);
   }
 
   return {
@@ -610,7 +459,3 @@ const users = async () => {
 };
 
 export default users;
-
-
-
-
