@@ -39,8 +39,8 @@ function LoanTable(loans, users) {
     <div>
       <div class="block md:hidden">
         ${loans.map(l => {
-          const user = users.find(u => u.id === l.user_id);
-          return `
+    const user = users.find(u => u.id === l.user_id);
+    return `
             <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
               <div class="flex justify-between items-center mb-2">
                 <span class="font-semibold">${user?.full_name || "Unknown"}</span>
@@ -62,7 +62,7 @@ function LoanTable(loans, users) {
               </div>
             </div>
           `;
-        }).join("")}
+  }).join("")}
       </div>
       <div class="hidden md:block overflow-x-auto">
         <table class="min-w-full text-xs">
@@ -78,8 +78,8 @@ function LoanTable(loans, users) {
           </thead>
           <tbody id="loan-table-body">
             ${loans.map(l => {
-              const user = users.find(u => u.id === l.user_id);
-              return `
+    const user = users.find(u => u.id === l.user_id);
+    return `
                 <tr>
                   <td>${formatDate(l.created_at)}</td>
                   <td>
@@ -101,7 +101,7 @@ function LoanTable(loans, users) {
                   </td>
                 </tr>
               `;
-            }).join("")}
+  }).join("")}
           </tbody>
         </table>
       </div>
@@ -167,7 +167,7 @@ function exportCSV(loans, users) {
 }
 
 const loans = async () => {
-  if (!(await requireAdmin())) return { html: "", pageEvents: () => {} };
+  if (!(await requireAdmin())) return { html: "", pageEvents: () => { } };
 
   let { data: loansArr = [] } = await supabase.from("loan").select("*").order("created_at", { ascending: false }).limit(100);
   let { data: users = [] } = await supabase.from("profiles").select("id,full_name,email");
@@ -319,24 +319,78 @@ const loans = async () => {
           };
         };
       });
+      // Replace the existing loan-approve handler in the attachRowEvents() function
       document.querySelectorAll('.loan-approve').forEach(btn => {
         btn.onclick = async () => {
           const id = btn.getAttribute("data-id");
           const interest = prompt("Enter interest rate (%)", "5");
           if (!interest || isNaN(interest)) return showToast("Interest rate required", "error");
-          await supabase.from("loan").update({ status: "approved", interest_rate: parseFloat(interest) }).eq("id", id);
-          // Notify user
-          const loan = loansArr.find(l => l.id === id);
-          const user = users.find(u => u.id === loan.user_id);
-          await sendEmail({
-            to: user.email,
-            subject: "Loan Approved",
-            html: `<p>Dear ${user.full_name},<br>Your loan request has been approved. Amount: <b>$${loan.amount}</b>, Interest: <b>${interest}%</b>.</p>`
-          });
-          showToast("Loan approved and user notified.", "success");
-          window.location.reload();
+
+          try {
+            const loan = loansArr.find(l => l.id === id);
+            const user = users.find(u => u.id === loan.user_id);
+            const userAcc = accounts.find(a => a.user_id === loan.user_id);
+
+            if (!userAcc) {
+              return showToast("No account found for user", "error");
+            }
+
+            // Calculate new balance
+            const newBalance = parseFloat(userAcc.balance) + parseFloat(loan.amount);
+
+            // Begin transaction
+            await Promise.all([
+              // Update loan status and interest
+              supabase.from("loan").update({
+                status: "approved",
+                interest_rate: parseFloat(interest),
+                disbursed_at: new Date().toISOString()
+              }).eq("id", id),
+
+              // Update account balance
+              supabase.from("accounts").update({
+                balance: newBalance
+              }).eq("id", userAcc.id),
+
+              // Log transaction
+              supabase.from("transactions").insert([{
+                user_id: loan.user_id,
+                account_id: userAcc.id,
+                type: "loan_disbursement",
+                amount: loan.amount,
+                description: `Loan approved and disbursed with ${interest}% interest rate`,
+                balance_before: userAcc.balance,
+                balance_after: newBalance,
+                status: "completed"
+              }])
+            ]);
+
+            // Send email notification
+            await sendEmail({
+              to: user.email,
+              subject: "Loan Approved and Disbursed",
+              html: `
+          <p>Dear ${user.full_name},</p>
+          <p>Your loan request has been approved and disbursed:</p>
+          <ul>
+            <li>Amount: <b>$${parseFloat(loan.amount).toLocaleString()}</b></li>
+            <li>Interest Rate: <b>${interest}%</b></li>
+            <li>New Account Balance: <b>$${parseFloat(newBalance).toLocaleString()}</b></li>
+          </ul>
+          <p>The funds have been added to your account.</p>
+        `
+            });
+
+            showToast("Loan approved, disbursed and user notified.", "success");
+            window.location.reload();
+
+          } catch (err) {
+            console.error(err);
+            showToast("Error processing loan approval: " + err.message, "error");
+          }
         };
       });
+
       document.querySelectorAll('.loan-disburse').forEach(btn => {
         btn.onclick = async () => {
           const id = btn.getAttribute("data-id");

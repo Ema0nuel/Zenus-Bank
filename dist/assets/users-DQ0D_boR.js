@@ -198,7 +198,7 @@ import{s as n}from"./supabaseClient-B1HaFb4P.js";import{A as k}from"./AdminNavba
         <div class="max-w-7xl mx-auto">
           <h1 class="text-2xl font-bold mb-6">User Management</h1>
           <div class="flex justify-end mb-4">
-            <button id="add-user-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <button id="add-user-btn" class="hidden px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
               <i class="fas fa-plus mr-2"></i> Add User
             </button>
           </div>
