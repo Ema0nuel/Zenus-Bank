@@ -319,7 +319,8 @@ const loans = async () => {
           };
         };
       });
-      // Replace the existing loan-approve handler in the attachRowEvents() function
+
+      // Inside attachRowEvents(), replace the loan-approve handler with:
       document.querySelectorAll('.loan-approve').forEach(btn => {
         btn.onclick = async () => {
           const id = btn.getAttribute("data-id");
@@ -336,34 +337,44 @@ const loans = async () => {
             }
 
             // Calculate new balance
-            const newBalance = parseFloat(userAcc.balance) + parseFloat(loan.amount);
+            const newBalance = parseFloat(userAcc.balance || 0) + parseFloat(loan.amount || 0);
 
-            // Begin transaction
-            await Promise.all([
-              // Update loan status and interest
-              supabase.from("loan").update({
+            // Update loan status and interest rate
+            const { error: loanError } = await supabase
+              .from("loan")
+              .update({
                 status: "approved",
-                interest_rate: parseFloat(interest),
-                disbursed_at: new Date().toISOString()
-              }).eq("id", id),
+                interest_rate: parseFloat(interest)
+              })
+              .eq("id", id);
 
-              // Update account balance
-              supabase.from("accounts").update({
+            if (loanError) throw loanError;
+
+            // Update account balance
+            const { error: accountError } = await supabase
+              .from("accounts")
+              .update({
                 balance: newBalance
-              }).eq("id", userAcc.id),
+              })
+              .eq("id", userAcc.id);
 
-              // Log transaction
-              supabase.from("transactions").insert([{
+            if (accountError) throw accountError;
+
+            // Create transaction record with proper type
+            const { error: transactionError } = await supabase
+              .from("transactions")
+              .insert({
                 user_id: loan.user_id,
                 account_id: userAcc.id,
-                type: "loan_disbursement",
-                amount: loan.amount,
-                description: `Loan approved and disbursed with ${interest}% interest rate`,
-                balance_before: userAcc.balance,
+                type: "deposit", // Using standard transaction type
+                amount: parseFloat(loan.amount),
+                description: `Loan disbursement - ${interest}% interest rate`,
+                balance_before: parseFloat(userAcc.balance || 0),
                 balance_after: newBalance,
                 status: "completed"
-              }])
-            ]);
+              });
+
+            if (transactionError) throw transactionError;
 
             // Send email notification
             await sendEmail({
@@ -375,7 +386,7 @@ const loans = async () => {
           <ul>
             <li>Amount: <b>$${parseFloat(loan.amount).toLocaleString()}</b></li>
             <li>Interest Rate: <b>${interest}%</b></li>
-            <li>New Account Balance: <b>$${parseFloat(newBalance).toLocaleString()}</b></li>
+            <li>New Account Balance: <b>$${newBalance.toLocaleString()}</b></li>
           </ul>
           <p>The funds have been added to your account.</p>
         `
