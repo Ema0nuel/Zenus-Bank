@@ -2,6 +2,7 @@ import { supabase } from '/src/utils/supabaseClient';
 import navbar from './components/Navbar';
 import { reset } from "/src/utils/reset"
 
+// Alter the loan management so that it sums and calculate the loan
 const dashboard = async () => {
   reset("Zenus Bank | Dashboard")
   const nav = navbar();
@@ -175,12 +176,12 @@ const dashboard = async () => {
               <div class="p-4 rounded bg-white dark:bg-gray-800 shadow-sm text-center text-xs">
                 <i class="fa fa-dollar-sign mx-auto mb-2 text-red-600 dark:text-red-400" style="font-size:22px"></i>
                 <h3 class="text-xs font-normal text-gray-700 dark:text-gray-300 mb-1">Mortgage Balance</h3>
-                <p class="text-lg font-semibold text-gray-900 dark:text-white">$0.00</p>
+                <p class="text-lg font-semibold text-gray-900 dark:text-white">${fmt(account?.mortgage)}</p>
               </div>
               <div class="p-4 rounded bg-white dark:bg-gray-800 shadow-sm text-center text-xs">
                 <i class="fa fa-credit-card mx-auto mb-2 text-red-600 dark:text-red-400" style="font-size:22px"></i>
                 <h3 class="text-xs font-normal text-gray-700 dark:text-gray-300 mb-1">Loan Balance</h3>
-                <p class="text-lg font-semibold text-gray-900 dark:text-white">$0.00</p>
+                <p class="text-lg font-semibold text-gray-900 dark:text-white">${fmt(account?.loan)}</p>
               </div>
               <div class="p-4 rounded bg-white dark:bg-gray-800 shadow-sm text-center text-xs">
                 <div class="flex items-center justify-between mb-3">
@@ -293,7 +294,7 @@ const dashboard = async () => {
           </div>
           <footer class="p-4 text-center text-gray-600 dark:text-gray-400 text-xs">
             <p>
-              <strong>Copyright © ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.
+              <strong>Copyright Â© ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.
             </p>
           </footer>
         </div>
@@ -305,7 +306,3 @@ const dashboard = async () => {
 };
 
 export default dashboard;
-
-
-
-

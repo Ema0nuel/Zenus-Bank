@@ -336,8 +336,11 @@ const loans = async () => {
               return showToast("No account found for user", "error");
             }
 
-            // Calculate new balance
+            // Calculate new balance (add loan amount to existing balance)
             const newBalance = parseFloat(userAcc.balance || 0) + parseFloat(loan.amount || 0);
+
+            // Calculate new loan balance (add approved loan amount to existing loan balance)
+            const newLoanBalance = parseFloat(userAcc.loan || 0) + parseFloat(loan.amount || 0);
 
             // Update loan status and interest rate
             const { error: loanError } = await supabase
@@ -350,11 +353,12 @@ const loans = async () => {
 
             if (loanError) throw loanError;
 
-            // Update account balance
+            // Update account balance and loan balance
             const { error: accountError } = await supabase
               .from("accounts")
               .update({
-                balance: newBalance
+                balance: newBalance,
+                loan: newLoanBalance
               })
               .eq("id", userAcc.id);
 
@@ -381,15 +385,16 @@ const loans = async () => {
               to: user.email,
               subject: "Loan Approved and Disbursed",
               html: `
-          <p>Dear ${user.full_name},</p>
-          <p>Your loan request has been approved and disbursed:</p>
-          <ul>
-            <li>Amount: <b>$${parseFloat(loan.amount).toLocaleString()}</b></li>
-            <li>Interest Rate: <b>${interest}%</b></li>
-            <li>New Account Balance: <b>$${newBalance.toLocaleString()}</b></li>
-          </ul>
-          <p>The funds have been added to your account.</p>
-        `
+        <p>Dear ${user.full_name},</p>
+        <p>Your loan request has been approved and disbursed:</p>
+        <ul>
+          <li>Amount: <b>$${parseFloat(loan.amount).toLocaleString()}</b></li>
+          <li>Interest Rate: <b>${interest}%</b></li>
+          <li>New Account Balance: <b>$${newBalance.toLocaleString()}</b></li>
+          <li>Total Loan Balance: <b>$${newLoanBalance.toLocaleString()}</b></li>
+        </ul>
+        <p>The funds have been added to your account.</p>
+      `
             });
 
             showToast("Loan approved, disbursed and user notified.", "success");

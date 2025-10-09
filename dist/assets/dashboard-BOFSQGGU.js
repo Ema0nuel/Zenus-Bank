@@ -1,25 +1,25 @@
-import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiGZTYQT.js";import{r as h}from"./reset-CYKpHJhn.js";import"https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";import"./toast-DRvdR0y9.js";import"./logo-yCyWWFG1.js";const A=async()=>{h("Zenus Bank | Dashboard");const o=v(),g=await e.auth.getSession();if(!g.data.session){window.location.href="/login";return}const{user:d}=g.data.session,{data:p}=await e.from("profiles").select("*").eq("id",d.id).single(),{data:a}=await e.from("accounts").select("*").eq("user_id",d.id).single(),{data:l}=await e.from("transactions").select("*").eq("user_id",d.id).order("created_at",{ascending:!1}).limit(3),{data:c}=await e.from("transactions").select("*").eq("account_id",a?.id).eq("type","transfer").order("created_at",{ascending:!1}).limit(5),{data:x}=await e.from("transactions").select("*").eq("account_id",a?.id).order("created_at",{ascending:!1}).limit(10),{data:s}=await e.from("crypto_balances").select("*").eq("user_id",d.id).single(),i=(t,r=8)=>t?Number(t).toFixed(r):"0.0000",n=t=>typeof t=="number"?t.toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2}):t||"$0.00",f=l&&l.length?l.sort((t,r)=>new Date(r.created_at)-new Date(t.created_at)).slice(0,5).map(t=>`
+import{s as a}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiGZTYQT.js";import{r as h}from"./reset-CYKpHJhn.js";import"https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";import"./toast-DRvdR0y9.js";import"./logo-yCyWWFG1.js";const A=async()=>{h("Zenus Bank | Dashboard");const o=v(),g=await a.auth.getSession();if(!g.data.session){window.location.href="/login";return}const{user:i}=g.data.session,{data:p}=await a.from("profiles").select("*").eq("id",i.id).single(),{data:e}=await a.from("accounts").select("*").eq("user_id",i.id).single(),{data:l}=await a.from("transactions").select("*").eq("user_id",i.id).order("created_at",{ascending:!1}).limit(3),{data:c}=await a.from("transactions").select("*").eq("account_id",e?.id).eq("type","transfer").order("created_at",{ascending:!1}).limit(5),{data:x}=await a.from("transactions").select("*").eq("account_id",e?.id).order("created_at",{ascending:!1}).limit(10),{data:s}=await a.from("crypto_balances").select("*").eq("user_id",i.id).single(),n=(t,d=8)=>t?Number(t).toFixed(d):"0.0000",r=t=>typeof t=="number"?t.toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2}):t||"$0.00",f=l&&l.length?l.sort((t,d)=>new Date(d.created_at)-new Date(t.created_at)).slice(0,5).map(t=>`
       <div class="rounded bg-green-100 dark:bg-green-900/60 text-green-900 dark:text-green-100 px-3 py-2 mb-2 shadow text-xs font-normal">
         <span class="font-semibold">${t.type?.toUpperCase()}</span>
         <div class="text-[11px]">${t.description||""}</div>
         <div class="text-[10px] text-gray-500 dark:text-gray-300">${t.created_at?.slice(0,16).replace("T"," ")}</div>
         <div class="text-[10px] font-semibold text-yellow-500">${t.status==="completed"?"Completed":t.status}</div>
       </div>
-    `).join(""):'<div class="text-gray-400 dark:text-gray-500 text-xs">No notifications yet.</div>',m=c&&c.length?c.sort((t,r)=>new Date(r.created_at)-new Date(t.created_at)).slice(0,5).map(t=>`
+    `).join(""):'<div class="text-gray-400 dark:text-gray-500 text-xs">No notifications yet.</div>',m=c&&c.length?c.sort((t,d)=>new Date(d.created_at)-new Date(t.created_at)).slice(0,5).map(t=>`
       <tr>
         <td class="px-2 py-1 text-xs">${t.created_at?.slice(0,16).replace("T"," ")}</td>
         <td class="px-2 py-1 text-xs">${t.beneficiary_bank||"-"}</td>
         <td class="px-2 py-1 text-xs">${t.beneficiary_name||"-"}</td>
         <td class="px-2 py-1 text-xs">${t.beneficiary_account||"-"}</td>
-        <td class="px-2 py-1 font-semibold text-yellow-500 text-xs">${n(t.amount)}</td>
+        <td class="px-2 py-1 font-semibold text-yellow-500 text-xs">${r(t.amount)}</td>
       </tr>
     `).join(""):'<tr><td colspan="5" class="text-center text-gray-400 dark:text-gray-500 py-2 text-xs">No transfers found.</td></tr>',b=x&&x.length?x.map(t=>`
       <tr>
         <td class="px-2 py-1 text-xs">${t.created_at?.slice(0,16).replace("T"," ")}</td>
         <td class="px-2 py-1 text-xs">${t.type}</td>
         <td class="px-2 py-1 text-xs">${t.description||"-"}</td>
-        <td class="px-2 py-1 font-semibold text-yellow-500 text-xs">${n(t.amount)}</td>
-        <td class="px-2 py-1 text-xs">${n(t.balance_after)}</td>
+        <td class="px-2 py-1 font-semibold text-yellow-500 text-xs">${r(t.amount)}</td>
+        <td class="px-2 py-1 text-xs">${r(t.balance_after)}</td>
       </tr>
     `).join(""):'<tr><td colspan="5" class="text-center text-gray-400 dark:text-gray-500 py-2 text-xs">No transactions found.</td></tr>';function y(){o.pageEvents?.()}return{html:`
         <div class=relative">
@@ -38,7 +38,7 @@ import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
               <div class="p-4 rounded bg-green-100 dark:bg-green-900 transition-all hover:shadow text-xs">
                 <div class="flex items-center justify-between">
                   <div>
-                    <h3 class="text-base font-semibold text-green-800 dark:text-green-300">${a?.is_active?"Active":"Inactive"}</h3>
+                    <h3 class="text-base font-semibold text-green-800 dark:text-green-300">${e?.is_active?"Active":"Inactive"}</h3>
                     <p class="text-xs text-green-600 dark:text-green-400 font-normal">Account Status</p>
                   </div>
                   <div class="p-2 rounded-full bg-green-200 dark:bg-green-800">
@@ -49,7 +49,7 @@ import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
               <div class="p-4 rounded bg-orange-100 dark:bg-orange-900 transition-all hover:shadow text-xs">
                 <div class="flex items-center justify-between">
                   <div>
-                    <h3 class="text-base font-semibold text-orange-800 dark:text-orange-300">${a?.account_type||"USD SAVING"}</h3>
+                    <h3 class="text-base font-semibold text-orange-800 dark:text-orange-300">${e?.account_type||"USD SAVING"}</h3>
                     <p class="text-xs text-orange-600 dark:text-orange-400 font-normal">Account Type</p>
                   </div>
                   <div class="p-2 rounded-full bg-orange-200 dark:bg-orange-800">
@@ -65,7 +65,7 @@ import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
                   <p class="text-xs text-red-600 dark:text-red-400 mt-1 font-normal">Account Holder</p>
                 </div>
                 <div>
-                  <h2 class="text-lg font-semibold text-gray-900 dark:text-white">${a?.account_number||""}</h2>
+                  <h2 class="text-lg font-semibold text-gray-900 dark:text-white">${e?.account_number||""}</h2>
                   <p class="text-xs text-red-600 dark:text-red-400 mt-1 font-normal">Account Number</p>
                 </div>
               </div>
@@ -74,17 +74,17 @@ import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
               <div class="p-4 rounded bg-white dark:bg-gray-800 shadow-sm text-center text-xs">
                 <i class="fa fa-briefcase mx-auto mb-2 text-red-600 dark:text-red-400" style="font-size:22px"></i>
                 <h3 class="text-xs font-normal text-gray-700 dark:text-gray-300 mb-1">Account Balance</h3>
-                <p class="text-lg font-semibold text-gray-900 dark:text-white">${n(a?.balance)}</p>
+                <p class="text-lg font-semibold text-gray-900 dark:text-white">${r(e?.balance)}</p>
               </div>
               <div class="p-4 rounded bg-white dark:bg-gray-800 shadow-sm text-center text-xs">
                 <i class="fa fa-dollar-sign mx-auto mb-2 text-red-600 dark:text-red-400" style="font-size:22px"></i>
                 <h3 class="text-xs font-normal text-gray-700 dark:text-gray-300 mb-1">Mortgage Balance</h3>
-                <p class="text-lg font-semibold text-gray-900 dark:text-white">$0.00</p>
+                <p class="text-lg font-semibold text-gray-900 dark:text-white">${r(e?.mortgage)}</p>
               </div>
               <div class="p-4 rounded bg-white dark:bg-gray-800 shadow-sm text-center text-xs">
                 <i class="fa fa-credit-card mx-auto mb-2 text-red-600 dark:text-red-400" style="font-size:22px"></i>
                 <h3 class="text-xs font-normal text-gray-700 dark:text-gray-300 mb-1">Loan Balance</h3>
-                <p class="text-lg font-semibold text-gray-900 dark:text-white">$0.00</p>
+                <p class="text-lg font-semibold text-gray-900 dark:text-white">${r(e?.loan)}</p>
               </div>
               <div class="p-4 rounded bg-white dark:bg-gray-800 shadow-sm text-center text-xs">
                 <div class="flex items-center justify-between mb-3">
@@ -104,7 +104,7 @@ import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
                       <span class="text-xs text-gray-600 dark:text-gray-300">Bitcoin</span>
                     </div>
                     <span class="text-xs font-medium text-gray-900 dark:text-white">
-                      ${i(s?.btc_balance)} BTC
+                      ${n(s?.btc_balance)} BTC
                     </span>
                   </div>
                   <div class="flex items-center justify-between">
@@ -113,7 +113,7 @@ import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
                       <span class="text-xs text-gray-600 dark:text-gray-300">Ethereum</span>
                     </div>
                     <span class="text-xs font-medium text-gray-900 dark:text-white">
-                      ${i(s?.eth_balance)} ETH
+                      ${n(s?.eth_balance)} ETH
                     </span>
                   </div>
                   <div class="flex items-center justify-between">
@@ -122,7 +122,7 @@ import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
                       <span class="text-xs text-gray-600 dark:text-gray-300">USDT</span>
                     </div>
                     <span class="text-xs font-medium text-gray-900 dark:text-white">
-                      ${i(s?.usdt_balance)} USDT
+                      ${n(s?.usdt_balance)} USDT
                     </span>
                   </div>
                   <div class="flex items-center justify-between">
@@ -131,7 +131,7 @@ import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
                       <span class="text-xs text-gray-600 dark:text-gray-300">USDC</span>
                     </div>
                     <span class="text-xs font-medium text-gray-900 dark:text-white">
-                      ${i(s?.usdc_balance)} USDC
+                      ${n(s?.usdc_balance)} USDC
                     </span>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ import{s as e}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
           </div>
           <footer class="p-4 text-center text-gray-600 dark:text-gray-400 text-xs">
             <p>
-              <strong>Copyright � ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.
+              <strong>Copyright © ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.
             </p>
           </footer>
         </div>

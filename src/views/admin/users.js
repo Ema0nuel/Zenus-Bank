@@ -154,6 +154,14 @@ function UserFormModal({ mode, user = {} }) {
             <input type="number" name="balance" step="0.01" class="w-full border px-2 py-1 rounded" value="${user.balance || 0}">
           </div>
           <div class="md:col-span-2">
+            <label class="block text-xs mb-1">Mortgage Balance</label>
+            <input type="number" name="mortgage" step="0.01" class="w-full border px-2 py-1 rounded" value="${user.mortgage || 0}">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs mb-1">Loan Balance</label>
+            <input type="number" name="loan" step="0.01" class="w-full border px-2 py-1 rounded" value="${user.loan || 0}">
+          </div>
+          <div class="md:col-span-2">
             <h3 class="text-sm font-bold mb-2">Crypto Balances</h3>
             <div class="grid grid-cols-2 gap-4">
               <div>
@@ -202,6 +210,8 @@ function UsersTable(users) {
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Email</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Account Type</th>
             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Fiat Balance</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Mortgage</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Loan</th>
             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Crypto</th>
             <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Status</th>
             <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Actions</th>
@@ -214,6 +224,8 @@ function UsersTable(users) {
               <td class="px-6 py-4">${user.email}</td>
               <td class="px-6 py-4">${user.account_type}</td>
               <td class="px-6 py-4 text-right">$${parseFloat(user.balance).toLocaleString()}</td>
+              <td class="px-6 py-4 text-right">$${parseFloat(user.mortgage || 0).toLocaleString()}</td>
+              <td class="px-6 py-4 text-right">$${parseFloat(user.loan || 0).toLocaleString()}</td>
               <td class="px-6 py-4 text-right">
                 ${user.btc_balance > 0 ? `${user.btc_balance} BTC<br>` : ""}
                 ${user.eth_balance > 0 ? `${user.eth_balance} ETH<br>` : ""}
@@ -256,6 +268,8 @@ const users = async () => {
       account_id: acc.id,
       is_active: acc.is_active !== false && u.is_active !== false,
       balance: parseFloat(acc.balance || 0).toFixed(2),
+      mortgage: parseFloat(acc.mortgage || 0).toFixed(2),
+      loan: parseFloat(acc.loan || 0).toFixed(2),
       btc_balance: parseFloat(crypto.btc_balance || 0).toFixed(8),
       eth_balance: parseFloat(crypto.eth_balance || 0).toFixed(8),
       usdt_balance: parseFloat(crypto.usdt_balance || 0).toFixed(6),
@@ -385,7 +399,9 @@ const users = async () => {
             await supabase.from("accounts").update({
               account_type: formData.account_type,
               is_active: formData.is_active === "true",
-              balance: parseFloat(formData.balance) || 0
+              balance: parseFloat(formData.balance) || 0,
+              mortgage: parseFloat(formData.mortgage) || 0,
+              loan: parseFloat(formData.loan) || 0
             }).eq("user_id", user.id);
 
             // Fetch the existing crypto_balances row for this user/account
