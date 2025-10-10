@@ -8,6 +8,56 @@ import ETH from '../../../images/welcome/eth.png';
 import BNB from '../../../images/welcome/bnb.png';
 import SOL from '../../../images/welcome/sol.png';
 
+const CRYPTO_PAIRS = {
+    BTC: 'bitcoin',
+    ETH: 'ethereum',
+    USDT: 'tether',
+    USDC: 'usd-coin',
+    BNB: 'binancecoin',
+    SOL: 'solana'
+};
+
+// Function to get real-time crypto rates
+async function getCryptoRate(cryptoSymbol) {
+    try {
+        const coinId = CRYPTO_PAIRS[cryptoSymbol.toUpperCase()];
+        if (!coinId) throw new Error('Unsupported cryptocurrency');
+
+        const response = await fetch(
+            `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=usd`
+        );
+
+        if (!response.ok) throw new Error('Failed to fetch rate');
+
+        const data = await response.json();
+        if (!data[coinId]?.usd) throw new Error('Rate not available');
+
+        return data[coinId].usd;
+    } catch (error) {
+        console.error('Error fetching crypto rate:', error);
+        throw error;
+    }
+}
+
+// Function to calculate crypto amount from fiat
+async function calculateCryptoAmount(fiatAmount, cryptoSymbol) {
+    const rate = await getCryptoRate(cryptoSymbol);
+    const amount = parseFloat(fiatAmount) / rate;
+
+    switch (cryptoSymbol.toUpperCase()) {
+        case 'BTC':
+        case 'ETH':
+        case 'BNB':
+        case 'SOL':
+            return amount.toFixed(8);
+        case 'USDT':
+        case 'USDC':
+            return amount.toFixed(6);
+        default:
+            return amount.toFixed(8);
+    }
+}
+
 const SUPPORTED_ASSETS = {
     BTC: {
         name: 'Bitcoin',
@@ -80,18 +130,18 @@ const cryptoTransfer = async () => {
 
     async function fetchPrices() {
         try {
-            const response = await fetch(
-                "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,usd-coin,tether,binancecoin&vs_currencies=usd"
+            const rates = await Promise.all(
+                Object.keys(CRYPTO_PAIRS).map(symbol =>
+                    getCryptoRate(symbol).catch(err => {
+                        console.error(`Error fetching ${symbol} rate:`, err);
+                        return symbol === 'USDT' || symbol === 'USDC' ? 1 : 0;
+                    })
+                )
             );
-            const data = await response.json();
-            return {
-                BTC: data.bitcoin.usd,
-                ETH: data.ethereum.usd,
-                SOL: data.solana.usd,
-                USDC: data['usd-coin'].usd,
-                USDT: data.tether.usd,
-                BNB: data.binancecoin.usd
-            };
+
+            return Object.fromEntries(
+                Object.keys(CRYPTO_PAIRS).map((symbol, index) => [symbol, rates[index]])
+            );
         } catch (err) {
             showToast("Failed to fetch prices", "error");
             return {
@@ -371,15 +421,49 @@ const cryptoTransfer = async () => {
         }
     }
 
+    // Update deposit preview
+    async function updateDepositPreview() {
+        const cryptoSelect = document.getElementById('cryptoSelect');
+        const amountInput = document.querySelector('input[name="amount"]');
+        const rateDisplay = document.getElementById('deposit-rate-display');
+        const cryptoAmountDisplay = document.getElementById('deposit-crypto-amount');
+
+        if (cryptoSelect.value && amountInput.value) {
+            try {
+                const rate = await getCryptoRate(cryptoSelect.value);
+                const cryptoAmount = await calculateCryptoAmount(amountInput.value, cryptoSelect.value);
+
+                rateDisplay.textContent = `1 ${cryptoSelect.value} = $${rate.toLocaleString()} USD`;
+                cryptoAmountDisplay.textContent = `${cryptoAmount} ${cryptoSelect.value}`;
+            } catch (error) {
+                showToast("Error calculating rate: " + error.message, "error");
+            }
+        }
+    }
+
+    // Update live rate on crypto selection
+    function handleDepositCryptoSelect(e) {
+        handleAssetSelect(e);
+        updateDepositPreview();
+    }
+
+    // Update live rate on amount change
+    function handleDepositAmountInput() {
+        updateDepositPreview();
+    }
+
     function pageEvents() {
         nav.pageEvents?.();
-        document.getElementById('cryptoSelect')?.addEventListener('change', handleAssetSelect);
+        document.getElementById('cryptoSelect')?.addEventListener('change', handleDepositCryptoSelect);
         document.getElementById('networkSelect')?.addEventListener('change', handleNetworkSelect);
         document.getElementById('depositForm')?.addEventListener('submit', handleDeposit);
         document.getElementById('fromAsset')?.addEventListener('change', handleFromAssetSelect);
         document.getElementById('toAsset')?.addEventListener('change', handleToAssetSelect);
         document.getElementById('swapAmount')?.addEventListener('input', updateSwapPreview);
         document.getElementById('swapForm')?.addEventListener('submit', handleSwap);
+
+        // Add live rate update handlers
+        document.querySelector('input[name="amount"]')?.addEventListener('input', handleDepositAmountInput);
     }
 
     return {
@@ -470,6 +554,10 @@ const cryptoTransfer = async () => {
                                         <input type="number" name="amount" step="any" required
                                                class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white"
                                                placeholder="Enter amount">
+                                        <div class="mt-2 space-y-1">
+                                            <div id="deposit-rate-display" class="text-sm text-gray-400"></div>
+                                            <div id="deposit-crypto-amount" class="font-mono text-yellow-500"></div>
+                                        </div>
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-400 mb-2">Transfer wallet</label>
@@ -522,6 +610,10 @@ const cryptoTransfer = async () => {
                                         <input type="number" id="swapAmount" name="amount" step="any" required
                                                class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white"
                                                placeholder="Enter amount">
+                                        <div class="mt-2 space-y-1">
+                                            <div id="swap-rate-display" class="text-sm text-gray-400"></div>
+                                            <div id="swap-crypto-amount" class="font-mono text-yellow-500"></div>
+                                        </div>
                                     </div>
                                     <div id="swapPreview"></div>
                                     <button type="submit"
@@ -559,7 +651,7 @@ const cryptoTransfer = async () => {
                         </div>
                     </div>
                     <footer class="p-4 text-center text-gray-500 text-xs">
-                        <p>Copyright © ${new Date().getFullYear()} All rights reserved | Zenus Bank</p>
+                        <p>Copyright ï¿½ ${new Date().getFullYear()} All rights reserved | Zenus Bank</p>
                     </footer>
                 </div>
             </div>
