@@ -90,7 +90,7 @@ import{s as a}from"./supabaseClient-B1HaFb4P.js";import{n as v}from"./Navbar-DiG
                 <div class="flex items-center justify-between mb-3">
                   <div class="flex items-center">
                     <i class="fab fa-bitcoin text-yellow-500 dark:text-yellow-400 text-xl mr-2"></i>
-                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Crypto Assets</h3>
+                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Crypto Assets Balance</h3>
                   </div>
                   <a href="/crypto" data-nav 
                     class="text-xs text-blue-600 dark:text-blue-400 hover:underline">

@@ -8,6 +8,83 @@ import ETH from '../../../images/welcome/eth.png';
 import BNB from '../../../images/welcome/bnb.png';
 import SOL from '../../../images/welcome/sol.png';
 
+// Rate cache configuration
+const RATE_CACHE_DURATION = 30000; // 30 seconds
+const rateCache = new Map();
+
+// Crypto configuration
+const CRYPTO_CONFIG = {
+    BTC: {
+        id: 'bitcoin',
+        name: 'Bitcoin',
+        decimals: 8,
+        minAmount: 0.001,
+        logo: BTC,
+        networks: ['BTC'],
+        addresses: {
+            BTC: ['1P2xvf43ragZWBKRacXVLsHb7Q6nqGqYis', 'bc1q02e9fsglke2pymcsfgs7shqmcwn0a0acuex7hu']
+        }
+    },
+    ETH: {
+        id: 'ethereum',
+        name: 'Ethereum',
+        decimals: 8,
+        minAmount: 0.01,
+        logo: ETH,
+        networks: ['ETH'],
+        addresses: {
+            ETH: ['0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36', '0x88122Ac589A8b5a98e5FFE0c24117FB746A41DA8']
+        }
+    },
+    SOL: {
+        id: 'solana',
+        name: 'Solana',
+        decimals: 8,
+        minAmount: 0.1,
+        logo: SOL,
+        networks: ['SOL'],
+        addresses: {
+            SOL: ['CkMpPKkjPc9QaboNxDZFHGcBzjDtUCzL2ESWaVGDw3i2', 'DtxfHCWDfiivNJPmnY8g6PRgJMAkcsMCLWTgK7GKmEEe']
+        }
+    },
+    USDC: {
+        id: 'usd-coin',
+        name: 'USD Coin',
+        decimals: 6,
+        minAmount: 10,
+        logo: BNB,
+        networks: ['ERC20', 'BEP20'],
+        addresses: {
+            ERC20: ['0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36', '0x88122Ac589A8b5a98e5FFE0c24117FB746A41DA8'],
+            BEP20: ['0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36']
+        }
+    },
+    USDT: {
+        id: 'tether',
+        name: 'Tether USD',
+        decimals: 6,
+        minAmount: 10,
+        logo: BNB,
+        networks: ['TRC20', 'ERC20', 'SOL'],
+        addresses: {
+            TRC20: ['TJUg7dQcUD8CLzh8kU8hegr6inmYFrTXnb', 'TXnXtYTjj6QoaZeMKcTMPS5JZvK3hCcHLo'],
+            ERC20: ['0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36', '0x88122Ac589A8b5a98e5FFE0c24117FB746A41DA8'],
+            SOL: ['CkMpPKkjPc9QaboNxDZFHGcBzjDtUCzL2ESWaVGDw3i2', 'DtxfHCWDfiivNJPmnY8g6PRgJMAkcsMCLWTgK7GKmEEe']
+        }
+    },
+    BNB: {
+        id: 'binancecoin',
+        name: 'Binance Coin',
+        decimals: 8,
+        minAmount: 0.1,
+        logo: BNB,
+        networks: ['BEP20'],
+        addresses: {
+            BEP20: ['0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36', '0x88122Ac589A8b5a98e5FFE0c24117FB746A41DA8']
+        }
+    }
+};
+
 const CRYPTO_PAIRS = {
     BTC: 'bitcoin',
     ETH: 'ethereum',
@@ -124,9 +201,109 @@ const SUPPORTED_ASSETS = {
     }
 };
 
+// Rate calculation and caching functions
+class RateManager {
+    static async getCachedRate(symbol) {
+        const cachedData = rateCache.get(symbol);
+        if (cachedData && Date.now() - cachedData.timestamp < RATE_CACHE_DURATION) {
+            return cachedData.rate;
+        }
+        return null;
+    }
+
+    static async fetchAndCacheRate(symbol) {
+        try {
+            const config = CRYPTO_CONFIG[symbol];
+            if (!config) throw new Error(`Unsupported cryptocurrency: ${symbol}`);
+
+            const response = await fetch(
+                `https://api.coingecko.com/api/v3/simple/price?ids=${config.id}&vs_currencies=usd`
+            );
+
+            if (!response.ok) throw new Error('Failed to fetch rate');
+
+            const data = await response.json();
+            const rate = data[config.id]?.usd;
+
+            if (!rate) throw new Error('Rate not available');
+
+            // Cache the rate
+            rateCache.set(symbol, {
+                rate,
+                timestamp: Date.now()
+            });
+
+            return rate;
+        } catch (error) {
+            console.error(`Error fetching ${symbol} rate:`, error);
+            throw error;
+        }
+    }
+
+    static async getRate(symbol) {
+        try {
+            const cachedRate = await this.getCachedRate(symbol);
+            if (cachedRate !== null) return cachedRate;
+            return await this.fetchAndCacheRate(symbol);
+        } catch (error) {
+            // For stablecoins, return 1 as fallback
+            if (symbol === 'USDT' || symbol === 'USDC') return 1;
+            throw error;
+        }
+    }
+
+    static async calculateSwap(fromSymbol, toSymbol, amount) {
+        const [fromRate, toRate] = await Promise.all([
+            this.getRate(fromSymbol),
+            this.getRate(toSymbol)
+        ]);
+
+        const usdValue = amount * fromRate;
+        const swappedAmount = usdValue / toRate;
+        const fee = swappedAmount * 0.01; // 1% fee
+        const finalAmount = swappedAmount - fee;
+
+        return {
+            fromRate,
+            toRate,
+            usdValue,
+            swappedAmount: finalAmount,
+            fee,
+            exchangeRate: toRate / fromRate
+        };
+    }
+
+    static formatCryptoAmount(amount, symbol) {
+        const config = CRYPTO_CONFIG[symbol];
+        return config ? Number(amount).toFixed(config.decimals) : '0';
+    }
+
+    static validateAmount(amount, symbol) {
+        const config = CRYPTO_CONFIG[symbol];
+        if (!config) throw new Error(`Invalid cryptocurrency: ${symbol}`);
+        if (amount < config.minAmount) {
+            throw new Error(`Minimum amount for ${symbol} is ${config.minAmount}`);
+        }
+        return true;
+    }
+}
+
 const cryptoTransfer = async () => {
     reset("Zenus Bank | Crypto Transfer");
     const nav = navbar();
+
+    // Cache initial rates for common pairs
+    async function initializeRates() {
+        try {
+            await Promise.all(
+                Object.keys(CRYPTO_CONFIG).map(symbol =>
+                    RateManager.getRate(symbol).catch(() => { })
+                )
+            );
+        } catch (error) {
+            console.error('Error initializing rates:', error);
+        }
+    }
 
     async function fetchPrices() {
         try {
@@ -211,39 +388,40 @@ const cryptoTransfer = async () => {
     async function handleDeposit(e) {
         e.preventDefault();
         const form = e.target;
-        const asset = SUPPORTED_ASSETS[form.cryptoSelect.value];
+        const symbol = form.cryptoSelect.value;
+        const config = CRYPTO_CONFIG[symbol];
         const network = form.networkSelect.value;
         const amount = parseFloat(form.amount.value);
         const txHash = form.txHash.value.trim();
 
-        if (!asset || !network || !amount || !txHash) {
+        if (!config || !network || !amount || !txHash) {
             showToast("Please fill all fields", "error");
-            return;
-        }
-
-        if (amount < asset.minDeposit) {
-            showToast(`Minimum deposit is ${asset.minDeposit} ${asset.symbol}`, "error");
             return;
         }
 
         spinner.start();
         try {
-            // Calculate USD value
-            const usdValue = amount * prices[asset.symbol];
+            // Validate amount
+            RateManager.validateAmount(amount, symbol);
+
+            // Get current rate and calculate USD value
+            const rate = await RateManager.getRate(symbol);
+            const usdValue = amount * rate;
 
             const { error } = await supabase.from('transactions').insert({
                 user_id: user.id,
                 account_id: account.id,
                 type: 'crypto',
                 method: 'crypto',
-                amount: usdValue, // Required: USD value of transaction
-                description: `Crypto deposit: ${amount} ${asset.symbol} via ${network}`,
+                amount: usdValue,
+                description: `Crypto deposit: ${RateManager.formatCryptoAmount(amount, symbol)} ${symbol} via ${network}`,
                 status: 'pending',
                 direction: 'crypto-to-fiat',
-                crypto_symbol: asset.symbol,
+                crypto_symbol: symbol,
                 crypto_amount: amount,
                 fiat_amount: usdValue,
-                wallet_address: asset.addresses[network][0],
+                rate_at_transaction: rate,
+                wallet_address: config.addresses[network][0],
                 tx_hash: txHash,
                 balance_before: account?.balance || 0,
                 balance_after: account?.balance || 0,
@@ -256,88 +434,110 @@ const cryptoTransfer = async () => {
             window.location.reload();
         } catch (err) {
             console.error(err);
-            showToast("Failed to submit deposit", "error");
+            showToast(err.message || "Failed to submit deposit", "error");
         } finally {
             spinner.stop();
         }
     }
 
-    // Swap handlers
-    async function handleFromAssetSelect() {
-        prices = await fetchPrices();
-        updateSwapPreview();
-    }
-
-    async function handleToAssetSelect() {
-        prices = await fetchPrices();
-        updateSwapPreview();
-    }
-
+    // Swap handlers with improved rate calculation
     async function updateSwapPreview() {
-        const fromAsset = document.getElementById('fromAsset').value;
-        const toAsset = document.getElementById('toAsset').value;
+        const fromSymbol = document.getElementById('fromAsset').value;
+        const toSymbol = document.getElementById('toAsset').value;
         const amount = parseFloat(document.getElementById('swapAmount').value) || 0;
         const previewElement = document.getElementById('swapPreview');
 
-        if (!fromAsset || !toAsset || !amount) {
+        if (!fromSymbol || !toSymbol || !amount) {
             previewElement.innerHTML = '';
             return;
         }
 
-        const rate = prices[toAsset] / prices[fromAsset];
-        const receivedAmount = amount * rate * 0.99; // 1% fee
-        const fee = amount * 0.01;
+        try {
+            const swapDetails = await RateManager.calculateSwap(fromSymbol, toSymbol, amount);
 
-        previewElement.innerHTML = `
-            <div class="bg-gray-700 p-4 rounded-lg space-y-3">
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-400">Exchange Rate</span>
-                    <span class="text-white">1 ${fromAsset} = ${rate.toFixed(8)} ${toAsset}</span>
+            previewElement.innerHTML = `
+                <div class="bg-gray-700 p-4 rounded-lg space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">Exchange Rate</span>
+                        <span class="text-white">1 ${fromSymbol} = ${swapDetails.exchangeRate.toFixed(8)} ${toSymbol}</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">USD Value</span>
+                        <span class="text-white">$${swapDetails.usdValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">Fee (1%)</span>
+                        <span class="text-white">${RateManager.formatCryptoAmount(swapDetails.fee, toSymbol)} ${toSymbol}</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">You'll Receive</span>
+                        <span class="text-green-500">${RateManager.formatCryptoAmount(swapDetails.swappedAmount, toSymbol)} ${toSymbol}</span>
+                    </div>
                 </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-400">Fee (1%)</span>
-                    <span class="text-white">${fee.toFixed(8)} ${fromAsset}</span>
+            `;
+        } catch (error) {
+            previewElement.innerHTML = `
+                <div class="bg-red-900/30 text-red-400 p-4 rounded-lg">
+                    ${error.message}
                 </div>
-                <div class="flex justify-between text-sm">
-                    <span class="text-gray-400">You'll Receive</span>
-                    <span class="text-green-500">${receivedAmount.toFixed(8)} ${toAsset}</span>
-                </div>
-            </div>
-        `;
+            `;
+        }
     }
+
+    // Debounce function for rate updates
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    const debouncedUpdateSwapPreview = debounce(updateSwapPreview, 500);
 
     // Update the handleSwap function
     async function handleSwap(e) {
         e.preventDefault();
         const form = e.target;
-        const fromAsset = form.fromAsset.value;
-        const toAsset = form.toAsset.value;
+        const fromSymbol = form.fromAsset.value;
+        const toSymbol = form.toAsset.value;
         const amount = parseFloat(form.amount.value);
 
-        if (!fromAsset || !toAsset || !amount) {
+        if (!fromSymbol || !toSymbol || !amount) {
             showToast("Please fill all fields", "error");
             return;
         }
 
-        const rate = prices[toAsset] / prices[fromAsset];
-        const receivedAmount = amount * rate * 0.99; // 1% fee
-        const usdValue = amount * prices[fromAsset]; // USD value of from asset
-
         spinner.start();
         try {
+            // Validate amount
+            RateManager.validateAmount(amount, fromSymbol);
+
+            // Calculate swap details
+            const swapDetails = await RateManager.calculateSwap(fromSymbol, toSymbol, amount);
+
             const { error } = await supabase.from('transactions').insert({
                 user_id: user.id,
                 account_id: account.id,
                 type: 'crypto',
                 method: 'crypto',
-                amount: usdValue, // Required: USD value of transaction
-                description: `Swap ${amount} ${fromAsset} to ${receivedAmount.toFixed(8)} ${toAsset}`,
+                amount: swapDetails.usdValue,
+                description: `Swap ${RateManager.formatCryptoAmount(amount, fromSymbol)} ${fromSymbol} to ${RateManager.formatCryptoAmount(swapDetails.swappedAmount, toSymbol)} ${toSymbol}`,
                 status: 'pending',
                 direction: 'crypto-to-crypto',
-                crypto_symbol: fromAsset,
+                crypto_symbol: fromSymbol,
                 crypto_amount: amount,
-                to_crypto_symbol: toAsset,
-                to_crypto_amount: receivedAmount,
+                to_crypto_symbol: toSymbol,
+                to_crypto_amount: swapDetails.swappedAmount,
+                from_rate: swapDetails.fromRate,
+                to_rate: swapDetails.toRate,
+                fee_amount: RateManager.formatCryptoAmount(swapDetails.fee, toSymbol),
+                fee_currency: toSymbol,
+                exchange_rate: swapDetails.exchangeRate,
                 balance_before: account?.balance || 0,
                 balance_after: account?.balance || 0,
                 created_at: new Date().toISOString()
@@ -349,7 +549,7 @@ const cryptoTransfer = async () => {
             window.location.reload();
         } catch (err) {
             console.error(err);
-            showToast("Failed to submit swap", "error");
+            showToast(err.message || "Failed to submit swap", "error");
         } finally {
             spinner.stop();
         }
@@ -452,21 +652,43 @@ const cryptoTransfer = async () => {
         updateDepositPreview();
     }
 
+    // Initialize page
+    async function initialize() {
+        await initializeRates();
+        pageEvents();
+    }
+
     function pageEvents() {
         nav.pageEvents?.();
+
+        // Deposit form handlers
         document.getElementById('cryptoSelect')?.addEventListener('change', handleDepositCryptoSelect);
         document.getElementById('networkSelect')?.addEventListener('change', handleNetworkSelect);
         document.getElementById('depositForm')?.addEventListener('submit', handleDeposit);
-        document.getElementById('fromAsset')?.addEventListener('change', handleFromAssetSelect);
-        document.getElementById('toAsset')?.addEventListener('change', handleToAssetSelect);
-        document.getElementById('swapAmount')?.addEventListener('input', updateSwapPreview);
+        document.querySelector('input[name="amount"]')?.addEventListener('input', handleDepositAmountInput);
+
+        // Swap form handlers
+        document.getElementById('fromAsset')?.addEventListener('change', () => {
+            debouncedUpdateSwapPreview();
+        });
+        document.getElementById('toAsset')?.addEventListener('change', () => {
+            debouncedUpdateSwapPreview();
+        });
+        document.getElementById('swapAmount')?.addEventListener('input', () => {
+            debouncedUpdateSwapPreview();
+        });
         document.getElementById('swapForm')?.addEventListener('submit', handleSwap);
 
-        // Add live rate update handlers
-        document.querySelector('input[name="amount"]')?.addEventListener('input', handleDepositAmountInput);
-    }
-
-    return {
+        // Initialize tooltips and copy buttons
+        setTimeout(() => {
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.onclick = () => {
+                    navigator.clipboard.writeText(btn.getAttribute('data-address'));
+                    showToast("Wallet address copied!", "success");
+                };
+            });
+        }, 100);
+    } return {
         html: `
             ${nav.html}
             <div class="bg-gray-50 dark:bg-gray-900 min-h-screen pt-12">
