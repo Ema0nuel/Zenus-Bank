@@ -4,7 +4,7 @@ import { showToast } from '../components/toast';
 import { reset } from '../utils/reset';
 
 const EMAIL = "zenusbanking@gmail.com";
-const PHONE = "+447529555635";
+const PHONE = "+1 (210) 279-5532";
 
 const contactView = () => {
   reset("Contact Us")

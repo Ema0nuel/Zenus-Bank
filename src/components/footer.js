@@ -15,7 +15,7 @@ const footer = () => {
             <br />
             <p class="text-brand-gray dark:text-brand-light text-xs"><strong>Email: </strong>zenusbanking@gmail.com</p>
             <br />
-            <p class="text-brand-gray dark:text-brand-light text-xs"><strong>Contact: </strong>: +447529555635</p>
+            <p class="text-brand-gray dark:text-brand-light text-xs"><strong>Contact: </strong>+1 (210) 279-5532</p>
           </div>
           <div>
             <div class="font-semibold text-brand-navy dark:text-brand-sun mb-2">Quick links</div>
