@@ -63,8 +63,9 @@ const forgotPassword = () => {
 
         startLogoSpinner();
         try {
+          const redirectUrl = (typeof window !== 'undefined' ? window.location.origin : 'https://zenusbanking.com') + '/reset-password';
           const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: 'https://zenusbanking.com/reset-password'
+            redirectTo: redirectUrl
           });
           endLogoSpinner();
 
