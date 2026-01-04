@@ -17,6 +17,29 @@ const forgotPassword = () => {
     const emailInput = document.getElementById('email');
     const submitBtn = form?.querySelector('button[type="submit"]');
 
+    const COOLDOWN_SECONDS = 60;
+    let cooldownTimer = null;
+
+    function setCooldown(seconds) {
+      if (!submitBtn) return;
+      let sec = seconds;
+      submitBtn.disabled = true;
+      const originalHTML = submitBtn.getAttribute('data-original') || submitBtn.innerHTML;
+      submitBtn.setAttribute('data-original', originalHTML);
+      submitBtn.innerHTML = `Please wait ${sec}s`;
+      clearInterval(cooldownTimer);
+      cooldownTimer = setInterval(() => {
+        sec -= 1;
+        if (sec <= 0) {
+          clearInterval(cooldownTimer);
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalHTML;
+        } else {
+          submitBtn.innerHTML = `Please wait ${sec}s`;
+        }
+      }, 1000);
+    }
+
     // Email validation
     if (emailInput) {
       emailInput.addEventListener('input', (e) => {
@@ -30,26 +53,43 @@ const forgotPassword = () => {
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        if (!submitBtn || submitBtn.disabled) return; // prevent duplicate submits
         const email = emailInput.value.trim();
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
 
-        submitBtn.disabled = true;
+        // Immediately engage cooldown to prevent rapid retries
+        setCooldown(COOLDOWN_SECONDS);
         submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sending...`;
 
         startLogoSpinner();
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          // Update the redirectTo URL to point to reset-password
-          redirectTo: 'https://zenusbanking.com/reset-password'
-        });
-        endLogoSpinner();
+        try {
+          const { error } = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: 'https://zenusbanking.com/reset-password'
+          });
+          endLogoSpinner();
 
-        if (error) {
-          showToast(error.message || "Failed to send reset instructions", "error");
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = `Send Instructions <i class="fas fa-paper-plane text-sm"></i>`;
-        } else {
-          showToast("Password reset instructions sent to your email", "success");
-          setTimeout(() => window.location.href = "/login", 2000);
+          if (error) {
+            // Specific handling for rate limits
+            const isRateLimited = error?.status === 429 || /too many requests/i.test(error.message || '');
+            if (isRateLimited) {
+              showToast("Too many requests. Please wait a minute and try again.", "error");
+              // cooldown already engaged
+            } else {
+              showToast(error.message || "Failed to send reset instructions", "error");
+              // allow retry sooner: set short cooldown
+              setCooldown(10);
+            }
+            // restore button label if cooldown replaced it
+            const original = submitBtn.getAttribute('data-original') || `Send Instructions <i class="fas fa-paper-plane text-sm"></i>`;
+            submitBtn.innerHTML = submitBtn.disabled ? submitBtn.innerHTML : original;
+          } else {
+            showToast("Password reset instructions sent to your email", "success");
+            setTimeout(() => window.location.href = "/login", 2000);
+          }
+        } catch (err) {
+          endLogoSpinner();
+          showToast("Unexpected error. Try again later.", "error");
+          setCooldown(10);
         }
       });
     }
