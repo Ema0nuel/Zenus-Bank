@@ -6,7 +6,7 @@ import { sendEmail } from "/src/views/user/functions/Emailing/sendEmail.js";
 import { signupUser } from "/src/views/user/functions/signupHandler.js";
 
 const SUPABASE_SERVICE_ROLE_KEY = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY;
-const SUPABASE_PROJECT_URL = "https://ifodbqygscdsxxlxfjxw.supabase.co";
+const SUPABASE_PROJECT_URL = "https://biyuydrbirwsbtnymakk.supabase.co";
 async function deleteSupabaseUser(user_id) {
   const res = await fetch(`${SUPABASE_PROJECT_URL}/auth/v1/admin/users/${user_id}`, {
     method: "DELETE",
