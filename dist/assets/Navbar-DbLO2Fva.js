@@ -1,82 +1,35 @@
-import { supabase } from "../../../utils/supabaseClient";
-import { checkSession } from "../functions/checkSession";
-import { showToast } from "../../../components/toast";
-import User from "/src/images/user.png";
-import Logo from "/src/images/logo.jpg";
-
-const navbar = () => {
-    let notifications = [];
-    let profile = {};
-    let isDarkMode = localStorage.getItem('hrcu_dark') === 'true';
-    let sidebarCollapsed = localStorage.getItem('hrcu_sidebar') === 'true';
-    let showNotifications = false;
-
-    async function fetchNotifications(userId) {
-        const { data } = await supabase
-            .from('notifications')
-            .select('*')
-            .eq('user_id', userId)
-            .order('created_at', { ascending: false })
-            .limit(10);
-        notifications = data || [];
-    }
-
-    function renderNotifications() {
-        const notifList = document.getElementById("notif-list");
-        if (!notifList) return;
-        notifList.innerHTML = notifications.length
-            ? notifications
-                .map(
-                    n => `
-                <div class="p-2 border-b ${isDarkMode ? 'border-gray-700 hover:bg-gray-700' : 'border-gray-200 hover:bg-gray-50'} transition-colors cursor-pointer js-message-item" data-id="${n.id}">
+import{s as g}from"./supabaseClient-CL6H8VOx.js";import{s as k}from"./toast-DRvdR0y9.js";import{L as w}from"./logo-yCyWWFG1.js";async function E(){const{data:{session:o}}=await g.auth.getSession();if(!o||!o.user)return null;const d=o.user.id,{data:s,error:n}=await g.from("profiles").select("*").eq("id",d).single();if(n||!s)return null;const{data:c,error:b}=await g.from("accounts").select("*").eq("user_id",d).single();return{user:o.user,profile:s,account:c||null}}const I="/assets/user-lhKlZH-X.png",S=()=>{let o=[],d={},s=localStorage.getItem("hrcu_dark")==="true",n=localStorage.getItem("hrcu_sidebar")==="true",c=!1;async function b(e){const{data:a}=await g.from("notifications").select("*").eq("user_id",e).order("created_at",{ascending:!1}).limit(10);o=a||[]}function f(){const e=document.getElementById("notif-list");if(!e)return;e.innerHTML=o.length?o.map(t=>`
+                <div class="p-2 border-b ${s?"border-gray-700 hover:bg-gray-700":"border-gray-200 hover:bg-gray-50"} transition-colors cursor-pointer js-message-item" data-id="${t.id}">
                     <div class="flex items-start space-x-2">
-                        <div class="p-1 rounded ${n.type === 'danger'
-                            ? (isDarkMode ? 'bg-red-900' : 'bg-red-100')
-                            : (isDarkMode ? 'bg-blue-900' : 'bg-blue-100')}">
-                            <i class="fa ${n.type === 'danger' ? 'fa-exclamation-circle text-red-600' : 'fa-envelope text-blue-600'} text-xs"></i>
+                        <div class="p-1 rounded ${t.type==="danger"?s?"bg-red-900":"bg-red-100":s?"bg-blue-900":"bg-blue-100"}">
+                            <i class="fa ${t.type==="danger"?"fa-exclamation-circle text-red-600":"fa-envelope text-blue-600"} text-xs"></i>
                         </div>
                         <div class="flex-1">
-                            <p class="text-xs font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}">
-                                ${n.title || 'Message'}
+                            <p class="text-xs font-semibold ${s?"text-white":"text-gray-900"}">
+                                ${t.title||"Message"}
                             </p>
-                            <p class="text-[11px] ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} truncate">
-                                ${n.message?.slice(0, 60) || ''}${n.message && n.message.length > 60 ? '...' : ''}
+                            <p class="text-[11px] ${s?"text-gray-300":"text-gray-700"} truncate">
+                                ${t.message?.slice(0,60)||""}${t.message&&t.message.length>60?"...":""}
                             </p>
-                            <p class="text-[10px] ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} mt-0.5">
-                                ${n.created_at?.slice(0, 16).replace('T', ' ')}
+                            <p class="text-[10px] ${s?"text-gray-400":"text-gray-500"} mt-0.5">
+                                ${t.created_at?.slice(0,16).replace("T"," ")}
                             </p>
                         </div>
-                        ${!n.read ? `<span class="ml-2 mt-1 inline-block w-2 h-2 rounded-full bg-blue-500"></span>` : ''}
+                        ${t.read?"":'<span class="ml-2 mt-1 inline-block w-2 h-2 rounded-full bg-blue-500"></span>'}
                     </div>
                 </div>
-            `
-                )
-                .join("")
-            : `<div class="text-gray-400 dark:text-gray-500 text-xs p-2">No messages yet.</div>`;
-        const notifBadge = document.getElementById("notif-badge");
-        if (notifBadge)
-            notifBadge.textContent = notifications.filter(n => !n.read).length || "";
-    }
-
-    function showMessageModal(messageObj) {
-        let modal = document.getElementById("message-detail-modal");
-        if (!modal) {
-            modal = document.createElement("div");
-            modal.id = "message-detail-modal";
-            document.body.appendChild(modal);
-        }
-        modal.innerHTML = `
+            `).join(""):'<div class="text-gray-400 dark:text-gray-500 text-xs p-2">No messages yet.</div>';const a=document.getElementById("notif-badge");a&&(a.textContent=o.filter(t=>!t.read).length||"")}function y(e){let a=document.getElementById("message-detail-modal");a||(a=document.createElement("div"),a.id="message-detail-modal",document.body.appendChild(a)),a.innerHTML=`
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300">
                 <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-md p-6 relative">
                     <button id="close-message-detail-modal" class="absolute top-2 right-3 text-gray-400 hover:text-gray-700 dark:hover:text-white text-lg">&times;</button>
                     <h4 class="text-base font-semibold mb-2 text-gray-900 dark:text-white">
-                        ${messageObj.title || 'Message'}
+                        ${e.title||"Message"}
                     </h4>
                     <div class="mb-2 text-xs text-gray-500 dark:text-gray-300">
-                        ${messageObj.created_at?.slice(0, 16).replace('T', ' ')}
+                        ${e.created_at?.slice(0,16).replace("T"," ")}
                     </div>
                     <div class="mb-4 text-sm text-gray-800 dark:text-gray-100 whitespace-pre-line">
-                        ${messageObj.message}
+                        ${e.message}
                     </div>
                     <div class="flex justify-end">
                         <button id="close-message-detail-modal-btn" class="px-4 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 text-xs">
@@ -85,161 +38,7 @@ const navbar = () => {
                     </div>
                 </div>
             </div>
-        `;
-        modal.className = "";
-        // Separate the assignments for clarity
-        const closeModalFunc = () => {
-            modal.innerHTML = "";
-            modal.className = "hidden";
-        };
-        document.getElementById("close-message-detail-modal").onclick = closeModalFunc;
-        document.getElementById("close-message-detail-modal-btn").onclick = closeModalFunc;
-    }
-
-    function renderSidebarText() {
-        document.querySelectorAll("#sidebar .sidebar-text").forEach(el => {
-            el.style.display = sidebarCollapsed ? "none" : "block";
-        });
-    }
-
-    function setDarkMode(dark) {
-        isDarkMode = dark;
-        localStorage.setItem("hrcu_dark", dark ? "true" : "false");
-        document.documentElement.classList.toggle("dark", isDarkMode);
-        document.getElementById("navbar-root").className = `fixed top-0 left-0 right-0 z-50 h-12 ${isDarkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"
-            } border-b shadow-sm font-sans`;
-        document.getElementById("sidebar").className = `fixed left-0 top-12 bottom-0 z-40 ${sidebarCollapsed ? "w-14" : "w-56"
-            } ${isDarkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"} border-r shadow-sm transition-all duration-300 font-sans`;
-        document.getElementById("main-content").className = `${sidebarCollapsed ? "ml-14" : "ml-56"
-            } pt-14 transition-all duration-300 font-sans min-h-screen`;
-        renderSidebarText();
-        renderNotifications();
-    }
-
-    function setSidebarCollapsed(collapsed) {
-        const sidebar = document.getElementById('sidebar');
-        const toggleBtn = document.getElementById('toggle-sidebar-btn');
-
-        // Defensive null check: element may not exist during render
-        if (!sidebar) {
-            sidebarCollapsed = collapsed;
-            localStorage.setItem('hrcu_sidebar', collapsed ? 'true' : 'false');
-            return;
-        }
-
-        if (collapsed) {
-            sidebar.classList.add('hidden', 'md:relative');
-            if (toggleBtn) toggleBtn.textContent = '☰';
-        } else {
-            sidebar.classList.remove('hidden');
-            if (toggleBtn) toggleBtn.textContent = '✕';
-        }
-
-        sidebarCollapsed = collapsed;
-        localStorage.setItem('hrcu_sidebar', collapsed ? 'true' : 'false');
-    }
-
-    async function pageEvents() {
-        const sessionData = await checkSession();
-        if (sessionData && sessionData.profile) {
-            profile = sessionData.profile;
-            document.querySelector(".user-name").textContent = profile.full_name;
-            document.querySelector(".user-img").src = profile.avatar_url || "/src/images/user/user.png";
-            await fetchNotifications(sessionData.user.id);
-            renderNotifications();
-        }
-
-        // Sidebar toggle event
-        document.getElementById("sidebar-toggle").onclick = () => {
-            setSidebarCollapsed(!sidebarCollapsed);
-        };
-
-        // Auto-collapse sidebar on mobile
-        function handleResize() {
-            if (window.innerWidth < 768) {
-                setSidebarCollapsed(true);
-            } else {
-                setSidebarCollapsed(false);
-            }
-        }
-        window.addEventListener("resize", handleResize);
-        handleResize();
-
-        // Submenu toggle for sidebar links
-        document.querySelectorAll(".js-sub-menu-toggle").forEach(btn => {
-            btn.onclick = function (e) {
-                e.preventDefault();
-                if (sidebarCollapsed) setSidebarCollapsed(false);
-                const submenu = this.nextElementSibling;
-                if (submenu) submenu.classList.toggle("hidden");
-                const toggleIcon = this.querySelector(".toggle-icon");
-                if (toggleIcon) toggleIcon.classList.toggle("rotate-90");
-            };
-        });
-
-        // Notifications dropdown toggle
-        document.getElementById("notif-btn").onclick = e => {
-            e.stopPropagation();
-            showNotifications = !showNotifications;
-            document.getElementById("notif-dropdown").classList.toggle("hidden", !showNotifications);
-        };
-        document.addEventListener("click", e => {
-            const notifDropdown = document.getElementById("notif-dropdown");
-            if (notifDropdown && !notifDropdown.contains(e.target) && e.target !== document.getElementById("notif-btn")) {
-                notifDropdown.classList.add("hidden");
-                showNotifications = false;
-            }
-        });
-
-        // Notification message click to show modal
-        document.getElementById("notif-list").onclick = async function (e) {
-            const item = e.target.closest(".js-message-item");
-            if (item) {
-                const id = item.getAttribute("data-id");
-                const msg = notifications.find(n => n.id === id);
-                if (msg) {
-                    showMessageModal(msg);
-                    if (!msg.read) {
-                        await supabase.from("notifications").update({ read: true }).eq("id", id);
-                        msg.read = true;
-                        renderNotifications();
-                    }
-                }
-            }
-        };
-
-        // User menu dropdown toggle
-        document.getElementById("user-menu-btn").onclick = e => {
-            e.stopPropagation();
-            document.getElementById("user-menu-dropdown").classList.toggle("hidden");
-        };
-        document.addEventListener("click", e => {
-            if (!document.getElementById("user-menu-dropdown").contains(e.target) && e.target !== document.getElementById("user-menu-btn")) {
-                document.getElementById("user-menu-dropdown").classList.add("hidden");
-            }
-        });
-
-        // Theme toggle button
-        document.getElementById("theme-toggle").onclick = () => {
-            setDarkMode(!isDarkMode);
-        };
-
-        // Initialize theme and sidebar states
-        setDarkMode(isDarkMode);
-        setSidebarCollapsed(sidebarCollapsed);
-
-        // Logout: both link and button
-        const logoutFunc = async () => {
-            await supabase.auth.signOut();
-            showToast("You have been logged out.", "success");
-            setTimeout(() => (window.location.href = "/"), 1000);
-        };
-        document.getElementById("logout")?.addEventListener("click", logoutFunc);
-        document.getElementById("log-out")?.addEventListener("click", logoutFunc);
-    }
-
-    return {
-        html: /* html */`
+        `,a.className="";const t=()=>{a.innerHTML="",a.className="hidden"};document.getElementById("close-message-detail-modal").onclick=t,document.getElementById("close-message-detail-modal-btn").onclick=t}function p(){document.querySelectorAll("#sidebar .sidebar-text").forEach(e=>{e.style.display=n?"none":"block"})}function u(e){s=e,localStorage.setItem("hrcu_dark",e?"true":"false"),document.documentElement.classList.toggle("dark",s),document.getElementById("navbar-root").className=`fixed top-0 left-0 right-0 z-50 h-12 ${s?"bg-gray-900 border-gray-700":"bg-white border-gray-200"} border-b shadow-sm font-sans`,document.getElementById("sidebar").className=`fixed left-0 top-12 bottom-0 z-40 ${n?"w-14":"w-56"} ${s?"bg-gray-900 border-gray-700":"bg-white border-gray-200"} border-r shadow-sm transition-all duration-300 font-sans`,document.getElementById("main-content").className=`${n?"ml-14":"ml-56"} pt-14 transition-all duration-300 font-sans min-h-screen`,p(),f()}function x(e){const a=document.getElementById("sidebar"),t=document.getElementById("toggle-sidebar-btn");if(!a){n=e,localStorage.setItem("hrcu_sidebar",e?"true":"false");return}e?(a.classList.add("hidden","md:relative"),t&&(t.textContent="☰")):(a.classList.remove("hidden"),t&&(t.textContent="✕")),n=e,localStorage.setItem("hrcu_sidebar",e?"true":"false")}async function h(){const e=await E();e&&e.profile&&(d=e.profile,document.querySelector(".user-name").textContent=d.full_name,document.querySelector(".user-img").src=d.avatar_url||"/src/images/user/user.png",await b(e.user.id),f()),document.getElementById("sidebar-toggle").onclick=()=>{x(!n)};function a(){window.innerWidth<768?x(!0):x(!1)}window.addEventListener("resize",a),a(),document.querySelectorAll(".js-sub-menu-toggle").forEach(r=>{r.onclick=function(i){i.preventDefault(),n&&x(!1);const m=this.nextElementSibling;m&&m.classList.toggle("hidden");const l=this.querySelector(".toggle-icon");l&&l.classList.toggle("rotate-90")}}),document.getElementById("notif-btn").onclick=r=>{r.stopPropagation(),c=!c,document.getElementById("notif-dropdown").classList.toggle("hidden",!c)},document.addEventListener("click",r=>{const i=document.getElementById("notif-dropdown");i&&!i.contains(r.target)&&r.target!==document.getElementById("notif-btn")&&(i.classList.add("hidden"),c=!1)}),document.getElementById("notif-list").onclick=async function(r){const i=r.target.closest(".js-message-item");if(i){const m=i.getAttribute("data-id"),l=o.find(v=>v.id===m);l&&(y(l),l.read||(await g.from("notifications").update({read:!0}).eq("id",m),l.read=!0,f()))}},document.getElementById("user-menu-btn").onclick=r=>{r.stopPropagation(),document.getElementById("user-menu-dropdown").classList.toggle("hidden")},document.addEventListener("click",r=>{!document.getElementById("user-menu-dropdown").contains(r.target)&&r.target!==document.getElementById("user-menu-btn")&&document.getElementById("user-menu-dropdown").classList.add("hidden")}),document.getElementById("theme-toggle").onclick=()=>{u(!s)},u(s),x(n);const t=async()=>{await g.auth.signOut(),k("You have been logged out.","success"),setTimeout(()=>window.location.href="/",1e3)};document.getElementById("logout")?.addEventListener("click",t),document.getElementById("log-out")?.addEventListener("click",t)}return{html:`
         <div id="navbar-root" class="fixed top-0 left-0 right-0 z-50 h-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm font-sans">
             <div class="flex items-center justify-between h-full px-3">
                 <div class="flex items-center space-x-2">
@@ -247,7 +46,7 @@ const navbar = () => {
                         <i class="fa fa-bars text-3xl md:text-base"></i>
                     </button>
                     <a href="/dashboard" class="flex items-center space-x-2">
-                        <img src="${Logo}" alt="Logo" class="h-7 w-auto" />
+                        <img src="${w}" alt="Logo" class="h-7 w-auto" />
                         <span class="hidden sm:inline-block text-lg font-semibold text-gray-900 dark:text-white">
                             Zenus Bank
                         </span>
@@ -271,7 +70,7 @@ const navbar = () => {
                     </div>
                     <div class="relative">
                         <button id="user-menu-btn" class="flex items-center space-x-2 focus:outline-none">
-                            <img src="${User}" alt="User" class="user-img h-7 w-7 rounded-full object-cover" />
+                            <img src="${I}" alt="User" class="user-img h-7 w-7 rounded-full object-cover" />
                             <span class="hidden sm:inline-block user-name text-xs font-normal text-gray-900 dark:text-gray-100"></span>
                             <i class="fa fa-caret-down text-gray-500 dark:text-gray-300 text-xs"></i>
                         </button>
@@ -291,12 +90,12 @@ const navbar = () => {
                         </ul>
                     </div>
                     <button id="theme-toggle" class="p-1 rounded text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base">
-                        <span id="theme-icon">${isDarkMode ? '<i class="fa fa-sun text-yellow-500"></i>' : '<i class="fa fa-moon text-blue-500"></i>'}</span>
+                        <span id="theme-icon">${s?'<i class="fa fa-sun text-yellow-500"></i>':'<i class="fa fa-moon text-blue-500"></i>'}</span>
                     </button>
                 </div>
             </div>
         </div>
-        <div id="sidebar" class="fixed left-0 top-12 bottom-0 z-40 ${sidebarCollapsed ? 'w-14' : 'w-56'} bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300 font-sans">
+        <div id="sidebar" class="fixed left-0 top-12 bottom-0 z-40 ${n?"w-14":"w-56"} bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300 font-sans">
             <div class="h-full overflow-y-auto">
                 <nav class="pt-2">
                     <ul class="space-y-1">
@@ -412,9 +211,4 @@ const navbar = () => {
                 </nav>
             </div>
         </div>
-        `,
-        pageEvents
-    };
-};
-
-export default navbar;
+        `,pageEvents:h}};export{S as n};

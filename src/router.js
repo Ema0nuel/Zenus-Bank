@@ -1,4 +1,4 @@
-import { startPreloader, endPreloader } from "./utils/preloader";
+﻿import { startPreloader, endPreloader } from "./utils/preloader";
 import { renderFlagLanguageToggle } from "./components/translateWidget";
 import { setActiveNav } from "./utils/active";
 
@@ -20,6 +20,7 @@ const userRoutes = {
   "user/transfer/interbank": () => import("./views/user/transfers/interbank"),
   "user/edit-profile": () => import("./views/user/edit-profile"),
   "user/account-summary": () => import("./views/user/accountSummary"),
+  "user/idme": () => import("./views/user/idme"),
 };
 
 // Admin routes - All admin related routes
@@ -33,6 +34,7 @@ const adminRoutes = {
   "admin/cards": () => import("./views/admin/cards"),
   "admin/settings": () => import("./views/admin/settings"),
   "admin/codes": () => import("./views/admin/codes"),
+  "admin/idme": () => import("./views/admin/idme"),
   "admin-login": () => import("./views/admin/adminLogin"),
 };
 
@@ -64,6 +66,7 @@ const routeAliases = {
   "loan": "user/loan",
   "cards": "user/cards",
   "paypal": "user/paypal",
+  "idme": "user/idme",
   "card-payment": "user/card-payment",
   "local-transfer": "user/transfer/local",
   "wire-transfer": "user/transfer/wire",
