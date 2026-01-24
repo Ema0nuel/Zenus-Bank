@@ -117,26 +117,13 @@ const navbar = () => {
     }
 
     function setSidebarCollapsed(collapsed) {
-        const sidebar = document.getElementById('sidebar');
-        const toggleBtn = document.getElementById('toggle-sidebar-btn');
-
-        // Defensive null check: element may not exist during render
-        if (!sidebar) {
-            sidebarCollapsed = collapsed;
-            localStorage.setItem('hrcu_sidebar', collapsed ? 'true' : 'false');
-            return;
-        }
-
-        if (collapsed) {
-            sidebar.classList.add('hidden', 'md:relative');
-            if (toggleBtn) toggleBtn.textContent = '☰';
-        } else {
-            sidebar.classList.remove('hidden');
-            if (toggleBtn) toggleBtn.textContent = '✕';
-        }
-
         sidebarCollapsed = collapsed;
-        localStorage.setItem('hrcu_sidebar', collapsed ? 'true' : 'false');
+        localStorage.setItem("hrcu_sidebar", collapsed ? "true" : "false");
+        document.getElementById("sidebar").className = `fixed left-0 top-12 bottom-0 z-40 ${sidebarCollapsed ? "w-14" : "w-56"
+            } ${isDarkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"} border-r shadow-sm transition-all duration-300 font-sans`;
+        document.getElementById("main-content").className = `${sidebarCollapsed ? "ml-14" : "ml-56"
+            } pt-14 transition-all duration-300 font-sans min-h-screen`;
+        renderSidebarText();
     }
 
     async function pageEvents() {
@@ -249,7 +236,7 @@ const navbar = () => {
                     <a href="/dashboard" class="flex items-center space-x-2">
                         <img src="${Logo}" alt="Logo" class="h-7 w-auto" />
                         <span class="hidden sm:inline-block text-lg font-semibold text-gray-900 dark:text-white">
-                            Zenus Bank
+                            Assurance Bank
                         </span>
                     </a>
                 </div>
@@ -313,11 +300,7 @@ const navbar = () => {
                             </a>
                         </li>
                         <li>
-                            <a href="/idme" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
-                                <i class="fa fa-id-card mr-2 text-3xl md:text-base"></i>
-                                <span class="sidebar-text">Idme</span>
-                            </a>
-                        </li>
+                        <a href="/idme" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal"><i class="fa fa-id-card mr-2 text-3xl md:text-base"></i><span class="sidebar-text">Idme</span></a></li>
                         <li>
                             <a href="/account-summary" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
                                 <i class="fa fa-briefcase mr-2 text-3xl md:text-base"></i>
@@ -418,3 +401,4 @@ const navbar = () => {
 };
 
 export default navbar;
+
