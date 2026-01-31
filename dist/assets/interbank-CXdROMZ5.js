@@ -1,7 +1,7 @@
-import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbLO2Fva.js";import{s as r}from"./toast-DRvdR0y9.js";import{r as S}from"./reset-CYKpHJhn.js";import{N as A}from"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const I=["E9876567","G0876578","8767898H","K2387651","456L7890","1M234567","987654N3","O2345678","98765P43","Q1987654","R7654321","567S1234","T3456789","876543U1","V1234567","345678W9","X2345678","9Y876543","Z3456781","234567A8","B3456781","123456C7","D2345678","876E5432","5678F123","6789G123","7890H234","8901I345","9012J456","0123K567","K4561237","L5672348","M6783459","N7894560","O8905671","P9016782","Q0127893","R1238904","S2349015","T3450126","U4561237","V5672348","W6783459","X7894560","Y8905671","Z9016782","A0127893","B1238904","C2349015","D3450126","E4561237","F5672348","G6783459","H7894560","I8905671","J9016782","K0127893","L1238904","M2349015","N3450126","O4561237","P5672348","Q6783459","R7894560","S8905671","T9016782","U0127893","V1238904","W2349015","X3450126","Y4561237","Z5672348","A6783459","B7894560","C8905671","D9016782","E0127893","F1238904","G2349015","H3450126","I4561237","J5672348","K6783459","L7894560","M8905671","N9016782","O0127893","P1238904","Q2349015","R3450126","S4561237","T5672348","U6783459","V7894560","W8905671","X9016782","Y0127893","Z1238904","A2349015","B3450126","C4561237","D5672348","E6783459","F7894560","G8905671","H9016782","I0127893","J1238904","K2349015","L3450126","M4561237","N5672348","O6783459","P7894560","Q8905671","R9016782","S0127893","T1238904","U2349015","V3450126","W4561237","X5672348","Y6783459","Z7894560","A8905671","B9016782","C0127893","D1238904","E2349015","F3450126","G4561237","H5672348","I6783459","J7894560","K8905671","L9016782","M0127893","N1238904","O2349015","P3450126"];function C(){return Math.floor(1e5+Math.random()*9e5).toString()}async function B(){try{return await(await fetch("https://ipapi.co/json/")).json()}catch{return{}}}function w(a={}){const e={...{title:"Wire Transfer Receipt",receiptId:h(),date:new Date().toLocaleDateString(),time:new Date().toLocaleTimeString(),amount:"0.00",currency:"$",description:"Wire Transfer",senderName:"",recipientName:"",bankName:"",accountNumber:"",transactionType:"Wire Transfer",status:"Pending",referenceNumber:"",fees:"0.00",totalAmount:"",companyName:"Zenus Bank",companyAddress:"123 Main St, City, Country",companyPhone:"+1 (555) 123-4567",companyEmail:"zenusbanking@gmail.com",additionalFields:{},showFooter:!0,footerText:"Thank you for banking with us!"},...a};if(!e.totalAmount){const i=parseFloat(e.amount)||0,n=parseFloat(e.fees)||0;e.totalAmount=(i+n).toFixed(2)}return`
+import{s as u}from"./supabaseClient-CL6H8VOx.js";import{n as T}from"./Navbar-Bss5hsHn.js";import{s as o}from"./toast-DRvdR0y9.js";import{r as $}from"./reset-CYKpHJhn.js";import{N}from"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";const I=["E9876567","G0876578","8767898H","K2387651","456L7890","1M234567","987654N3","O2345678","98765P43","Q1987654","R7654321","567S1234","T3456789","876543U1","V1234567","345678W9","X2345678","9Y876543","Z3456781","234567A8","B3456781","123456C7","D2345678","876E5432","5678F123","6789G123","7890H234","8901I345","9012J456","0123K567","K4561237","L5672348","M6783459","N7894560","O8905671","P9016782","Q0127893","R1238904","S2349015","T3450126","U4561237","V5672348","W6783459","X7894560","Y8905671","Z9016782","A0127893","B1238904","C2349015","D3450126","E4561237","F5672348","G6783459","H7894560","I8905671","J9016782","K0127893","L1238904","M2349015","N3450126","O4561237","P5672348","Q6783459","R7894560","S8905671","T9016782","U0127893","V1238904","W2349015","X3450126","Y4561237","Z5672348","A6783459","B7894560","C8905671","D9016782","E0127893","F1238904","G2349015","H3450126","I4561237","J5672348","K6783459","L7894560","M8905671","N9016782","O0127893","P1238904","Q2349015","R3450126","S4561237","T5672348","U6783459","V7894560","W8905671","X9016782","Y0127893","Z1238904","A2349015","B3450126","C4561237","D5672348","E6783459","F7894560","G8905671","H9016782","I0127893","J1238904","K2349015","L3450126","M4561237","N5672348","O6783459","P7894560","Q8905671","R9016782","S0127893","T1238904","U2349015","V3450126","W4561237","X5672348","Y6783459","Z7894560","A8905671","B9016782","C0127893","D1238904","E2349015","F3450126","G4561237","H5672348","I6783459","J7894560","K8905671","L9016782","M0127893","N1238904","O2349015","P3450126"];function B(){return Math.floor(1e5+Math.random()*9e5).toString()}async function P(){try{return await(await fetch("https://ipapi.co/json/")).json()}catch{return{}}}function y(a={}){const e={...{title:"Inter-Bank Transfer Receipt",receiptId:x(),date:new Date().toLocaleDateString(),time:new Date().toLocaleTimeString(),amount:"0.00",currency:"$",description:"Inter-Bank Transfer",senderName:"",recipientName:"",bankName:"",accountNumber:"",transactionType:"Inter-Bank Transfer",status:"Pending",referenceNumber:"",fees:"0.00",totalAmount:"",companyName:"Zenus Bank",companyAddress:"123 Main St, City, Country",companyPhone:"+1 (555) 123-4567",companyEmail:"zenusbanking@gmail.com",additionalFields:{},showFooter:!0,footerText:"Thank you for banking with us!"},...a};if(!e.totalAmount){const r=parseFloat(e.amount)||0,n=parseFloat(e.fees)||0;e.totalAmount=(r+n).toFixed(2)}return`
     <div class="receipt-container font-mono">
       <div class="text-center mb-4">
-        <img src="${A}" alt="Zenus Bank" class="h-10 mx-auto mb-2" />
+        <img src="${N}" alt="Zenus Bank" class="h-10 mx-auto mb-2" />
         <h2 class="font-bold text-2xl text-gray-900 dark:text-white mb-1">${e.title}</h2>
         <div class="text-base text-gray-700 dark:text-gray-300">${e.companyName}</div>
         <div class="text-xs text-gray-500 dark:text-gray-400">${e.companyAddress}</div>
@@ -36,9 +36,6 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
           <span class="font-semibold">To:</span><span>${e.recipientName}</span>
         </div>
         <div class="flex justify-between text-xs mb-1">
-          <span class="font-semibold">Bank:</span><span>${e.bankName}</span>
-        </div>
-        <div class="flex justify-between text-xs mb-1">
           <span class="font-semibold">Account:</span><span>${e.accountNumber}</span>
         </div>
         <div class="flex justify-between text-xs mb-1">
@@ -60,9 +57,9 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
         </div>
       </div>
       ${Object.keys(e.additionalFields).length>0?`<div class="mb-4 border-t border-dashed border-gray-300 dark:border-gray-700 pt-3">
-                ${Object.entries(e.additionalFields).map(([i,n])=>`
+                ${Object.entries(e.additionalFields).map(([r,n])=>`
                       <div class="flex justify-between text-xs mb-1">
-                        <span class="font-semibold">${i}:</span><span>${n}</span>
+                        <span class="font-semibold">${r}:</span><span>${n}</span>
                       </div>
                     `).join("")}
               </div>`:""}
@@ -73,7 +70,7 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
                 </div>
               </div>`:""}
     </div>
-    `}function h(){const a=Date.now().toString().slice(-6),l=Math.random().toString(36).substr(2,4).toUpperCase();return`RCP-${a}-${l}`}function y(a,l){let e=document.getElementById("code-modal");e||(e=document.createElement("div"),e.id="code-modal",document.body.appendChild(e)),e.className="",e.innerHTML=`
+    `}function x(){const a=Date.now().toString().slice(-6),c=Math.random().toString(36).substr(2,4).toUpperCase();return`RCP-${a}-${c}`}function g(a,c){let e=document.getElementById("code-modal");e||(e=document.createElement("div"),e.id="code-modal",document.body.appendChild(e)),e.className="",e.innerHTML=`
     <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-sm p-6 relative">
         <button id="close-code-modal" class="absolute top-2 right-3 text-gray-400 hover:text-gray-700 dark:hover:text-white text-lg">&times;</button>
@@ -95,7 +92,7 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
         </form>
       </div>
     </div>
-  `,document.getElementById("close-code-modal").onclick=()=>{e.innerHTML="",e.className="hidden"},document.getElementById("code-form").onsubmit=async function(i){i.preventDefault();const n=this.code.value.trim();I.includes(n)?(e.innerHTML="",e.className="hidden",l()):r("Invalid code. Please contact support.","error")}}function D(){let a=document.getElementById("success-modal");a||(a=document.createElement("div"),a.id="success-modal",document.body.appendChild(a)),a.className="",a.innerHTML=`
+  `,document.getElementById("close-code-modal").onclick=()=>{e.innerHTML="",e.className="hidden"},document.getElementById("code-form").onsubmit=async function(r){r.preventDefault();const n=this.code.value.trim();I.includes(n)?(e.innerHTML="",e.className="hidden",c()):o("Invalid code. Please contact support.","error")}}function A(){let a=document.getElementById("success-modal");a||(a=document.createElement("div"),a.id="success-modal",document.body.appendChild(a)),a.className="",a.innerHTML=`
     <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
       <div class="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-xs p-8 flex flex-col items-center relative">
         <canvas id="success-canvas" width="120" height="120" style="display:block;margin-bottom:16px;"></canvas>
@@ -107,22 +104,22 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
     <style>
       #success-canvas { background: transparent; }
     </style>
-  `;const e=document.getElementById("success-canvas").getContext("2d");let i=0;function n(){e.clearRect(0,0,120,120),e.lineWidth=6,e.strokeStyle="#16a34a",e.beginPath(),e.arc(60,60,48,Math.PI*.5,Math.PI*(2*i),!1),e.stroke(),i<1?(i+=.03,requestAnimationFrame(n)):(e.beginPath(),e.moveTo(40,65),e.lineTo(55,80),e.lineTo(85,45),e.strokeStyle="#16a34a",e.lineWidth=8,e.stroke())}n(),document.getElementById("close-success-modal").onclick=()=>{a.innerHTML="",a.className="hidden",window.location.reload()}}const W=async()=>{S("Zenus Bank | Wire Transfer");const a=P(),l=await c.auth.getSession();if(!l.data.session){window.location.href="/login";return}const{user:e}=l.data.session,{data:i}=await c.from("profiles").select("*").eq("id",e.id).single();let{data:n}=await c.from("accounts").select("*").eq("user_id",e.id).single();const f=p=>typeof p=="number"?p.toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2}):p||"$0.00";function k(){a.pageEvents?.(),document.getElementById("wire-transfer-form").onsubmit=async function(t){t.preventDefault();try{const s=parseFloat(this.amount.value),d=this.bankname.value.trim(),u=this.B_country.value.trim(),o=this.accountName.value.trim(),m=this.accountNum.value.trim(),g=this.swiftcode.value.trim(),x=this.desc.value.trim();if(!s||!d||!u||!o||!m||!g||!x){r("All fields are required.","error");return}if(s<=0){r("Amount must be greater than zero.","error");return}if(s>n.balance){r("Insufficient balance.","error");return}r("Sending OTP...","info");const v=C(),b=await B(),{error:N}=await c.from("otps").insert([{user_id:e.id,code:v,type:"wire",expires_at:new Date(Date.now()+10*6e4).toISOString()}]);if(N){r("Database error. Please try again.","error");return}p({amount:s,bankname:d,country:u,accountName:o,accountNum:m,swift:g,desc:x,profile:i,account:n,otp:v,ipLoc:b}),fetch("/api/send-email",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({to:e.email,subject:"Your OTP for Wire Transfer",html:`
-              <h2>Wire Transfer OTP</h2>
-              <p>Your OTP is: <b>${v}</b></p>
-              <p>IP: ${b.ip||"N/A"}<br>
-              Location: ${b.city||""}, ${b.region||""}, ${b.country_name||""}<br>
+  `;const e=document.getElementById("success-canvas").getContext("2d");let r=0;function n(){e.clearRect(0,0,120,120),e.lineWidth=6,e.strokeStyle="#16a34a",e.beginPath(),e.arc(60,60,48,Math.PI*.5,Math.PI*(2*r),!1),e.stroke(),r<1?(r+=.03,requestAnimationFrame(n)):(e.beginPath(),e.moveTo(40,65),e.lineTo(55,80),e.lineTo(85,45),e.strokeStyle="#16a34a",e.lineWidth=8,e.stroke())}n(),document.getElementById("close-success-modal").onclick=()=>{a.innerHTML="",a.className="hidden",window.location.reload()}}const M=async()=>{$("Zenus Bank | Inter-Bank Transfer");const a=T(),c=await u.auth.getSession();if(!c.data.session){window.location.href="/login";return}const{user:e}=c.data.session,{data:r}=await u.from("profiles").select("*").eq("id",e.id).single();let{data:n}=await u.from("accounts").select("*").eq("user_id",e.id).single();const f=b=>typeof b=="number"?b.toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2}):b||"$0.00";function v(){a.pageEvents?.(),document.getElementById("interbank-transfer-form").onsubmit=async function(t){t.preventDefault();try{const s=parseFloat(this.amount.value),i=this.accountName.value.trim(),l=this.accountNum.value.trim(),d=this.desc.value.trim();if(!s||!i||!l||!d){o("All fields are required.","error");return}if(s<=0){o("Amount must be greater than zero.","error");return}if(s>n.balance){o("Insufficient balance.","error");return}o("Sending OTP...","info");const m=B(),p=await P(),{error:k}=await u.from("otps").insert([{user_id:e.id,code:m,type:"interbank",expires_at:new Date(Date.now()+10*6e4).toISOString()}]);if(k){o("Database error. Please try again.","error");return}b({amount:s,accountName:i,accountNum:l,desc:d,profile:r,account:n,otp:m,ipLoc:p}),fetch("/api/send-email",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({to:e.email,subject:"Your OTP for Inter-Bank Transfer",html:`
+              <h2>Inter-Bank Transfer OTP</h2>
+              <p>Your OTP is: <b>${m}</b></p>
+              <p>IP: ${p.ip||"N/A"}<br>
+              Location: ${p.city||""}, ${p.region||""}, ${p.country_name||""}<br>
               Date: ${new Date().toLocaleString()}</p>
               <hr>
               <h3>Transaction Details</h3>
               <ul>
                 <li>Amount: ${f(s)}</li>
-                <li>Sender: ${i.full_name}</li>
-                <li>Beneficiary: ${o}</li>
-                <li>Account Number: ${m}</li>
-                <li>Description: ${x}</li>
+                <li>Sender: ${r.full_name}</li>
+                <li>Beneficiary: ${i}</li>
+                <li>Account Number: ${l}</li>
+                <li>Description: ${d}</li>
               </ul>
-            `})}).then($=>{$.ok?r("OTP sent to your email.","success"):r("OTP email failed, but you can still enter the code.","warning")}).catch(()=>{r("OTP email failed, but you can still enter the code.","warning")})}catch{r("An error occurred. Please try again.","error")}};function p(t){let s=document.getElementById("otp-modal");s||(s=document.createElement("div"),s.id="otp-modal",document.body.appendChild(s)),s.className="",s.innerHTML=`
+            `})}).then(w=>{w.ok?o("OTP sent to your email.","success"):o("OTP email failed, but you can still enter the code.","warning")}).catch(()=>{o("OTP email failed, but you can still enter the code.","warning")})}catch{o("An error occurred. Please try again.","error")}};function b(t){let s=document.getElementById("otp-modal");s||(s=document.createElement("div"),s.id="otp-modal",document.body.appendChild(s)),s.className="",s.innerHTML=`
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
           <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-sm p-6 relative">
             <button id="close-otp-modal" class="absolute top-2 right-3 text-gray-400 hover:text-gray-700 dark:hover:text-white text-lg">&times;</button>
@@ -143,14 +140,14 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
             </form>
           </div>
         </div>
-      `,document.getElementById("close-otp-modal").onclick=()=>{s.innerHTML="",s.className="hidden"},document.getElementById("otp-form").onsubmit=async function(d){d.preventDefault();const u=this.otp.value.trim(),{data:o,error:m}=await c.from("otps").select("*").eq("user_id",t.profile.id).eq("code",u).eq("type","wire").order("created_at",{ascending:!1}).limit(1).single();if(m||!o||new Date(o.expires_at)<new Date){r("Invalid or expired OTP.","error");return}T(t)}}function T(t){let s=document.getElementById("otp-modal");s.className="",s.innerHTML=`
+      `,document.getElementById("close-otp-modal").onclick=()=>{s.innerHTML="",s.className="hidden"},document.getElementById("otp-form").onsubmit=async function(i){i.preventDefault();const l=this.otp.value.trim(),{data:d,error:m}=await u.from("otps").select("*").eq("user_id",t.profile.id).eq("code",l).eq("type","interbank").order("created_at",{ascending:!1}).limit(1).single();if(m||!d||new Date(d.expires_at)<new Date){o("Invalid or expired OTP.","error");return}h(t)}}function h(t){let s=document.getElementById("otp-modal");s.className="",s.innerHTML=`
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
           <div class="receipt-modal-content bg-white dark:bg-gray-900 rounded-xl shadow-2xl w-full max-w-md mx-2 p-0 relative overflow-auto" style="max-height:90vh;">
             <button id="close-receipt-modal" class="absolute top-3 right-4 text-gray-400 hover:text-red-500 dark:hover:text-white text-2xl font-bold z-10" aria-label="Close">&times;</button>
             <div class="p-6">
-              ${w({id:h(),date:new Date().toLocaleDateString(),time:new Date().toLocaleTimeString(),amount:t.amount,currency:"$",description:t.desc,senderName:t.profile.full_name,recipientName:t.accountName,bankName:t.bankname,accountNumber:t.accountNum,transactionType:"Wire Transfer",status:"Pending",referenceNumber:t.accountNum,fees:"0.00",totalAmount:t.amount,additionalFields:{"SWIFT Code":t.swift,Country:t.country,IP:t.ipLoc.ip||"N/A",Location:`${t.ipLoc.city||""}, ${t.ipLoc.region||""}, ${t.ipLoc.country_name||""}`}})}
+              ${y({id:x(),date:new Date().toLocaleDateString(),time:new Date().toLocaleTimeString(),amount:t.amount,currency:"$",description:t.desc,senderName:t.profile.full_name,recipientName:t.accountName,accountNumber:t.accountNum,transactionType:"Inter-Bank Transfer",status:"Pending",referenceNumber:t.accountNum,fees:"0.00",totalAmount:t.amount,additionalFields:{IP:t.ipLoc.ip||"N/A",Location:`${t.ipLoc.city||""}, ${t.ipLoc.region||""}, ${t.ipLoc.country_name||""}`}})}
               <div class="mt-6 flex flex-col gap-2 justify-center">
-                <button id="complete-wire-btn" class="bg-green-600 text-white px-6 py-2 rounded shadow hover:bg-green-700 transition font-semibold">
+                <button id="complete-interbank-btn" class="bg-green-600 text-white px-6 py-2 rounded shadow hover:bg-green-700 transition font-semibold">
                   Complete Transaction
                 </button>
               </div>
@@ -173,7 +170,7 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
             box-shadow: 0 4px 24px rgba(0,0,0,0.40);
           }
         </style>
-      `,document.getElementById("close-receipt-modal").onclick=()=>{s.innerHTML="",s.className="hidden"},document.getElementById("complete-wire-btn").onclick=()=>{y("IMF",()=>{y("COT",()=>{y("VAT",async()=>{D();try{const d=parseFloat(t.amount),u=parseFloat(t.account.balance),o=u-d;await c.from("accounts").update({balance:o}).eq("id",t.account.id);const{data:m,error:g}=await c.from("transactions").insert([{account_id:t.account.id,user_id:t.profile.id,type:"wire",description:t.desc,amount:d,balance_before:u,balance_after:o,status:"pending"}]).select().single();await c.from("notifications").insert([{user_id:t.profile.id,title:"Wire Transfer Initiated",message:`Your wire transfer of ${f(t.amount)} to ${t.accountName} is awaiting admin approval.`,type:"info",read:!1}]),fetch("/api/send-email",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({to:t.profile.email,subject:"Wire Transfer Receipt",html:w({amount:t.amount,senderName:t.profile.full_name,recipientName:t.accountName,bankName:t.bankname,accountNumber:t.accountNum,description:t.desc,fees:"0.00",status:"Pending",referenceNumber:m?.id||h(),companyName:"Zenus Bank",companyAddress:"123 Main St, City, Country",companyPhone:"+1 (555) 123-4567",companyEmail:"zenusbanking@gmail.com"})})})}catch{r("Failed to process transaction. Please try again.","error")}})})})}}}return{html:`
+      `,document.getElementById("close-receipt-modal").onclick=()=>{s.innerHTML="",s.className="hidden"},document.getElementById("complete-interbank-btn").onclick=()=>{g("IMF",()=>{g("COT",()=>{g("VAT",async()=>{A();try{const i=parseFloat(t.amount),l=parseFloat(t.account.balance),d=l-i;await u.from("accounts").update({balance:d}).eq("id",t.account.id);const{data:m,error:p}=await u.from("transactions").insert([{account_id:t.account.id,user_id:t.profile.id,type:"interbank",description:t.desc,amount:i,balance_before:l,balance_after:d,status:"pending"}]).select().single();await u.from("notifications").insert([{user_id:t.profile.id,title:"Inter-Bank Transfer Initiated",message:`Your inter-bank transfer of ${f(t.amount)} to ${t.accountName} is awaiting admin approval.`,type:"info",read:!1}]),fetch("/api/send-email",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({to:t.profile.email,subject:"Inter-Bank Transfer Receipt",html:y({amount:t.amount,senderName:t.profile.full_name,recipientName:t.accountName,accountNumber:t.accountNum,description:t.desc,fees:"0.00",status:"Pending",referenceNumber:m?.id||x(),companyName:"Zenus Bank",companyAddress:"123 Main St, City, Country",companyPhone:"+1 (555) 123-4567",companyEmail:"zenusbanking@gmail.com"})})})}catch{o("Failed to process transaction. Please try again.","error")}})})})}}}return{html:`
       <div class="relative">
         ${a.html}
         <div class="bg-gray-50 dark:bg-gray-900 font-sans min-h-screen pt-12">
@@ -183,7 +180,7 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
                 <nav class="flex items-center space-x-2 text-xs">
                   <i class="fa fa-home text-gray-500 text-xs"></i>
                   <span class="text-gray-500">/</span>
-                  <span class="text-gray-700 dark:text-gray-300">Wire Transfer</span>
+                  <span class="text-gray-700 dark:text-gray-300">Inter-Bank Transfer</span>
                 </nav>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -223,8 +220,8 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="p-6 rounded bg-white dark:bg-gray-800 shadow-sm">
-                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4"><i class="fa fa-plane mr-2"></i> Wire Transfer</h3>
-                  <form id="wire-transfer-form" class="space-y-4">
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4"><i class="fa fa-bank mr-2"></i> Inter-Bank Fund Transfer</h3>
+                  <form id="interbank-transfer-form" class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label class="block text-xs font-semibold mb-1">Amount</label>
@@ -234,42 +231,19 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
                         </div>
                       </div>
                       <div>
-                        <label class="block text-xs font-semibold mb-1">Bank Name</label>
+                        <label class="block text-xs font-semibold mb-1">Account Holder</label>
                         <div class="relative">
-                          <input type="text" name="bankname" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring" placeholder="Beneficiary Bank Name" required />
-                          <span class="absolute right-3 top-2.5 text-gray-400"><i class="fa fa-bank"></i></span>
+                          <input type="text" name="accountName" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring" placeholder="Beneficiary Account Name" required />
+                          <span class="absolute right-3 top-2.5 text-gray-400"><i class="fa fa-user"></i></span>
                         </div>
                       </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold mb-1">Country</label>
-                            <div class="relative">
-                            <input type="text" name="B_country" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring" placeholder="USA" required />
-                            <span class="absolute right-3 top-2.5 text-gray-400"><i class="fa fa-map-marker"></i></span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold mb-1">Account Holder</label>
-                            <div class="relative">
-                            <input type="text" name="accountName" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring" placeholder="Beneficiary Account Name" required />
-                            <span class="absolute right-3 top-2.5 text-gray-400"><i class="fa fa-user"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1">
                       <div>
                         <label class="block text-xs font-semibold mb-1">Account Number</label>
                         <div class="relative">
                           <input type="text" name="accountNum" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring" placeholder="Beneficiary Account Number" required />
                           <span class="absolute right-3 top-2.5 text-gray-400"><i class="fa fa-briefcase"></i></span>
-                        </div>
-                      </div>
-                      <div>
-                        <label class="block text-xs font-semibold mb-1">SWIFT Code</label>
-                        <div class="relative">
-                          <input type="text" name="swiftcode" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring" placeholder="SWIFT/BIC Code" required />
-                          <span class="absolute right-3 top-2.5 text-gray-400"><i class="fa fa-hashtag"></i></span>
                         </div>
                       </div>
                     </div>
@@ -298,4 +272,4 @@ import{s as c}from"./supabaseClient-CL6H8VOx.js";import{n as P}from"./Navbar-DbL
       </div>
       <div id="otp-modal" class="hidden"></div>
       <div id="success-modal" class="hidden"></div>
-    `,pageEvents:k}};export{W as default};
+    `,pageEvents:v}};export{M as default};

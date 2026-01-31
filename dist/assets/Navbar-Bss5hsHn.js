@@ -1,24 +1,24 @@
-import{s as g}from"./supabaseClient-CL6H8VOx.js";import{s as k}from"./toast-DRvdR0y9.js";import{L as w}from"./logo-yCyWWFG1.js";async function E(){const{data:{session:o}}=await g.auth.getSession();if(!o||!o.user)return null;const d=o.user.id,{data:s,error:n}=await g.from("profiles").select("*").eq("id",d).single();if(n||!s)return null;const{data:c,error:b}=await g.from("accounts").select("*").eq("user_id",d).single();return{user:o.user,profile:s,account:c||null}}const I="/assets/user-lhKlZH-X.png",S=()=>{let o=[],d={},s=localStorage.getItem("hrcu_dark")==="true",n=localStorage.getItem("hrcu_sidebar")==="true",c=!1;async function b(e){const{data:a}=await g.from("notifications").select("*").eq("user_id",e).order("created_at",{ascending:!1}).limit(10);o=a||[]}function f(){const e=document.getElementById("notif-list");if(!e)return;e.innerHTML=o.length?o.map(t=>`
-                <div class="p-2 border-b ${s?"border-gray-700 hover:bg-gray-700":"border-gray-200 hover:bg-gray-50"} transition-colors cursor-pointer js-message-item" data-id="${t.id}">
+import{s as g}from"./supabaseClient-CL6H8VOx.js";import{s as k}from"./toast-DRvdR0y9.js";import{L as w}from"./logo-yCyWWFG1.js";async function E(){const{data:{session:n}}=await g.auth.getSession();if(!n||!n.user)return null;const d=n.user.id,{data:t,error:o}=await g.from("profiles").select("*").eq("id",d).single();if(o||!t)return null;const{data:c,error:b}=await g.from("accounts").select("*").eq("user_id",d).single();return{user:n.user,profile:t,account:c||null}}const I="/assets/user-lhKlZH-X.png",S=()=>{let n=[],d={},t=localStorage.getItem("hrcu_dark")==="true",o=localStorage.getItem("hrcu_sidebar")==="true",c=!1;async function b(e){const{data:s}=await g.from("notifications").select("*").eq("user_id",e).order("created_at",{ascending:!1}).limit(10);n=s||[]}function f(){const e=document.getElementById("notif-list");if(!e)return;e.innerHTML=n.length?n.map(a=>`
+                <div class="p-2 border-b ${t?"border-gray-700 hover:bg-gray-700":"border-gray-200 hover:bg-gray-50"} transition-colors cursor-pointer js-message-item" data-id="${a.id}">
                     <div class="flex items-start space-x-2">
-                        <div class="p-1 rounded ${t.type==="danger"?s?"bg-red-900":"bg-red-100":s?"bg-blue-900":"bg-blue-100"}">
-                            <i class="fa ${t.type==="danger"?"fa-exclamation-circle text-red-600":"fa-envelope text-blue-600"} text-xs"></i>
+                        <div class="p-1 rounded ${a.type==="danger"?t?"bg-red-900":"bg-red-100":t?"bg-blue-900":"bg-blue-100"}">
+                            <i class="fa ${a.type==="danger"?"fa-exclamation-circle text-red-600":"fa-envelope text-blue-600"} text-xs"></i>
                         </div>
                         <div class="flex-1">
-                            <p class="text-xs font-semibold ${s?"text-white":"text-gray-900"}">
-                                ${t.title||"Message"}
+                            <p class="text-xs font-semibold ${t?"text-white":"text-gray-900"}">
+                                ${a.title||"Message"}
                             </p>
-                            <p class="text-[11px] ${s?"text-gray-300":"text-gray-700"} truncate">
-                                ${t.message?.slice(0,60)||""}${t.message&&t.message.length>60?"...":""}
+                            <p class="text-[11px] ${t?"text-gray-300":"text-gray-700"} truncate">
+                                ${a.message?.slice(0,60)||""}${a.message&&a.message.length>60?"...":""}
                             </p>
-                            <p class="text-[10px] ${s?"text-gray-400":"text-gray-500"} mt-0.5">
-                                ${t.created_at?.slice(0,16).replace("T"," ")}
+                            <p class="text-[10px] ${t?"text-gray-400":"text-gray-500"} mt-0.5">
+                                ${a.created_at?.slice(0,16).replace("T"," ")}
                             </p>
                         </div>
-                        ${t.read?"":'<span class="ml-2 mt-1 inline-block w-2 h-2 rounded-full bg-blue-500"></span>'}
+                        ${a.read?"":'<span class="ml-2 mt-1 inline-block w-2 h-2 rounded-full bg-blue-500"></span>'}
                     </div>
                 </div>
-            `).join(""):'<div class="text-gray-400 dark:text-gray-500 text-xs p-2">No messages yet.</div>';const a=document.getElementById("notif-badge");a&&(a.textContent=o.filter(t=>!t.read).length||"")}function y(e){let a=document.getElementById("message-detail-modal");a||(a=document.createElement("div"),a.id="message-detail-modal",document.body.appendChild(a)),a.innerHTML=`
+            `).join(""):'<div class="text-gray-400 dark:text-gray-500 text-xs p-2">No messages yet.</div>';const s=document.getElementById("notif-badge");s&&(s.textContent=n.filter(a=>!a.read).length||"")}function p(e){let s=document.getElementById("message-detail-modal");s||(s=document.createElement("div"),s.id="message-detail-modal",document.body.appendChild(s)),s.innerHTML=`
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300">
                 <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-md p-6 relative">
                     <button id="close-message-detail-modal" class="absolute top-2 right-3 text-gray-400 hover:text-gray-700 dark:hover:text-white text-lg">&times;</button>
@@ -38,7 +38,7 @@ import{s as g}from"./supabaseClient-CL6H8VOx.js";import{s as k}from"./toast-DRvd
                     </div>
                 </div>
             </div>
-        `,a.className="";const t=()=>{a.innerHTML="",a.className="hidden"};document.getElementById("close-message-detail-modal").onclick=t,document.getElementById("close-message-detail-modal-btn").onclick=t}function p(){document.querySelectorAll("#sidebar .sidebar-text").forEach(e=>{e.style.display=n?"none":"block"})}function u(e){s=e,localStorage.setItem("hrcu_dark",e?"true":"false"),document.documentElement.classList.toggle("dark",s),document.getElementById("navbar-root").className=`fixed top-0 left-0 right-0 z-50 h-12 ${s?"bg-gray-900 border-gray-700":"bg-white border-gray-200"} border-b shadow-sm font-sans`,document.getElementById("sidebar").className=`fixed left-0 top-12 bottom-0 z-40 ${n?"w-14":"w-56"} ${s?"bg-gray-900 border-gray-700":"bg-white border-gray-200"} border-r shadow-sm transition-all duration-300 font-sans`,document.getElementById("main-content").className=`${n?"ml-14":"ml-56"} pt-14 transition-all duration-300 font-sans min-h-screen`,p(),f()}function x(e){const a=document.getElementById("sidebar"),t=document.getElementById("toggle-sidebar-btn");if(!a){n=e,localStorage.setItem("hrcu_sidebar",e?"true":"false");return}e?(a.classList.add("hidden","md:relative"),t&&(t.textContent="☰")):(a.classList.remove("hidden"),t&&(t.textContent="✕")),n=e,localStorage.setItem("hrcu_sidebar",e?"true":"false")}async function h(){const e=await E();e&&e.profile&&(d=e.profile,document.querySelector(".user-name").textContent=d.full_name,document.querySelector(".user-img").src=d.avatar_url||"/src/images/user/user.png",await b(e.user.id),f()),document.getElementById("sidebar-toggle").onclick=()=>{x(!n)};function a(){window.innerWidth<768?x(!0):x(!1)}window.addEventListener("resize",a),a(),document.querySelectorAll(".js-sub-menu-toggle").forEach(r=>{r.onclick=function(i){i.preventDefault(),n&&x(!1);const m=this.nextElementSibling;m&&m.classList.toggle("hidden");const l=this.querySelector(".toggle-icon");l&&l.classList.toggle("rotate-90")}}),document.getElementById("notif-btn").onclick=r=>{r.stopPropagation(),c=!c,document.getElementById("notif-dropdown").classList.toggle("hidden",!c)},document.addEventListener("click",r=>{const i=document.getElementById("notif-dropdown");i&&!i.contains(r.target)&&r.target!==document.getElementById("notif-btn")&&(i.classList.add("hidden"),c=!1)}),document.getElementById("notif-list").onclick=async function(r){const i=r.target.closest(".js-message-item");if(i){const m=i.getAttribute("data-id"),l=o.find(v=>v.id===m);l&&(y(l),l.read||(await g.from("notifications").update({read:!0}).eq("id",m),l.read=!0,f()))}},document.getElementById("user-menu-btn").onclick=r=>{r.stopPropagation(),document.getElementById("user-menu-dropdown").classList.toggle("hidden")},document.addEventListener("click",r=>{!document.getElementById("user-menu-dropdown").contains(r.target)&&r.target!==document.getElementById("user-menu-btn")&&document.getElementById("user-menu-dropdown").classList.add("hidden")}),document.getElementById("theme-toggle").onclick=()=>{u(!s)},u(s),x(n);const t=async()=>{await g.auth.signOut(),k("You have been logged out.","success"),setTimeout(()=>window.location.href="/",1e3)};document.getElementById("logout")?.addEventListener("click",t),document.getElementById("log-out")?.addEventListener("click",t)}return{html:`
+        `,s.className="";const a=()=>{s.innerHTML="",s.className="hidden"};document.getElementById("close-message-detail-modal").onclick=a,document.getElementById("close-message-detail-modal-btn").onclick=a}function u(){document.querySelectorAll("#sidebar .sidebar-text").forEach(e=>{e.style.display=o?"none":"block"})}function y(e){t=e,localStorage.setItem("hrcu_dark",e?"true":"false"),document.documentElement.classList.toggle("dark",t),document.getElementById("navbar-root").className=`fixed top-0 left-0 right-0 z-50 h-12 ${t?"bg-gray-900 border-gray-700":"bg-white border-gray-200"} border-b shadow-sm font-sans`,document.getElementById("sidebar").className=`fixed left-0 top-12 bottom-0 z-40 ${o?"w-14":"w-56"} ${t?"bg-gray-900 border-gray-700":"bg-white border-gray-200"} border-r shadow-sm transition-all duration-300 font-sans`,document.getElementById("main-content").className=`${o?"ml-14":"ml-56"} pt-14 transition-all duration-300 font-sans min-h-screen`,u(),f()}function x(e){o=e,localStorage.setItem("hrcu_sidebar",e?"true":"false"),document.getElementById("sidebar").className=`fixed left-0 top-12 bottom-0 z-40 ${o?"w-14":"w-56"} ${t?"bg-gray-900 border-gray-700":"bg-white border-gray-200"} border-r shadow-sm transition-all duration-300 font-sans`,document.getElementById("main-content").className=`${o?"ml-14":"ml-56"} pt-14 transition-all duration-300 font-sans min-h-screen`,u()}async function h(){const e=await E();e&&e.profile&&(d=e.profile,document.querySelector(".user-name").textContent=d.full_name,document.querySelector(".user-img").src=d.avatar_url||"/src/images/user/user.png",await b(e.user.id),f()),document.getElementById("sidebar-toggle").onclick=()=>{x(!o)};function s(){window.innerWidth<768?x(!0):x(!1)}window.addEventListener("resize",s),s(),document.querySelectorAll(".js-sub-menu-toggle").forEach(r=>{r.onclick=function(i){i.preventDefault(),o&&x(!1);const m=this.nextElementSibling;m&&m.classList.toggle("hidden");const l=this.querySelector(".toggle-icon");l&&l.classList.toggle("rotate-90")}}),document.getElementById("notif-btn").onclick=r=>{r.stopPropagation(),c=!c,document.getElementById("notif-dropdown").classList.toggle("hidden",!c)},document.addEventListener("click",r=>{const i=document.getElementById("notif-dropdown");i&&!i.contains(r.target)&&r.target!==document.getElementById("notif-btn")&&(i.classList.add("hidden"),c=!1)}),document.getElementById("notif-list").onclick=async function(r){const i=r.target.closest(".js-message-item");if(i){const m=i.getAttribute("data-id"),l=n.find(v=>v.id===m);l&&(p(l),l.read||(await g.from("notifications").update({read:!0}).eq("id",m),l.read=!0,f()))}},document.getElementById("user-menu-btn").onclick=r=>{r.stopPropagation(),document.getElementById("user-menu-dropdown").classList.toggle("hidden")},document.addEventListener("click",r=>{!document.getElementById("user-menu-dropdown").contains(r.target)&&r.target!==document.getElementById("user-menu-btn")&&document.getElementById("user-menu-dropdown").classList.add("hidden")}),document.getElementById("theme-toggle").onclick=()=>{y(!t)},y(t),x(o);const a=async()=>{await g.auth.signOut(),k("You have been logged out.","success"),setTimeout(()=>window.location.href="/",1e3)};document.getElementById("logout")?.addEventListener("click",a),document.getElementById("log-out")?.addEventListener("click",a)}return{html:`
         <div id="navbar-root" class="fixed top-0 left-0 right-0 z-50 h-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm font-sans">
             <div class="flex items-center justify-between h-full px-3">
                 <div class="flex items-center space-x-2">
@@ -48,7 +48,7 @@ import{s as g}from"./supabaseClient-CL6H8VOx.js";import{s as k}from"./toast-DRvd
                     <a href="/dashboard" class="flex items-center space-x-2">
                         <img src="${w}" alt="Logo" class="h-7 w-auto" />
                         <span class="hidden sm:inline-block text-lg font-semibold text-gray-900 dark:text-white">
-                            Zenus Bank
+                            Assurance Bank
                         </span>
                     </a>
                 </div>
@@ -90,12 +90,12 @@ import{s as g}from"./supabaseClient-CL6H8VOx.js";import{s as k}from"./toast-DRvd
                         </ul>
                     </div>
                     <button id="theme-toggle" class="p-1 rounded text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-base">
-                        <span id="theme-icon">${s?'<i class="fa fa-sun text-yellow-500"></i>':'<i class="fa fa-moon text-blue-500"></i>'}</span>
+                        <span id="theme-icon">${t?'<i class="fa fa-sun text-yellow-500"></i>':'<i class="fa fa-moon text-blue-500"></i>'}</span>
                     </button>
                 </div>
             </div>
         </div>
-        <div id="sidebar" class="fixed left-0 top-12 bottom-0 z-40 ${n?"w-14":"w-56"} bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300 font-sans">
+        <div id="sidebar" class="fixed left-0 top-12 bottom-0 z-40 ${o?"w-14":"w-56"} bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300 font-sans">
             <div class="h-full overflow-y-auto">
                 <nav class="pt-2">
                     <ul class="space-y-1">
@@ -112,11 +112,7 @@ import{s as g}from"./supabaseClient-CL6H8VOx.js";import{s as k}from"./toast-DRvd
                             </a>
                         </li>
                         <li>
-                            <a href="/idme" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
-                                <i class="fa fa-id-card mr-2 text-3xl md:text-base"></i>
-                                <span class="sidebar-text">Idme</span>
-                            </a>
-                        </li>
+                        <a href="/idme" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal"><i class="fa fa-id-card mr-2 text-3xl md:text-base"></i><span class="sidebar-text">Idme</span></a></li>
                         <li>
                             <a href="/account-summary" data-nav class="flex items-center px-2 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 text-xs font-normal">
                                 <i class="fa fa-briefcase mr-2 text-3xl md:text-base"></i>

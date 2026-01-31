@@ -175,7 +175,87 @@ const editProfile = async () => {
         const avatarSpinner = document.getElementById("avatar-spinner");
         if (avatarInput) {
             avatarInput.onchange = async function () {
-                // ... existing avatar upload code ...
+                const file = this.files[0];
+                if (!file) return;
+
+                // Validate file
+                const maxSize = 5 * 1024 * 1024; // 5MB
+                const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+                if (!validTypes.includes(file.type)) {
+                    showToast("Invalid file type. Use JPG, PNG, WebP, or GIF", "error");
+                    return;
+                }
+
+                if (file.size > maxSize) {
+                    showToast("File size must be under 5MB", "error");
+                    return;
+                }
+
+                // Show spinner
+                avatarSpinner.classList.remove("hidden");
+
+                try {
+                    // Generate unique filename with user ID
+                    const fileExt = file.name.split(".").pop().toLowerCase();
+                    const fileName = `${user.id}/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+
+                    // Upload to Supabase bucket
+                    const { data, error } = await supabase.storage
+                        .from("profile-pictures")
+                        .upload(fileName, file, {
+                            upsert: false,
+                            contentType: file.type
+                        });
+
+                    if (error) {
+                        console.error("Upload error:", error);
+                        showToast(`Upload failed: ${error.message}`, "error");
+                        avatarSpinner.classList.add("hidden");
+                        return;
+                    }
+
+                    if (!data) {
+                        showToast("Upload failed: No response from server", "error");
+                        avatarSpinner.classList.add("hidden");
+                        return;
+                    }
+
+                    // Get public URL
+                    const { data: urlData } = supabase.storage
+                        .from("profile-pictures")
+                        .getPublicUrl(fileName);
+
+                    const publicUrl = urlData.publicUrl;
+
+                    if (!publicUrl) {
+                        showToast("Failed to generate image URL", "error");
+                        avatarSpinner.classList.add("hidden");
+                        return;
+                    }
+
+                    // Update profile in database
+                    const { error: updateError } = await supabase
+                        .from("profiles")
+                        .update({ avatar_url: publicUrl })
+                        .eq("id", user.id);
+
+                    if (updateError) {
+                        console.error("Database error:", updateError);
+                        showToast("Failed to update profile", "error");
+                        avatarSpinner.classList.add("hidden");
+                        return;
+                    }
+
+                    // Update UI
+                    avatarImg.src = publicUrl;
+                    avatarSpinner.classList.add("hidden");
+                    showToast("Profile picture updated successfully!", "success");
+                } catch (err) {
+                    console.error("Upload error:", err);
+                    showToast("Error uploading image", "error");
+                    avatarSpinner.classList.add("hidden");
+                }
             };
         }
 
@@ -201,8 +281,6 @@ const editProfile = async () => {
                 const formData = new FormData(this);
                 formData.append('idme_verified', localStorage.getItem('demo_idme_verified') === 'true');
                 formData.append('idme_timestamp', localStorage.getItem('demo_idme_timestamp') || '');
-
-                // ... rest of your existing KYC submission code ...
 
                 // After successful submission
                 showToast("KYC submitted successfully!", "success");
