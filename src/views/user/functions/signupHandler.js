@@ -15,19 +15,18 @@ export async function signupUser(formData, ip) {
     firstname,
     lastname,
     title,
-    phone,
-    country_code,
-    nationality,
-    address,
+    phone1, // Form field name
+    selectcountry, // Form field name for phone country code
+    country, // Form field name for nationality
+    uaddress, // Form field name for address
     city,
     state,
     zip,
     dob,
     occupation,
     ssn,
-    marital_status,
+    marital, // Form field name for marital status
     gender,
-    username,
     acctype
   } = formData;
 
@@ -41,24 +40,24 @@ export async function signupUser(formData, ip) {
 
   const userId = data.user.id;
 
-  // 2. Insert profile data
+  // 2. Insert profile data with correct field mappings
   const profileData = {
     id: userId,
     full_name: `${firstname} ${lastname}`,
     title: title || null,
     firstname,
     lastname,
-    phone: phone || null,
-    country_code: country_code || null,
-    nationality: nationality || null,
-    address: address || null,
+    phone: phone1 || null, // Map phone1 from form
+    country_code: selectcountry || null, // Map selectcountry from form
+    nationality: country || null, // Map country from form
+    address: uaddress || null, // Map uaddress from form
     city: city || null,
     state: state || null,
     zip: zip || null,
     dob: dob || null,
     occupation: occupation || null,
     ssn: ssn || null,
-    marital_status: marital_status || null,
+    marital_status: marital || null, // Map marital from form
     gender: gender || null,
     email,
     username: `${firstname} ${lastname}` || null
