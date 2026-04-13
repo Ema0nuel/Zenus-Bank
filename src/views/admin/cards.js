@@ -13,12 +13,8 @@ function formatDate(dt) {
 }
 
 function statusBadge(status) {
-  if (status === "pending") return `<span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Pending</span>`;
-  if (status === "approved") return `<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Approved</span>`;
-  if (status === "printing") return `<span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Printing</span>`;
-  if (status === "issued") return `<span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Issued</span>`;
-  if (status === "declined") return `<span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Declined</span>`;
-  return `<span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs">${status}</span>`;
+  // Since database doesn't have status column, all cards show as "Active"
+  return `<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span>`;
 }
 
 // Responsive Card Table (cards on mobile, table on desktop)
@@ -26,14 +22,6 @@ function CardTable(cards, users) {
   return `
     <div class="mb-4 flex flex-wrap gap-2 items-center">
       <input type="text" id="card-search" placeholder="Search by user, card number, type..." class="border px-3 py-2 rounded w-full md:w-64" />
-      <select id="card-status-filter" class="border px-2 py-2 rounded">
-        <option value="">All Status</option>
-        <option value="pending">Pending</option>
-        <option value="approved">Approved</option>
-        <option value="printing">Printing</option>
-        <option value="issued">Issued</option>
-        <option value="declined">Declined</option>
-      </select>
       <button id="card-export-csv" class="ml-auto bg-blue-600 text-white px-3 py-2 rounded">Export CSV</button>
     </div>
     <div>
@@ -44,24 +32,16 @@ function CardTable(cards, users) {
             <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
               <div class="flex justify-between items-center mb-2">
                 <span class="font-semibold">${user?.full_name || "Unknown"}</span>
-                ${statusBadge(c.status)}
+                ${statusBadge()}
               </div>
               <div class="text-xs text-gray-400 mb-1">${user?.email || ""}</div>
               <div class="mb-1"><b>Card Number:</b> ${c.card_number || "-"}</div>
               <div class="mb-1"><b>Type:</b> ${c.card_type || "-"}</div>
-              <div class="mb-1"><b>Issued:</b> ${formatDate(c.issued_at)}</div>
+              <div class="mb-1"><b>Expiry:</b> ${c.expiry_date || "-"}</div>
               <div class="flex flex-wrap gap-2 mt-2">
-                ${c.status === "pending" ? `
-                  <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Approve</button>
-                  <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Decline</button>
-                ` : ""}
-                ${c.status === "approved" ? `
-                  <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-print" data-id="${c.id}">Mark Printing</button>
-                ` : ""}
-                ${c.status === "printing" ? `
-                  <button class="btn btn-xs bg-purple-600 text-white px-2 py-1 rounded card-issue" data-id="${c.id}">Issue Card</button>
-                ` : ""}
-                <button class="btn btn-xs bg-gray-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View</button>
+                <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View Details</button>
+                <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Mark Approved</button>
+                <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Mark Declined</button>
               </div>
             </div>
           `;
@@ -71,10 +51,10 @@ function CardTable(cards, users) {
         <table class="min-w-full text-xs">
           <thead>
             <tr>
-              <th>Date</th>
               <th>User</th>
               <th>Card Number</th>
               <th>Type</th>
+              <th>Expiry</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -84,26 +64,18 @@ function CardTable(cards, users) {
     const user = users.find(u => u.id === c.user_id);
     return `
                 <tr>
-                  <td>${formatDate(c.issued_at)}</td>
                   <td>
                     <span class="font-semibold">${user?.full_name || "Unknown"}</span>
                     <div class="text-xs text-gray-400">${user?.email || ""}</div>
                   </td>
                   <td>${c.card_number || "-"}</td>
                   <td>${c.card_type || "-"}</td>
-                  <td>${statusBadge(c.status)}</td>
+                  <td>${c.expiry_date || "-"}</td>
+                  <td>${statusBadge()}</td>
                   <td>
-                    ${c.status === "pending" ? `
-                      <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Approve</button>
-                      <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Decline</button>
-                    ` : ""}
-                    ${c.status === "approved" ? `
-                      <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-print" data-id="${c.id}">Mark Printing</button>
-                    ` : ""}
-                    ${c.status === "printing" ? `
-                      <button class="btn btn-xs bg-purple-600 text-white px-2 py-1 rounded card-issue" data-id="${c.id}">Issue Card</button>
-                    ` : ""}
-                    <button class="btn btn-xs bg-gray-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View</button>
+                    <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View</button>
+                    <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Approve</button>
+                    <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Decline</button>
                   </td>
                 </tr>
               `;
@@ -124,11 +96,9 @@ function CardDetailModal(card, user) {
         <div class="mb-2"><b>User:</b> ${user?.full_name || "Unknown"} (${user?.email || ""})</div>
         <div class="mb-2"><b>Card Number:</b> ${card.card_number || "-"}</div>
         <div class="mb-2"><b>Type:</b> ${card.card_type || "-"}</div>
-        <div class="mb-2"><b>Status:</b> ${statusBadge(card.status)}</div>
-        <div class="mb-2"><b>Issued At:</b> ${formatDate(card.issued_at)}</div>
-        <div class="mb-2"><b>Expiry Date:</b> ${card.expiry_date ? formatDate(card.expiry_date) : "-"}</div>
+        <div class="mb-2"><b>Status:</b> ${statusBadge()}</div>
+        <div class="mb-2"><b>Expiry Date:</b> ${card.expiry_date || "-"}</div>
         <div class="mb-2"><b>CVV:</b> ${card.cvv || "-"}</div>
-        <div class="mb-2"><b>Active:</b> ${card.is_active ? "Yes" : "No"}</div>
       </div>
     </div>
   `;
@@ -154,15 +124,15 @@ function DeclineReasonModal(cardId) {
 }
 
 function exportCSV(cards, users) {
-  const header = ["Date", "User", "Card Number", "Type", "Status"];
+  const header = ["User", "Email", "Card Number", "Type", "Expiry"];
   const rows = cards.map(c => {
     const user = users.find(u => u.id === c.user_id);
     return [
-      formatDate(c.issued_at),
       user?.full_name || "",
+      user?.email || "",
       c.card_number || "",
       c.card_type || "",
-      c.status
+      c.expiry_date || ""
     ].join(",");
   });
   const csv = [header.join(","), ...rows].join("\n");
@@ -236,18 +206,15 @@ const cards = async () => {
 
     // Filtering
     const searchInput = document.getElementById("card-search");
-    const statusFilter = document.getElementById("card-status-filter");
     const tableBody = document.getElementById("card-table-body");
     function filterCards() {
       let q = searchInput.value.trim().toLowerCase();
-      let status = statusFilter.value;
       filteredCards = cardsArr.filter(c => {
         const user = users.find(u => u.id === c.user_id);
         let match = true;
         if (q) {
           match = (user?.full_name?.toLowerCase().includes(q) || user?.email?.toLowerCase().includes(q) || (c.card_number || "").includes(q) || (c.card_type || "").toLowerCase().includes(q));
         }
-        if (status && c.status !== status) match = false;
         return match;
       });
       // For mobile, re-render the whole table
@@ -258,24 +225,16 @@ const cards = async () => {
             <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
               <div class="flex justify-between items-center mb-2">
                 <span class="font-semibold">${user?.full_name || "Unknown"}</span>
-                ${statusBadge(c.status)}
+                ${statusBadge()}
               </div>
               <div class="text-xs text-gray-400 mb-1">${user?.email || ""}</div>
               <div class="mb-1"><b>Card Number:</b> ${c.card_number || "-"}</div>
               <div class="mb-1"><b>Type:</b> ${c.card_type || "-"}</div>
-              <div class="mb-1"><b>Issued:</b> ${formatDate(c.issued_at)}</div>
+              <div class="mb-1"><b>Expiry:</b> ${c.expiry_date || "-"}</div>
               <div class="flex flex-wrap gap-2 mt-2">
-                ${c.status === "pending" ? `
-                  <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Approve</button>
-                  <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Decline</button>
-                ` : ""}
-                ${c.status === "approved" ? `
-                  <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-print" data-id="${c.id}">Mark Printing</button>
-                ` : ""}
-                ${c.status === "printing" ? `
-                  <button class="btn btn-xs bg-purple-600 text-white px-2 py-1 rounded card-issue" data-id="${c.id}">Issue Card</button>
-                ` : ""}
-                <button class="btn btn-xs bg-gray-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View</button>
+                <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View Details</button>
+                <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Mark Approved</button>
+                <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Mark Declined</button>
               </div>
             </div>
           `;
@@ -285,26 +244,18 @@ const cards = async () => {
           const user = users.find(u => u.id === c.user_id);
           return `
             <tr>
-              <td>${formatDate(c.issued_at)}</td>
               <td>
                 <span class="font-semibold">${user?.full_name || "Unknown"}</span>
                 <div class="text-xs text-gray-400">${user?.email || ""}</div>
               </td>
               <td>${c.card_number || "-"}</td>
               <td>${c.card_type || "-"}</td>
-              <td>${statusBadge(c.status)}</td>
+              <td>${c.expiry_date || "-"}</td>
+              <td>${statusBadge()}</td>
               <td>
-                ${c.status === "pending" ? `
-                  <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Approve</button>
-                  <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Decline</button>
-                ` : ""}
-                ${c.status === "approved" ? `
-                  <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-print" data-id="${c.id}">Mark Printing</button>
-                ` : ""}
-                ${c.status === "printing" ? `
-                  <button class="btn btn-xs bg-purple-600 text-white px-2 py-1 rounded card-issue" data-id="${c.id}">Issue Card</button>
-                ` : ""}
-                <button class="btn btn-xs bg-gray-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View</button>
+                <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View</button>
+                <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Approve</button>
+                <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Decline</button>
               </td>
             </tr>
           `;
@@ -312,7 +263,7 @@ const cards = async () => {
       }
       attachRowEvents();
     }
-    [searchInput, statusFilter].forEach(el => {
+    [searchInput].forEach(el => {
       if (el) el.addEventListener("input", filterCards);
       if (el) el.addEventListener("change", filterCards);
     });
@@ -339,43 +290,13 @@ const cards = async () => {
           const card = cardsArr.find(c => c.id === id);
           const user = users.find(u => u.id === card.user_id);
 
-          // Update status to approved (user data already provided)
-          await supabase.from("cards").update({
-            status: "approved",
-            is_active: true
-          }).eq("id", id);
-
-          // Notify user
+          // Notify user that card is approved
           await sendEmail({
             to: user.email,
             subject: "Card Request Approved",
-            html: `<p>Dear ${user.full_name},<br>Your card request has been approved. Card Number: <b>${card.card_number}</b>, Type: <b>${card.card_type}</b>.<br>We will notify you when your card is ready for printing.</p>`
+            html: `<p>Dear ${user.full_name},<br>Your card request has been approved. Card Number: <b>${card.card_number}</b>, Type: <b>${card.card_type}</b>.<br>We will notify you when your card is ready for pickup.</p>`
           });
           showToast("Card approved and user notified.", "success");
-          window.location.reload();
-        };
-      });
-      document.querySelectorAll('.card-print').forEach(btn => {
-        btn.onclick = async () => {
-          const id = btn.getAttribute("data-id");
-          await supabase.from("cards").update({ status: "printing" }).eq("id", id);
-          showToast("Card marked as printing.", "success");
-          window.location.reload();
-        };
-      });
-      document.querySelectorAll('.card-issue').forEach(btn => {
-        btn.onclick = async () => {
-          const id = btn.getAttribute("data-id");
-          await supabase.from("cards").update({ status: "issued" }).eq("id", id);
-          // Notify user
-          const card = cardsArr.find(c => c.id === id);
-          const user = users.find(u => u.id === card.user_id);
-          await sendEmail({
-            to: user.email,
-            subject: "Your Card is Ready",
-            html: `<p>Dear ${user.full_name},<br>Your card is now ready for pickup/use.</p>`
-          });
-          showToast("Card issued and user notified.", "success");
           window.location.reload();
         };
       });
@@ -393,7 +314,6 @@ const cards = async () => {
             e.preventDefault();
             const reason = this.reason.value.trim();
             if (!reason) return showToast("Reason required", "error");
-            await supabase.from("cards").update({ status: "declined", notes: reason }).eq("id", id);
             // Notify user
             await sendEmail({
               to: user.email,
