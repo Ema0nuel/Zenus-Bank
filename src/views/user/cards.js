@@ -186,6 +186,9 @@ const cards = async () => {
     .select("*")
     .eq("user_id", user.id)
     .single();
+
+  console.log("Account loaded:", account);
+
   let { data: cardsList } = await supabase
     .from("cards")
     .select("*")
@@ -263,22 +266,26 @@ const cards = async () => {
       spinner.classList.remove("hidden");
       saveBtn.disabled = true;
       try {
-        // Insert card into DB (inactive by default, pending approval)
+        // Validate account exists
+        if (!account || !account.id) {
+          throw new Error("Account not found. Please refresh and try again.");
+        }
+
+        // Insert card into DB
         const { data: cardRow, error } = await supabase.from("cards").insert([
           {
             user_id: user.id,
             account_id: account.id,
             card_number: cardData.card_number,
             card_type: cardData.card_type,
-            card_holder: cardData.card_holder,
             expiry_date: `20${cardData.expiry.split("/")[1]}-${cardData.expiry.split("/")[0]}-01`,
             cvv: cardData.cvv,
-            status: "pending",
-            is_active: false,
-            issued_at: new Date().toISOString(),
           },
         ]).select().single();
-        if (error) throw error;
+        if (error) {
+          console.error("Supabase insert error:", error);
+          throw error;
+        }
 
         // Notification
         await supabase.from("notifications").insert([
@@ -318,7 +325,9 @@ const cards = async () => {
         showToast("Card request submitted. Await approval.", "success");
         setTimeout(() => window.location.reload(), 1800);
       } catch (err) {
-        showToast("Failed to save card. Try again.", "error");
+        console.error("Card save error:", err);
+        const errorMsg = err?.message || err?.error_description || "Failed to save card. Try again.";
+        showToast(errorMsg, "error");
         spinner.classList.add("hidden");
         saveBtn.disabled = false;
       }
@@ -358,7 +367,7 @@ const cards = async () => {
         cardPreview.innerHTML = cardSVG({
           card_number: c.card_number,
           card_type: c.card_type,
-          card_holder: (c.card_holder || profile.full_name).toUpperCase(),
+          card_holder: profile.full_name.toUpperCase(),
           expiry: fmtDate(c.expiry_date),
           cvv: c.cvv,
         });
