@@ -1,4 +1,4 @@
-import{s as v}from"./supabaseClient-CL6H8VOx.js";import{A as q}from"./AdminNavbar-ObVEf85P.js";import{r as B}from"./adminAuth-Dn35BI8v.js";import{s as u}from"./toast-DRvdR0y9.js";import{s as _}from"./sendEmail-89Z52C2k.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";function x(d){if(!d)return"";const i=new Date(d);return i.toLocaleDateString(void 0,{year:"numeric",month:"short",day:"numeric"})+" "+i.toLocaleTimeString(void 0,{hour:"2-digit",minute:"2-digit"})}function y(d){return d==="pending"?'<span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Pending</span>':d==="approved"?'<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Approved</span>':d==="printing"?'<span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Printing</span>':d==="issued"?'<span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Issued</span>':d==="declined"?'<span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Declined</span>':`<span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs">${d}</span>`}function S(d,i){return`
+import{s as m}from"./supabaseClient-CL6H8VOx.js";import{A as L}from"./AdminNavbar-ObVEf85P.js";import{r as A}from"./adminAuth-Dn35BI8v.js";import{s as g}from"./toast-DRvdR0y9.js";import{s as h}from"./sendEmail-89Z52C2k.js";import"./logo-nobg-BVMQOOtC.js";import"./logo-yCyWWFG1.js";function p(d){if(!d)return"";const i=new Date(d);return i.toLocaleDateString(void 0,{year:"numeric",month:"short",day:"numeric"})+" "+i.toLocaleTimeString(void 0,{hour:"2-digit",minute:"2-digit"})}function f(d){return d==="pending"?'<span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Pending</span>':d==="approved"?'<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Approved</span>':d==="printing"?'<span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Printing</span>':d==="issued"?'<span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Issued</span>':d==="declined"?'<span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Declined</span>':`<span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs">${d}</span>`}function D(d,i){return`
     <div class="mb-4 flex flex-wrap gap-2 items-center">
       <input type="text" id="card-search" placeholder="Search by user, card number, type..." class="border px-3 py-2 rounded w-full md:w-64" />
       <select id="card-status-filter" class="border px-2 py-2 rounded">
@@ -17,12 +17,12 @@ import{s as v}from"./supabaseClient-CL6H8VOx.js";import{A as q}from"./AdminNavba
             <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
               <div class="flex justify-between items-center mb-2">
                 <span class="font-semibold">${o?.full_name||"Unknown"}</span>
-                ${y(t.status)}
+                ${f(t.status)}
               </div>
               <div class="text-xs text-gray-400 mb-1">${o?.email||""}</div>
               <div class="mb-1"><b>Card Number:</b> ${t.card_number||"-"}</div>
               <div class="mb-1"><b>Type:</b> ${t.card_type||"-"}</div>
-              <div class="mb-1"><b>Issued:</b> ${x(t.issued_at)}</div>
+              <div class="mb-1"><b>Issued:</b> ${p(t.issued_at)}</div>
               <div class="flex flex-wrap gap-2 mt-2">
                 ${t.status==="pending"?`
                   <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${t.id}">Approve</button>
@@ -54,14 +54,14 @@ import{s as v}from"./supabaseClient-CL6H8VOx.js";import{A as q}from"./AdminNavba
           <tbody id="card-table-body">
             ${d.map(t=>{const o=i.find(l=>l.id===t.user_id);return`
                 <tr>
-                  <td>${x(t.issued_at)}</td>
+                  <td>${p(t.issued_at)}</td>
                   <td>
                     <span class="font-semibold">${o?.full_name||"Unknown"}</span>
                     <div class="text-xs text-gray-400">${o?.email||""}</div>
                   </td>
                   <td>${t.card_number||"-"}</td>
                   <td>${t.card_type||"-"}</td>
-                  <td>${y(t.status)}</td>
+                  <td>${f(t.status)}</td>
                   <td>
                     ${t.status==="pending"?`
                       <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${t.id}">Approve</button>
@@ -81,7 +81,7 @@ import{s as v}from"./supabaseClient-CL6H8VOx.js";import{A as q}from"./AdminNavba
         </table>
       </div>
     </div>
-  `}function j(d,i){return`
+  `}function B(d,i){return`
     <div class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center" id="card-detail-modal">
       <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-lg w-full p-8 relative animate-fade-in">
         <button class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-red-500" id="close-card-detail">&times;</button>
@@ -89,14 +89,14 @@ import{s as v}from"./supabaseClient-CL6H8VOx.js";import{A as q}from"./AdminNavba
         <div class="mb-2"><b>User:</b> ${i?.full_name||"Unknown"} (${i?.email||""})</div>
         <div class="mb-2"><b>Card Number:</b> ${d.card_number||"-"}</div>
         <div class="mb-2"><b>Type:</b> ${d.card_type||"-"}</div>
-        <div class="mb-2"><b>Status:</b> ${y(d.status)}</div>
-        <div class="mb-2"><b>Issued At:</b> ${x(d.issued_at)}</div>
-        <div class="mb-2"><b>Expiry Date:</b> ${d.expiry_date?x(d.expiry_date):"-"}</div>
+        <div class="mb-2"><b>Status:</b> ${f(d.status)}</div>
+        <div class="mb-2"><b>Issued At:</b> ${p(d.issued_at)}</div>
+        <div class="mb-2"><b>Expiry Date:</b> ${d.expiry_date?p(d.expiry_date):"-"}</div>
         <div class="mb-2"><b>CVV:</b> ${d.cvv||"-"}</div>
         <div class="mb-2"><b>Active:</b> ${d.is_active?"Yes":"No"}</div>
       </div>
     </div>
-  `}function M(d){return`
+  `}function S(d){return`
     <div class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center" id="decline-modal">
       <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-fade-in">
         <button class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-red-500" id="close-decline-modal">&times;</button>
@@ -111,31 +111,31 @@ import{s as v}from"./supabaseClient-CL6H8VOx.js";import{A as q}from"./AdminNavba
         </form>
       </div>
     </div>
-  `}function T(d,i){const t=["Date","User","Card Number","Type","Status"],o=d.map(m=>{const w=i.find(h=>h.id===m.user_id);return[x(m.issued_at),w?.full_name||"",m.card_number||"",m.card_type||"",m.status].join(",")}),l=[t.join(","),...o].join(`
-`),c=new Blob([l],{type:"text/csv"}),p=URL.createObjectURL(c),g=document.createElement("a");g.href=p,g.download="cards.csv",g.click(),URL.revokeObjectURL(p)}const O=async()=>{if(!await B())return{html:"",pageEvents:()=>{}};let{data:d=[]}=await v.from("cards").select("*").order("issued_at",{ascending:!1}).limit(100),{data:i=[]}=await v.from("profiles").select("id,full_name,email"),t=d,o="cards",l=!1,c=localStorage.getItem("admin_dark")==="true";function p(){document.getElementById("app").innerHTML=`
-      ${q({activeItem:o,isCollapsed:l,isDark:c})}
+  `}function q(d,i){const t=["Date","User","Card Number","Type","Status"],o=d.map(b=>{const y=i.find(w=>w.id===b.user_id);return[p(b.issued_at),y?.full_name||"",b.card_number||"",b.card_type||"",b.status].join(",")}),l=[t.join(","),...o].join(`
+`),u=new Blob([l],{type:"text/csv"}),c=URL.createObjectURL(u),x=document.createElement("a");x.href=c,x.download="cards.csv",x.click(),URL.revokeObjectURL(c)}const V=async()=>{if(!await A())return{html:"",pageEvents:()=>{}};let{data:d=[]}=await m.from("cards").select("*").order("issued_at",{ascending:!1}).limit(100),{data:i=[]}=await m.from("profiles").select("id,full_name,email"),t=d,o="cards",l=!1,u=localStorage.getItem("admin_dark")==="true";function c(){document.getElementById("app").innerHTML=`
+      ${L({activeItem:o,isCollapsed:l,isDark:u})}
       <div class="lg:ml-64 min-h-screen bg-gray-50 dark:bg-slate-800 transition-colors">
         <div class="p-4 md:p-8">
           <div class="max-w-7xl mx-auto">
             <h1 class="text-2xl font-bold mb-6">Card Management</h1>
             <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-4 md:p-6">
-              ${S(t,i)}
+              ${D(t,i)}
             </div>
           </div>
         </div>
       </div>
       <div id="card-detail-panel"></div>
       <div id="decline-panel"></div>
-    `,document.getElementById("admin-sidebar");const g=document.getElementById("admin-sidebar-overlay"),m=document.getElementById("admin-sidebar-toggle"),w=document.getElementById("admin-sidebar-close");function h(){l=!1,p()}function E(){l=!0,p()}m?.addEventListener("click",h),w?.addEventListener("click",E),g?.addEventListener("click",E),document.getElementById("admin-theme-toggle")?.addEventListener("click",()=>{c=!c,localStorage.setItem("admin_dark",c?"true":"false"),c?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark"),p()}),document.querySelectorAll("[data-nav]").forEach(n=>{n.addEventListener("click",r=>{r.preventDefault(),o=n.getAttribute("data-nav"),window.location.href=`/admin/${o}`})}),document.getElementById("admin-logout")?.addEventListener("click",()=>{sessionStorage.removeItem("admin_logged_in"),window.location.href="/admin-login"}),c?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark");const k=document.getElementById("card-search"),C=document.getElementById("card-status-filter"),I=document.getElementById("card-table-body");function L(){let n=k.value.trim().toLowerCase(),r=C.value;t=d.filter(e=>{const a=i.find(b=>b.id===e.user_id);let s=!0;return n&&(s=a?.full_name?.toLowerCase().includes(n)||a?.email?.toLowerCase().includes(n)||(e.card_number||"").includes(n)||(e.card_type||"").toLowerCase().includes(n)),r&&e.status!==r&&(s=!1),s}),window.innerWidth<768?document.querySelector(".block.md\\:hidden").innerHTML=t.map(e=>{const a=i.find(s=>s.id===e.user_id);return`
+    `,document.getElementById("admin-sidebar");const x=document.getElementById("admin-sidebar-overlay"),b=document.getElementById("admin-sidebar-toggle"),y=document.getElementById("admin-sidebar-close");function w(){l=!1,c()}function $(){l=!0,c()}b?.addEventListener("click",w),y?.addEventListener("click",$),x?.addEventListener("click",$),document.getElementById("admin-theme-toggle")?.addEventListener("click",()=>{u=!u,localStorage.setItem("admin_dark",u?"true":"false"),u?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark"),c()}),document.querySelectorAll("[data-nav]").forEach(a=>{a.addEventListener("click",r=>{r.preventDefault(),o=a.getAttribute("data-nav"),window.location.href=`/admin/${o}`})}),document.getElementById("admin-logout")?.addEventListener("click",()=>{sessionStorage.removeItem("admin_logged_in"),window.location.href="/admin-login"}),u?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark");const _=document.getElementById("card-search"),k=document.getElementById("card-status-filter"),E=document.getElementById("card-table-body");function C(){let a=_.value.trim().toLowerCase(),r=k.value;t=d.filter(e=>{const s=i.find(v=>v.id===e.user_id);let n=!0;return a&&(n=s?.full_name?.toLowerCase().includes(a)||s?.email?.toLowerCase().includes(a)||(e.card_number||"").includes(a)||(e.card_type||"").toLowerCase().includes(a)),r&&e.status!==r&&(n=!1),n}),window.innerWidth<768?document.querySelector(".block.md\\:hidden").innerHTML=t.map(e=>{const s=i.find(n=>n.id===e.user_id);return`
             <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
               <div class="flex justify-between items-center mb-2">
-                <span class="font-semibold">${a?.full_name||"Unknown"}</span>
-                ${y(e.status)}
+                <span class="font-semibold">${s?.full_name||"Unknown"}</span>
+                ${f(e.status)}
               </div>
-              <div class="text-xs text-gray-400 mb-1">${a?.email||""}</div>
+              <div class="text-xs text-gray-400 mb-1">${s?.email||""}</div>
               <div class="mb-1"><b>Card Number:</b> ${e.card_number||"-"}</div>
               <div class="mb-1"><b>Type:</b> ${e.card_type||"-"}</div>
-              <div class="mb-1"><b>Issued:</b> ${x(e.issued_at)}</div>
+              <div class="mb-1"><b>Issued:</b> ${p(e.issued_at)}</div>
               <div class="flex flex-wrap gap-2 mt-2">
                 ${e.status==="pending"?`
                   <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${e.id}">Approve</button>
@@ -150,16 +150,16 @@ import{s as v}from"./supabaseClient-CL6H8VOx.js";import{A as q}from"./AdminNavba
                 <button class="btn btn-xs bg-gray-600 text-white px-2 py-1 rounded card-view" data-id="${e.id}">View</button>
               </div>
             </div>
-          `}).join(""):I&&(I.innerHTML=t.map(e=>{const a=i.find(s=>s.id===e.user_id);return`
+          `}).join(""):E&&(E.innerHTML=t.map(e=>{const s=i.find(n=>n.id===e.user_id);return`
             <tr>
-              <td>${x(e.issued_at)}</td>
+              <td>${p(e.issued_at)}</td>
               <td>
-                <span class="font-semibold">${a?.full_name||"Unknown"}</span>
-                <div class="text-xs text-gray-400">${a?.email||""}</div>
+                <span class="font-semibold">${s?.full_name||"Unknown"}</span>
+                <div class="text-xs text-gray-400">${s?.email||""}</div>
               </td>
               <td>${e.card_number||"-"}</td>
               <td>${e.card_type||"-"}</td>
-              <td>${y(e.status)}</td>
+              <td>${f(e.status)}</td>
               <td>
                 ${e.status==="pending"?`
                   <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${e.id}">Approve</button>
@@ -174,4 +174,4 @@ import{s as v}from"./supabaseClient-CL6H8VOx.js";import{A as q}from"./AdminNavba
                 <button class="btn btn-xs bg-gray-600 text-white px-2 py-1 rounded card-view" data-id="${e.id}">View</button>
               </td>
             </tr>
-          `}).join("")),A()}[k,C].forEach(n=>{n&&n.addEventListener("input",L),n&&n.addEventListener("change",L)}),document.getElementById("card-export-csv").onclick=()=>T(t,i);function A(){document.querySelectorAll(".card-view").forEach(n=>{n.onclick=()=>{const r=n.getAttribute("data-id"),e=d.find(s=>s.id===r),a=i.find(s=>s.id===e.user_id);document.getElementById("card-detail-panel").innerHTML=j(e,a),document.getElementById("close-card-detail").onclick=()=>{document.getElementById("card-detail-panel").innerHTML=""}}}),document.querySelectorAll(".card-approve").forEach(n=>{n.onclick=async()=>{const r=n.getAttribute("data-id"),e=prompt("Enter card number (16 digits):");if(!e||e.length<12)return u("Card number required","error");const a=prompt("Enter card type (debit/credit):","debit");if(!a)return u("Card type required","error");const s=prompt("Enter expiry date (YYYY-MM-DD):");if(!s)return u("Expiry date required","error");const b=prompt("Enter CVV (3 digits):");if(!b||b.length<3)return u("CVV required","error");await v.from("cards").update({status:"approved",card_number:e,card_type:a,expiry_date:s,cvv:b,is_active:!0,issued_at:new Date().toISOString()}).eq("id",r);const f=d.find($=>$.id===r),D=i.find($=>$.id===f.user_id);await _({to:D.email,subject:"Card Request Approved",html:`<p>Dear ${D.full_name},<br>Your card request has been approved. Card Number: <b>${e}</b>, Type: <b>${a}</b>.<br>We will notify you when your card is ready.</p>`}),u("Card approved and user notified.","success"),window.location.reload()}}),document.querySelectorAll(".card-print").forEach(n=>{n.onclick=async()=>{const r=n.getAttribute("data-id");await v.from("cards").update({status:"printing"}).eq("id",r),u("Card marked as printing.","success"),window.location.reload()}}),document.querySelectorAll(".card-issue").forEach(n=>{n.onclick=async()=>{const r=n.getAttribute("data-id");await v.from("cards").update({status:"issued"}).eq("id",r);const e=d.find(s=>s.id===r),a=i.find(s=>s.id===e.user_id);await _({to:a.email,subject:"Your Card is Ready",html:`<p>Dear ${a.full_name},<br>Your card is now ready for pickup/use.</p>`}),u("Card issued and user notified.","success"),window.location.reload()}}),document.querySelectorAll(".card-decline").forEach(n=>{n.onclick=()=>{const r=n.getAttribute("data-id");document.getElementById("decline-panel").innerHTML=M(r),document.getElementById("close-decline-modal").onclick=()=>{document.getElementById("decline-panel").innerHTML=""},document.getElementById("decline-form").onsubmit=async function(e){e.preventDefault();const a=this.reason.value.trim();if(!a)return u("Reason required","error");await v.from("cards").update({status:"declined",notes:a}).eq("id",r);const s=d.find(f=>f.id===r),b=i.find(f=>f.id===s.user_id);await _({to:b.email,subject:"Card Request Declined",html:`<p>Dear ${b.full_name},<br>Your card request was declined. Reason: <b>${a}</b></p>`}),u("Card declined and user notified.","success"),window.location.reload()}}})}A()}return{html:"",pageEvents:()=>p()}};export{O as default};
+          `}).join("")),I()}[_,k].forEach(a=>{a&&a.addEventListener("input",C),a&&a.addEventListener("change",C)}),document.getElementById("card-export-csv").onclick=()=>q(t,i);function I(){document.querySelectorAll(".card-view").forEach(a=>{a.onclick=()=>{const r=a.getAttribute("data-id"),e=d.find(n=>n.id===r),s=i.find(n=>n.id===e.user_id);document.getElementById("card-detail-panel").innerHTML=B(e,s),document.getElementById("close-card-detail").onclick=()=>{document.getElementById("card-detail-panel").innerHTML=""}}}),document.querySelectorAll(".card-approve").forEach(a=>{a.onclick=async()=>{const r=a.getAttribute("data-id"),e=d.find(n=>n.id===r),s=i.find(n=>n.id===e.user_id);await m.from("cards").update({status:"approved",is_active:!0}).eq("id",r),await h({to:s.email,subject:"Card Request Approved",html:`<p>Dear ${s.full_name},<br>Your card request has been approved. Card Number: <b>${e.card_number}</b>, Type: <b>${e.card_type}</b>.<br>We will notify you when your card is ready for printing.</p>`}),g("Card approved and user notified.","success"),window.location.reload()}}),document.querySelectorAll(".card-print").forEach(a=>{a.onclick=async()=>{const r=a.getAttribute("data-id");await m.from("cards").update({status:"printing"}).eq("id",r),g("Card marked as printing.","success"),window.location.reload()}}),document.querySelectorAll(".card-issue").forEach(a=>{a.onclick=async()=>{const r=a.getAttribute("data-id");await m.from("cards").update({status:"issued"}).eq("id",r);const e=d.find(n=>n.id===r),s=i.find(n=>n.id===e.user_id);await h({to:s.email,subject:"Your Card is Ready",html:`<p>Dear ${s.full_name},<br>Your card is now ready for pickup/use.</p>`}),g("Card issued and user notified.","success"),window.location.reload()}}),document.querySelectorAll(".card-decline").forEach(a=>{a.onclick=()=>{const r=a.getAttribute("data-id"),e=d.find(n=>n.id===r),s=i.find(n=>n.id===e.user_id);document.getElementById("decline-panel").innerHTML=S(r),document.getElementById("close-decline-modal").onclick=()=>{document.getElementById("decline-panel").innerHTML=""},document.getElementById("decline-form").onsubmit=async function(n){n.preventDefault();const v=this.reason.value.trim();if(!v)return g("Reason required","error");await m.from("cards").update({status:"declined",notes:v}).eq("id",r),await h({to:s.email,subject:"Card Request Declined",html:`<p>Dear ${s.full_name},<br>Your card request was declined. Reason: <b>${v}</b></p>`}),g("Card declined and user notified.","success"),window.location.reload()}}})}I()}return{html:"",pageEvents:()=>c()}};export{V as default};

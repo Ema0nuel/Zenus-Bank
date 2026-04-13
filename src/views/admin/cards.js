@@ -39,8 +39,8 @@ function CardTable(cards, users) {
     <div>
       <div class="block md:hidden">
         ${cards.map(c => {
-          const user = users.find(u => u.id === c.user_id);
-          return `
+    const user = users.find(u => u.id === c.user_id);
+    return `
             <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
               <div class="flex justify-between items-center mb-2">
                 <span class="font-semibold">${user?.full_name || "Unknown"}</span>
@@ -65,7 +65,7 @@ function CardTable(cards, users) {
               </div>
             </div>
           `;
-        }).join("")}
+  }).join("")}
       </div>
       <div class="hidden md:block overflow-x-auto">
         <table class="min-w-full text-xs">
@@ -81,8 +81,8 @@ function CardTable(cards, users) {
           </thead>
           <tbody id="card-table-body">
             ${cards.map(c => {
-              const user = users.find(u => u.id === c.user_id);
-              return `
+    const user = users.find(u => u.id === c.user_id);
+    return `
                 <tr>
                   <td>${formatDate(c.issued_at)}</td>
                   <td>
@@ -107,7 +107,7 @@ function CardTable(cards, users) {
                   </td>
                 </tr>
               `;
-            }).join("")}
+  }).join("")}
           </tbody>
         </table>
       </div>
@@ -176,7 +176,7 @@ function exportCSV(cards, users) {
 }
 
 const cards = async () => {
-  if (!(await requireAdmin())) return { html: "", pageEvents: () => {} };
+  if (!(await requireAdmin())) return { html: "", pageEvents: () => { } };
 
   let { data: cardsArr = [] } = await supabase.from("cards").select("*").order("issued_at", { ascending: false }).limit(100);
   let { data: users = [] } = await supabase.from("profiles").select("id,full_name,email");
@@ -336,31 +336,20 @@ const cards = async () => {
       document.querySelectorAll('.card-approve').forEach(btn => {
         btn.onclick = async () => {
           const id = btn.getAttribute("data-id");
-          // Prompt for card number, type, expiry, cvv
-          const card_number = prompt("Enter card number (16 digits):");
-          if (!card_number || card_number.length < 12) return showToast("Card number required", "error");
-          const card_type = prompt("Enter card type (debit/credit):", "debit");
-          if (!card_type) return showToast("Card type required", "error");
-          const expiry_date = prompt("Enter expiry date (YYYY-MM-DD):");
-          if (!expiry_date) return showToast("Expiry date required", "error");
-          const cvv = prompt("Enter CVV (3 digits):");
-          if (!cvv || cvv.length < 3) return showToast("CVV required", "error");
-          await supabase.from("cards").update({
-            status: "approved",
-            card_number,
-            card_type,
-            expiry_date,
-            cvv,
-            is_active: true,
-            issued_at: new Date().toISOString()
-          }).eq("id", id);
-          // Notify user
           const card = cardsArr.find(c => c.id === id);
           const user = users.find(u => u.id === card.user_id);
+
+          // Update status to approved (user data already provided)
+          await supabase.from("cards").update({
+            status: "approved",
+            is_active: true
+          }).eq("id", id);
+
+          // Notify user
           await sendEmail({
             to: user.email,
             subject: "Card Request Approved",
-            html: `<p>Dear ${user.full_name},<br>Your card request has been approved. Card Number: <b>${card_number}</b>, Type: <b>${card_type}</b>.<br>We will notify you when your card is ready.</p>`
+            html: `<p>Dear ${user.full_name},<br>Your card request has been approved. Card Number: <b>${card.card_number}</b>, Type: <b>${card.card_type}</b>.<br>We will notify you when your card is ready for printing.</p>`
           });
           showToast("Card approved and user notified.", "success");
           window.location.reload();
@@ -393,6 +382,9 @@ const cards = async () => {
       document.querySelectorAll('.card-decline').forEach(btn => {
         btn.onclick = () => {
           const id = btn.getAttribute("data-id");
+          const card = cardsArr.find(c => c.id === id);
+          const user = users.find(u => u.id === card.user_id);
+
           document.getElementById("decline-panel").innerHTML = DeclineReasonModal(id);
           document.getElementById("close-decline-modal").onclick = () => {
             document.getElementById("decline-panel").innerHTML = "";
@@ -403,8 +395,6 @@ const cards = async () => {
             if (!reason) return showToast("Reason required", "error");
             await supabase.from("cards").update({ status: "declined", notes: reason }).eq("id", id);
             // Notify user
-            const card = cardsArr.find(c => c.id === id);
-            const user = users.find(u => u.id === card.user_id);
             await sendEmail({
               to: user.email,
               subject: "Card Request Declined",
