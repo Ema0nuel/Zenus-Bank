@@ -2,6 +2,7 @@ import { supabase } from "../../utils/supabaseClient";
 import navbar from "./components/Navbar";
 import { showToast } from "../../components/toast";
 import { reset } from "../../utils/reset";
+import { getStatusBadge } from "../../utils/cardStatus";
 
 // Helper: Generate Card Number, CVV, Expiry
 function generateCardNumber() {
@@ -206,7 +207,7 @@ const cards = async () => {
       <tr class="hover:bg-blue-50 dark:hover:bg-blue-900 cursor-pointer js-card-row" data-idx="${i}">
         <td class="px-2 py-1 text-xs">${c.card_type?.toUpperCase() || "-"}</td>
         <td class="px-2 py-1 text-xs font-mono">${c.card_number}</td>
-        <td class="px-2 py-1 text-xs">${c.is_active ? "Active" : "Inactive"}</td>
+        <td class="px-2 py-1 text-xs">${getStatusBadge(c.status || 'pending')}</td>
         <td class="px-2 py-1 text-xs">${fmtDate(c.expiry_date)}</td>
         <td class="px-2 py-1 text-xs">${c.issued_at?.slice(0, 16).replace("T", " ")}</td>
       </tr>

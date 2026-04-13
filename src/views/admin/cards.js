@@ -3,6 +3,7 @@ import AdminNavbar from "./components/AdminNavbar.js";
 import { requireAdmin } from "./utils/adminAuth.js";
 import { showToast } from "/src/components/toast.js";
 import { sendEmail } from "/src/views/user/functions/Emailing/sendEmail.js";
+import { getStatusBadge, canUpdateCardStatus } from "/src/utils/cardStatus.js";
 
 // Helper: Format date
 function formatDate(dt) {
@@ -13,8 +14,8 @@ function formatDate(dt) {
 }
 
 function statusBadge(status) {
-  // Since database doesn't have status column, all cards show as "Active"
-  return `<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span>`;
+  // Display actual card status from database
+  return getStatusBadge(status || 'pending');
 }
 
 // Responsive Card Table (cards on mobile, table on desktop)
@@ -32,7 +33,7 @@ function CardTable(cards, users) {
             <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
               <div class="flex justify-between items-center mb-2">
                 <span class="font-semibold">${user?.full_name || "Unknown"}</span>
-                ${statusBadge()}
+                ${statusBadge(c.status)}
               </div>
               <div class="text-xs text-gray-400 mb-1">${user?.email || ""}</div>
               <div class="mb-1"><b>Card Number:</b> ${c.card_number || "-"}</div>
@@ -40,8 +41,10 @@ function CardTable(cards, users) {
               <div class="mb-1"><b>Expiry:</b> ${c.expiry_date || "-"}</div>
               <div class="flex flex-wrap gap-2 mt-2">
                 <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View Details</button>
+                ${canUpdateCardStatus(c.status) ? `
                 <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Mark Approved</button>
                 <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Mark Declined</button>
+                ` : ''}
               </div>
             </div>
           `;
@@ -71,11 +74,13 @@ function CardTable(cards, users) {
                   <td>${c.card_number || "-"}</td>
                   <td>${c.card_type || "-"}</td>
                   <td>${c.expiry_date || "-"}</td>
-                  <td>${statusBadge()}</td>
+                  <td>${statusBadge(c.status)}</td>
                   <td>
                     <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View</button>
+                    ${canUpdateCardStatus(c.status) ? `
                     <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Approve</button>
                     <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Decline</button>
+                    ` : ''}
                   </td>
                 </tr>
               `;
@@ -96,7 +101,7 @@ function CardDetailModal(card, user) {
         <div class="mb-2"><b>User:</b> ${user?.full_name || "Unknown"} (${user?.email || ""})</div>
         <div class="mb-2"><b>Card Number:</b> ${card.card_number || "-"}</div>
         <div class="mb-2"><b>Type:</b> ${card.card_type || "-"}</div>
-        <div class="mb-2"><b>Status:</b> ${statusBadge()}</div>
+        <div class="mb-2"><b>Status:</b> ${statusBadge(card.status)}</div>
         <div class="mb-2"><b>Expiry Date:</b> ${card.expiry_date || "-"}</div>
         <div class="mb-2"><b>CVV:</b> ${card.cvv || "-"}</div>
       </div>
@@ -225,7 +230,7 @@ const cards = async () => {
             <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-4 mb-4 animate-fade-in">
               <div class="flex justify-between items-center mb-2">
                 <span class="font-semibold">${user?.full_name || "Unknown"}</span>
-                ${statusBadge()}
+                ${statusBadge(c.status)}
               </div>
               <div class="text-xs text-gray-400 mb-1">${user?.email || ""}</div>
               <div class="mb-1"><b>Card Number:</b> ${c.card_number || "-"}</div>
@@ -233,8 +238,10 @@ const cards = async () => {
               <div class="mb-1"><b>Expiry:</b> ${c.expiry_date || "-"}</div>
               <div class="flex flex-wrap gap-2 mt-2">
                 <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View Details</button>
+                ${canUpdateCardStatus(c.status) ? `
                 <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Mark Approved</button>
                 <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Mark Declined</button>
+                ` : ''}
               </div>
             </div>
           `;
@@ -251,11 +258,13 @@ const cards = async () => {
               <td>${c.card_number || "-"}</td>
               <td>${c.card_type || "-"}</td>
               <td>${c.expiry_date || "-"}</td>
-              <td>${statusBadge()}</td>
+              <td>${statusBadge(c.status)}</td>
               <td>
                 <button class="btn btn-xs bg-blue-600 text-white px-2 py-1 rounded card-view" data-id="${c.id}">View</button>
+                ${canUpdateCardStatus(c.status) ? `
                 <button class="btn btn-xs bg-green-600 text-white px-2 py-1 rounded card-approve" data-id="${c.id}">Approve</button>
                 <button class="btn btn-xs bg-red-600 text-white px-2 py-1 rounded card-decline" data-id="${c.id}">Decline</button>
+                ` : ''}
               </td>
             </tr>
           `;
@@ -290,12 +299,30 @@ const cards = async () => {
           const card = cardsArr.find(c => c.id === id);
           const user = users.find(u => u.id === card.user_id);
 
-          // Notify user that card is approved
-          await sendEmail({
-            to: user.email,
-            subject: "Card Request Approved",
-            html: `<p>Dear ${user.full_name},<br>Your card request has been approved. Card Number: <b>${card.card_number}</b>, Type: <b>${card.card_type}</b>.<br>We will notify you when your card is ready for pickup.</p>`
-          });
+          try {
+            // Update card status in database
+            const { error: updateError } = await supabase
+              .from("cards")
+              .update({ status: "approved" })
+              .eq("id", id);
+
+            if (updateError) throw updateError;
+
+            // Notify user that card is approved
+            try {
+              await sendEmail({
+                to: user.email,
+                subject: "Card Request Approved",
+                html: `<p>Dear ${user.full_name},<br>Your card request has been approved. Card Number: <b>${card.card_number}</b>, Type: <b>${card.card_type}</b>.<br>We will notify you when your card is ready for pickup.</p>`
+              });
+            } catch (emailErr) {
+              console.warn("Email send failed, but continuing:", emailErr);
+            }
+          } catch (err) {
+            console.error("Card approval error:", err);
+            showToast("Failed to approve card", "error");
+            return;
+          }
           showToast("Card approved and user notified.", "success");
           window.location.reload();
         };
@@ -314,12 +341,31 @@ const cards = async () => {
             e.preventDefault();
             const reason = this.reason.value.trim();
             if (!reason) return showToast("Reason required", "error");
-            // Notify user
-            await sendEmail({
-              to: user.email,
-              subject: "Card Request Declined",
-              html: `<p>Dear ${user.full_name},<br>Your card request was declined. Reason: <b>${reason}</b></p>`
-            });
+
+            try {
+              // Update card status to declined in database
+              const { error: updateError } = await supabase
+                .from("cards")
+                .update({ status: "declined" })
+                .eq("id", id);
+
+              if (updateError) throw updateError;
+
+              // Notify user of decline
+              try {
+                await sendEmail({
+                  to: user.email,
+                  subject: "Card Request Declined",
+                  html: `<p>Dear ${user.full_name},<br>Your card request was declined. Reason: <b>${reason}</b></p>`
+                });
+              } catch (emailErr) {
+                console.warn("Email send failed, but continuing:", emailErr);
+              }
+            } catch (err) {
+              console.error("Card decline error:", err);
+              showToast("Failed to decline card", "error");
+              return;
+            }
             showToast("Card declined and user notified.", "success");
             window.location.reload();
           };

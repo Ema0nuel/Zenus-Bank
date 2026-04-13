@@ -1,4 +1,4 @@
-import{s as l}from"./supabaseClient-CL6H8VOx.js";import{n as _}from"./Navbar-Bss5hsHn.js";import{s as b}from"./toast-DRvdR0y9.js";import{r as $}from"./reset-CYKpHJhn.js";import"./logo-yCyWWFG1.js";function S(){let t="";for(let a=0;a<16;a++)t+=Math.floor(Math.random()*10);return t.replace(/(.{4})/g,"$1 ").trim()}function E(){return""+Math.floor(100+Math.random()*900)}function L(){const t=new Date,a=t.getFullYear()+4;return`${(t.getMonth()+1).toString().padStart(2,"0")}/${a.toString().slice(-2)}`}function w({card_number:t,card_type:a,card_holder:i,expiry:n,cvv:v}){const o=a==="visa"?'<span class="font-bold italic tracking-tighter text-white text-2xl">VISA</span>':`<div class="flex items-center space-x-1">
+import{s as l}from"./supabaseClient-CL6H8VOx.js";import{n as _}from"./Navbar-Bss5hsHn.js";import{s as x}from"./toast-DRvdR0y9.js";import{r as $}from"./reset-CYKpHJhn.js";import{g as S}from"./cardStatus-CgdHr1-A.js";import"./logo-yCyWWFG1.js";function E(){let a="";for(let s=0;s<16;s++)a+=Math.floor(Math.random()*10);return a.replace(/(.{4})/g,"$1 ").trim()}function B(){return""+Math.floor(100+Math.random()*900)}function L(){const a=new Date,s=a.getFullYear()+4;return`${(a.getMonth()+1).toString().padStart(2,"0")}/${s.toString().slice(-2)}`}function w({card_number:a,card_type:s,card_holder:i,expiry:n,cvv:o}){const c=s==="visa"?'<span class="font-bold italic tracking-tighter text-white text-2xl">VISA</span>':`<div class="flex items-center space-x-1">
         <div class="w-8 h-8 rounded-full bg-red-500 opacity-80"></div>
         <div class="w-8 h-8 rounded-full bg-yellow-500 opacity-80 -ml-4"></div>
        </div>`;return`
@@ -74,13 +74,13 @@ import{s as l}from"./supabaseClient-CL6H8VOx.js";import{n as _}from"./Navbar-Bss
 
           <!-- Logo -->
           <div class="absolute top-6 right-6">
-            ${o}
+            ${c}
           </div>
 
           <!-- Card Number with groups -->
           <div class="absolute top-24 left-6 right-6">
             <div class="text-xl tracking-widest font-mono text-white/90">
-              ${t.split(" ").map(f=>`<span class="card-number-group">${f}</span>`).join("")}
+              ${a.split(" ").map(f=>`<span class="card-number-group">${f}</span>`).join("")}
             </div>
           </div>
 
@@ -107,7 +107,7 @@ import{s as l}from"./supabaseClient-CL6H8VOx.js";import{n as _}from"./Navbar-Bss
             <div class="relative">
               <div class="text-xs text-white/50 uppercase absolute -top-4 right-4">CVV</div>
               <div class="w-full h-10 bg-white/90 flex items-center justify-end pr-4">
-                <span class="font-mono text-black font-medium">${v}</span>
+                <span class="font-mono text-black font-medium">${o}</span>
               </div>
             </div>
             <div class="mt-6 text-xs text-white/60 leading-relaxed">
@@ -118,22 +118,22 @@ import{s as l}from"./supabaseClient-CL6H8VOx.js";import{n as _}from"./Navbar-Bss
 
           <!-- Logo on back -->
           <div class="absolute bottom-6 right-6">
-            ${o}
+            ${c}
           </div>
         </div>
 
       </div>
     </div>
   </div>
-  `}function k(t){if(!t)return"";const a=new Date(t);return`${a.getMonth()+1}/${a.getFullYear().toString().slice(-2)}`}const j=async()=>{$("Zenus Bank | Cards");const t=_(),a=await l.auth.getSession();if(!a.data.session){window.location.href="/login";return}const{user:i}=a.data.session,{data:n}=await l.from("profiles").select("*").eq("id",i.id).single();let{data:v}=await l.from("accounts").select("*").eq("user_id",i.id).single(),{data:o}=await l.from("cards").select("*").eq("user_id",i.id).order("issued_at",{ascending:!1});const f=(o||[]).length?o.map((d,m)=>`
-      <tr class="hover:bg-blue-50 dark:hover:bg-blue-900 cursor-pointer js-card-row" data-idx="${m}">
+  `}function k(a){if(!a)return"";const s=new Date(a);return`${s.getMonth()+1}/${s.getFullYear().toString().slice(-2)}`}const Y=async()=>{$("Zenus Bank | Cards");const a=_(),s=await l.auth.getSession();if(!s.data.session){window.location.href="/login";return}const{user:i}=s.data.session,{data:n}=await l.from("profiles").select("*").eq("id",i.id).single();let{data:o}=await l.from("accounts").select("*").eq("user_id",i.id).single();console.log("Account loaded:",o);let{data:c}=await l.from("cards").select("*").eq("user_id",i.id).order("issued_at",{ascending:!1});const f=(c||[]).length?c.map((d,g)=>`
+      <tr class="hover:bg-blue-50 dark:hover:bg-blue-900 cursor-pointer js-card-row" data-idx="${g}">
         <td class="px-2 py-1 text-xs">${d.card_type?.toUpperCase()||"-"}</td>
         <td class="px-2 py-1 text-xs font-mono">${d.card_number}</td>
-        <td class="px-2 py-1 text-xs">${d.is_active?"Active":"Inactive"}</td>
+        <td class="px-2 py-1 text-xs">${S(d.status||"pending")}</td>
         <td class="px-2 py-1 text-xs">${k(d.expiry_date)}</td>
         <td class="px-2 py-1 text-xs">${d.issued_at?.slice(0,16).replace("T"," ")}</td>
       </tr>
-    `).join(""):'<tr><td colspan="5" class="text-center text-gray-400 dark:text-gray-500 py-2 text-xs">No cards requested yet.</td></tr>';function C(){t.pageEvents?.();const d=document.getElementById("card-type"),m=document.getElementById("card-name"),h=document.getElementById("generate-card-btn"),y=document.getElementById("card-preview"),g=document.getElementById("regenerate-card-btn"),p=document.getElementById("save-card-btn"),u=document.getElementById("card-spinner");let e=null;h.onclick=()=>{const s=d.value,r=m.value.trim().toUpperCase();if(!s||!r){b("Select card type and enter your name.","error");return}u.classList.remove("hidden"),setTimeout(()=>{e={card_type:s,card_holder:r,card_number:S(),expiry:L(),cvv:E()},y.innerHTML=w(e),u.classList.add("hidden"),g.classList.remove("hidden"),p.classList.remove("hidden"),x()},1200)},g.onclick=()=>{h.onclick()},p.onclick=async()=>{if(e){u.classList.remove("hidden"),p.disabled=!0;try{const{data:s,error:r}=await l.from("cards").insert([{user_id:i.id,account_id:v.id,card_number:e.card_number,card_type:e.card_type,card_holder:e.card_holder,expiry_date:`20${e.expiry.split("/")[1]}-${e.expiry.split("/")[0]}-01`,cvv:e.cvv,status:"pending",is_active:!1,issued_at:new Date().toISOString()}]).select().single();if(r)throw r;await l.from("notifications").insert([{user_id:i.id,title:"Card Request Submitted",message:`Your ${e.card_type.toUpperCase()} card request is pending approval.`,type:"info",read:!1}]),fetch("/api/send-email",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({to:n.email,subject:"Card Request Submitted",html:`
+    `).join(""):'<tr><td colspan="5" class="text-center text-gray-400 dark:text-gray-500 py-2 text-xs">No cards requested yet.</td></tr>';function C(){a.pageEvents?.();const d=document.getElementById("card-type"),g=document.getElementById("card-name"),h=document.getElementById("generate-card-btn"),y=document.getElementById("card-preview"),m=document.getElementById("regenerate-card-btn"),p=document.getElementById("save-card-btn"),v=document.getElementById("card-spinner");let e=null;h.onclick=()=>{const t=d.value,r=g.value.trim().toUpperCase();if(!t||!r){x("Select card type and enter your name.","error");return}v.classList.remove("hidden"),setTimeout(()=>{e={card_type:t,card_holder:r,card_number:E(),expiry:L(),cvv:B()},y.innerHTML=w(e),v.classList.add("hidden"),m.classList.remove("hidden"),p.classList.remove("hidden"),b()},1200)},m.onclick=()=>{h.onclick()},p.onclick=async()=>{if(e){v.classList.remove("hidden"),p.disabled=!0;try{if(!o||!o.id)throw new Error("Account not found. Please refresh and try again.");const{data:t,error:r}=await l.from("cards").insert([{user_id:i.id,account_id:o.id,card_number:e.card_number,card_type:e.card_type,expiry_date:`20${e.expiry.split("/")[1]}-${e.expiry.split("/")[0]}-01`,cvv:e.cvv}]).select().single();if(r)throw console.error("Supabase insert error:",r),r;await l.from("notifications").insert([{user_id:i.id,title:"Card Request Submitted",message:`Your ${e.card_type.toUpperCase()} card request is pending approval.`,type:"info",read:!1}]),fetch("/api/send-email",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({to:n.email,subject:"Card Request Submitted",html:`
               <h2>Your Card Request is Pending</h2>
               <p>Dear ${n.full_name},</p>
               <p>Your ${e.card_type.toUpperCase()} card request has been received and is pending approval.</p>
@@ -146,9 +146,9 @@ import{s as l}from"./supabaseClient-CL6H8VOx.js";import{n as _}from"./Navbar-Bss
               <p>We will notify you once your card is approved and ready for use.</p>
               <br>
               <b>Zenus Bank</b>
-            `})}),b("Card request submitted. Await approval.","success"),setTimeout(()=>window.location.reload(),1800)}catch{b("Failed to save card. Try again.","error"),u.classList.add("hidden"),p.disabled=!1}}};function x(){const s=document.getElementById("flip-card");s&&(s.addEventListener("click",function(r){this.classList.toggle("flipped"),r.stopPropagation()}),s.addEventListener("mouseleave",function(){this.classList.contains("flipped")&&setTimeout(()=>{this.classList.remove("flipped")},2e3)}))}x(),document.querySelectorAll(".js-card-row").forEach(s=>{s.onclick=()=>{const r=s.getAttribute("data-idx"),c=o[r];c&&(y.innerHTML=w({card_number:c.card_number,card_type:c.card_type,card_holder:(c.card_holder||n.full_name).toUpperCase(),expiry:k(c.expiry_date),cvv:c.cvv}),g.classList.add("hidden"),p.classList.add("hidden"),x())}})}return{html:`
+            `})}),x("Card request submitted. Await approval.","success"),setTimeout(()=>window.location.reload(),1800)}catch(t){console.error("Card save error:",t);const r=t?.message||t?.error_description||"Failed to save card. Try again.";x(r,"error"),v.classList.add("hidden"),p.disabled=!1}}};function b(){const t=document.getElementById("flip-card");t&&(t.addEventListener("click",function(r){this.classList.toggle("flipped"),r.stopPropagation()}),t.addEventListener("mouseleave",function(){this.classList.contains("flipped")&&setTimeout(()=>{this.classList.remove("flipped")},2e3)}))}b(),document.querySelectorAll(".js-card-row").forEach(t=>{t.onclick=()=>{const r=t.getAttribute("data-idx"),u=c[r];u&&(y.innerHTML=w({card_number:u.card_number,card_type:u.card_type,card_holder:n.full_name.toUpperCase(),expiry:k(u.expiry_date),cvv:u.cvv}),m.classList.add("hidden"),p.classList.add("hidden"),b())}})}return{html:`
       <div class="relative">
-        ${t.html}
+        ${a.html}
         <div class="bg-gray-50 dark:bg-gray-900 font-sans min-h-screen pt-12">
           <div id="main-content" class="ml-56 pt-14 transition-all duration-300 font-sans min-h-screen">
             <div class="p-4">
@@ -217,4 +217,4 @@ import{s as l}from"./supabaseClient-CL6H8VOx.js";import{n as _}from"./Navbar-Bss
           </div>
         </div>
       </div>
-    `,pageEvents:C}};export{j as default};
+    `,pageEvents:C}};export{Y as default};
