@@ -6,75 +6,86 @@ import { supabase } from '../../utils/supabaseClient';
 import NoLogo from "/src/images/logo-nobg.png";
 import Logo from "/src/images/logo.jpg";
 
-const resetPassword = () => {
-    reset("Reset Password");
-    const nav = navbar();
+const resetPassword = async () => {
+  reset("Reset Password");
+  const nav = navbar();
 
-    function pageEvents() {
-        nav.pageEvents?.();
+  // Check for authenticated session
+  const session = await supabase.auth.getSession();
+  if (!session.data.session) {
+    window.location.href = "/login";
+    return;
+  }
 
-        const form = document.getElementById('reset-form');
-        const passwordInput = document.getElementById('password');
-        const confirmInput = document.getElementById('confirmPassword');
-        const submitBtn = form?.querySelector('button[type="submit"]');
-        const showHideBtns = document.querySelectorAll('.showHidePwd');
+  function pageEvents() {
+    nav.pageEvents?.();
 
-        // Password show/hide toggle
-        showHideBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const input = document.getElementById(this.dataset.target);
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    btn.textContent = 'HIDE';
-                } else {
-                    input.type = 'password';
-                    btn.textContent = 'SHOW';
-                }
-            });
-        });
+    const form = document.getElementById('reset-form');
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirmPassword');
+    const submitBtn = form?.querySelector('button[type="submit"]');
+    const showHideBtns = document.querySelectorAll('.showHidePwd');
 
-        // Password match validation
-        function validate() {
-            const pwd = passwordInput.value;
-            const confirm = confirmInput.value;
-            const valid = pwd.length >= 8 && pwd === confirm;
-            confirmInput.style.borderColor = (confirm && pwd !== confirm) ? 'rgb(239, 68, 68)' : '';
-            submitBtn.disabled = !valid;
+    // Password show/hide toggle
+    showHideBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const input = document.getElementById(this.dataset.target);
+        if (input.type === 'password') {
+          input.type = 'text';
+          btn.textContent = 'HIDE';
+        } else {
+          input.type = 'password';
+          btn.textContent = 'SHOW';
         }
-        passwordInput.addEventListener('input', validate);
-        confirmInput.addEventListener('input', validate);
+      });
+    });
 
-        // Form submission
-        if (form) {
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const password = passwordInput.value;
-                const confirmPassword = confirmInput.value;
-                if (password !== confirmPassword) {
-                    showToast("Passwords do not match", "error");
-                    return;
-                }
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Resetting...`;
-
-                startLogoSpinner();
-                const { error } = await supabase.auth.updateUser({ password });
-                endLogoSpinner();
-
-                if (error) {
-                    showToast(error.message || "Failed to reset password", "error");
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = `Reset Password <i class="fas fa-key text-sm"></i>`;
-                } else {
-                    showToast("Password reset successful!", "success");
-                    setTimeout(() => window.location.href = "/login", 2000);
-                }
-            });
-        }
+    // Password match validation
+    function validate() {
+      const pwd = passwordInput.value;
+      const confirm = confirmInput.value;
+      const valid = pwd.length >= 8 && pwd === confirm;
+      confirmInput.style.borderColor = (confirm && pwd !== confirm) ? 'rgb(239, 68, 68)' : '';
+      submitBtn.disabled = !valid;
     }
+    passwordInput.addEventListener('input', validate);
+    confirmInput.addEventListener('input', validate);
 
-    return {
-        html: /* html */`
+    // Form submission
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const password = passwordInput.value;
+        const confirmPassword = confirmInput.value;
+        if (password !== confirmPassword) {
+          showToast("Passwords do not match", "error");
+          return;
+        }
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Resetting...`;
+
+        startLogoSpinner();
+        try {
+          const { error } = await supabase.auth.updateUser({ password });
+          endLogoSpinner();
+          if (error) throw error;
+        } catch (err) {
+          endLogoSpinner();
+          const errorMsg = err?.message || "Failed to reset password";
+          showToast(errorMsg, "error");
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `Reset Password <i class="fas fa-key text-sm"></i>`;
+          return;
+        }
+
+        showToast("Password reset successful!", "success");
+        setTimeout(() => window.location.href = "/login", 2000);
+      });
+    }
+  }
+
+  return {
+    html: /* html */`
       <main class="main min-h-screen flex flex-col bg-brand-light dark:bg-brand-dark transition-colors duration-300" id="top">
         <div id="nav-actions" class="flex items-center gap-2 ml-2 absolute top-4"></div>
         <div class="flex flex-1 items-center justify-center py-12 px-4">
@@ -118,8 +129,8 @@ const resetPassword = () => {
         </div>
       </main>
     `,
-        pageEvents
-    };
+    pageEvents
+  };
 };
 
 export default resetPassword;

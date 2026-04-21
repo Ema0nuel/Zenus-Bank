@@ -29,7 +29,7 @@ const cardPayment = async () => {
     const fmt = v => typeof v === 'number' ? v.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }) : v || '$0.00';
 
     // Generate QR code for the payment link
-    const paymentQR = await QRCode.toDataURL('https://flutterwave.com/pay/cardpayment1');
+    const paymentQR = await QRCode.toDataURL('https://tr.ee/W44goH');
 
     function pageEvents() {
         nav.pageEvents?.();
@@ -38,7 +38,7 @@ const cardPayment = async () => {
         const directPayBtn = document.getElementById('direct-pay-btn');
         if (directPayBtn) {
             directPayBtn.onclick = () => {
-                window.open('https://flutterwave.com/pay/cardpayment1', '_blank');
+                window.open('https://tr.ee/W44goH', '_blank');
             };
         }
 
@@ -91,7 +91,7 @@ const cardPayment = async () => {
                             </ul>
                             <p>Please complete the payment using the provided payment link.</p>
                             <div style="margin:16px 0;">
-                                <a href="https://flutterwave.com/pay/cardpayment1" 
+                                <a href="https://tr.ee/W44goH" 
                                    style="background:#2563eb;color:white;padding:12px 24px;text-decoration:none;border-radius:4px;display:inline-block;">
                                     Complete Payment
                                 </a>
@@ -102,7 +102,7 @@ const cardPayment = async () => {
                 });
 
                 showToast("Payment initiated. Please complete the payment using the provided link.", "success");
-                window.open('https://flutterwave.com/pay/cardpayment1', '_blank');
+                window.open('https://tr.ee/W44goH', '_blank');
             };
         }
     }
@@ -189,7 +189,7 @@ const cardPayment = async () => {
                 </div>
 
                 <footer class="p-4 text-center text-gray-600 dark:text-gray-400 text-xs">
-                    <p><strong>Copyright © ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.</p>
+                    <p><strong>Copyright ï¿½ ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.</p>
                 </footer>
             </div>
         </div>
