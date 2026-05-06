@@ -358,7 +358,15 @@ const idmeAdmin = async () => {
   let activeItem = "idme";
   let isCollapsed = false;
   let isDark = localStorage.getItem("admin_dark") === "true";
-  let currentAdminId = (await supabase.auth.getSession()).data.session.user.id;
+
+  // Get current admin ID if available
+  let currentAdminId = null;
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    currentAdminId = session?.user?.id;
+  } catch (err) {
+    console.warn("Could not retrieve session:", err);
+  }
 
   function render() {
     document.getElementById("app").innerHTML = `
