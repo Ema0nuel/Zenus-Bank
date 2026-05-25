@@ -116,6 +116,15 @@ const forgotPassword = () => {
               </div>
             </div>
             <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-8">
+              <div class="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg p-4 mb-6">
+                <div class="flex gap-3">
+                  <i class="fas fa-info-circle text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5"></i>
+                  <div>
+                    <p class="text-sm font-medium text-blue-800 dark:text-blue-200 mb-1">Important:</p>
+                    <p class="text-sm text-blue-700 dark:text-blue-300">You can request a password reset a maximum of 2 times within an hour. Please use this wisely.</p>
+                  </div>
+                </div>
+              </div>
               <form id="forgot-form" autocomplete="off" class="space-y-6" novalidate>
                 <div>
                   <label for="email" class="block text-sm font-medium text-brand-navy dark:text-brand-sun mb-1">Email Address</label>
