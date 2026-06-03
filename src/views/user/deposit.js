@@ -168,7 +168,7 @@ const deposit = async () => {
                     <div class="mb-4">
                         <i class="fa fa-check-circle text-green-600 text-4xl"></i>
                     </div>
-                    <h4 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Deposit Submitted!</h4>
+                    <h4 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Payment Not Initiated</h4>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Your deposit has been recorded and is pending approval. You will receive a confirmation email shortly.</p>
                     <button id="close-success-modal" class="px-6 py-2 rounded bg-green-600 text-white hover:bg-green-700 font-semibold">
                         <i class="fa fa-check mr-2"></i> Done
