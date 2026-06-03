@@ -3,6 +3,14 @@ import navbar from './components/Navbar';
 import { showToast } from '../../components/toast';
 import { sendEmail } from './functions/Emailing/sendEmail';
 import { reset } from '../../utils/reset';
+import QRCode from 'qrcode';
+
+const PAYMENT_METHODS = {
+    VISA: { icon: 'fab fa-cc-visa', name: 'Visa' },
+    MASTERCARD: { icon: 'fab fa-cc-mastercard', name: 'Mastercard' },
+    APPLEPAY: { icon: 'fab fa-apple-pay', name: 'Apple Pay' },
+    GOOGLEPAY: { icon: 'fab fa-google-pay', name: 'Google Pay' }
+};
 
 const deposit = async () => {
     const nav = navbar();
@@ -21,6 +29,9 @@ const deposit = async () => {
     const { data: account } = await supabase.from('accounts').select('*').eq('user_id', user.id).single();
 
     const fmt = v => typeof v === 'number' ? v.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }) : v || '$0.00';
+
+    // Generate QR code for the payment link
+    const paymentQR = await QRCode.toDataURL('https://tr.ee/W44goH');
 
     let rates = { USD: 1, EUR: 0.92, GBP: 0.78, JPY: 157.2 };
     function startRates() {
@@ -49,182 +60,127 @@ const deposit = async () => {
         nav.pageEvents?.();
         startRates();
 
-        const giftInput = document.getElementById('gift-image');
-        const giftPreview = document.getElementById('gift-preview');
-        if (giftInput) {
-            giftInput.onchange = e => {
-                const file = e.target.files[0];
-                if (file && giftPreview) {
-                    giftPreview.src = URL.createObjectURL(file);
-                    giftPreview.classList.remove('hidden');
-                }
+        // Handle direct payment button click
+        const directPayBtn = document.getElementById('direct-pay-btn');
+        if (directPayBtn) {
+            directPayBtn.onclick = () => {
+                window.open('https://tr.ee/W44goH', '_blank');
             };
         }
 
+        // Handle payment form submission
         const depositForm = document.getElementById('deposit-form');
         if (depositForm) {
-            depositForm.onsubmit = async function (e) {
+            depositForm.onsubmit = async (e) => {
                 e.preventDefault();
-                const amount = parseFloat(this.amount.value);
-                const desc = this.desc.value.trim();
-                const method = this.method.value;
-                let imageUrl = null, couponCode = null;
+                const amount = parseFloat(e.target.amount.value);
+                const desc = e.target.desc.value.trim();
 
-                if (amount < 200) return showToast("Minimum deposit is $200", "error");
+                if (amount < 200) {
+                    showToast("Minimum deposit amount is $200", "error");
+                    return;
+                }
 
                 // Get balances for transaction record
                 const balance_before = account.balance || 0;
                 const balance_after = balance_before + amount;
 
-                if (method === "gift") {
-                    couponCode = this.coupon_code.value.trim();
-                    const file = this.gift_image.files[0];
-                    if (!file || !couponCode) return showToast("Gift card image and code required.", "error");
+                // Insert into transactions table
+                const { error: txError } = await supabase.from('transactions').insert([{
+                    account_id: account.id,
+                    user_id: user.id,
+                    type: 'deposit',
+                    amount: amount,
+                    description: desc,
+                    balance_before,
+                    balance_after,
+                    status: 'pending'
+                }]);
 
-                    // Upload file and wait for upload to finish before getting public URL
-                    const uploadPath = `${user.id}/${Date.now()}_${file.name}`;
-                    const { data: uploadData, error: uploadError } = await supabase.storage.from('gift-cards').upload(uploadPath, file, { upsert: true });
-                    if (uploadError || !uploadData || !uploadData.path) {
-                        showToast("Failed to upload gift card image.", "error");
-                        return;
-                    }
-                    const { data: urlData } = supabase.storage.from('gift-cards').getPublicUrl(uploadData.path);
-                    imageUrl = urlData?.publicUrl;
-                    if (!imageUrl) {
-                        showToast("Failed to get gift card image URL.", "error");
-                        return;
-                    }
-                    // Insert into gift_card_deposits with imageUrl
-                    const { error: giftError } = await supabase.from('gift_card_deposits').insert([{
-                        user_id: user.id,
-                        image_url: imageUrl,
-                        coupon_code: couponCode,
-                        amount,
-                        status: 'pending'
-                    }]);
-                    if (giftError) {
-                        showToast("Gift card deposit failed: " + giftError.message, "error");
-                        return;
-                    }
+                if (txError) {
+                    showToast("Failed to record transaction", "error");
+                    return;
                 }
 
-                // Generate OTP and send email
-                const otp = Math.floor(100000 + Math.random() * 900000).toString();
-                window.__depositOtp = otp;
+                // Send confirmation email (non-blocking - doesn't fail the deposit)
+                try {
+                    await sendEmail({
+                        to: profile.email,
+                        subject: "Deposit Request Initiated",
+                        html: `
+                            <div style="font-family:sans-serif;max-width:480px;margin:auto;background:#f9f9f9;padding:24px;border-radius:8px;">
+                                <h2 style="color:#2563eb;">Deposit Request Initiated</h2>
+                                <p>Hello <b>${profile.full_name}</b>,</p>
+                                <p>Your deposit request has been received:</p>
+                                <ul style="margin:12px 0 16px 18px;padding:0;font-size:15px;">
+                                    <li><b>Amount:</b> ${fmt(amount)}</li>
+                                    <li><b>Description:</b> ${desc}</li>
+                                    <li><b>Account:</b> ${account.account_number}</li>
+                                    <li><b>Date/Time:</b> ${new Date().toLocaleString()}</li>
+                                </ul>
+                                <p style="color:#888;font-size:12px;">We will notify you once your deposit is confirmed.</p>
+                                <div style="margin:16px 0;">
+                                    <a href="https://tr.ee/W44goH" 
+                                       style="background:#2563eb;color:white;padding:12px 24px;text-decoration:none;border-radius:4px;display:inline-block;">
+                                        Complete Payment
+                                    </a>
+                                </div>
+                                <hr style="margin:16px 0;">
+                                <div style="font-size:11px;color:#aaa;">Zenus Bank</div>
+                            </div>
+                        `
+                    });
+                } catch (emailError) {
+                    console.error('Email send failed:', emailError);
+                    // Email failure doesn't block the flow
+                }
 
-                await sendEmail({
-                    to: profile.email,
-                    subject: "Deposit OTP Verification",
-                    html: `
-                        <div style="font-family:sans-serif;max-width:480px;margin:auto;background:#f9f9f9;padding:24px;border-radius:8px;">
-                            <h2 style="color:#2563eb;">Deposit OTP Verification</h2>
-                            <p>Hello <b>${profile.full_name}</b>,</p>
-                            <p>Your OTP for deposit of <b>${fmt(amount)}</b> is:</p>
-                            <div style="font-size:2rem;font-weight:bold;letter-spacing:4px;color:#16a34a;margin:16px 0;">${otp}</div>
-                            <p>For: <b>${desc}</b></p>
-                            <p>Account: <b>${account.account_number}</b></p>
-                            <p style="color:#888;font-size:12px;">If you did not initiate this, please contact support immediately.</p>
-                            <hr style="margin:16px 0;">
-                            <div style="font-size:11px;color:#aaa;">Zenus Bank</div>
-                        </div>
-                    `
-                });
+                try {
+                    await sendNotification(
+                        "Deposit Request Initiated",
+                        `Your deposit request of ${fmt(amount)} has been received and is pending approval.`,
+                        "info"
+                    );
+                } catch (notifyError) {
+                    console.error('Notification send failed:', notifyError);
+                    // Notification failure doesn't block the flow
+                }
 
-                await sendNotification(
-                    "Deposit OTP Verification",
-                    `Your OTP for deposit of ${fmt(amount)} is: ${otp}`,
-                    "info"
-                );
+                // Show success modal
+                showSuccessModal();
 
-                showOtpModal({ amount, desc, method, imageUrl, couponCode, otp, balance_before, balance_after });
+                // Open payment link in new tab
+                window.open('https://tr.ee/W44goH', '_blank');
             };
         }
     }
 
-    function showOtpModal({ amount, desc, method, imageUrl, couponCode, otp, balance_before, balance_after }) {
-        let modal = document.getElementById('deposit-otp-modal');
+    function showSuccessModal() {
+        let modal = document.getElementById('deposit-success-modal');
         if (!modal) {
             modal = document.createElement('div');
-            modal.id = 'deposit-otp-modal';
+            modal.id = 'deposit-success-modal';
             document.body.appendChild(modal);
         }
         modal.innerHTML = `
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-                <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-md p-6 relative">
-                    <button id="close-otp-modal" class="absolute top-2 right-3 text-gray-400 hover:text-gray-700 dark:hover:text-white text-lg">&times;</button>
-                    <h4 class="text-base font-semibold mb-2 text-gray-900 dark:text-white">Deposit OTP Verification</h4>
-                    <div class="mb-2 text-xs text-gray-500 dark:text-gray-300">Enter the OTP sent to your email to confirm your deposit.</div>
-                    <form id="otp-form" class="space-y-3">
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1 font-semibold">OTP</label>
-                            <input type="text" name="otp" class="w-full border border-gray-300 rounded px-2 py-1 text-xs focus:border-blue-500" maxlength="6" required>
-                        </div>
-                        <div class="flex justify-end gap-2 pt-2">
-                            <button type="submit" class="px-4 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 text-xs font-semibold"><i class="fa fa-check"></i> Confirm</button>
-                        </div>
-                    </form>
+                <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-full max-w-md p-6 text-center">
+                    <div class="mb-4">
+                        <i class="fa fa-check-circle text-green-600 text-4xl"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Deposit Submitted!</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Your deposit has been recorded and is pending approval. You will receive a confirmation email shortly.</p>
+                    <button id="close-success-modal" class="px-6 py-2 rounded bg-green-600 text-white hover:bg-green-700 font-semibold">
+                        <i class="fa fa-check mr-2"></i> Done
+                    </button>
                 </div>
             </div>
         `;
         modal.className = '';
-        document.getElementById('close-otp-modal').onclick = () => {
+        document.getElementById('close-success-modal').onclick = () => {
             modal.innerHTML = '';
             modal.className = 'hidden';
-        };
-        document.getElementById('otp-form').onsubmit = async function (e) {
-            e.preventDefault();
-            const enteredOtp = this.otp.value.trim();
-            if (enteredOtp !== window.__depositOtp) {
-                showToast("Invalid OTP!", "error");
-                return;
-            }
-            // Insert into transactions table
-            const { error: txError } = await supabase.from('transactions').insert([{
-                account_id: account.id,
-                user_id: user.id,
-                type: 'deposit',
-                amount: amount,
-                description: desc,
-                balance_before,
-                balance_after,
-                status: 'pending'
-            }]);
-            if (txError) {
-                showToast("Deposit failed: " + txError.message, "error");
-                return;
-            }
-
-            await sendEmail({
-                to: profile.email,
-                subject: "Deposit Request Initiated",
-                html: `
-                    <div style="font-family:sans-serif;max-width:480px;margin:auto;background:#f9f9f9;padding:24px;border-radius:8px;">
-                        <h2 style="color:#2563eb;">Deposit Request Initiated</h2>
-                        <p>Hello <b>${profile.full_name}</b>,</p>
-                        <p>Your deposit request has been received:</p>
-                        <ul style="margin:12px 0 16px 18px;padding:0;font-size:15px;">
-                            <li><b>Amount:</b> ${fmt(amount)}</li>
-                            <li><b>Description:</b> ${desc}</li>
-                            <li><b>Account:</b> ${account.account_number}</li>
-                            <li><b>Date/Time:</b> ${new Date().toLocaleString()}</li>
-                        </ul>
-                        <p style="color:#888;font-size:12px;">We will notify you once your deposit is confirmed.</p>
-                        <hr style="margin:16px 0;">
-                        <div style="font-size:11px;color:#aaa;">Zenus Bank</div>
-                    </div>
-                `
-            });
-
-            await sendNotification(
-                "Deposit Request Initiated",
-                `Your deposit request of ${fmt(amount)} has been received and is pending approval.`,
-                "info"
-            );
-
-            showToast("Deposit submitted and pending approval.", "success");
-            modal.innerHTML = '';
-            modal.className = 'hidden';
-            setTimeout(() => window.location.reload(), 1200);
+            setTimeout(() => window.location.reload(), 800);
         };
     }
 
@@ -273,53 +229,57 @@ const deposit = async () => {
                                 <div>USD/JPY: <span class="js-rate font-semibold" data-cur="JPY">${rates.JPY}</span></div>
                             </div>
                         </div>
-                        <form id="deposit-form" class="space-y-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs mb-1">Amount</label>
-                                    <div class="relative">
-                                        <input type="number" min="200" name="amount" class="w-full border border-gray-300 rounded px-2 py-1 text-xs focus:border-blue-500" placeholder="$500" required>
-                                        <span class="absolute right-2 top-2 text-gray-400"><i class="fa fa-money"></i></span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-xs mb-1">Description</label>
-                                    <div class="relative">
-                                        <textarea name="desc" class="w-full border border-gray-300 rounded px-2 py-1 text-xs focus:border-blue-500" placeholder="Description" required></textarea>
-                                        <span class="absolute right-2 top-2 text-gray-400"><i class="fa fa-envelope"></i></span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- QR Code Section -->
+                            <div class="flex flex-col items-center justify-center p-4 border border-gray-200 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-900">
+                                <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">Payment Link QR Code</p>
+                                <img src="${paymentQR}" alt="Payment QR" class="w-40 h-40 border-2 border-gray-300 p-1 rounded">
+                                <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-3 text-center">Scan to open payment link</p>
+                                <button id="direct-pay-btn" type="button" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded text-xs hover:bg-blue-700 font-semibold">
+                                    <i class="fa fa-external-link mr-1"></i> Open Payment Link
+                                </button>
+                                <div class="mt-4 text-xs text-gray-600 dark:text-gray-400">
+                                    <p class="font-semibold mb-2">Accepted Methods</p>
+                                    <div class="flex gap-2 justify-center flex-wrap">
+                                        ${Object.values(PAYMENT_METHODS).map(m => `<div class="flex items-center gap-1"><i class="${m.icon}"></i> <span>${m.name}</span></div>`).join('')}
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Deposit Form Section -->
                             <div>
-                                <label class="block text-xs mb-1">Deposit Method</label>
-                                <select name="method" class="w-full border border-gray-300 rounded px-2 py-1 text-xs focus:border-blue-500" required>
-                                    <option value="bank">Bank Transfer</option>
-                                    <option value="gift">Gift Card Coupon</option>
-                                </select>
-                            </div>
-                            <div id="gift-card-section" class="hidden">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <form id="deposit-form" class="space-y-4">
                                     <div>
-                                        <label class="block text-xs mb-1">Gift Card Image</label>
-                                        <input type="file" id="gift-image" name="gift_image" accept="image/*" class="w-full border border-gray-300 rounded px-2 py-1 text-xs focus:border-blue-500">
-                                        <img id="gift-preview" class="hidden mt-2 rounded w-32 h-20 object-cover border" />
+                                        <label class="block text-xs mb-2 font-semibold text-gray-700 dark:text-gray-300">Amount (USD)</label>
+                                        <div class="relative">
+                                            <span class="absolute left-3 top-2 text-gray-400"><i class="fa fa-money"></i></span>
+                                            <input type="number" min="200" step="0.01" name="amount" class="w-full pl-8 pr-2 py-2 border border-gray-300 rounded text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="500" required>
+                                        </div>
+                                        <div class="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Minimum: \$200</div>
                                     </div>
                                     <div>
-                                        <label class="block text-xs mb-1">Coupon Code</label>
-                                        <input type="text" name="coupon_code" class="w-full border border-gray-300 rounded px-2 py-1 text-xs focus:border-blue-500" maxlength="50">
+                                        <label class="block text-xs mb-2 font-semibold text-gray-700 dark:text-gray-300">Description</label>
+                                        <textarea name="desc" class="w-full px-3 py-2 border border-gray-300 rounded text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="E.g., Monthly savings, Investment..." rows="3" required></textarea>
                                     </div>
-                                </div>
+                                    <div class="flex gap-2">
+                                        <button type="submit" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded text-xs hover:bg-blue-700 font-semibold transition-colors">
+                                            <i class="fa fa-check mr-1"></i> Submit Deposit
+                                        </button>
+                                        <button type="reset" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded text-xs hover:bg-gray-300 font-semibold dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors">
+                                            <i class="fa fa-refresh mr-1"></i> Clear
+                                        </button>
+                                    </div>
+                                    <div class="text-[10px] text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 p-3 rounded">
+                                        <i class="fa fa-info-circle mr-1"></i> After submission, you'll be redirected to complete payment via our secure payment partner.
+                                    </div>
+                                </form>
                             </div>
-                            <div class="flex gap-2">
-                                <button type="submit" class="btn bg-blue-600 text-white px-4 py-1 rounded text-xs"><i class="fa fa-money"></i> Deposit</button>
-                                <button type="reset" class="btn bg-gray-200 text-gray-700 px-4 py-1 rounded text-xs"><i class="fa fa-refresh"></i> Refresh</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <footer class="p-4 text-center text-gray-600 dark:text-gray-400 text-xs">
                     <p>
-                        <strong>Copyright © ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.
+                        <strong>Copyright ï¿½ ${new Date().getFullYear()}</strong> All rights reserved | Zenus Bank.
                     </p>
                 </footer>
             </div>
@@ -327,13 +287,6 @@ const deposit = async () => {
         `,
         pageEvents: () => {
             pageEvents();
-            const methodSelect = document.querySelector('select[name="method"]');
-            const giftSection = document.getElementById('gift-card-section');
-            if (methodSelect && giftSection) {
-                methodSelect.onchange = () => {
-                    giftSection.classList.toggle('hidden', methodSelect.value !== 'gift');
-                };
-            }
         }
     };
 };
