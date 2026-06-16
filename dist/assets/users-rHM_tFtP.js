@@ -190,11 +190,14 @@ import{s as n}from"./supabaseClient-CL6H8VOx.js";import{A as w}from"./AdminNavba
                 ${e.usdt_balance>0?`${e.usdt_balance} USDT`:""}
               </td>
               <td class="px-6 py-4 text-center">${B(e.is_active)}</td>
-              <td class="px-6 py-4 text-center">
-                <button class="user-edit text-blue-600 dark:text-blue-400 hover:text-blue-800 mx-2" data-id="${e.id}">
+              <td class="px-6 py-4 text-center whitespace-nowrap">
+                <a href="/admin/user/${e.id}" data-nav title="View Details" class="text-green-600 dark:text-green-400 hover:text-green-800 mx-1">
+                  <i class="fas fa-eye"></i>
+                </a>
+                <button class="user-edit text-blue-600 dark:text-blue-400 hover:text-blue-800 mx-1" data-id="${e.id}">
                   <i class="fas fa-edit"></i>
                 </button>
-                <button class="user-delete text-red-600 dark:text-red-400 hover:text-red-800 mx-2" data-id="${e.id}">
+                <button class="user-delete text-red-600 dark:text-red-400 hover:text-red-800 mx-1" data-id="${e.id}">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
@@ -203,7 +206,7 @@ import{s as n}from"./supabaseClient-CL6H8VOx.js";import{A as w}from"./AdminNavba
         </tbody>
       </table>
     </div>
-  `}const R=async()=>{if(!await E())return{html:"",pageEvents:()=>{}};let l="users",e=!1,d=localStorage.getItem("admin_dark")==="true",{data:_=[]}=await n.from("profiles").select("*").order("created_at",{ascending:!1}),{data:h=[]}=await n.from("accounts").select("*"),{data:k=[]}=await n.from("crypto_balances").select("*"),m=_.map(p=>{const c=h.find(s=>s.user_id===p.id)||{},i=k.find(s=>s.user_id===p.id)||{};return{...p,account_type:c.account_type||"-",account_id:c.id,is_active:c.is_active!==!1&&p.is_active!==!1,balance:parseFloat(c.balance||0).toFixed(2),mortgage:parseFloat(c.mortgage||0).toFixed(2),loan:parseFloat(c.loan||0).toFixed(2),btc_balance:parseFloat(i.btc_balance||0).toFixed(8),eth_balance:parseFloat(i.eth_balance||0).toFixed(8),usdt_balance:parseFloat(i.usdt_balance||0).toFixed(6),usdc_balance:parseFloat(i.usdc_balance||0).toFixed(6),bnb_balance:parseFloat(i.bnb_balance||0).toFixed(8),sol_balance:parseFloat(i.sol_balance||0).toFixed(8)}}),y=m;function r(){document.getElementById("app").innerHTML=`
+  `}const R=async()=>{if(!await E())return{html:"",pageEvents:()=>{}};let l="users",e=!1,d=localStorage.getItem("admin_dark")==="true",{data:h=[]}=await n.from("profiles").select("*").order("created_at",{ascending:!1}),{data:_=[]}=await n.from("accounts").select("*"),{data:k=[]}=await n.from("crypto_balances").select("*"),m=h.map(p=>{const c=_.find(s=>s.user_id===p.id)||{},i=k.find(s=>s.user_id===p.id)||{};return{...p,account_type:c.account_type||"-",account_id:c.id,is_active:c.is_active!==!1&&p.is_active!==!1,balance:parseFloat(c.balance||0).toFixed(2),mortgage:parseFloat(c.mortgage||0).toFixed(2),loan:parseFloat(c.loan||0).toFixed(2),btc_balance:parseFloat(i.btc_balance||0).toFixed(8),eth_balance:parseFloat(i.eth_balance||0).toFixed(8),usdt_balance:parseFloat(i.usdt_balance||0).toFixed(6),usdc_balance:parseFloat(i.usdc_balance||0).toFixed(6),bnb_balance:parseFloat(i.bnb_balance||0).toFixed(8),sol_balance:parseFloat(i.sol_balance||0).toFixed(8)}}),y=m;function r(){document.getElementById("app").innerHTML=`
     ${w({activeItem:l,isCollapsed:e,isDark:d})}
     <div class="lg:ml-64 min-h-screen bg-gray-50 dark:bg-slate-800 transition-colors">
       <div class="p-4 md:p-8">

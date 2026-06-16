@@ -232,11 +232,14 @@ function UsersTable(users) {
                 ${user.usdt_balance > 0 ? `${user.usdt_balance} USDT` : ""}
               </td>
               <td class="px-6 py-4 text-center">${statusIcon(user.is_active)}</td>
-              <td class="px-6 py-4 text-center">
-                <button class="user-edit text-blue-600 dark:text-blue-400 hover:text-blue-800 mx-2" data-id="${user.id}">
+              <td class="px-6 py-4 text-center whitespace-nowrap">
+                <a href="/admin/user/${user.id}" data-nav title="View Details" class="text-green-600 dark:text-green-400 hover:text-green-800 mx-1">
+                  <i class="fas fa-eye"></i>
+                </a>
+                <button class="user-edit text-blue-600 dark:text-blue-400 hover:text-blue-800 mx-1" data-id="${user.id}">
                   <i class="fas fa-edit"></i>
                 </button>
-                <button class="user-delete text-red-600 dark:text-red-400 hover:text-red-800 mx-2" data-id="${user.id}">
+                <button class="user-delete text-red-600 dark:text-red-400 hover:text-red-800 mx-1" data-id="${user.id}">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
