@@ -12,12 +12,6 @@ document.addEventListener("click", async (e) => {
             const path = target.getAttribute('href');
             const parsed = parsePathToRoute(path);
             await loadPage(parsed.page, ...(parsed.args || []));
-            // Only load JivoChat if not on admin page
-            if (!page.startsWith("admin/") && page !== "admin-login") {
-
-            } else {
-
-            }
             break;
         }
         target = target.parentElement;
@@ -29,13 +23,4 @@ document.addEventListener("click", async (e) => {
 window.addEventListener("DOMContentLoaded", async () => {
     const { page, args } = parsePathToRoute(window.location.pathname);
     await loadPage(page, ...(args || []));
-    if (!page.startsWith("admin/") && page !== "admin-login") {
-
-    } else {
-
-    }
 });
-
-
-
-

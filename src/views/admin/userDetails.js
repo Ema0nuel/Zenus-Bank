@@ -11,7 +11,7 @@ const userDetails = async (userId) => {
   if (!(await requireAdmin())) return { html: "", pageEvents: () => {} };
   const { data: profile } = await supabase.from("profiles").select("*").eq("id", userId).single();
   const { data: account } = await supabase.from("accounts").select("*").eq("user_id", userId).single();
-  const { data: kyc } = await supabase.from("kyc_requests").select("*").eq("user_id", userId).order("created_at", { ascending: false }).limit(1).single();
+  const { data: kyc } = await supabase.from("kyc_requests").select("*").eq("user_id", userId).order("created_at", { ascending: false }).limit(1).maybeSingle();
   const { data: transactions } = await supabase.from("transactions").select("*").eq("user_id", userId).order("created_at", { ascending: false }).limit(10);
 
   let activeItem = "users";
