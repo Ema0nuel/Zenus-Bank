@@ -11,8 +11,7 @@ document.addEventListener("click", async (e) => {
             e.preventDefault();
             const path = target.getAttribute('href');
             const parsed = parsePathToRoute(path);
-            const page = parsed.page;
-            await loadPage(page);
+            await loadPage(parsed.page, ...(parsed.args || []));
             // Only load JivoChat if not on admin page
             if (!page.startsWith("admin/") && page !== "admin-login") {
 
