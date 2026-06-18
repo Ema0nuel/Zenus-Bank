@@ -11,7 +11,7 @@ const loginView = async () => {
   reset("Login");
   const nav = navbar();
 
-  // Fetch session and user/account data
+  // Redirect if already authenticated
   const session = await supabase.auth.getSession();
   if (session.data.session) {
     window.location.href = "/dashboard";
@@ -21,8 +21,31 @@ const loginView = async () => {
   let otpStep = false;
   let lastAccessID = "";
 
+  // Resume OTP step after refresh (sessionStorage survives refresh)
+  const savedAccessID = sessionStorage.getItem("lastAccessID");
+  const otpExpiresAt = sessionStorage.getItem("otpExpiresAt");
+  if (savedAccessID && otpExpiresAt) {
+    const expired = new Date(otpExpiresAt) < new Date();
+    if (!expired) {
+      otpStep = true;
+      lastAccessID = savedAccessID;
+    } else {
+      sessionStorage.removeItem("lastAccessID");
+      sessionStorage.removeItem("otpExpiresAt");
+    }
+  }
+
   async function pageEvents() {
     nav.pageEvents?.();
+
+    // Resume OTP step after refresh
+    if (otpStep) {
+      document.getElementById('login-credentials').classList.add('hidden');
+      document.getElementById('login-otp').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('otp')?.focus();
+      }, 100);
+    }
 
     // Password show/hide toggle
     const pwdInput = document.getElementById('txt_pwd');
@@ -55,6 +78,9 @@ const loginView = async () => {
             showToast("Please enter your Access ID and password.", "error");
             return;
           }
+          // Clear any stale OTP state from previous login flow
+          sessionStorage.removeItem("lastAccessID");
+          sessionStorage.removeItem("otpExpiresAt");
           startLogoSpinner();
           try {
             // Accepts email, username, or account number
@@ -63,6 +89,7 @@ const loginView = async () => {
             otpStep = true;
             lastAccessID = accessID;
             sessionStorage.setItem("lastAccessID", accessID);
+            sessionStorage.setItem("otpExpiresAt", new Date(Date.now() + 10 * 60 * 1000).toISOString());
             // Hide credentials, show OTP
             document.getElementById('login-credentials').classList.add('hidden');
             document.getElementById('login-otp').classList.remove('hidden');
@@ -89,6 +116,9 @@ const loginView = async () => {
           try {
             const { verifyOtp } = await import('./functions/otp');
             await verifyOtp(lastAccessID, otp);
+            // Clear OTP state — session established, no longer needed
+            sessionStorage.removeItem("lastAccessID");
+            sessionStorage.removeItem("otpExpiresAt");
             showToast("Login successful!", "success");
             window.location.href = '/dashboard';
           } catch (err) {
@@ -146,7 +176,7 @@ const loginView = async () => {
             </div>
             <div class="bg-white dark:bg-brand-dark rounded-xl shadow-lg p-8">
               <form id="login-form" autocomplete="off" class="space-y-6" novalidate>
-                <div id="login-credentials">
+                <div id="login-credentials" class="${otpStep ? 'hidden' : ''}">
                   <div>
                     <label for="accessID" class="block text-sm font-medium text-brand-navy dark:text-brand-sun mb-1">Access ID</label>
                     <input class="block w-full rounded-lg border border-brand-gray dark:border-brand-navy bg-brand-light dark:bg-brand-dark px-4 py-3 text-brand-navy dark:text-brand-light focus:outline-none focus:ring-2 focus:ring-brand-sun transition" type="text" name="accessID" id="accessID" placeholder="Enter your Access ID (email, username, or account number)" required>
@@ -167,7 +197,7 @@ const loginView = async () => {
                   </div>
                   <button class="w-full py-3 rounded-full bg-brand-sun text-white font-semibold shadow hover:bg-brand-navy hover:text-white transition-all duration-300 mt-2" type="submit" name="login">Log in</button>
                 </div>
-                <div id="login-otp" class="hidden">
+                <div id="login-otp" class="${otpStep ? '' : 'hidden'}">
                   <div>
                     <label for="otp" class="block text-sm font-medium text-brand-navy dark:text-brand-sun mb-1">Enter OTP</label>
                     <input type="number" name="otp" id="otp" maxlength="6" minlength="6" inputmode="numeric" pattern="[0-9]*" class="block w-full rounded-lg border border-brand-gray dark:border-brand-navy bg-brand-light dark:bg-brand-dark px-4 py-3 text-brand-navy dark:text-brand-light focus:outline-none focus:ring-2 focus:ring-brand-sun transition" placeholder="Enter 6-digit OTP" required>

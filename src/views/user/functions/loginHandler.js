@@ -46,13 +46,14 @@ export async function loginAndSendOtp(accessID, password) {
 
   if (!userData || !userData.email) throw new Error("Invalid credentials.");
 
-  // Authenticate with Supabase Auth using email
-  const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-    email: userData.email,
-    password
-  });
+  // Validate password via RPC — no session created
+  const { data: isValid, error: rpcError } = await supabase
+    .rpc('validate_auth_password', {
+      p_email: userData.email,
+      p_password: password
+    });
 
-  if (authError || !authData?.user) throw new Error("Invalid credentials.");
+  if (rpcError || !isValid) throw new Error("Invalid credentials.");
 
   // Generate OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
