@@ -1,6 +1,3 @@
-// NOTE: Requires `@supabase/ssr` to be installed.
-// npm install @supabase/ssr
-
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 

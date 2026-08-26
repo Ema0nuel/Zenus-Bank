@@ -1,6 +1,4 @@
-// NOTE: Requires `@supabase/ssr` to be installed.
-// npm install @supabase/ssr
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 

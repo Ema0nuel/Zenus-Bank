@@ -6,6 +6,11 @@ const anthropicSerif = localFont({
   src: [
     {
       path: "../public/fonts/AnthropicSerif-Regular.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/AnthropicSerif-Regular.woff2",
       weight: "400",
       style: "normal",
     },
@@ -24,6 +29,11 @@ const anthropicMono = localFont({
     {
       path: "../public/fonts/AnthropicMono-Regular.woff2",
       weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/AnthropicMono-Regular.woff2",
+      weight: "600",
       style: "normal",
     },
   ],
