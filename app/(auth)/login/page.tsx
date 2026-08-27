@@ -53,7 +53,7 @@ export default function LoginPage() {
   const lastAccessID = manualAccessId ?? resumedAccessId;
 
   useEffect(() => {
-    if (isAuthenticated) router.replace("/");
+    if (isAuthenticated) router.replace("/dashboard");
   }, [isAuthenticated, router]);
 
   function clearResume() {
@@ -100,7 +100,7 @@ export default function LoginPage() {
       const user = await verifyOtp(lastAccessID, otp);
       clearResume();
       await setAuthenticated(user);
-      router.replace("/");
+      router.replace("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Invalid OTP.");
     } finally {

@@ -49,7 +49,7 @@ export default function VerifyPage() {
       const user = await verifyOtp(lastAccessID, otp);
       sessionStorage.removeItem(LAST_ACCESS_KEY);
       await setAuthenticated(user);
-      router.replace("/");
+      router.replace("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Invalid or expired OTP.");
       setLoading(false);
