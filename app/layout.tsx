@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { siteConfig, siteUrl } from "@/lib/site";
+import { AuthProvider } from "@/components/auth/auth-provider";
 
 const anthropicSerif = localFont({
   src: [
@@ -41,13 +43,23 @@ const anthropicMono = localFont({
   display: "swap",
 });
 
+const anthropicSans = localFont({
+  src: "../public/fonts/AnthropicSans-Variable.woff2",
+  weight: "300 800",
+  style: "normal",
+  variable: "--font-sans",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Zenus Bank - Premium Banking Reimagined",
-    template: "%s | Zenus Bank",
+    default: siteConfig.tagline
+      ? `${siteConfig.name} - ${siteConfig.tagline}`
+      : siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Experience modern banking with Zenus. Secure, fast, and beautifully designed for the way you live.",
+  description: siteConfig.description,
   keywords: [
     "banking",
     "finance",
@@ -55,21 +67,28 @@ export const metadata: Metadata = {
     "premium banking",
     "modern bank",
   ],
-  authors: [{ name: "Zenus Bank" }],
-  creator: "Zenus Bank",
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  icons: {
+    icon: "/images/logo-nobg.png",
+    shortcut: "/images/logo-nobg.png",
+    apple: "/images/logo-nobg.png",
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Zenus Bank",
-    title: "Zenus Bank - Premium Banking Reimagined",
-    description:
-      "Experience modern banking with Zenus. Secure, fast, and beautifully designed for the way you live.",
+    url: siteUrl,
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} - ${siteConfig.tagline}`,
+    description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zenus Bank - Premium Banking Reimagined",
-    description:
-      "Experience modern banking with Zenus. Secure, fast, and beautifully designed for the way you live.",
+    title: `${siteConfig.name} - ${siteConfig.tagline}`,
+    description: siteConfig.description,
   },
   robots: {
     index: true,
@@ -94,10 +113,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${anthropicSerif.variable} ${anthropicMono.variable}`}
+      className={`${anthropicSerif.variable} ${anthropicMono.variable} ${anthropicSans.variable} dark`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen antialiased">{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("zenus-theme");var d=t==="light"?false:t==="dark"?true:!window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.classList.toggle("dark",d);}catch(e){document.documentElement.classList.add("dark");}})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-screen antialiased">
+        <AuthProvider />
+        {children}
+      </body>
     </html>
   );
 }
