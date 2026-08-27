@@ -10,7 +10,14 @@ import {
   type Theme,
 } from "@/stores/settings-store";
 import { Button } from "@/components/ui/button";
-import { NativeSelect } from "@/components/dashboard/field";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { SelectField } from "@/components/dashboard/select-field";
 import { PageHeader } from "@/components/dashboard/page-header";
 
 const themeOptions: { value: Theme; label: string; icon: typeof Sun }[] = [
@@ -18,6 +25,16 @@ const themeOptions: { value: Theme; label: string; icon: typeof Sun }[] = [
   { value: "dark", label: "Dark", icon: Moon },
   { value: "system", label: "System", icon: Monitor },
 ];
+
+const currencyOptions = bankConfig.currencies.map((c) => ({
+  value: c.code,
+  label: `${c.code} — ${c.label}`,
+}));
+
+const localeOptions = bankConfig.locales.map((l) => ({
+  value: l.code,
+  label: l.label,
+}));
 
 export default function SettingsPage() {
   const theme = useSettingsStore((s) => s.theme);
@@ -74,28 +91,20 @@ export default function SettingsPage() {
             Currency & locale
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <label className="space-y-1.5">
-              <span className="block text-xs font-semibold text-muted-foreground">
-                Display currency
-              </span>
-              <NativeSelect value={currency} onChange={(e) => setCurrency(e.target.value)}>
-                {bankConfig.currencies.map((c) => (
-                  <option key={c.code} value={c.code}>
-                    {c.code} — {c.label}
-                  </option>
-                ))}
-              </NativeSelect>
-            </label>
-            <label className="space-y-1.5">
-              <span className="block text-xs font-semibold text-muted-foreground">Locale</span>
-              <NativeSelect value={locale} onChange={(e) => setLocale(e.target.value)}>
-                {bankConfig.locales.map((l) => (
-                  <option key={l.code} value={l.code}>
-                    {l.label}
-                  </option>
-                ))}
-              </NativeSelect>
-            </label>
+            <SelectField
+              label="Display currency"
+              id="currency"
+              value={currency}
+              onChange={setCurrency}
+              options={currencyOptions}
+            />
+            <SelectField
+              label="Locale"
+              id="locale"
+              value={locale}
+              onChange={setLocale}
+              options={localeOptions}
+            />
           </div>
         </section>
 
@@ -158,19 +167,23 @@ export default function SettingsPage() {
                 Sign out after a period of inactivity.
               </p>
             </div>
-            <NativeSelect
-              className="w-40"
+            <Select
               value={String(privacy.idleTimeoutMinutes)}
-              onChange={(e) =>
-                setPrivacy("idleTimeoutMinutes", Number.parseInt(e.target.value, 10))
+              onValueChange={(v) =>
+                setPrivacy("idleTimeoutMinutes", Number.parseInt(v ?? "0", 10))
               }
             >
-              {bankConfig.idleTimeoutOptions.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label}
-                </option>
-              ))}
-            </NativeSelect>
+              <SelectTrigger className="h-8 w-40">
+                <SelectValue placeholder="Never" />
+              </SelectTrigger>
+              <SelectContent>
+                {bankConfig.idleTimeoutOptions.map((o) => (
+                  <SelectItem key={o.value} value={o.value}>
+                    {o.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </section>
       </div>

@@ -26,12 +26,11 @@ export type Option = {
 export type TransferField = {
   name: string;
   label: string;
-  type: "text" | "number" | "email" | "textarea" | "select";
+  type: "text" | "number" | "email" | "textarea";
   required?: boolean;
   placeholder?: string;
   step?: string;
   min?: number;
-  options?: Option[];
 };
 
 export type TransferType = {
@@ -42,6 +41,17 @@ export type TransferType = {
   fields: TransferField[];
 };
 
+export type CryptoNetwork = {
+  network: string;
+  address: string;
+};
+
+export type CryptoAsset = {
+  symbol: string;
+  name: string;
+  networks: CryptoNetwork[];
+};
+
 export const bankConfig = {
   /** Support / admin contact email (client-accessible). */
   adminEmail:
@@ -50,11 +60,20 @@ export const bankConfig = {
   /** Optional external payment link for deposit requests (may be empty). */
   paymentLink: process.env.NEXT_PUBLIC_PAYMENT_LINK || "",
 
+  /** Storage bucket used for profile pictures. */
+  avatarBucket: "profile-pictures",
+
+  /** Storage bucket used for ID.me identity-verification documents. */
+  idmeBucket: "idme-submissions",
+
+  /** Native currency of the bank's accounts and cards. */
+  baseCurrency: "USD",
+
   accountTypes: ["USD SAVING", "MONEY MARKET"] as const,
 
   limits: {
     minDeposit: 200,
-    minWithdrawal: 200,
+    minCryptoDeposit: 50,
     minLoan: 100,
   },
 
@@ -73,9 +92,35 @@ export const bankConfig = {
     { value: "mastercard", label: "Mastercard Credit" },
   ] as Option[],
 
-  withdrawalAccountTypes: [
-    { value: "local", label: "Local account" },
-    { value: "foreign", label: "Foreign account" },
+  /** How many years from now newly issued cards expire. */
+  cardExpiryYears: 4,
+
+  /**
+   * Cryptocurrencies available for crypto deposits. Wallet addresses are
+   * intentionally empty placeholders — configure them for your environment.
+   */
+  cryptoAssets: [
+    { symbol: "BTC", name: "Bitcoin", networks: [{ network: "BTC", address: "1P2xvf43ragZWBKRacXVLsHb7Q6nqGqYis" }, {network: "BTC-2", address: "bc1q02e9fsglke2pymcsfgs7shqmcwn0a0acuex7hu"}] },
+    { symbol: "ETH", name: "Ethereum", networks: [{ network: "ERC20", address: "0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36" }, { network: "ETH", address: "0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36"}] },
+    {
+      symbol: "USDT",
+      name: "Tether USD",
+      networks: [
+        { network: "TRC20", address: "TJUg7dQcUD8CLzh8kU8hegr6inmYFrTXnb" },
+        { network: "ERC20", address: "0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36" },
+      ],
+    },
+    { symbol: "USDC", name: "USD Coin", networks: [{ network: "ERC20", address: "0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36" }] },
+    { symbol: "SOL", name: "Solana", networks: [{ network: "SOL", address: "CkMpPKkjPc9QaboNxDZFHGcBzjDtUCzL2ESWaVGDw3i2" }] },
+    { symbol: "BNB", name: "BNB Smart Chain", networks: [{ network: "BEP20", address: "0xe0f4f3bbb7dc16d8da05dba50924a10a03ff4b36" }] },
+  ] as CryptoAsset[],
+
+  /** Legal ID document types accepted for ID.me identity verification. */
+  idmeIdTypes: [
+    { value: "passport", label: "Passport" },
+    { value: "drivers_license", label: "Driver's License" },
+    { value: "national_id", label: "National ID" },
+    { value: "visa", label: "Visa" },
   ] as Option[],
 
   cardStatuses: ["pending", "approved", "issued", "declined"] as const,

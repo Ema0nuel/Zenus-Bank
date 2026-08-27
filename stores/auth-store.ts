@@ -18,6 +18,8 @@ type AuthState = {
   signOut: () => Promise<void>;
   setAuthenticated: (user: AuthUser) => Promise<void>;
   setLoading: (loading: boolean) => void;
+  setProfile: (profile: Record<string, unknown> | null) => void;
+  setAccount: (account: Record<string, unknown> | null) => void;
 };
 
 export const useAuthStore = create<AuthState>((set) => {
@@ -47,6 +49,10 @@ export const useAuthStore = create<AuthState>((set) => {
     isLoading: true,
 
     setLoading: (loading) => set({ isLoading: loading }),
+
+    setProfile: (profile) => set({ profile }),
+
+    setAccount: (account) => set({ account }),
 
     setAuthenticated: async (user) => {
       set({ user, isAuthenticated: true, isLoading: false });

@@ -1,23 +1,35 @@
 "use client";
 
 import type * as React from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { Camera, Loader2, ShieldCheck } from "lucide-react";
 
-import { bankConfig } from "@/lib/bank-config";
-import { maskAccountNumber } from "@/lib/format";
+import { bankConfig, type Option } from "@/lib/bank-config";
+import { COUNTRIES } from "@/lib/countries";
 import { getBrowserClient } from "@/lib/supabase/browser";
 import { useAuthStore } from "@/stores/auth-store";
 import { useMoney } from "@/hooks/use-preferences";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { getInitials } from "@/lib/format";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Field, NativeSelect } from "@/components/dashboard/field";
+import { Field } from "@/components/dashboard/field";
+import { SelectField } from "@/components/dashboard/select-field";
 import { PageHeader } from "@/components/dashboard/page-header";
-import { getInitials } from "@/lib/format";
 import type { Account, Profile } from "@/components/dashboard/types";
 
-const genders = ["Male", "Female", "Non-binary", "Prefer not to say"];
-const marital = ["Single", "Married", "Divorced", "Widowed"];
+const genderOptions: Option[] = ["Male", "Female", "Non-binary", "Prefer not to say"].map(
+  (g) => ({ value: g, label: g })
+);
+const maritalOptions: Option[] = ["Single", "Married", "Divorced", "Widowed"].map((m) => ({
+  value: m,
+  label: m,
+}));
+const countryOptions: Option[] = COUNTRIES.map((c) => ({ value: c, label: c }));
+
+const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_SIZE = 5 * 1024 * 1024;
 
 type Editable = {
   full_name: string;
@@ -37,6 +49,7 @@ export default function ProfilePage() {
   const user = useAuthStore((s) => s.user);
   const profile = useAuthStore((s) => s.profile) as Profile | null;
   const account = useAuthStore((s) => s.account) as Account | null;
+  const setProfile = useAuthStore((s) => s.setProfile);
   const { amount } = useMoney();
 
   const [form, setForm] = useState<Editable>(() => ({
@@ -54,7 +67,14 @@ export default function ProfilePage() {
   }));
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  function patchProfile(patch: object) {
+    const current = useAuthStore.getState().profile ?? {};
+    setProfile({ ...current, ...patch } as Record<string, unknown>);
+  }
 
   function set<K extends keyof Editable>(key: K, value: Editable[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -80,8 +100,59 @@ export default function ProfilePage() {
       return;
     }
 
+    patchProfile(form);
     setSaving(false);
     setSaved(true);
+  }
+
+  async function onAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file || !user?.id) return;
+
+    if (!ACCEPTED_TYPES.includes(file.type)) {
+      setError("Please choose a JPG, PNG, or WebP image.");
+      return;
+    }
+    if (file.size > MAX_SIZE) {
+      setError("Image must be under 5MB.");
+      return;
+    }
+
+    setUploading(true);
+    setError("");
+    const supabase = getBrowserClient();
+    const ext = file.name.split(".").pop() ?? "jpg";
+    const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+    const { error: upErr } = await supabase.storage
+      .from(bankConfig.avatarBucket)
+      .upload(path, file, { upsert: false, contentType: file.type });
+
+    if (upErr) {
+      setError(upErr.message);
+      setUploading(false);
+      return;
+    }
+
+    const { data: urlData } = supabase.storage
+      .from(bankConfig.avatarBucket)
+      .getPublicUrl(path);
+    const url = urlData.publicUrl;
+
+    const { error: dbErr } = await supabase
+      .from("profiles")
+      .update({ avatar_url: url })
+      .eq("id", user.id);
+
+    if (dbErr) {
+      setError(dbErr.message);
+      setUploading(false);
+      return;
+    }
+
+    patchProfile({ avatar_url: url });
+    setUploading(false);
   }
 
   const name = profile?.full_name ?? "Account holder";
@@ -97,11 +168,36 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <section className="space-y-4 rounded-2xl border border-border bg-card p-5">
           <div className="flex flex-col items-center gap-3 text-center">
-            <Avatar size="lg">
-              <AvatarFallback className="text-lg">
-                {getInitials(profile?.full_name ?? profile?.username ?? "")}
-              </AvatarFallback>
-            </Avatar>
+            <div className="relative">
+              <Avatar size="lg">
+                {profile?.avatar_url && (
+                  <AvatarImage src={profile.avatar_url} alt={name} />
+                )}
+                <AvatarFallback className="text-lg">
+                  {getInitials(profile?.full_name ?? profile?.username ?? "")}
+                </AvatarFallback>
+              </Avatar>
+              <button
+                type="button"
+                onClick={() => fileRef.current?.click()}
+                disabled={uploading}
+                aria-label="Change profile picture"
+                className="absolute -bottom-1 -right-1 flex size-7 items-center justify-center rounded-full border border-border bg-primary text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover disabled:opacity-60"
+              >
+                {uploading ? (
+                  <Loader2 className="size-4 animate-spin" />
+                ) : (
+                  <Camera className="size-4" />
+                )}
+              </button>
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                className="hidden"
+                onChange={onAvatarChange}
+              />
+            </div>
             <div>
               <p className="text-sm font-semibold text-foreground">{name}</p>
               <p className="text-xs text-muted-foreground">{profile?.email ?? ""}</p>
@@ -110,21 +206,34 @@ export default function ProfilePage() {
 
           <dl className="space-y-2 border-t border-border pt-4 text-sm">
             <InfoRow label="Balance" value={amount(account?.balance)} />
-            <InfoRow label="Account number" value={maskAccountNumber(account?.account_number)} mono />
+            <InfoRow
+              label="Account number"
+              value={account?.account_number ?? "—"}
+              mono
+            />
             <InfoRow label="Account type" value={account?.account_type ?? "—"} />
             <InfoRow
               label="Status"
               value={account?.is_active ? "Active" : "Inactive"}
             />
-            <InfoRow
-              label="Interest"
-              value={
-                account?.interest_rate != null
-                  ? `${account.interest_rate}% APY`
-                  : "—"
-              }
-            />
           </dl>
+
+          <Link
+            href="/dashboard/verification"
+            className="flex items-center gap-3 rounded-xl border border-border p-3 transition-colors hover:border-primary/40 hover:bg-primary-muted"
+          >
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary-muted text-primary">
+              <ShieldCheck className="size-5" />
+            </span>
+            <span className="min-w-0">
+              <span className="block text-sm font-semibold text-foreground">
+                Identity verification
+              </span>
+              <span className="block text-xs text-muted-foreground">
+                Verify your identity
+              </span>
+            </span>
+          </Link>
         </section>
 
         <form
@@ -165,34 +274,24 @@ export default function ProfilePage() {
                 onChange={(e) => set("occupation", e.target.value)}
               />
             </Field>
-            <Field label="Gender" htmlFor="gender">
-              <NativeSelect
-                id="gender"
-                value={form.gender}
-                onChange={(e) => set("gender", e.target.value)}
-              >
-                <option value="">Select</option>
-                {genders.map((g) => (
-                  <option key={g} value={g}>
-                    {g}
-                  </option>
-                ))}
-              </NativeSelect>
-            </Field>
-            <Field label="Marital status" htmlFor="marital_status">
-              <NativeSelect
-                id="marital_status"
-                value={form.marital_status}
-                onChange={(e) => set("marital_status", e.target.value)}
-              >
-                <option value="">Select</option>
-                {marital.map((m) => (
-                  <option key={m} value={m}>
-                    {m}
-                  </option>
-                ))}
-              </NativeSelect>
-            </Field>
+
+            <SelectField
+              label="Gender"
+              id="gender"
+              value={form.gender}
+              onChange={(v) => set("gender", v)}
+              options={genderOptions}
+              placeholder="Select gender"
+            />
+            <SelectField
+              label="Marital status"
+              id="marital_status"
+              value={form.marital_status}
+              onChange={(v) => set("marital_status", v)}
+              options={maritalOptions}
+              placeholder="Select status"
+            />
+
             <Field label="Address" htmlFor="address" className="sm:col-span-2">
               <Input
                 id="address"
@@ -221,13 +320,14 @@ export default function ProfilePage() {
                 onChange={(e) => set("zip", e.target.value)}
               />
             </Field>
-            <Field label="Nationality" htmlFor="nationality">
-              <Input
-                id="nationality"
-                value={form.nationality}
-                onChange={(e) => set("nationality", e.target.value)}
-              />
-            </Field>
+            <SelectField
+              label="Country"
+              id="country"
+              value={form.nationality}
+              onChange={(v) => set("nationality", v)}
+              options={countryOptions}
+              placeholder="Select country"
+            />
           </div>
 
           {error && <p className="text-xs text-destructive">{error}</p>}
@@ -253,8 +353,10 @@ export default function ProfilePage() {
 function InfoRow({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="flex items-center justify-between gap-3">
-      <dt className="text-muted-foreground">{label}</dt>
-      <dd className={mono ? "font-mono text-xs" : "font-medium"}>{value}</dd>
+      <dt className="shrink-0 text-muted-foreground">{label}</dt>
+      <dd className={mono ? "break-all text-right font-mono text-xs" : "font-medium"}>
+        {value}
+      </dd>
     </div>
   );
 }

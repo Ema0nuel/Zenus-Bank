@@ -13,7 +13,7 @@ import { useAuthStore } from "@/stores/auth-store";
 import { useMoney } from "@/hooks/use-preferences";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Field, NativeSelect, Textarea } from "@/components/dashboard/field";
+import { Field, Textarea } from "@/components/dashboard/field";
 import { OtpDialog } from "@/components/dashboard/otp-dialog";
 import type { Account, Profile } from "./types";
 
@@ -96,16 +96,32 @@ export function TransferForm({ typeKey }: { typeKey: "local" | "wire" | "interba
 
     const amount = Number.parseFloat(values.amount || "0");
     const balance = account.balance ?? 0;
+    const balanceAfter = Math.max(balance - amount, 0);
 
     const supabase = getBrowserClient();
+
+    const { error: updateError } = await supabase
+      .from("accounts")
+      .update({ balance: balanceAfter })
+      .eq("id", account.id);
+
+    if (updateError) {
+      setOtpError(updateError.message);
+      setOtpLoading(false);
+      return;
+    }
+
     const { error: txError } = await supabase.from("transactions").insert({
       account_id: account.id,
       user_id: user.id,
-      type: typeKey,
-      description: values.desc || config.label,
+      type: "transfer",
+      method: "bank",
+      description: values.desc
+        ? `${config.label} — ${values.desc}`
+        : config.label,
       amount,
       balance_before: balance,
-      balance_after: balance,
+      balance_after: balanceAfter,
       status: "pending",
     });
 
@@ -114,6 +130,9 @@ export function TransferForm({ typeKey }: { typeKey: "local" | "wire" | "interba
       setOtpLoading(false);
       return;
     }
+
+    const currentAccount = useAuthStore.getState().account ?? {};
+    useAuthStore.getState().setAccount({ ...currentAccount, balance: balanceAfter });
 
     await createNotification({
       userId: user.id,
@@ -212,7 +231,7 @@ function TransferInput({
   const common = {
     id: field.name,
     value,
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       onChange(e.target.value),
   };
 
@@ -225,14 +244,6 @@ function TransferInput({
     >
       {field.type === "textarea" ? (
         <Textarea {...common} rows={3} placeholder={field.placeholder} />
-      ) : field.type === "select" ? (
-        <NativeSelect {...common}>
-          {field.options?.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </NativeSelect>
       ) : (
         <Input
           {...common}

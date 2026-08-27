@@ -13,7 +13,8 @@ import { useMoney } from "@/hooks/use-preferences";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Field, NativeSelect } from "@/components/dashboard/field";
+import { Field } from "@/components/dashboard/field";
+import { SelectField } from "@/components/dashboard/select-field";
 import { PageHeader } from "@/components/dashboard/page-header";
 import type { Account, Loan, Profile } from "@/components/dashboard/types";
 
@@ -174,19 +175,14 @@ export default function LoansPage() {
             />
           </Field>
 
-          <Field label="Duration" htmlFor="loan-duration" required>
-            <NativeSelect
-              id="loan-duration"
-              value={duration}
-              onChange={(e) => setDuration(e.target.value)}
-            >
-              {bankConfig.loan.durations.map((d) => (
-                <option key={d.value} value={d.value}>
-                  {d.label}
-                </option>
-              ))}
-            </NativeSelect>
-          </Field>
+          <SelectField
+            label="Duration"
+            id="loan-duration"
+            value={duration}
+            onChange={setDuration}
+            options={bankConfig.loan.durations}
+            required
+          />
 
           {error && <p className="text-xs text-destructive">{error}</p>}
 

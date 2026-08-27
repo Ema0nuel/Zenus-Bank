@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { ArrowLeftRight, CreditCard, History, Landmark } from "lucide-react";
+import { ArrowDownToLine, ArrowLeftRight, History, Landmark } from "lucide-react";
 
 const actions = [
   { label: "Transfer", href: "/dashboard/transfers", icon: ArrowLeftRight },
+  { label: "Deposit", href: "/dashboard/deposit", icon: ArrowDownToLine },
   { label: "History", href: "/dashboard/history", icon: History },
-  { label: "Loans", href: "/dashboard/loans", icon: Landmark },
-  { label: "Cards", href: "/dashboard/cards", icon: CreditCard },
+  { label: "Loan", href: "/dashboard/loans", icon: Landmark },
 ];
 
 export function QuickActions() {
@@ -15,13 +15,14 @@ export function QuickActions() {
         Quick actions
       </h2>
       <div className="grid grid-cols-4 gap-3">
-        {actions.map(({ label, href, icon: Icon }) => (
+        {actions.map(({ label, href, icon: Icon }, i) => (
           <Link
             key={label}
             href={href}
-            className="group flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-card p-4 text-center transition-all hover:border-primary/40 hover:bg-primary-muted"
+            style={{ animationDelay: `${i * 50}ms` }}
+            className="group animate-fade-in-up flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-card p-4 text-center transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary-muted active:scale-[0.97]"
           >
-            <span className="flex size-11 items-center justify-center rounded-full bg-primary-muted text-primary transition-transform group-hover:scale-105">
+            <span className="flex size-11 items-center justify-center rounded-full bg-primary-muted text-primary transition-transform duration-200 ease-out group-hover:scale-105">
               <Icon className="size-5" strokeWidth={1.8} />
             </span>
             <span className="text-xs font-semibold text-foreground">

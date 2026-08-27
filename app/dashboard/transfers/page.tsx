@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 import { bankConfig } from "@/lib/bank-config";
 import { AccountStatCards } from "@/components/dashboard/account-stat-cards";
@@ -19,18 +18,15 @@ export default function TransfersPage() {
       <AccountStatCards />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {bankConfig.transferTypes.map((t) => (
+        {bankConfig.transferTypes.map((t, i) => (
           <Link
             key={t.key}
             href={`/dashboard/transfers/${t.key}`}
-            className="group flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/40 hover:bg-primary-muted"
+            style={{ animationDelay: `${i * 60}ms` }}
+            className="group flex animate-fade-in-up flex-col gap-3 rounded-2xl border border-border bg-card p-5 transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary-muted active:scale-[0.98]"
           >
             <h2 className="font-heading text-lg font-medium text-foreground">{t.label}</h2>
             <p className="text-sm text-muted-foreground">{t.description}</p>
-            <span className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-primary">
-              Start
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-            </span>
           </Link>
         ))}
       </div>

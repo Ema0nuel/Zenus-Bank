@@ -1,8 +1,11 @@
 "use client";
 
+import { Eye, EyeOff } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import { maskAccountNumber } from "@/lib/format";
 import { useMoney } from "@/hooks/use-preferences";
+import { useBalanceStore } from "@/stores/balance-store";
 import type { Account, Profile } from "./types";
 
 export function BalanceCard({
@@ -14,7 +17,12 @@ export function BalanceCard({
 }) {
   const accountType = account?.account_type ?? "USD Saving";
   const isActive = account?.is_active === true;
-  const { amount } = useMoney();
+  const { format, hideBalances } = useMoney();
+  const balanceHidden = useBalanceStore((s) => s.balanceHidden);
+  const toggleBalance = useBalanceStore((s) => s.toggleBalance);
+
+  const hidden = balanceHidden || hideBalances;
+  const balanceText = hidden ? "••••••" : format(account?.balance);
 
   return (
     <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#180934] via-[#2a1048] to-[#120623] p-6 text-white shadow-xl ring-1 ring-white/10">
@@ -33,12 +41,23 @@ export function BalanceCard({
             Available balance
           </p>
           <p className="mt-2 font-heading text-4xl font-extralight tracking-tight text-white">
-            {amount(account?.balance)}
+            {balanceText}
           </p>
         </div>
-        <span className="shrink-0 rounded-4xl border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-semibold text-[#f5c962]">
-          {accountType}
-        </span>
+        <div className="flex shrink-0 items-center gap-2">
+          <span className="shrink-0 rounded-4xl border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-semibold text-[#f5c962]">
+            {accountType}
+          </span>
+          <button
+            type="button"
+            onClick={toggleBalance}
+            aria-label={balanceHidden ? "Show balance" : "Hide balance"}
+            title={balanceHidden ? "Show balance" : "Hide balance"}
+            className="flex size-8 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
+          >
+            {balanceHidden ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+          </button>
+        </div>
       </div>
 
       <div className="relative mt-8 flex items-center justify-between">

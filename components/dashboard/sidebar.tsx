@@ -9,10 +9,10 @@ import { ChevronDown, LogOut, PanelLeftClose, PanelLeftOpen } from "lucide-react
 import { cn } from "@/lib/utils";
 import { getInitials, maskAccountNumber } from "@/lib/format";
 import { useAuthStore } from "@/stores/auth-store";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { NotificationBell } from "./notification-bell";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageSelector } from "@/components/language-selector";
 import { isActivePath, sidebarNav } from "./nav";
 import type { Account, Profile } from "./types";
 
@@ -63,7 +63,7 @@ export function Sidebar({
 
         {!collapsed && (
           <div className="ml-auto flex items-center gap-1">
-            <NotificationBell />
+            <LanguageSelector />
             <ThemeToggle />
           </div>
         )}
@@ -171,6 +171,9 @@ export function Sidebar({
         {!collapsed && (
           <div className="mb-3 flex items-center gap-3 rounded-xl bg-muted/60 p-3">
             <Avatar>
+              {profile?.avatar_url && (
+                <AvatarImage src={profile.avatar_url} alt={profile.full_name ?? "Profile"} />
+              )}
               <AvatarFallback>
                 {getInitials(profile?.full_name ?? profile?.username ?? "")}
               </AvatarFallback>

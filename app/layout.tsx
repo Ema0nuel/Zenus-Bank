@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig, siteUrl } from "@/lib/site";
 import { AuthProvider } from "@/components/auth/auth-provider";
+import { LanguageProvider } from "@/components/language-provider";
 
 const anthropicSerif = localFont({
   src: [
@@ -125,6 +126,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen antialiased">
         <AuthProvider />
+        <LanguageProvider />
         {children}
       </body>
     </html>

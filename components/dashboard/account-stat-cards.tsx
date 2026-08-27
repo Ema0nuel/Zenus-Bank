@@ -6,6 +6,7 @@ import { Briefcase, RefreshCw, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { maskAccountNumber } from "@/lib/format";
 import { useMoney } from "@/hooks/use-preferences";
+import { useBalanceStore } from "@/stores/balance-store";
 import { useAuthStore } from "@/stores/auth-store";
 import type { Account } from "./types";
 
@@ -25,9 +26,15 @@ const toneStyles: Record<Stat["tone"], string> = {
 export function AccountStatCards() {
   const account = useAuthStore((s) => s.account) as Account | null;
   const { amount } = useMoney();
+  const balanceHidden = useBalanceStore((s) => s.balanceHidden);
 
   const stats: Stat[] = [
-    { label: "Available balance", value: amount(account?.balance), icon: Briefcase, tone: "balance" },
+    {
+      label: "Available balance",
+      value: balanceHidden ? "••••••" : amount(account?.balance),
+      icon: Briefcase,
+      tone: "balance",
+    },
     {
       label: "Account status",
       value: account?.is_active ? "Active" : "Inactive",
@@ -44,10 +51,11 @@ export function AccountStatCards() {
 
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-      {stats.map((s) => (
+      {stats.map((s, i) => (
         <div
           key={s.label}
-          className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4"
+          style={{ animationDelay: `${i * 60}ms` }}
+          className="flex animate-fade-in-up items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-transform duration-200 ease-out hover:-translate-y-0.5"
         >
           <span
             className={cn(

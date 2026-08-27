@@ -294,7 +294,7 @@
   }
 
   .animate-fade-in-up {
-    animation: fade-in-up 600ms var(--ease-out) forwards;
+    animation: fade-in-up 400ms var(--ease-out) both;
   }
 
   /* Subtle pulse for live indicators */
@@ -364,4 +364,37 @@
     transform: none;
     box-shadow: none;
   }
+}
+
+/* ─── Google Translate (watermark stripped) ─── */
+/* The widget is mounted into a hidden node and driven programmatically, so we
+   hide all Google branding: the injected banner frame, the widget iframe
+   (VIpgJd-*), and the "Powered by Google Translate" logo. `body { top: 0 }`
+   undoes the offset the banner applies to the page. */
+#google_translate_element,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.goog-te-banner-frame,
+.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+}
+
+.goog-te-gadget .goog-te-gadget-simple {
+  border: none !important;
+  background: transparent !important;
+}
+
+.goog-te-gadget .goog-te-gadget-simple .goog-te-menu-value span {
+  color: transparent !important;
 }

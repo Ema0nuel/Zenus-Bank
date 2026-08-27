@@ -5,9 +5,9 @@ import Image from "next/image";
 
 import { getInitials } from "@/lib/format";
 import { useAuthStore } from "@/stores/auth-store";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { NotificationBell } from "./notification-bell";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageSelector } from "@/components/language-selector";
 import type { Profile } from "./types";
 
 export function TopBar() {
@@ -36,10 +36,13 @@ export function TopBar() {
       </Link>
 
       <div className="flex items-center gap-1.5">
-        <NotificationBell />
+        <LanguageSelector />
         <ThemeToggle />
         <Link href="/dashboard/profile" aria-label="Profile">
           <Avatar className="size-9">
+            {profile?.avatar_url && (
+              <AvatarImage src={profile.avatar_url} alt={profile.full_name ?? "Profile"} />
+            )}
             <AvatarFallback>
               {getInitials(profile?.full_name ?? profile?.username ?? "")}
             </AvatarFallback>

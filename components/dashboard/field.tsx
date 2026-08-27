@@ -48,18 +48,3 @@ export function Textarea({
     <textarea data-slot="textarea" className={cn(textareaStyles, className)} {...props} />
   );
 }
-
-const selectStyles =
-  "h-8 w-full min-w-0 appearance-none rounded-lg border border-input bg-transparent px-2.5 text-base text-foreground transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30 dark:[color-scheme:dark]";
-
-export function NativeSelect({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<"select">) {
-  return (
-    <select data-slot="select" className={cn(selectStyles, className)} {...props}>
-      {children}
-    </select>
-  );
-}

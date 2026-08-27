@@ -2,7 +2,6 @@ import type { LucideIcon } from "lucide-react";
 import {
   ArrowDownToLine,
   ArrowLeftRight,
-  ArrowUpFromLine,
   CreditCard,
   History,
   Landmark,
@@ -43,7 +42,6 @@ export const sidebarNav: NavItem[] = [
     ],
   },
   { label: "Deposit", href: "/dashboard/deposit", icon: ArrowDownToLine },
-  { label: "Withdrawal", href: "/dashboard/withdrawal", icon: ArrowUpFromLine },
   { label: "Loans", href: "/dashboard/loans", icon: Landmark },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
   { label: "Profile", href: "/dashboard/profile", icon: User },

@@ -2,7 +2,7 @@
 
 import type * as React from "react";
 import { useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { Banknote, Bitcoin, CheckCircle2, ExternalLink } from "lucide-react";
 
 import { bankConfig } from "@/lib/bank-config";
 import { formatCurrency } from "@/lib/format";
@@ -14,69 +14,138 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AccountStatCards } from "@/components/dashboard/account-stat-cards";
 import { Field, Textarea } from "@/components/dashboard/field";
+import { CryptoDepositModal } from "@/components/dashboard/crypto-deposit-modal";
 import { PageHeader } from "@/components/dashboard/page-header";
 import type { Account, Profile } from "@/components/dashboard/types";
+
+type Step = "choose" | "regular" | "crypto";
 
 export default function DepositPage() {
   const user = useAuthStore((s) => s.user);
   const profile = useAuthStore((s) => s.profile) as Profile | null;
   const account = useAuthStore((s) => s.account) as Account | null;
 
+  const [step, setStep] = useState<Step>("choose");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  const [cryptoOpen, setCryptoOpen] = useState(false);
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!user?.id || !account?.id) return;
+  function reset() {
+    setStep("choose");
+    setAmount("");
+    setDescription("");
+    setDone(false);
     setError("");
+  }
 
+  function validate(minimum: number): number | null {
+    setError("");
     const value = Number.parseFloat(amount);
-    if (Number.isNaN(value) || value < bankConfig.limits.minDeposit) {
-      setError(`Minimum deposit is ${formatCurrency(bankConfig.limits.minDeposit)}.`);
-      return;
+    if (Number.isNaN(value) || value < minimum) {
+      setError(`Minimum deposit is ${formatCurrency(minimum)}.`);
+      return null;
     }
+    return value;
+  }
 
-    setSubmitting(true);
+  async function recordPending(
+    value: number,
+    extra: { type: string; method: string; description: string; [k: string]: unknown }
+  ) {
     const supabase = getBrowserClient();
-    const balance = account.balance ?? 0;
-
+    const balance = account?.balance ?? 0;
     const { error: txError } = await supabase.from("transactions").insert({
-      account_id: account.id,
-      user_id: user.id,
-      type: "deposit",
+      account_id: account?.id,
+      user_id: user?.id,
       amount: value,
-      description: description.trim() || "Deposit request",
       balance_before: balance,
       balance_after: balance,
       status: "pending",
+      ...extra,
     });
+    if (txError) throw new Error(txError.message);
+  }
 
-    if (txError) {
-      setError(txError.message);
-      setSubmitting(false);
-      return;
-    }
+  async function submitRegular(e: React.FormEvent) {
+    e.preventDefault();
+    const value = validate(bankConfig.limits.minDeposit);
+    if (!value || !user?.id || !account?.id) return;
 
-    await createNotification({
-      userId: user.id,
-      title: "Deposit request recorded",
-      message: `Your deposit request of ${formatCurrency(value)} is pending processing.`,
-      type: "info",
-    });
-
-    if (profile?.email) {
-      await sendEmail({
-        to: profile.email,
-        subject: "Deposit request received",
-        html: `<p>Hi ${profile.full_name ?? "there"},</p><p>Your deposit request of <b>${formatCurrency(value)}</b> has been received and is pending processing.</p>`,
+    setSubmitting(true);
+    try {
+      await recordPending(value, {
+        type: "deposit",
+        method: "bank",
+        description: description.trim() || "Deposit request",
       });
-    }
 
-    setSubmitting(false);
-    setDone(true);
+      await createNotification({
+        userId: user.id,
+        title: "Deposit request recorded",
+        message: `Your deposit request of ${formatCurrency(value)} is pending processing.`,
+        type: "info",
+      });
+
+      if (profile?.email) {
+        await sendEmail({
+          to: profile.email,
+          subject: "Deposit request received",
+          html: `<p>Hi ${profile.full_name ?? "there"},</p><p>Your deposit request of <b>${formatCurrency(value)}</b> has been received and is pending processing.</p>`,
+        });
+      }
+
+      if (bankConfig.paymentLink) {
+        window.open(bankConfig.paymentLink, "_blank", "noopener,noreferrer");
+      }
+      setDone(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  function openCrypto(e: React.FormEvent) {
+    e.preventDefault();
+    const value = validate(bankConfig.limits.minCryptoDeposit);
+    if (!value) return;
+    setCryptoOpen(true);
+  }
+
+  async function completeCrypto(symbol: string, network: string, address: string) {
+    const value = Number.parseFloat(amount);
+    if (!user?.id || !account?.id || !address) return;
+
+    setSubmitting(true);
+    try {
+      await recordPending(value, {
+        type: "crypto",
+        method: "crypto",
+        description: description.trim()
+          ? `Crypto deposit (${symbol} · ${network}) — ${description.trim()}`
+          : `Crypto deposit (${symbol} · ${network})`,
+        direction: "crypto-to-fiat",
+        crypto_symbol: symbol,
+        wallet_address: address,
+      });
+
+      await createNotification({
+        userId: user.id,
+        title: "Crypto deposit submitted",
+        message: `Your ${symbol} deposit of ${formatCurrency(value)} is pending confirmation.`,
+        type: "info",
+      });
+
+      setCryptoOpen(false);
+      setDone(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (done) {
@@ -92,35 +161,99 @@ export default function DepositPage() {
             Your request has been received and is pending processing. You will be notified
             once it completes.
           </p>
-          <Button variant="outline" onClick={() => setDone(false)}>
-            Make another deposit
-          </Button>
+          <div className="flex gap-2">
+            {bankConfig.paymentLink && (
+              <a href={bankConfig.paymentLink} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline">
+                  <ExternalLink className="size-4" />
+                  Open deposit portal
+                </Button>
+              </a>
+            )}
+            <Button onClick={reset}>Make another deposit</Button>
+          </div>
         </div>
       </div>
     );
   }
 
+  if (step === "choose") {
+    return (
+      <div className="space-y-8">
+        <PageHeader
+          title="Deposit"
+          description="Choose how you'd like to fund your account."
+          crumbs={[{ label: "Deposit" }]}
+        />
+
+        <AccountStatCards />
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={() => setStep("crypto")}
+            style={{ animationDelay: "0ms" }}
+            className="flex animate-fade-in-up flex-col gap-3 rounded-2xl border border-border bg-card p-6 text-left transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary-muted active:scale-[0.98]"
+          >
+            <span className="flex size-12 items-center justify-center rounded-full bg-primary-muted text-primary">
+              <Bitcoin className="size-6" />
+            </span>
+            <h2 className="font-heading text-lg font-medium text-foreground">
+              Crypto deposit
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Fund your account with Bitcoin, Ethereum, and more.
+            </p>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setStep("regular")}
+            style={{ animationDelay: "60ms" }}
+            className="flex animate-fade-in-up flex-col gap-3 rounded-2xl border border-border bg-card p-6 text-left transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary-muted active:scale-[0.98]"
+          >
+            <span className="flex size-12 items-center justify-center rounded-full bg-primary-muted text-primary">
+              <Banknote className="size-6" />
+            </span>
+            <h2 className="font-heading text-lg font-medium text-foreground">
+              Regular deposit
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Fund your account via bank transfer or card.
+            </p>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const minimum =
+    step === "crypto" ? bankConfig.limits.minCryptoDeposit : bankConfig.limits.minDeposit;
+
   return (
     <div className="space-y-8">
       <PageHeader
-        title="Deposit"
-        description="Request a deposit into your account."
-        crumbs={[{ label: "Deposit" }]}
+        title={step === "crypto" ? "Crypto deposit" : "Regular deposit"}
+        description="Enter the amount and a description to continue."
+        crumbs={[{ label: "Deposit" }, { label: step === "crypto" ? "Crypto" : "Regular" }]}
       />
 
       <AccountStatCards />
 
-      <form onSubmit={onSubmit} className="max-w-xl space-y-4 rounded-2xl border border-border bg-card p-5">
+      <form
+        onSubmit={step === "crypto" ? openCrypto : submitRegular}
+        className="max-w-xl space-y-4 rounded-2xl border border-border bg-card p-5"
+      >
         <Field
           label="Amount"
           htmlFor="deposit-amount"
           required
-          hint={`Minimum ${formatCurrency(bankConfig.limits.minDeposit)}`}
+          hint={`Minimum ${formatCurrency(minimum)}`}
         >
           <Input
             id="deposit-amount"
             type="number"
-            min={bankConfig.limits.minDeposit}
+            min={minimum}
             step="0.01"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -140,10 +273,24 @@ export default function DepositPage() {
 
         {error && <p className="text-xs text-destructive">{error}</p>}
 
-        <Button type="submit" disabled={submitting}>
-          {submitting ? "Submitting…" : "Submit deposit request"}
-        </Button>
+        <div className="flex gap-2">
+          <Button type="submit" disabled={submitting}>
+            {submitting ? "Submitting…" : "Continue"}
+          </Button>
+          <Button type="button" variant="outline" onClick={reset} disabled={submitting}>
+            Back
+          </Button>
+        </div>
       </form>
+
+      <CryptoDepositModal
+        open={cryptoOpen}
+        amount={Number.parseFloat(amount) || 0}
+        description={description.trim()}
+        submitting={submitting}
+        onComplete={completeCrypto}
+        onCancel={() => setCryptoOpen(false)}
+      />
     </div>
   );
 }
