@@ -1,16 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LogOut, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { ChevronDown, LogOut, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { getInitials, maskAccountNumber } from "@/lib/format";
 import { useAuthStore } from "@/stores/auth-store";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { dashboardNav, isActivePath } from "./nav";
+import { NotificationBell } from "./notification-bell";
+import { ThemeToggle } from "./theme-toggle";
+import { isActivePath, sidebarNav } from "./nav";
 import type { Account, Profile } from "./types";
 
 export function Sidebar({
@@ -24,6 +27,7 @@ export function Sidebar({
   const signOut = useAuthStore((s) => s.signOut);
   const profile = useAuthStore((s) => s.profile) as Profile | null;
   const account = useAuthStore((s) => s.account) as Account | null;
+  const [openGroup, setOpenGroup] = useState<string | null>("Transfers");
 
   return (
     <aside
@@ -32,15 +36,15 @@ export function Sidebar({
         collapsed ? "w-[76px]" : "w-64"
       )}
     >
-      <div className="flex h-16 items-center gap-3 border-b border-border px-4">
-        <Link href="/dashboard" className="flex items-center gap-2.5">
+      <div className="flex h-16 items-center gap-2 border-b border-border px-3">
+        <Link href="/dashboard" className="flex min-w-0 items-center gap-2.5">
           <Image
             src="/images/logo-nobg.png"
             alt="Zenus Bank"
             width={0}
             height={0}
             sizes="100vw"
-            className="h-8 w-auto dark:hidden"
+            className="h-8 w-auto shrink-0 dark:hidden"
           />
           <Image
             src="/images/logo.jpg"
@@ -48,39 +52,115 @@ export function Sidebar({
             width={0}
             height={0}
             sizes="100vw"
-            className="hidden h-8 w-auto dark:block"
+            className="hidden h-8 w-auto shrink-0 dark:block"
           />
           {!collapsed && (
-            <span className="font-heading text-base font-bold text-primary">
+            <span className="truncate font-heading text-base font-bold text-primary">
               Zenus Bank
             </span>
           )}
         </Link>
+
+        {!collapsed && (
+          <div className="ml-auto flex items-center gap-1">
+            <NotificationBell />
+            <ThemeToggle />
+          </div>
+        )}
       </div>
 
       <nav className="flex-1 overflow-y-auto px-3 py-4">
         <ul className="space-y-1">
-          {dashboardNav.map(({ label, href, icon: Icon }) => {
-            const active = isActivePath(href, pathname);
+          {sidebarNav.map((item) => {
+            const active = isActivePath(item.href, pathname);
+            const children = item.children ?? [];
+            const hasChildren = children.length > 0;
+            const isOpen = openGroup === item.label;
+
             return (
-              <li key={href}>
-                <Link
-                  href={href}
-                  title={collapsed ? label : undefined}
-                  className={cn(
-                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors",
-                    active
-                      ? "bg-primary-muted text-primary"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                    collapsed && "justify-center px-0"
-                  )}
-                >
-                  <Icon
-                    className="size-5 shrink-0"
-                    strokeWidth={active ? 2.2 : 1.8}
-                  />
-                  {!collapsed && <span>{label}</span>}
-                </Link>
+              <li key={item.href}>
+                {hasChildren ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (collapsed) onToggle();
+                        setOpenGroup((g) => (g === item.label ? null : item.label));
+                      }}
+                      title={collapsed ? item.label : undefined}
+                      className={cn(
+                        "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors",
+                        active
+                          ? "bg-primary-muted text-primary"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                        collapsed && "justify-center px-0"
+                      )}
+                    >
+                      <item.icon
+                        className="size-5 shrink-0"
+                        strokeWidth={active ? 2.2 : 1.8}
+                      />
+                      {!collapsed && (
+                        <>
+                          <span>{item.label}</span>
+                          <ChevronDown
+                            className={cn(
+                              "ml-auto size-4 transition-transform",
+                              isOpen && "rotate-180"
+                            )}
+                          />
+                        </>
+                      )}
+                    </button>
+
+                    {!collapsed && isOpen && (
+                      <ul className="ml-4 mt-1 space-y-1 border-l border-border pl-2">
+                        {children.map((child) => {
+                          const childActive = isActivePath(child.href, pathname);
+                          return (
+                            <li key={child.href}>
+                              <Link
+                                href={child.href}
+                                className={cn(
+                                  "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors",
+                                  childActive
+                                    ? "bg-primary-muted font-semibold text-primary"
+                                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                )}
+                              >
+                                <span
+                                  className={cn(
+                                    "size-1.5 rounded-full",
+                                    childActive ? "bg-primary" : "bg-muted-foreground/40"
+                                  )}
+                                />
+                                {child.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    href={item.href}
+                    title={collapsed ? item.label : undefined}
+                    className={cn(
+                      "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors",
+                      active
+                        ? "bg-primary-muted text-primary"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                      collapsed && "justify-center px-0"
+                    )}
+                  >
+                    <item.icon
+                      className="size-5 shrink-0"
+                      strokeWidth={active ? 2.2 : 1.8}
+                    />
+                    {!collapsed && <span>{item.label}</span>}
+                  </Link>
+                )}
               </li>
             );
           })}

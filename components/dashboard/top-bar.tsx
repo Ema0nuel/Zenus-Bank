@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Bell } from "lucide-react";
 
 import { getInitials } from "@/lib/format";
 import { useAuthStore } from "@/stores/auth-store";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { NotificationBell } from "./notification-bell";
+import { ThemeToggle } from "./theme-toggle";
 import type { Profile } from "./types";
 
 export function TopBar() {
@@ -32,15 +32,12 @@ export function TopBar() {
           sizes="100vw"
           className="hidden h-8 w-auto dark:block"
         />
-        <span className="font-heading text-lg font-bold text-primary">
-          Zenus Bank
-        </span>
+        <span className="font-heading text-lg font-bold text-primary">Zenus Bank</span>
       </Link>
 
       <div className="flex items-center gap-1.5">
-        <Button variant="ghost" size="icon-sm" aria-label="Notifications">
-          <Bell className="size-5" />
-        </Button>
+        <NotificationBell />
+        <ThemeToggle />
         <Link href="/dashboard/profile" aria-label="Profile">
           <Avatar className="size-9">
             <AvatarFallback>

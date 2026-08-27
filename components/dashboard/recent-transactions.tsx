@@ -3,7 +3,8 @@ import { ArrowDownLeft, ArrowUpRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { formatCurrency, formatDateTime } from "@/lib/format";
+import { formatDateTime } from "@/lib/format";
+import { useMoney } from "@/hooks/use-preferences";
 import type { Transaction } from "./types";
 
 const creditTypes = ["deposit", "credit", "incoming", "interest", "refund", "topup"];
@@ -19,6 +20,7 @@ export function RecentTransactions({
   transactions: Transaction[];
   loading: boolean;
 }) {
+  const { amount, hideBalances } = useMoney();
   return (
     <section>
       <div className="mb-3 flex items-center justify-between">
@@ -77,8 +79,9 @@ export function RecentTransactions({
                         credit ? "text-success" : "text-foreground"
                       )}
                     >
-                      {credit ? "+" : "−"}
-                      {formatCurrency(t.amount)}
+                      {hideBalances
+                        ? "••••••"
+                        : `${credit ? "+" : "−"}${amount(t.amount)}`}
                     </p>
                     <Badge variant="outline" className="mt-1">
                       {t.status ?? "Completed"}

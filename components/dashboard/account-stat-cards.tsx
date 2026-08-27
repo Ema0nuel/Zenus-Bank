@@ -1,0 +1,81 @@
+"use client";
+
+import type * as React from "react";
+import { Briefcase, RefreshCw, Star } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { maskAccountNumber } from "@/lib/format";
+import { useMoney } from "@/hooks/use-preferences";
+import { useAuthStore } from "@/stores/auth-store";
+import type { Account } from "./types";
+
+type Stat = {
+  label: string;
+  value: string;
+  icon: React.ComponentType<{ className?: string }>;
+  tone: "balance" | "status" | "type";
+};
+
+const toneStyles: Record<Stat["tone"], string> = {
+  balance: "bg-success/10 text-success",
+  status: "bg-primary-muted text-primary",
+  type: "bg-primary-muted text-primary",
+};
+
+export function AccountStatCards() {
+  const account = useAuthStore((s) => s.account) as Account | null;
+  const { amount } = useMoney();
+
+  const stats: Stat[] = [
+    { label: "Available balance", value: amount(account?.balance), icon: Briefcase, tone: "balance" },
+    {
+      label: "Account status",
+      value: account?.is_active ? "Active" : "Inactive",
+      icon: RefreshCw,
+      tone: "status",
+    },
+    {
+      label: "Account type",
+      value: account?.account_type || "USD SAVING",
+      icon: Star,
+      tone: "type",
+    },
+  ];
+
+  return (
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      {stats.map((s) => (
+        <div
+          key={s.label}
+          className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4"
+        >
+          <span
+            className={cn(
+              "flex size-10 shrink-0 items-center justify-center rounded-full",
+              toneStyles[s.tone]
+            )}
+          >
+            <s.icon className="size-5" />
+          </span>
+          <div className="min-w-0">
+            <p className="truncate text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              {s.label}
+            </p>
+            <p className="truncate font-mono text-sm font-semibold text-foreground">
+              {s.value}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function AccountNumberChip() {
+  const account = useAuthStore((s) => s.account) as Account | null;
+  return (
+    <p className="font-mono text-xs text-muted-foreground">
+      {maskAccountNumber(account?.account_number)}
+    </p>
+  );
+}

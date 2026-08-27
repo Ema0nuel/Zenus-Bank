@@ -1,5 +1,8 @@
+"use client";
+
 import { cn } from "@/lib/utils";
-import { formatCurrency, maskAccountNumber } from "@/lib/format";
+import { maskAccountNumber } from "@/lib/format";
+import { useMoney } from "@/hooks/use-preferences";
 import type { Account, Profile } from "./types";
 
 export function BalanceCard({
@@ -11,6 +14,7 @@ export function BalanceCard({
 }) {
   const accountType = account?.account_type ?? "USD Saving";
   const isActive = account?.is_active === true;
+  const { amount } = useMoney();
 
   return (
     <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#180934] via-[#2a1048] to-[#120623] p-6 text-white shadow-xl ring-1 ring-white/10">
@@ -29,7 +33,7 @@ export function BalanceCard({
             Available balance
           </p>
           <p className="mt-2 font-heading text-4xl font-extralight tracking-tight text-white">
-            {formatCurrency(account?.balance)}
+            {amount(account?.balance)}
           </p>
         </div>
         <span className="shrink-0 rounded-4xl border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-semibold text-[#f5c962]">
