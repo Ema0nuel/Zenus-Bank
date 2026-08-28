@@ -67,11 +67,12 @@ export function loadGoogleTranslate() {
  */
 export function setTranslateCookie(code: string) {
   if (typeof document === "undefined") return;
+  const secure = window.location.protocol === "https:" ? ";Secure" : "";
+  const sameSite = ";SameSite=Lax";
   if (code === "en") {
-    document.cookie =
-      "googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = `googtrans=;path=/${secure}${sameSite};expires=Thu, 01 Jan 1970 00:00:00 GMT`;
   } else {
-    document.cookie = `googtrans=/en/${code};path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+    document.cookie = `googtrans=/en/${code};path=/${secure}${sameSite};expires=Fri, 31 Dec 9999 23:59:59 GMT`;
   }
 }
 

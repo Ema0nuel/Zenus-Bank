@@ -15,6 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageSelector } from "@/components/language-selector";
 
 const links = [
   { label: "Personal", href: "/personal" },
@@ -61,6 +62,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
+          <LanguageSelector />
           <Link
             href="/login"
             className={cn(
