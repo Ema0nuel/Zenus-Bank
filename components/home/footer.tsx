@@ -26,7 +26,10 @@ const columns = [
     title: "Help & support",
     links: [
       { label: "Financial abuse", href: "/financial-abuse" },
-      { label: "Financial difficulty assistance", href: "/financial-difficulty" },
+      {
+        label: "Financial difficulty assistance",
+        href: "/financial-difficulty",
+      },
     ],
   },
 ];
@@ -57,7 +60,7 @@ export function Footer() {
             </h2>
           </div>
           <Link
-            href="/signup"
+            href="/register"
             className={buttonVariants({
               className: "h-12 shrink-0 rounded-full px-8 text-base",
             })}
