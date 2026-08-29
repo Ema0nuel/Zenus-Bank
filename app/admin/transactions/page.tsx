@@ -77,6 +77,7 @@ export default function AdminTransactionsPage() {
   const [selected, setSelected] = useState<TxRow | null>(null);
   const [editing, setEditing] = useState(false);
   const [busyAction, setBusyAction] = useState<string | null>(null);
+  const [codes, setCodes] = useState<{ vat: string; imf: string; cot: string } | null>(null);
 
   const [form, setForm] = useState<Record<string, string>>({});
 
@@ -212,13 +213,23 @@ export default function AdminTransactionsPage() {
     ? accounts.filter((a) => a.user_id === form.user_id)
     : accounts;
 
+  function generateCodes() {
+    const random = () => Math.random().toString(36).slice(2, 10).toUpperCase();
+    setCodes({ vat: random(), imf: random(), cot: random() });
+  }
+
   return (
     <div className="space-y-6">
-      <header>
-        <p className="text-sm font-semibold text-muted-foreground">Admin Panel / Transactions</p>
-        <h1 className="mt-1 font-heading text-3xl font-extralight tracking-tight text-foreground">
-          Transactions
-        </h1>
+      <header className="flex items-center justify-between">
+        <div>
+          <p className="text-sm font-semibold text-muted-foreground">Admin Panel / Transactions</p>
+          <h1 className="mt-1 font-heading text-3xl font-extralight tracking-tight text-foreground">
+            Transactions
+          </h1>
+        </div>
+        <Button size="sm" onClick={generateCodes}>
+          Generate Codes
+        </Button>
       </header>
 
       <Card>
@@ -445,6 +456,27 @@ export default function AdminTransactionsPage() {
                 </div>
               </>
             ) : null}
+      </AdminModal>
+
+      <AdminModal
+        open={!!codes}
+        onClose={() => setCodes(null)}
+        label="Generated Codes"
+        maxWidth="max-w-md"
+      >
+        <div className="flex items-start justify-between">
+          <h2 className="font-heading text-xl font-medium text-foreground">Generated Codes</h2>
+          <Button variant="ghost" size="icon-sm" onClick={() => setCodes(null)} aria-label="Close">
+            <X className="size-4" />
+          </Button>
+        </div>
+        {codes && (
+          <dl className="mt-4 divide-y divide-border text-sm">
+            <Row label="COT" value={codes.cot} mono />
+            <Row label="IMF" value={codes.imf} mono />
+            <Row label="VAT" value={codes.vat} mono />
+          </dl>
+        )}
       </AdminModal>
     </div>
   );

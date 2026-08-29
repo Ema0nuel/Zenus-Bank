@@ -4,6 +4,7 @@ import "./globals.css";
 import { siteConfig, siteUrl } from "@/lib/site";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { LanguageProvider } from "@/components/language-provider";
+import { ZohoWidget } from "@/components/zoho-widget";
 
 const anthropicSerif = localFont({
   src: [
@@ -128,6 +129,7 @@ export default function RootLayout({
         <AuthProvider />
         <LanguageProvider />
         {children}
+        <ZohoWidget />
       </body>
     </html>
   );
