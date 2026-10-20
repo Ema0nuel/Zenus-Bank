@@ -7,7 +7,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Terms of Use",
   description:
-    "The terms of use governing the Zenus Bank website, including our rights in the website, product and services information, and third party content.",
+    "The terms of use governing the Ally Banks website, including our rights in the website, product and services information, and third party content.",
   path: "/terms",
 });
 
@@ -29,7 +29,7 @@ export default function TermsPage() {
               </h2>
               <p className="mt-3">
                 This website (&quot;Website&quot;) is owned and operated by
-                Zenus Bank (&quot;we&quot; / &quot;us&quot; / &quot;our&quot;),
+                Ally Banks (&quot;we&quot; / &quot;us&quot; / &quot;our&quot;),
                 on our behalf and that of our related bodies corporate. Contact:{" "}
                 <a
                   href={`mailto:${siteConfig.contactEmail}`}
@@ -106,7 +106,7 @@ export default function TermsPage() {
               </h2>
               <p className="mt-3">
                 Products and services displayed or offered on this Website
-                contain general information about Zenus Bank products and
+                contain general information about Ally Banks products and
                 services and can be changed by us at any time at our discretion.
                 In the event of any conflict or inconsistency between this
                 Website and the applicable disclosure document (such as a
@@ -120,7 +120,7 @@ export default function TermsPage() {
                   to any person to whom it is unlawful to make a solicitation;
                 </li>
                 <li>
-                  does not form part of the terms and conditions for Zenus Bank
+                  does not form part of the terms and conditions for Ally Banks
                   products and services; and
                 </li>
                 <li>
@@ -141,17 +141,15 @@ export default function TermsPage() {
               </h2>
               <p className="mt-3">
                 Links from this Website to third party websites, or references
-                to products, services or publications other than those of Zenus
-                Bank, do not imply the endorsement or approval of such third
-                party websites, products, services or publications by Zenus
-                Bank. Any access and use you make of such third party material
+                to products, services or publications other than those of Ally Banks, do not imply the endorsement or approval of such third
+                party websites, products, services or publications by Ally Banks. Any access and use you make of such third party material
                 is entirely at your own risk.
               </p>
               <p className="mt-3">
-                The opinions or views that Zenus Bank makes available via third
+                The opinions or views that Ally Banks makes available via third
                 party websites or social media providers (such as videos or
                 tweets) (each, a &quot;Publication&quot;) are not necessarily
-                the opinions or views of Zenus Bank, and Zenus Bank makes no
+                the opinions or views of Ally Banks, and Ally Banks makes no
                 representation and gives no warranty as to the accuracy,
                 currency or completeness of material contained in any
                 Publication.

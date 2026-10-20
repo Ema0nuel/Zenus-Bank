@@ -8,7 +8,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Privacy Policy",
   description:
-    "Learn how Zenus Bank collects, uses, discloses and protects your personal information. Read our full privacy policy.",
+    "Learn how Ally Banks collects, uses, discloses and protects your personal information. Read our full privacy policy.",
   path: "/privacy",
 });
 
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
           <div className="mt-12 space-y-12">
             <Section id="about-this-policy" title="About this policy">
               <p>
-                This document sets out how Zenus Bank safeguards your privacy.
+                This document sets out how Ally Banks safeguards your privacy.
               </p>
               <p>
                 We recognise the importance of protecting your privacy and are
@@ -268,7 +268,7 @@ export default function PrivacyPage() {
               </p>
               <Link
                 href="/contact-us"
-                className="inline-flex items-center justify-center rounded-full border-2 border-primary px-6 py-3 font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                className="inline-flex items-center justify-center rounded-full bg-[var(--primary)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--primary-deep)]"
               >
                 Resolve a complaint
               </Link>

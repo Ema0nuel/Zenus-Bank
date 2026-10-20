@@ -8,7 +8,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Target Market Determinations",
   description:
-    "Target Market Determinations for financial products issued and/or distributed by Zenus Bank, designed to deliver better customer outcomes.",
+    "Target Market Determinations for financial products issued and/or distributed by Ally Banks, designed to deliver better customer outcomes.",
   path: "/target-market",
 });
 
@@ -83,7 +83,7 @@ export default function TargetMarketPage() {
               provided under that product.
             </p>
           </div>
-          <div className="overflow-hidden rounded-xl border border-border bg-card">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card">
             <Image
               src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1200&q=80"
               alt="Target Market Determinations documents"
@@ -94,7 +94,7 @@ export default function TargetMarketPage() {
             <div className="p-6 text-sm text-muted-foreground">
               <p>
                 This page includes the Target Market Determinations for
-                financial products issued and/or distributed by Zenus Bank.
+                financial products issued and/or distributed by Ally Banks.
               </p>
             </div>
           </div>

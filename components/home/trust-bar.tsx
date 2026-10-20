@@ -33,7 +33,7 @@ export function TrustBar() {
             delay={i * 0.08}
             className="flex items-center gap-5 px-4 py-6 md:justify-center md:py-0"
           >
-            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-primary-muted text-primary">
+            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-[var(--lilac)] text-[var(--primary-deep)]">
               <proof.icon className="size-6" strokeWidth={1.5} />
             </span>
             <span className="flex flex-col">

@@ -15,7 +15,7 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Important Information",
   description:
-    "Find important information about Zenus Bank including our codes of practice, disclosure documents, the Financial Claims Scheme, privacy, and more.",
+    "Find important information about Ally Banks including our codes of practice, disclosure documents, the Financial Claims Scheme, privacy, and more.",
   path: "/important-info",
 });
 
@@ -39,7 +39,7 @@ const infoTiles = [
     href: "/important-info",
     linkText: "View our disclosure documents",
     details: [
-      "Access all Zenus Bank disclosure documents, including:",
+      "Access all Ally Banks disclosure documents, including:",
       "Terms and conditions for products and services",
       "Product disclosure statements",
       "Privacy disclosure statement",
@@ -63,7 +63,7 @@ const infoTiles = [
     linkText: "View our policies",
     details: [
       "Learn how we manage personal and credit related information through our:",
-      "Zenus Bank Privacy Policy",
+      "Ally Banks Privacy Policy",
       "Credit Reporting Policy",
       "Credit Reporting Statement of Notifiable Matters",
       "Consumer Data Right",
@@ -75,7 +75,7 @@ const infoTiles = [
     href: "/target-market",
     linkText: "Learn more about TMDs",
     details: [
-      "Target Market Determinations for financial products distributed by Zenus Bank are to ensure that the right products end up in the hands of the right customer. We do this by focusing on our customers in the design and distribution of our financial products.",
+      "Target Market Determinations for financial products distributed by Ally Banks are to ensure that the right products end up in the hands of the right customer. We do this by focusing on our customers in the design and distribution of our financial products.",
     ],
   },
   {
@@ -84,7 +84,7 @@ const infoTiles = [
     href: "/terms",
     linkText: "Read our terms of use",
     details: [
-      "The terms of use for the Zenus Bank website sets the rules for using our website with our rights in, and restrictions on your use of, the site, product and services information, third party content and jurisdiction.",
+      "The terms of use for the Ally Banks website sets the rules for using our website with our rights in, and restrictions on your use of, the site, product and services information, third party content and jurisdiction.",
     ],
   },
 ];
@@ -110,9 +110,9 @@ export default function ImportantInfoPage() {
             {infoTiles.map((tile) => (
               <div
                 key={tile.title}
-                className="card-hover flex flex-col rounded-xl border border-border bg-card p-6"
+                className="card-hover flex flex-col rounded-2xl border border-border bg-card p-6"
               >
-                <span className="grid size-12 place-items-center rounded-xl bg-primary-muted text-primary">
+                <span className="grid size-12 place-items-center rounded-xl bg-[var(--lilac)] text-[var(--primary-deep)]">
                   <tile.icon className="size-6" strokeWidth={1.5} />
                 </span>
                 <h3 className="font-heading mt-4 text-lg font-medium text-foreground">
@@ -125,7 +125,7 @@ export default function ImportantInfoPage() {
                 </ul>
                 <Link
                   href={tile.href}
-                  className="mt-5 inline-flex items-center justify-center rounded-full border-2 border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                  className="mt-5 inline-flex items-center justify-center rounded-full bg-[var(--primary)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--primary-deep)]"
                 >
                   {tile.linkText}
                 </Link>

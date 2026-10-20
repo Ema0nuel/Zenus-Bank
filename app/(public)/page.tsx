@@ -9,7 +9,7 @@ import { BlogNews } from "@/components/home/blog-news";
 import { buildMetadata, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Zenus Bank — Premium Banking Reimagined",
+  title: "Ally Banks — Premium Banking Reimagined",
   description: siteConfig.description,
   absolute: true,
 });

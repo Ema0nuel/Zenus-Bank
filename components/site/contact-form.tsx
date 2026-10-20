@@ -33,7 +33,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 rounded-xl border border-border bg-card p-6"
+      className="space-y-5 rounded-2xl border border-border bg-card p-6"
     >
       <div className="space-y-1.5">
         <label htmlFor="name" className="text-sm font-semibold">
@@ -98,7 +98,7 @@ export function ContactForm() {
       <Button
         type="submit"
         disabled={status === "submitting"}
-        className="h-11 rounded-full px-6"
+        className="h-11 rounded-full px-6 bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold"
       >
         {status === "submitting" ? "Sending…" : "Send Message"}
       </Button>

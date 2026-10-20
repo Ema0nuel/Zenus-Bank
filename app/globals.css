@@ -9,6 +9,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
+  --color-primary-deep: var(--primary-deep);
   --color-primary-hover: var(--primary-hover);
   --color-primary-muted: var(--primary-muted);
   --color-muted: var(--muted);
@@ -19,6 +20,7 @@
   --color-danger: var(--danger);
   --color-success: var(--success);
   --color-ring: var(--ring);
+  --color-lilac: var(--lilac);
   --color-radius: var(--radius);
 
   /* ── shadcn semantic tokens ── */
@@ -31,6 +33,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
   --color-destructive: var(--destructive);
   --color-input: var(--input);
   --color-chart-1: var(--chart-1);
@@ -60,9 +63,11 @@
   --color-zinc-900: #18181b;
   --color-zinc-950: #131010;
 
-  /* ── Fonts (runtime variables injected by next/font on <html>) ── */
-  --font-sans: var(--font-sans);
-  --font-heading: var(--font-serif);
+  /* ── Fonts: "TruthSans" (Ally's brand family, expected on user devices) first,
+        Figtree (bundled via next/font) as the loaded fallback, then system fonts ── */
+  --font-sans: "TruthSans", var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "TruthSans", var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "TruthSans", var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
 
   /* ── Radius scale (multiplicative) ── */
   --radius-sm: calc(var(--radius) * 0.6);
@@ -74,96 +79,104 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* ─── Light Theme (clean-sheet financial document) ─── */
+/* ─── Light Theme (Ally Banks warm surface, the default) ─── */
 :root {
-  --background: #ffffff;
-  --foreground: #131010;
-  --primary: #180934;
-  --primary-hover: #2a1048;
-  --primary-muted: rgba(24, 9, 52, 0.08);
+  --background: #efedec;
+  --foreground: #2a2a2a;
+  --primary: #852ef2;
+  --primary-deep: #4a1a79;
+  --primary-hover: #6e22ce;
+  --primary-muted: rgba(133, 46, 242, 0.08);
   --primary-foreground: #ffffff;
-  --muted: #f5f5f5;
+  --accent: #b6ff00;
+  --accent-foreground: #2a2a2a;
+  --accent-hover: #a3e600;
+  --lilac: #c5aefe;
+  --muted: #f6f6f6;
   --muted-foreground: #6b6b6b;
-  --border: #e5e5e5;
-  --surface: #fafafa;
+  --border: #d4d4d4;
+  --ring: #852ef2;
+  --radius: 1rem;
+
+  --surface: #f6f6f6;
   --surface-elevated: #ffffff;
   --danger: #dc2626;
   --success: #16a34a;
-  --ring: #180934;
-  --radius: 0.75rem;
 
   --card: #ffffff;
-  --card-foreground: #131010;
+  --card-foreground: #2a2a2a;
   --popover: #ffffff;
-  --popover-foreground: #131010;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #131010;
-  --accent: #f5f5f5;
-  --accent-foreground: #131010;
+  --popover-foreground: #2a2a2a;
+  --secondary: #f6f6f6;
+  --secondary-foreground: #2a2a2a;
   --destructive: #dc2626;
-  --input: #e5e5e5;
-  --chart-1: #180934;
-  --chart-2: #2a1048;
-  --chart-3: #6b6b6b;
-  --chart-4: #a0a0a0;
-  --chart-5: #e5e5e5;
-  --sidebar: #fafafa;
-  --sidebar-foreground: #131010;
-  --sidebar-primary: #180934;
+  --input: #d4d4d4;
+  --chart-1: #852ef2;
+  --chart-2: #4a1a79;
+  --chart-3: #c5aefe;
+  --chart-4: #b6ff00;
+  --chart-5: #d4d4d4;
+  --sidebar: #f6f6f6;
+  --sidebar-foreground: #2a2a2a;
+  --sidebar-primary: #852ef2;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f5f5f5;
-  --sidebar-accent-foreground: #131010;
-  --sidebar-border: #e5e5e5;
-  --sidebar-ring: #180934;
+  --sidebar-accent: #e4d9fe;
+  --sidebar-accent-foreground: #2a2a2a;
+  --sidebar-border: #d4d4d4;
+  --sidebar-ring: #852ef2;
 }
 
-/* ─── Dark Theme (private banking lounge) ─── */
+/* ─── Dark Theme (deep purple lounge) ─── */
 .dark {
-  --background: #131010;
-  --foreground: #fafafa;
-  --primary: #f5c962;
-  --primary-hover: #f7d785;
-  --primary-muted: rgba(245, 201, 98, 0.12);
-  --primary-foreground: #131010;
-  --muted: #1a1a1a;
-  --muted-foreground: #a0a0a0;
-  --border: #2a2a2a;
-  --surface: #1c1c1c;
-  --surface-elevated: #1c1c1c;
+  --background: #16052b;
+  --foreground: #efedec;
+  --primary: #852ef2;
+  --primary-deep: #4a1a79;
+  --primary-hover: #9b5cf7;
+  --primary-muted: rgba(133, 46, 242, 0.18);
+  --primary-foreground: #ffffff;
+  --accent: #b6ff00;
+  --accent-foreground: #2a2a2a;
+  --accent-hover: #a3e600;
+  --lilac: #c5aefe;
+  --muted: #1f0b3a;
+  --muted-foreground: #b7a6d9;
+  --border: #4a1a79;
+  --ring: #852ef2;
+  --radius: 1rem;
+
+  --surface: #1f0b3a;
+  --surface-elevated: #2b114b;
   --danger: #ef4444;
   --success: #22c55e;
-  --ring: #f5c962;
-  --radius: 0.75rem;
 
-  --card: #1c1c1c;
-  --card-foreground: #fafafa;
-  --popover: #1c1c1c;
-  --popover-foreground: #fafafa;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #fafafa;
-  --accent: #1a1a1a;
-  --accent-foreground: #fafafa;
+  --card: #2b114b;
+  --card-foreground: #f6f6f6;
+  --popover: #2b114b;
+  --popover-foreground: #f6f6f6;
+  --secondary: #1f0b3a;
+  --secondary-foreground: #efedec;
   --destructive: #ef4444;
-  --input: #2a2a2a;
-  --chart-1: #f5c962;
-  --chart-2: #f7d785;
-  --chart-3: #a0a0a0;
-  --chart-4: #6b6b6b;
-  --chart-5: #2a2a2a;
-  --sidebar: #1c1c1c;
-  --sidebar-foreground: #fafafa;
-  --sidebar-primary: #f5c962;
-  --sidebar-primary-foreground: #131010;
-  --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #fafafa;
-  --sidebar-border: #2a2a2a;
-  --sidebar-ring: #f5c962;
+  --input: #4a1a79;
+  --chart-1: #852ef2;
+  --chart-2: #c5aefe;
+  --chart-3: #b6ff00;
+  --chart-4: #efedec;
+  --chart-5: #4a1a79;
+  --sidebar: #1f0b3a;
+  --sidebar-foreground: #efedec;
+  --sidebar-primary: #852ef2;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2b114b;
+  --sidebar-accent-foreground: #efedec;
+  --sidebar-border: #4a1a79;
+  --sidebar-ring: #852ef2;
 }
 
 /* ─── Base Styles ─── */
 @layer base {
   html {
-    font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
+    font-family: "TruthSans", var(--font-sans-loaded), ui-sans-serif, system-ui, -apple-system,
       "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-weight: 400;
     scroll-behavior: smooth;
@@ -177,10 +190,17 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Serif headings: extralight weight */
+  /* One family for everything (Ally uses a single family); headings slightly bolder */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-serif), ui-serif, Georgia, "Times New Roman", serif;
-    font-weight: 200;
+    font-family: "TruthSans", var(--font-sans-loaded), ui-sans-serif, system-ui, -apple-system,
+      "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+  }
+
+  /* Interactive elements: snappy 180ms ease */
+  a, button, input, select, textarea, summary, [role="button"] {
+    transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease,
+      box-shadow 180ms ease, opacity 180ms ease, transform 180ms ease;
   }
 
   /* Selection */
@@ -347,6 +367,70 @@
   }
 }
 
+/* ─── Button Classes (Ally CTA family) ─── */
+@layer components {
+  /* Shared pill CTA shape */
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    padding: 0.875rem 1.75rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease,
+      box-shadow 180ms ease, transform 180ms ease;
+  }
+
+  .btn:focus-visible,
+  .btn-primary:focus-visible,
+  .btn-secondary:focus-visible {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+
+  /* Primary CTA: lime pill, ink text */
+  .btn-primary {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--accent-hover);
+  }
+
+  /* Secondary: deep brand purple, white text */
+  .btn-secondary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+  }
+
+  /* Tertiary text link: brand color, underline on hover */
+  .btn-link {
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .btn-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
 /* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -397,4 +481,80 @@ body {
 
 .goog-te-gadget .goog-te-gadget-simple .goog-te-menu-value span {
   color: transparent !important;
+}
+
+/* ─── Ally CTA wiring (unlayered on purpose: wins over utility colors/radius) ─── */
+/* Button-family elements (Button component + buttonVariants on links):
+   default variant -> lime primary CTA, secondary/padded-outline -> purple pill. */
+
+.group\/button,
+[data-slot="button"] {
+  border-radius: 9999px;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease,
+    box-shadow 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+/* Primary CTA (default variant carries bg-primary) */
+.group\/button.bg-primary,
+[data-slot="button"].bg-primary {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.group\/button.bg-primary:hover:not(:disabled),
+[data-slot="button"].bg-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  color: var(--accent-foreground);
+}
+
+/* Secondary button (secondary variant, and outline CTAs sized with generous px) */
+.group\/button.bg-secondary,
+[data-slot="button"].bg-secondary,
+.group\/button.bg-background.px-6,
+.group\/button.bg-background.px-7,
+.group\/button.bg-background.px-8 {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.group\/button.bg-secondary:hover:not(:disabled),
+[data-slot="button"].bg-secondary:hover:not(:disabled),
+.group\/button.bg-background.px-6:hover:not(:disabled),
+.group\/button.bg-background.px-7:hover:not(:disabled),
+.group\/button.bg-background.px-8:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  color: var(--primary-foreground);
+}
+
+/* Tertiary text link (link variant) */
+.group\/button.underline-offset-4 {
+  color: var(--primary);
+}
+
+.group\/button.underline-offset-4:hover:not(:disabled) {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* Inputs: friendly 0.75rem radius, border/ring follow --border / --primary tokens */
+input[data-slot="input"],
+[data-slot="input"],
+[data-slot="select-trigger"],
+select,
+textarea {
+  border-radius: 0.75rem;
+}
+
+/* iOS Safari auto-zooms a focused field whose font-size is below 16px.
+   Hold form text at 16px on touch-sized viewports so focus never zooms the page. */
+@media (max-width: 1024px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
 }

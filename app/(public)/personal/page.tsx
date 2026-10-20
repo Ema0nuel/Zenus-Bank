@@ -21,7 +21,7 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Personal Loans",
   description:
-    "Bring your plans to life with a Zenus Bank personal loan. Compare secured and unsecured loan options, competitive rates, and flexible repayment terms.",
+    "Bring your plans to life with a Ally Banks personal loan. Compare secured and unsecured loan options, competitive rates, and flexible repayment terms.",
   path: "/personal",
 });
 
@@ -112,7 +112,7 @@ function LoanCard({
   comparison: string;
 }) {
   return (
-    <div className="flex flex-col rounded-xl border border-border bg-card p-6">
+    <div className="flex flex-col rounded-2xl border border-border bg-card p-6">
       <h3 className="font-heading text-lg font-medium text-foreground">
         {name}
       </h3>
@@ -137,7 +137,8 @@ export default function PersonalPage() {
         <Link
           href="/personal/enquiry"
           className={buttonVariants({
-            className: "mt-2 h-12 rounded-full px-8 text-base",
+            className:
+              "mt-2 h-12 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
           })}
         >
           Make an enquiry
@@ -148,7 +149,7 @@ export default function PersonalPage() {
         items={[{ label: "Home", href: "/" }, { label: "Personal loans" }]}
       />
 
-      <section className="border-b border-border bg-primary-muted py-12">
+      <section className="border-b border-border bg-muted py-12">
         <div className="mx-auto w-full max-w-6xl px-6">
           <h2 className="font-heading text-xl font-medium text-foreground">
             Apply for your personal loan
@@ -157,7 +158,7 @@ export default function PersonalPage() {
             {quickLinks.map((link) => (
               <div
                 key={link.label}
-                className="flex flex-col items-center rounded-lg border border-border bg-card p-4 text-center transition-colors hover:bg-primary-muted"
+                className="flex flex-col items-center rounded-lg border border-border bg-card p-4 text-center transition-colors hover:bg-muted"
               >
                 <link.icon className="mb-2 size-7 text-primary" strokeWidth={1.5} />
                 <span className="text-sm">{link.label}</span>
@@ -176,9 +177,9 @@ export default function PersonalPage() {
             {benefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="card-hover flex flex-col rounded-xl border border-border bg-card p-6"
+                className="card-hover flex flex-col rounded-2xl border border-border bg-card p-6"
               >
-                <span className="grid size-11 place-items-center rounded-xl bg-primary-muted text-primary">
+                <span className="grid size-11 place-items-center rounded-xl bg-[var(--lilac)] text-[var(--primary-deep)]">
                   <benefit.icon className="size-5" strokeWidth={1.5} />
                 </span>
                 <h3 className="font-heading mt-4 text-lg font-medium text-foreground">
@@ -228,7 +229,7 @@ export default function PersonalPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-primary-muted py-16">
+      <section className="border-t border-border bg-muted py-16">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 md:flex-row">
           <div className="flex-1">
             <h2 className="text-2xl tracking-tight text-foreground md:text-3xl">
@@ -241,7 +242,8 @@ export default function PersonalPage() {
             <Link
               href="/personal/enquiry"
               className={buttonVariants({
-                className: "mt-6 h-12 rounded-full px-8 text-base",
+                className:
+                  "mt-6 h-12 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
               })}
             >
               Make an enquiry
@@ -251,7 +253,7 @@ export default function PersonalPage() {
             {tools.map((tool) => (
               <div
                 key={tool.label}
-                className="flex flex-col items-center rounded-lg border border-border bg-card p-4 text-center transition-colors hover:bg-primary-muted"
+                className="flex flex-col items-center rounded-lg border border-border bg-card p-4 text-center transition-colors hover:bg-muted"
               >
                 <tool.icon className="mb-2 size-7 text-primary" strokeWidth={1.5} />
                 <span className="text-sm">{tool.label}</span>
@@ -293,7 +295,7 @@ export default function PersonalPage() {
             <h2 className="text-2xl tracking-tight text-foreground">
               Personal loan pre-application
             </h2>
-            <details className="group mt-4 rounded-xl border border-border bg-card">
+            <details className="group mt-4 rounded-2xl border border-border bg-card">
               <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4 font-semibold text-foreground">
                 Show details
                 <span className="text-primary">+</span>
@@ -301,8 +303,7 @@ export default function PersonalPage() {
               <div className="space-y-4 border-t border-border px-5 py-4 text-sm text-muted-foreground">
                 <p>
                   Desperate for a holiday? Or to dive into an adventure? Driven
-                  to buy your next car? Or dreaming of a home makeover? A Zenus
-                  Bank personal loan can make it happen. Applying online is
+                  to buy your next car? Or dreaming of a home makeover? A Ally Banks personal loan can make it happen. Applying online is
                   quick and easy.
                 </p>
                 <p>
@@ -324,15 +325,16 @@ export default function PersonalPage() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-primary-muted py-12">
+      <section className="border-y border-border bg-muted py-12">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-6 px-6 md:flex-row md:items-center">
           <h2 className="text-2xl tracking-tight text-foreground md:text-3xl">
-            Looking to switch your personal loan to Zenus Bank?
+            Looking to switch your personal loan to Ally Banks?
           </h2>
           <Link
             href="/switch"
             className={buttonVariants({
-              className: "h-12 shrink-0 rounded-full px-8 text-base",
+              className:
+                "h-12 shrink-0 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
             })}
           >
             Switch now
@@ -362,7 +364,8 @@ export default function PersonalPage() {
             <Link
               href="/personal"
               className={buttonVariants({
-                className: "h-12 rounded-full px-8 text-base",
+                className:
+                  "h-12 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
               })}
             >
               Learn more

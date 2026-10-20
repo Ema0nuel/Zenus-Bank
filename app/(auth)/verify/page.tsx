@@ -15,7 +15,7 @@ const labelClass =
   "mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground";
 
 const submitBtnClass =
-  "inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-all hover:bg-primary-hover active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-8 text-sm font-semibold text-[var(--accent-foreground)] transition-all hover:bg-[var(--accent)]/90 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
 
 const emptySubscribe = () => () => {};
 
@@ -96,12 +96,12 @@ export default function VerifyPage() {
     >
       <form onSubmit={handleSubmit} className="space-y-5">
         {error ? (
-          <p className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 font-sans text-sm font-semibold text-danger">
+          <p className="rounded-xl border border-[var(--primary-deep)]/30 bg-[var(--primary-deep)]/10 px-4 py-3 font-sans text-sm font-semibold text-[var(--primary-deep)]">
             {error}
           </p>
         ) : null}
         {info ? (
-          <p className="rounded-xl border border-success/30 bg-success/10 px-4 py-3 font-sans text-sm font-semibold text-success">
+          <p className="rounded-xl border border-[var(--accent)]/40 bg-[var(--accent)]/15 px-4 py-3 font-sans text-sm font-semibold text-[var(--primary-deep)]">
             {info}
           </p>
         ) : null}

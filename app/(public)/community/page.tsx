@@ -20,7 +20,7 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Community",
   description:
-    "Be part of the Zenus Bank community. Through our profit-with-purpose model, we return profits directly to the communities that generate them.",
+    "Be part of the Ally Banks community. Through our profit-with-purpose model, we return profits directly to the communities that generate them.",
   path: "/community",
 });
 
@@ -43,18 +43,19 @@ const stats = [
 export default function CommunityPage() {
   return (
     <>
-      <PageHero title="Be part of the Zenus Bank community" align="left">
+      <PageHero title="Be part of the Ally Banks community" align="left">
         <Link
           href="/locate"
           className={buttonVariants({
-            className: "mt-2 h-12 rounded-full px-8 text-base",
+            className:
+              "mt-2 h-12 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
           })}
         >
           Find a branch
         </Link>
       </PageHero>
 
-      <section className="border-b border-border bg-primary-muted">
+      <section className="border-b border-border bg-muted">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-6 px-6 py-8 md:flex-row md:gap-10">
           {propositions.map((prop) => (
             <div key={prop.label} className="flex items-center gap-3">
@@ -96,7 +97,7 @@ export default function CommunityPage() {
             {stats.map((stat) => (
               <div
                 key={stat.desc}
-                className="flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center"
+                className="flex flex-col items-center rounded-2xl border border-border bg-card p-6 text-center"
               >
                 <stat.icon className="mb-2 size-8 text-primary" strokeWidth={1.5} />
                 <div className="text-2xl font-semibold tracking-tight text-foreground">
@@ -124,7 +125,7 @@ export default function CommunityPage() {
         <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-8">
           <div className="flex flex-col items-start gap-4">
             <h2 className="text-2xl font-extralight tracking-[-0.03em] text-white md:text-3xl">
-              Switch to Zenus Bank
+              Switch to Ally Banks
             </h2>
             <p className="max-w-xl text-white/90">
               Be part of something bigger. See below for more information about
@@ -133,7 +134,8 @@ export default function CommunityPage() {
             <Link
               href="/switch"
               className={buttonVariants({
-                className: "h-12 rounded-full px-8 text-base",
+                className:
+                  "h-12 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
               })}
             >
               Learn more

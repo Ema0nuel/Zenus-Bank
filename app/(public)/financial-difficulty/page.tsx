@@ -7,7 +7,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Financial Difficulty Assistance",
   description:
-    "Experiencing financial difficulty? We're here to help. Learn how to apply for assistance, the options available, and the application process at Zenus Bank.",
+    "Experiencing financial difficulty? We're here to help. Learn how to apply for assistance, the options available, and the application process at Ally Banks.",
   path: "/financial-difficulty",
 });
 
@@ -194,7 +194,7 @@ export default function FinancialDifficultyPage() {
           <div>
             <Link
               href="/contact-us"
-              className="inline-flex w-full items-center justify-center rounded-full border-2 border-primary px-6 py-3 font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+              className="inline-flex w-full items-center justify-center rounded-full bg-[var(--primary)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--primary-deep)]"
             >
               Resolve a complaint
             </Link>

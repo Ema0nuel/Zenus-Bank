@@ -39,7 +39,7 @@ export function PageHeader({
 
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
-          <h1 className="font-heading text-3xl font-extralight tracking-tight text-foreground">
+          <h1 className="font-heading text-3xl font-bold tracking-tight text-foreground">
             {title}
           </h1>
           {description && (

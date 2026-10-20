@@ -133,7 +133,7 @@ export default function HistoryPage() {
                       <td
                         className={cn(
                           "px-4 py-3 text-right font-mono font-semibold",
-                          credit ? "text-success" : "text-foreground"
+                          credit ? "text-[var(--primary-deep)]" : "text-foreground"
                         )}
                       >
                         {credit ? "+" : "−"}
@@ -166,16 +166,16 @@ export default function HistoryPage() {
             <div className="flex items-start justify-between px-6 pt-6">
               <div className="flex items-center gap-3">
                 <Image
-                  src="/images/logo-nobg.png"
-                  alt="Zenus Bank"
+                  src="/images/logo.png"
+                  alt="Ally Banks"
                   width={0}
                   height={0}
                   sizes="100vw"
                   className="h-10 w-auto dark:hidden"
                 />
                 <Image
-                  src="/images/logo.jpg"
-                  alt="Zenus Bank"
+                  src="/images/logo.png"
+                  alt="Ally Banks"
                   width={0}
                   height={0}
                   sizes="100vw"

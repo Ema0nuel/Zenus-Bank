@@ -17,7 +17,7 @@ const columns = [
   {
     title: "About us",
     links: [
-      { label: "About Zenus Bank", href: "/about" },
+      { label: "About Ally Banks", href: "/about" },
       { label: "Community", href: "/community" },
       { label: "Accessibility & Inclusion", href: "/accessibility" },
     ],
@@ -62,7 +62,8 @@ export function Footer() {
           <Link
             href="/register"
             className={buttonVariants({
-              className: "h-12 shrink-0 rounded-full px-8 text-base",
+              className:
+                "h-12 shrink-0 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
             })}
           >
             Open an account
@@ -75,23 +76,23 @@ export function Footer() {
       <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] md:px-12 lg:px-16">
         <div className="max-w-sm">
           <Image
-            src="/images/logo-nobg.png"
-            alt="Zenus Bank logo"
+            src="/images/logo.png"
+            alt="Ally Banks logo"
             width={0}
             height={0}
             sizes="100vw"
             className="mb-4 h-10 w-auto dark:hidden"
           />
           <Image
-            src="/images/logo.jpg"
-            alt="Zenus Bank logo"
+            src="/images/logo.png"
+            alt="Ally Banks logo"
             width={0}
             height={0}
             sizes="100vw"
             className="mb-4 hidden h-10 w-auto dark:block"
           />
           <div className="mb-2 font-heading text-base font-bold text-primary">
-            Zenus Bank
+            Ally Banks
           </div>
           <p className="mb-8 text-sm text-muted-foreground">
             Empowering your financial future.
@@ -140,7 +141,7 @@ export function Footer() {
       <Separator />
 
       <div className="mx-auto flex w-full max-w-[1400px] flex-col items-center justify-between gap-2 px-6 py-6 text-xs text-muted-foreground md:flex-row md:px-12 lg:px-16">
-        <div>&copy; {year} Zenus Bank. All rights reserved.</div>
+        <div>&copy; {year} Ally Banks. All rights reserved.</div>
         <div className="flex flex-wrap gap-x-5 gap-y-2">
           {legal.map((item) => (
             <Link key={item.href} href={item.href} className="hover:underline">

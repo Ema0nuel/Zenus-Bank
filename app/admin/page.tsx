@@ -153,7 +153,7 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-8">
       {error && (
-        <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm font-semibold text-destructive" role="alert">
+        <div className="rounded-[0.75rem] border border-[var(--primary-deep)]/30 bg-[var(--primary-deep)]/10 p-4 text-sm font-semibold text-[var(--primary-deep)]" role="alert">
           {error}
         </div>
       )}
@@ -162,7 +162,7 @@ export default function AdminDashboardPage() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-semibold text-muted-foreground">Admin Panel</p>
-            <h1 className="mt-1 font-heading text-3xl font-extralight tracking-tight text-foreground">
+            <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-foreground">
               Overview
             </h1>
           </div>
@@ -281,7 +281,7 @@ export default function AdminDashboardPage() {
                         <span
                           className={cn(
                             "flex size-9 shrink-0 items-center justify-center rounded-full",
-                            credit ? "bg-success/10 text-success" : "bg-primary-muted text-primary"
+                            credit ? "bg-[var(--accent)]/15 text-[var(--primary-deep)]" : "bg-[var(--lilac)] text-[var(--primary-deep)]"
                           )}
                         >
                           {credit ? <ArrowDownLeft className="size-4" /> : <ArrowUpRight className="size-4" />}
@@ -298,7 +298,7 @@ export default function AdminDashboardPage() {
                           <span
                             className={cn(
                               "block font-mono text-sm font-semibold",
-                              credit ? "text-success" : "text-foreground"
+                              credit ? "text-[var(--primary-deep)]" : "text-foreground"
                             )}
                           >
                             {credit ? "+" : "−"}

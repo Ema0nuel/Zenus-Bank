@@ -1,5 +1,5 @@
 /**
- * Central operational configuration for Zenus Bank.
+ * Central operational configuration for Ally Banks.
  *
  * Single source of truth for values that used to be hardcoded across the
  * old views (admin email, limits, durations, card types, transfer types,
@@ -55,7 +55,7 @@ export type CryptoAsset = {
 export const bankConfig = {
   /** Support / admin contact email (client-accessible). */
   adminEmail:
-    process.env.NEXT_PUBLIC_CONTACT_EMAIL || "zenusbanking@gmail.com",
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL || "support@allybanks.cc",
 
   /** Optional external payment link for deposit requests (may be empty). */
   paymentLink: process.env.NEXT_PUBLIC_PAYMENT_LINK || "",

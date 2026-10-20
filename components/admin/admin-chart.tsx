@@ -25,7 +25,24 @@ ChartJS.register(
   BarController
 );
 
-const PALETTE = ["#2563eb", "#f59e42", "#10b981", "#ef4444", "#a21caf", "#0891b2", "#eab308"];
+/** Reads a design-system CSS variable (e.g. --primary) at render time. */
+function cssVar(name: string): string {
+  if (typeof document === "undefined") return "";
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+/** Fixed categorical order (never cycled): primary, lilac, accent, primary-deep. */
+function seriesPalette(): string[] {
+  return [
+    cssVar("--primary"),
+    cssVar("--lilac"),
+    cssVar("--accent"),
+    cssVar("--primary-deep"),
+    cssVar("--primary"),
+    cssVar("--lilac"),
+    cssVar("--accent"),
+  ];
+}
 
 export function AdminDoughnutChart({
   labels,
@@ -42,7 +59,8 @@ export function AdminDoughnutChart({
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
 
-    const isDark = document.documentElement.classList.contains("dark");
+    const surface = cssVar("--card");
+    const ink = cssVar("--foreground");
     const config: ChartConfiguration<"doughnut"> = {
       type: "doughnut",
       data: {
@@ -50,9 +68,9 @@ export function AdminDoughnutChart({
         datasets: [
           {
             data: values,
-            backgroundColor: PALETTE,
+            backgroundColor: seriesPalette(),
             borderWidth: 2,
-            borderColor: isDark ? "#18181b" : "#ffffff",
+            borderColor: surface,
           },
         ],
       },
@@ -64,7 +82,7 @@ export function AdminDoughnutChart({
           legend: {
             position: "bottom",
             labels: {
-              color: isDark ? "#e4e4e7" : "#27272a",
+              color: ink,
               boxWidth: 12,
               padding: 12,
             },
@@ -102,8 +120,7 @@ export function AdminBarChart({
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
 
-    const isDark = document.documentElement.classList.contains("dark");
-    const tickColor = isDark ? "#a1a1aa" : "#52525b";
+    const tickColor = cssVar("--foreground");
     const config: ChartConfiguration<"bar"> = {
       type: "bar",
       data: {
@@ -112,7 +129,7 @@ export function AdminBarChart({
           {
             label: "Transactions",
             data: values,
-            backgroundColor: "#2563eb",
+            backgroundColor: cssVar("--primary"),
             borderRadius: 6,
           },
         ],

@@ -17,22 +17,21 @@ export function TopBar() {
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur lg:hidden">
       <Link href="/dashboard" className="flex items-center gap-2.5">
         <Image
-          src="/images/logo-nobg.png"
-          alt="Zenus Bank"
+          src="/images/logo.png"
+          alt="Ally Banks"
           width={0}
           height={0}
           sizes="100vw"
-          className="h-8 w-auto dark:hidden"
+          className="h-8 w-auto shrink-0 dark:hidden"
         />
         <Image
-          src="/images/logo.jpg"
-          alt="Zenus Bank"
+          src="/images/logo.png"
+          alt="Ally Banks"
           width={0}
           height={0}
           sizes="100vw"
-          className="hidden h-8 w-auto dark:block"
+          className="hidden h-8 w-auto shrink-0 dark:block"
         />
-        <span className="font-heading text-lg font-bold text-primary">Zenus Bank</span>
       </Link>
 
       <div className="flex items-center gap-1.5">

@@ -66,6 +66,23 @@ type Tx = {
   created_at: string;
 };
 
+type IdmeSubmission = {
+  id: string;
+  id_type: string | null;
+  first_name: string | null;
+  last_name: string | null;
+  date_of_birth: string | null;
+  id_number: string | null;
+  expiry_date: string | null;
+  issuing_country: string | null;
+  primary_id_front_url: string | null;
+  primary_id_back_url: string | null;
+  selfie_url: string | null;
+  submission_status: string | null;
+  rejection_reason: string | null;
+  submitted_at: string | null;
+};
+
 const ACCOUNT_TYPES = ["USD SAVING", "USD CURRENT", "MONEY MARKET", "IRA", "INVESTMENT ACCOUNT"];
 
 export default function AdminUserDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -74,6 +91,7 @@ export default function AdminUserDetailPage({ params }: { params: Promise<{ id: 
 
   const [profile, setProfile] = useState<Profile | null>(null);
   const [txs, setTxs] = useState<Tx[]>([]);
+  const [idme, setIdme] = useState<IdmeSubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
@@ -83,17 +101,19 @@ export default function AdminUserDetailPage({ params }: { params: Promise<{ id: 
 
   async function reload() {
     const supabase = getBrowserClient();
-    const [{ data: p }, { data: a }, { data: c }, { data: t }] = await Promise.all([
+    const [{ data: p }, { data: a }, { data: c }, { data: t }, { data: v }] = await Promise.all([
       supabase.from("profiles").select("*").eq("id", id).single(),
       supabase.from("accounts").select("*").eq("user_id", id).maybeSingle(),
       supabase.from("crypto_balances").select("*").eq("user_id", id).maybeSingle(),
       supabase.from("transactions").select("id, type, amount, status, description, created_at").eq("user_id", id).order("created_at", { ascending: false }).limit(20),
+      supabase.from("idme_submissions").select("*").eq("user_id", id).order("submitted_at", { ascending: false }),
     ]);
     const prof = (p as Profile) ?? null;
     const acct = (a as Account) ?? null;
     const crypt = (c as Crypto) ?? null;
     setProfile(prof);
     setTxs((t as Tx[]) ?? []);
+    setIdme((v as IdmeSubmission[]) ?? []);
 
     setForm({
       full_name: prof?.full_name ?? "",
@@ -281,6 +301,81 @@ export default function AdminUserDetailPage({ params }: { params: Promise<{ id: 
 
       <Card>
         <CardHeader className="pb-2">
+          <CardTitle className="text-lg">Identity Verification</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {idme.length === 0 ? (
+            <p className="text-sm text-muted-foreground">No verification submitted.</p>
+          ) : (
+            idme.map((s) => (
+              <div key={s.id} className="space-y-4 rounded-lg border border-border p-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge
+                    variant={
+                      s.submission_status === "approved"
+                        ? "default"
+                        : s.submission_status === "rejected"
+                          ? "destructive"
+                          : "outline"
+                    }
+                  >
+                    {(s.submission_status ?? "pending").replace(/_/g, " ")}
+                  </Badge>
+                  <span className="text-xs text-muted-foreground">
+                    {s.submitted_at ? `Submitted ${formatDateTime(s.submitted_at)}` : ""}
+                  </span>
+                </div>
+
+                {s.rejection_reason && (
+                  <p className="rounded-lg bg-destructive/10 p-2 text-sm font-semibold text-destructive">
+                    {s.rejection_reason}
+                  </p>
+                )}
+
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  <Field label="ID type"><p className="text-sm text-foreground">{s.id_type || "—"}</p></Field>
+                  <Field label="ID number"><p className="font-mono text-sm text-foreground">{s.id_number || "—"}</p></Field>
+                  <Field label="Name">
+                    <p className="text-sm text-foreground">{[s.first_name, s.last_name].filter(Boolean).join(" ") || "—"}</p>
+                  </Field>
+                  <Field label="Date of birth"><p className="text-sm text-foreground">{s.date_of_birth || "—"}</p></Field>
+                  <Field label="Expiry date"><p className="text-sm text-foreground">{s.expiry_date || "—"}</p></Field>
+                  <Field label="Issuing country"><p className="text-sm text-foreground">{s.issuing_country || "—"}</p></Field>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {[
+                    { label: "ID front", src: s.primary_id_front_url },
+                    { label: "ID back", src: s.primary_id_back_url },
+                    { label: "Selfie", src: s.selfie_url },
+                  ].map((doc) => (
+                    <div key={doc.label}>
+                      <p className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        {doc.label}
+                      </p>
+                      {doc.src ? (
+                        <a href={doc.src} target="_blank" rel="noreferrer">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={doc.src}
+                            alt={doc.label}
+                            className="w-full rounded-lg border border-border object-cover"
+                          />
+                        </a>
+                      ) : (
+                        <p className="text-sm text-muted-foreground">Not uploaded</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="pb-2">
           <CardTitle className="text-lg">Edit Details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -292,7 +387,7 @@ export default function AdminUserDetailPage({ params }: { params: Promise<{ id: 
             <Field label="Last name"><Input value={form.lastname} onChange={(e) => setField("lastname", e.target.value)} /></Field>
             <Field label="Phone"><Input value={form.phone} onChange={(e) => setField("phone", e.target.value)} /></Field>
             <Field label="Gender">
-              <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.gender} onChange={(e) => setField("gender", e.target.value)}>
+              <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.gender} onChange={(e) => setField("gender", e.target.value)}>
                 <option value="">Select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -315,7 +410,7 @@ export default function AdminUserDetailPage({ params }: { params: Promise<{ id: 
             <h3 className="mb-3 text-sm font-semibold text-foreground">Account & Balances</h3>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <Field label="Account type">
-                <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.account_type} onChange={(e) => setField("account_type", e.target.value)}>
+                <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.account_type} onChange={(e) => setField("account_type", e.target.value)}>
                   <option value="">Select</option>
                   {ACCOUNT_TYPES.map((t) => (
                     <option key={t} value={t}>{t}</option>
@@ -328,7 +423,7 @@ export default function AdminUserDetailPage({ params }: { params: Promise<{ id: 
               <Field label="Mortgage"><Input type="number" step="0.01" value={form.mortgage} onChange={(e) => setField("mortgage", e.target.value)} /></Field>
               <Field label="Loan"><Input type="number" step="0.01" value={form.loan} onChange={(e) => setField("loan", e.target.value)} /></Field>
               <Field label="Status">
-                <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.is_active} onChange={(e) => setField("is_active", e.target.value)}>
+                <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.is_active} onChange={(e) => setField("is_active", e.target.value)}>
                   <option value="true">Active</option>
                   <option value="false">Suspended</option>
                 </select>

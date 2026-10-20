@@ -211,8 +211,8 @@ export default function VerificationPage() {
           crumbs={[{ label: "Profile", href: "/dashboard/profile" }, { label: "Verification" }]}
         />
         <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card px-6 py-14 text-center">
-          <CheckCircle2 className="size-10 text-success" />
-          <h2 className="font-heading text-xl font-medium text-foreground">
+          <CheckCircle2 className="size-10 text-[var(--primary-deep)]" />
+          <h2 className="font-heading text-xl font-bold text-foreground">
             Verification submitted
           </h2>
           <p className="max-w-sm text-sm text-muted-foreground">
@@ -237,9 +237,9 @@ export default function VerificationPage() {
           className={cn(
             "flex items-center gap-3 rounded-2xl border p-4",
             submission.submission_status === "approved"
-              ? "border-success/30 bg-success/10"
+              ? "border-[var(--accent)]/40 bg-[var(--accent)]/15"
               : submission.submission_status === "rejected"
-                ? "border-destructive/30 bg-destructive/10"
+                ? "border-[var(--primary-deep)]/30 bg-[var(--primary-deep)]/10"
                 : "border-border bg-card"
           )}
         >
@@ -344,7 +344,7 @@ export default function VerificationPage() {
           </div>
         </div>
 
-        {error && <p className="text-xs text-destructive">{error}</p>}
+        {error && <p className="text-xs text-[var(--primary-deep)]">{error}</p>}
 
         <Button type="submit" disabled={submitting}>
           {submitting && <Loader2 className="size-4 animate-spin" />}
@@ -387,11 +387,11 @@ function DocumentUpload({
       <button
         type="button"
         onClick={() => ref.current?.click()}
-        className="mt-1.5 flex w-full flex-col items-center gap-2 rounded-xl border border-dashed border-border bg-muted/30 px-4 py-6 text-center transition-colors hover:border-primary/40 hover:bg-primary-muted"
+        className="mt-1.5 flex w-full flex-col items-center gap-2 rounded-xl border border-dashed border-border bg-muted/30 px-4 py-6 text-center transition-colors hover:border-primary/40 hover:bg-[var(--lilac)]/50"
       >
         {file ? (
           <>
-            <FileText className="size-6 text-success" />
+            <FileText className="size-6 text-[var(--primary-deep)]" />
             <span className="truncate text-xs text-foreground">{file.name}</span>
           </>
         ) : (

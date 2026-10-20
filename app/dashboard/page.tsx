@@ -58,7 +58,7 @@ export default function DashboardPage() {
     <div className="space-y-8">
       <header>
         <p className="text-sm font-semibold text-muted-foreground">{greeting}</p>
-        <h1 className="mt-1 font-heading text-3xl font-extralight tracking-tight text-foreground">
+        <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-foreground">
           {firstName ? `Welcome back, ${firstName}` : "Welcome back"}
         </h1>
       </header>

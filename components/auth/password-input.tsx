@@ -6,7 +6,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const inputClass =
-  "h-11 w-full rounded-xl border border-input bg-transparent px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 disabled:cursor-not-allowed disabled:opacity-50";
+  "h-11 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-[var(--primary)] focus-visible:ring-2 focus-visible:ring-[var(--primary)]/40 disabled:cursor-not-allowed disabled:opacity-50";
 
 function checkStrength(password: string) {
   let score = 0;
@@ -16,9 +16,9 @@ function checkStrength(password: string) {
   if (/[0-9]/.test(password)) score++;
   if (/[^A-Za-z0-9]/.test(password)) score++;
 
-  if (score <= 2) return { score, label: "Weak", color: "bg-danger" };
-  if (score === 3) return { score, label: "Medium", color: "bg-yellow-500" };
-  return { score, label: "Strong", color: "bg-success" };
+  if (score <= 2) return { score, label: "Weak", color: "bg-[var(--border)]" };
+  if (score === 3) return { score, label: "Medium", color: "bg-[var(--lilac)]" };
+  return { score, label: "Strong", color: "bg-[var(--accent)]" };
 }
 
 export function PasswordInput({

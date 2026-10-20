@@ -153,8 +153,8 @@ export default function DepositPage() {
       <div className="space-y-8">
         <PageHeader title="Deposit" crumbs={[{ label: "Deposit" }]} />
         <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card px-6 py-14 text-center">
-          <CheckCircle2 className="size-10 text-success" />
-          <h2 className="font-heading text-xl font-medium text-foreground">
+          <CheckCircle2 className="size-10 text-[var(--primary-deep)]" />
+          <h2 className="font-heading text-xl font-bold text-foreground">
             Deposit request recorded
           </h2>
           <p className="max-w-sm text-sm text-muted-foreground">
@@ -193,12 +193,12 @@ export default function DepositPage() {
             type="button"
             onClick={() => setStep("crypto")}
             style={{ animationDelay: "0ms" }}
-            className="flex animate-fade-in-up flex-col gap-3 rounded-2xl border border-border bg-card p-6 text-left transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary-muted active:scale-[0.98]"
+            className="flex animate-fade-in-up flex-col gap-3 rounded-2xl border border-border bg-card p-6 text-left transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-[var(--lilac)]/50 active:scale-[0.98]"
           >
-            <span className="flex size-12 items-center justify-center rounded-full bg-primary-muted text-primary">
+            <span className="flex size-12 items-center justify-center rounded-full bg-[var(--lilac)] text-[var(--primary-deep)]">
               <Bitcoin className="size-6" />
             </span>
-            <h2 className="font-heading text-lg font-medium text-foreground">
+            <h2 className="font-heading text-lg font-bold text-foreground">
               Crypto deposit
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -210,12 +210,12 @@ export default function DepositPage() {
             type="button"
             onClick={() => setStep("regular")}
             style={{ animationDelay: "60ms" }}
-            className="flex animate-fade-in-up flex-col gap-3 rounded-2xl border border-border bg-card p-6 text-left transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary-muted active:scale-[0.98]"
+            className="flex animate-fade-in-up flex-col gap-3 rounded-2xl border border-border bg-card p-6 text-left transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-[var(--lilac)]/50 active:scale-[0.98]"
           >
-            <span className="flex size-12 items-center justify-center rounded-full bg-primary-muted text-primary">
+            <span className="flex size-12 items-center justify-center rounded-full bg-[var(--lilac)] text-[var(--primary-deep)]">
               <Banknote className="size-6" />
             </span>
-            <h2 className="font-heading text-lg font-medium text-foreground">
+            <h2 className="font-heading text-lg font-bold text-foreground">
               Regular deposit
             </h2>
             <p className="text-sm text-muted-foreground">
@@ -271,7 +271,7 @@ export default function DepositPage() {
           />
         </Field>
 
-        {error && <p className="text-xs text-destructive">{error}</p>}
+        {error && <p className="text-xs text-[var(--primary-deep)]">{error}</p>}
 
         <div className="flex gap-2">
           <Button type="submit" disabled={submitting}>

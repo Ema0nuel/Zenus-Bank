@@ -24,7 +24,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Support Centre",
   description:
-    "Providing help and support when you need it. Find popular links, e-banking help, security guidance, and ways to contact the Zenus Bank support team.",
+    "Providing help and support when you need it. Find popular links, e-banking help, security guidance, and ways to contact the Ally Banks support team.",
   path: "/support",
 });
 
@@ -95,7 +95,7 @@ export default function SupportPage() {
             <Link
               key={tile.label}
               href={tile.href}
-              className="flex flex-col items-center rounded-xl border border-border bg-card p-4 shadow-sm transition-colors hover:bg-primary-muted"
+              className="flex flex-col items-center rounded-2xl border border-border bg-card p-4 shadow-sm transition-colors hover:bg-muted"
             >
               <tile.icon className="mb-2 size-6 text-primary" strokeWidth={1.5} />
               <span className="text-center text-sm font-semibold">
@@ -116,7 +116,7 @@ export default function SupportPage() {
               <Link
                 key={link.label}
                 href="/login"
-                className="flex items-center rounded-lg border border-border bg-card p-4 transition-colors hover:bg-primary-muted"
+                className="flex items-center rounded-lg border border-border bg-card p-4 transition-colors hover:bg-muted"
               >
                 <link.icon className="mr-4 size-6 text-primary" strokeWidth={1.5} />
                 <span className="text-sm">{link.label}</span>
@@ -126,7 +126,7 @@ export default function SupportPage() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-primary-muted py-12">
+      <section className="border-y border-border bg-muted py-12">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-6 px-6 md:flex-row md:items-center">
           <h2 className="max-w-2xl text-balance text-2xl tracking-tight text-foreground md:text-3xl">
             Scams are on the rise so it&apos;s never been more important to know
@@ -134,7 +134,7 @@ export default function SupportPage() {
           </h2>
           <Link
             href="/security"
-            className="rounded-full bg-primary px-6 py-3 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/80"
+            className="rounded-full bg-[var(--accent)] px-6 py-3 text-base font-semibold text-[var(--accent-foreground)] transition-colors hover:bg-[var(--accent)] hover:opacity-90"
           >
             Learn how to spot a scam
           </Link>
@@ -147,7 +147,7 @@ export default function SupportPage() {
             e-banking support
           </h2>
           <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div className="rounded-xl border border-border bg-card p-6">
+            <div className="rounded-2xl border border-border bg-card p-6">
               <h3 className="font-heading text-xl font-medium text-foreground">
                 Getting started
               </h3>
@@ -162,7 +162,7 @@ export default function SupportPage() {
                 </li>
               </ul>
             </div>
-            <div className="rounded-xl border border-border bg-card p-6">
+            <div className="rounded-2xl border border-border bg-card p-6">
               <h3 className="font-heading text-xl font-medium text-foreground">
                 Managing my accounts
               </h3>
@@ -186,13 +186,13 @@ export default function SupportPage() {
           <div className="mt-8 flex flex-col justify-center gap-4 md:flex-row">
             <Link
               href="/login"
-              className="rounded-full border-2 border-primary px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+              className="rounded-full bg-[var(--primary)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--primary-deep)]"
             >
               e-banking troubleshooting
             </Link>
             <Link
               href="/contact-us"
-              className="rounded-full border-2 border-primary px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+              className="rounded-full bg-[var(--primary)] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--primary-deep)]"
             >
               e-banking feedback
             </Link>
@@ -213,7 +213,7 @@ export default function SupportPage() {
               <Link
                 key={topic.label}
                 href={topic.href}
-                className="flex flex-col items-center rounded-xl border border-border bg-card p-4 shadow-sm transition-colors hover:bg-primary-muted"
+                className="flex flex-col items-center rounded-2xl border border-border bg-card p-4 shadow-sm transition-colors hover:bg-muted"
               >
                 <topic.icon className="mb-2 size-6 text-primary" strokeWidth={1.5} />
                 <span className="text-center text-sm font-semibold">
@@ -234,7 +234,7 @@ export default function SupportPage() {
             {manageCards.map((card) => (
               <div
                 key={card.title}
-                className="overflow-hidden rounded-xl border border-border bg-card"
+                className="overflow-hidden rounded-2xl border border-border bg-card"
               >
                 <Image
                   src={card.img}
@@ -269,7 +269,7 @@ export default function SupportPage() {
         </div>
       </section>
 
-      <section id="contact" className="scroll-mt-24 border-t border-border bg-primary-muted py-14">
+      <section id="contact" className="scroll-mt-24 border-t border-border bg-muted py-14">
         <div className="mx-auto w-full max-w-6xl px-6">
           <h2 className="text-2xl tracking-tight text-foreground md:text-3xl">
             Contact us
@@ -277,21 +277,21 @@ export default function SupportPage() {
           <div className="mt-6 flex flex-col gap-4 md:flex-row">
             <Link
               href="/contact-us"
-              className="flex items-center rounded-lg border border-border bg-card p-4 transition-colors hover:bg-primary-muted"
+              className="flex items-center rounded-lg border border-border bg-card p-4 transition-colors hover:bg-muted"
             >
               <Mail className="mr-4 size-6 text-primary" strokeWidth={1.5} />
               <span className="font-semibold">Online</span>
             </Link>
             <Link
               href="/locate"
-              className="flex items-center rounded-lg border border-border bg-card p-4 transition-colors hover:bg-primary-muted"
+              className="flex items-center rounded-lg border border-border bg-card p-4 transition-colors hover:bg-muted"
             >
               <MapPin className="mr-4 size-6 text-primary" strokeWidth={1.5} />
               <span className="font-semibold">Find a branch</span>
             </Link>
             <a
               href={`tel:${siteConfig.phoneHref}`}
-              className="flex items-center rounded-lg border border-border bg-card p-4 transition-colors hover:bg-primary-muted"
+              className="flex items-center rounded-lg border border-border bg-card p-4 transition-colors hover:bg-muted"
             >
               <Phone className="mr-4 size-6 text-primary" strokeWidth={1.5} />
               <span className="font-semibold">Call us</span>

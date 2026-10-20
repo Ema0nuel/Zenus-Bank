@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -8,7 +9,6 @@ import {
   Users,
   CreditCard,
   History,
-  Building2,
   BarChart3,
   X,
 } from "lucide-react";
@@ -47,18 +47,31 @@ export function AdminSidebar({
   return (
     <aside
       className={cn(
-        "fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-border bg-sidebar transition-transform duration-300 lg:w-auto lg:translate-x-0",
+        "fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-border bg-[var(--card)] transition-transform duration-300 lg:w-auto lg:translate-x-0",
         collapsed ? "lg:w-[76px]" : "lg:w-64",
         mobileOpen ? "translate-x-0" : "-translate-x-full"
       )}
     >
       <div className="flex h-16 items-center gap-2 border-b border-border px-3">
         <Link href="/admin" onClick={onClose} className="flex min-w-0 items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <Building2 className="size-5 text-primary-foreground" strokeWidth={2} />
-          </div>
+          <Image
+            src="/images/logo.png"
+            alt="Ally Banks"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="h-8 w-auto shrink-0 dark:hidden"
+          />
+          <Image
+            src="/images/logo.png"
+            alt="Ally Banks"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="hidden h-8 w-auto shrink-0 dark:block"
+          />
           <span className={cn("truncate font-heading text-base font-bold text-primary", collapsed && "lg:hidden")}>
-            Zenus Admin
+            Ally Admin
           </span>
         </Link>
         <Button
@@ -85,7 +98,7 @@ export function AdminSidebar({
                   className={cn(
                     "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors",
                     active
-                      ? "bg-primary-muted text-primary"
+                      ? "bg-[var(--lilac)] text-[var(--primary-deep)]"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground",
                     collapsed && "lg:justify-center lg:px-0"
                   )}
@@ -130,7 +143,7 @@ export function AdminSidebar({
           variant="ghost"
           onClick={logout}
           className={cn(
-            "mt-1 w-full justify-start gap-3 text-destructive hover:text-destructive",
+            "mt-1 w-full justify-start gap-3 text-[var(--primary-deep)] hover:text-[var(--primary-deep)]",
             collapsed && "lg:justify-center lg:px-0"
           )}
         >

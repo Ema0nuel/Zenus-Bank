@@ -150,8 +150,8 @@ export function TransferForm({ typeKey }: { typeKey: "local" | "wire" | "interba
   if (done) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card px-6 py-14 text-center">
-        <CheckCircle2 className="size-10 text-success" />
-        <h2 className="font-heading text-xl font-medium text-foreground">
+        <CheckCircle2 className="size-10 text-[var(--primary-deep)]" />
+        <h2 className="font-heading text-xl font-bold text-foreground">
           Transfer submitted
         </h2>
         <p className="max-w-sm text-sm text-muted-foreground">
@@ -187,7 +187,7 @@ export function TransferForm({ typeKey }: { typeKey: "local" | "wire" | "interba
           <span className="font-semibold text-foreground">{format(account?.balance)}</span>
         </p>
 
-        {error && <p className="text-xs text-destructive">{error}</p>}
+        {error && <p className="text-xs text-[var(--primary-deep)]">{error}</p>}
 
         <div className="flex gap-2">
           <Button type="submit" disabled={submitting}>

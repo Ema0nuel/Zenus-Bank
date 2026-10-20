@@ -52,8 +52,8 @@ export function RecentTransactions({
                     className={cn(
                       "flex size-9 shrink-0 items-center justify-center rounded-full",
                       credit
-                        ? "bg-success/10 text-success"
-                        : "bg-primary-muted text-primary"
+                        ? "bg-[var(--accent)]/15 text-[var(--primary-deep)]"
+                        : "bg-[var(--lilac)] text-[var(--primary-deep)]"
                     )}
                   >
                     {credit ? (
@@ -76,7 +76,7 @@ export function RecentTransactions({
                     <p
                       className={cn(
                         "font-mono text-sm font-semibold",
-                        credit ? "text-success" : "text-foreground"
+                        credit ? "text-[var(--primary-deep)]" : "text-foreground"
                       )}
                     >
                       {hideBalances

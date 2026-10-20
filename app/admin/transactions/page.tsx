@@ -223,7 +223,7 @@ export default function AdminTransactionsPage() {
       <header className="flex items-center justify-between">
         <div>
           <p className="text-sm font-semibold text-muted-foreground">Admin Panel / Transactions</p>
-          <h1 className="mt-1 font-heading text-3xl font-extralight tracking-tight text-foreground">
+          <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-foreground">
             Transactions
           </h1>
         </div>
@@ -249,7 +249,7 @@ export default function AdminTransactionsPage() {
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+                className="h-8 rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-[var(--primary)]/50"
               >
                 <option value="">All types</option>
                 {types.map((t) => (
@@ -259,7 +259,7 @@ export default function AdminTransactionsPage() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+                className="h-8 rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-[var(--primary)]/50"
               >
                 <option value="">All statuses</option>
                 <option value="pending">Pending</option>
@@ -311,7 +311,7 @@ export default function AdminTransactionsPage() {
                         </td>
                         <td className="px-4 py-3 capitalize text-muted-foreground">{t.type || "—"}</td>
                         <td className="px-4 py-3 text-right font-mono font-semibold">
-                          <span className={cn(credit ? "text-success" : "text-foreground")}>
+                          <span className={cn(credit ? "text-[var(--primary-deep)]" : "text-foreground")}>
                             {credit ? "+" : "−"}
                             {formatCurrency(t.amount)}
                           </span>
@@ -338,7 +338,7 @@ export default function AdminTransactionsPage() {
         label="Transaction details"
       >
         <div className="flex items-start justify-between">
-          <h2 className="font-heading text-xl font-medium text-foreground">
+          <h2 className="font-heading text-xl font-bold text-foreground">
             {editing ? "Edit Transaction" : "Transaction Details"}
           </h2>
           <Button variant="ghost" size="icon-sm" onClick={() => { setSelected(null); setEditing(false); }} aria-label="Close">
@@ -350,7 +350,7 @@ export default function AdminTransactionsPage() {
               <div className="mt-4 space-y-3">
                 <Field label="User">
                   <select
-                    className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none"
+                    className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none"
                     value={form.user_id}
                     onChange={(e) => setForm((f) => ({ ...f, user_id: e.target.value, account_id: "" }))}
                   >
@@ -362,7 +362,7 @@ export default function AdminTransactionsPage() {
                 </Field>
                 <Field label="Account">
                   <select
-                    className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none"
+                    className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none"
                     value={form.account_id}
                     onChange={(e) => setForm((f) => ({ ...f, account_id: e.target.value }))}
                   >
@@ -374,7 +374,7 @@ export default function AdminTransactionsPage() {
                 </Field>
                 <Field label="Type">
                   <select
-                    className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none"
+                    className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none"
                     value={form.type}
                     onChange={(e) => setForm((f) => ({ ...f, type: e.target.value }))}
                   >
@@ -389,7 +389,7 @@ export default function AdminTransactionsPage() {
                 </Field>
                 <Field label="Status">
                   <select
-                    className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none"
+                    className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none"
                     value={form.status}
                     onChange={(e) => setForm((f) => ({ ...f, status: e.target.value }))}
                   >
@@ -465,7 +465,7 @@ export default function AdminTransactionsPage() {
         maxWidth="max-w-md"
       >
         <div className="flex items-start justify-between">
-          <h2 className="font-heading text-xl font-medium text-foreground">Generated Codes</h2>
+          <h2 className="font-heading text-xl font-bold text-foreground">Generated Codes</h2>
           <Button variant="ghost" size="icon-sm" onClick={() => setCodes(null)} aria-label="Close">
             <X className="size-4" />
           </Button>

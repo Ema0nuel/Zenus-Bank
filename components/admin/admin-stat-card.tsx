@@ -37,11 +37,11 @@ export function AdminStatCard({
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             {label}
           </p>
-          <p className="mt-2 font-heading text-2xl font-extralight tracking-tight text-foreground truncate">
+          <p className="mt-2 font-heading text-2xl font-bold tracking-tight text-foreground truncate">
             {value}
           </p>
         </div>
-        <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary-muted text-primary">
+        <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[var(--lilac)] text-[var(--primary-deep)]">
           <Icon className="size-5" />
         </div>
       </div>
@@ -51,12 +51,12 @@ export function AdminStatCard({
           <span
             className={cn(
               "flex size-5 items-center justify-center rounded-full text-xs font-semibold",
-              trend === "up" ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"
+              trend === "up" ? "bg-[var(--accent)]/15 text-[var(--primary-deep)]" : "bg-[var(--primary-deep)]/10 text-[var(--primary-deep)]"
             )}
           >
             {trend === "up" ? <ArrowUpRight className="size-3" /> : <ArrowDownRight className="size-3" />}
           </span>
-          <span className={cn("text-sm font-semibold", trend === "up" ? "text-success" : "text-destructive")}>
+          <span className={cn("text-sm font-semibold", trend === "up" ? "text-[var(--primary-deep)]" : "text-[var(--primary-deep)]")}>
             +{change}%
           </span>
           <span className="text-sm text-muted-foreground">vs last month</span>

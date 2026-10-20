@@ -140,7 +140,7 @@ export function ProductsTabs() {
                 <Reveal key={group.title} delay={i * 0.05}>
                   <Card className="card-hover h-full">
                     <CardHeader>
-                      <span className="grid size-11 place-items-center rounded-xl bg-primary-muted text-primary">
+                      <span className="grid size-11 place-items-center rounded-xl bg-[var(--lilac)] text-[var(--primary-deep)]">
                         <group.icon className="size-5" strokeWidth={1.5} />
                       </span>
                       <CardTitle className="mt-3 text-lg">{group.title}</CardTitle>
@@ -161,19 +161,19 @@ export function ProductsTabs() {
                 </Reveal>
               ))}
               <Reveal delay={0.25}>
-                <Card className="card-hover flex h-full flex-col justify-between bg-primary text-primary-foreground ring-0">
+                <Card className="card-hover flex h-full flex-col justify-between bg-primary text-white ring-0">
                   <CardHeader>
                     <CardTitle className="text-lg">
                       Not sure where to start?
                     </CardTitle>
-                    <CardDescription className="text-primary-foreground/70">
+                    <CardDescription className="text-white/70">
                       Explore every product and service in one place.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Link
                       href="/personal"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-primary-foreground hover:underline"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:underline"
                     >
                       View all products
                       <ArrowRight className="size-4" />
@@ -217,7 +217,7 @@ export function ProductsTabs() {
                 <Reveal key={tool.title} delay={i * 0.05}>
                   <Card className="card-hover h-full">
                     <CardHeader>
-                      <span className="grid size-11 place-items-center rounded-xl bg-primary-muted text-primary">
+                      <span className="grid size-11 place-items-center rounded-xl bg-[var(--lilac)] text-[var(--primary-deep)]">
                         <tool.icon className="size-5" strokeWidth={1.5} />
                       </span>
                       <CardTitle className="mt-3 text-lg">{tool.title}</CardTitle>

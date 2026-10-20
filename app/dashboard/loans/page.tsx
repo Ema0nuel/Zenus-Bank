@@ -184,7 +184,7 @@ export default function LoansPage() {
             required
           />
 
-          {error && <p className="text-xs text-destructive">{error}</p>}
+          {error && <p className="text-xs text-[var(--primary-deep)]">{error}</p>}
 
           <Button type="submit" disabled={submitting}>
             {submitting ? "Submitting…" : "Request loan"}

@@ -180,7 +180,7 @@ export default function CardsPage() {
             />
           </Field>
 
-          {error && <p className="text-xs text-destructive">{error}</p>}
+          {error && <p className="text-xs text-[var(--primary-deep)]">{error}</p>}
 
           <Button type="submit" disabled={submitting}>
             {submitting ? "Submitting…" : "Submit request"}
@@ -267,18 +267,18 @@ function BankCard({
 
   return (
     <div className="space-y-3">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#180934] via-[#2a1048] to-[#120623] p-6 text-white shadow-lg ring-1 ring-white/10">
-        <div className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-[#f5c962]/20 blur-3xl" />
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--primary-deep)] to-[var(--primary)] p-6 text-white shadow-lg ring-1 ring-white/10">
+        <div className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-[var(--accent)]/20 blur-3xl" />
 
         <div className="relative flex items-start justify-between">
-          <span className="flex h-8 w-11 items-center justify-center rounded-md bg-gradient-to-br from-[#f5c962] to-[#d9a83a]">
+          <span className="flex h-8 w-11 items-center justify-center rounded-md bg-gradient-to-br from-[var(--accent)] to-[var(--accent)]/70">
             <span className="grid h-4 w-6 grid-cols-3 gap-px">
-              <span className="rounded-[2px] bg-[#180934]/70" />
-              <span className="rounded-[2px] bg-[#180934]/70" />
-              <span className="rounded-[2px] bg-[#180934]/70" />
-              <span className="rounded-[2px] bg-[#180934]/70" />
-              <span className="rounded-[2px] bg-[#180934]/70" />
-              <span className="rounded-[2px] bg-[#180934]/70" />
+              <span className="rounded-[2px] bg-[var(--primary-deep)]/70" />
+              <span className="rounded-[2px] bg-[var(--primary-deep)]/70" />
+              <span className="rounded-[2px] bg-[var(--primary-deep)]/70" />
+              <span className="rounded-[2px] bg-[var(--primary-deep)]/70" />
+              <span className="rounded-[2px] bg-[var(--primary-deep)]/70" />
+              <span className="rounded-[2px] bg-[var(--primary-deep)]/70" />
             </span>
           </span>
           <span className="font-heading text-lg font-bold italic tracking-tight">
@@ -303,7 +303,7 @@ function BankCard({
 
         <div className="relative mt-6 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
           <span className="truncate text-white/50">{address || "Billing address"}</span>
-          <span className="shrink-0 font-semibold text-[#f5c962]">{currency}</span>
+          <span className="shrink-0 font-semibold text-[var(--accent)]">{currency}</span>
         </div>
       </div>
 
@@ -346,7 +346,7 @@ function CopyButton({
       variant="outline"
       size="sm"
       onClick={onClick}
-      className={cn("gap-1", active && "text-success")}
+      className={cn("gap-1", active && "text-[var(--primary-deep)]")}
     >
       {active ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
       {label}

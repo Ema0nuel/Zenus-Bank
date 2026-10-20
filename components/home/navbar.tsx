@@ -52,7 +52,7 @@ export function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="rounded-md px-2 py-1 text-sm font-semibold text-muted-foreground transition-colors hover:bg-primary-muted hover:text-primary lg:px-3"
+                className="rounded-md px-2 py-1 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-primary lg:px-3"
               >
                 {link.label}
               </Link>

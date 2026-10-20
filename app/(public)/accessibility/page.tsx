@@ -63,7 +63,7 @@ export default function AccessibilityPage() {
             Inclusive and accessible design is good for everyone
           </h2>
           <p className="mt-4 max-w-3xl text-muted-foreground">
-            At Zenus Bank, we value all abilities and capabilities. We want our
+            At Ally Banks, we value all abilities and capabilities. We want our
             products, services and workplace to be accessible to all people.
             Using industry expertise and advances ensures banking with us is
             positive and seamless.
@@ -71,12 +71,12 @@ export default function AccessibilityPage() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-primary-muted py-16">
+      <section className="border-y border-border bg-muted py-16">
         <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-3">
           {partnerships.map((partnership) => (
             <div
               key={partnership.title}
-              className="rounded-xl border border-border bg-card p-6"
+              className="rounded-2xl border border-border bg-card p-6"
             >
               <h3 className="font-heading text-xl font-medium text-foreground">
                 {partnership.title}
@@ -113,7 +113,7 @@ export default function AccessibilityPage() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-primary-muted py-14">
+      <section className="border-y border-border bg-muted py-14">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-6 px-6 md:flex-row md:items-center">
           <div>
             <h2 className="text-2xl tracking-tight text-foreground md:text-3xl">
@@ -127,7 +127,8 @@ export default function AccessibilityPage() {
           <Link
             href="/login"
             className={buttonVariants({
-              className: "h-12 shrink-0 rounded-full px-8 text-base",
+              className:
+                "h-12 shrink-0 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
             })}
           >
             Start banking with us
@@ -143,7 +144,7 @@ export default function AccessibilityPage() {
           <div className="mt-4 max-w-3xl space-y-4 text-muted-foreground">
             <p>
               We&apos;re committed to creating an inclusive and supportive bank
-              for our customers, staff and community. The Zenus Bank Access and
+              for our customers, staff and community. The Ally Banks Access and
               Inclusion Plan aims to do this.
             </p>
             <p>
@@ -163,7 +164,7 @@ export default function AccessibilityPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-primary-muted py-14">
+      <section className="border-t border-border bg-muted py-14">
         <div className="mx-auto w-full max-w-6xl px-6">
           <h3 className="max-w-3xl text-balance font-heading text-xl font-medium text-foreground md:text-2xl">
             We believe a diverse workforce supported by an inclusive culture is
@@ -184,7 +185,7 @@ export default function AccessibilityPage() {
             or in any of our digital channels, which you cannot access.
           </p>
           <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div className="rounded-xl border border-border bg-card p-6">
+            <div className="rounded-2xl border border-border bg-card p-6">
               <h3 className="font-heading text-lg font-medium text-foreground">
                 Online
               </h3>
@@ -200,7 +201,7 @@ export default function AccessibilityPage() {
                 .
               </p>
             </div>
-            <div className="rounded-xl border border-border bg-card p-6">
+            <div className="rounded-2xl border border-border bg-card p-6">
               <h3 className="font-heading text-lg font-medium text-foreground">
                 Visit a branch
               </h3>

@@ -32,13 +32,13 @@ function getActivityIcon(type: string) {
 function getActivityColor(type: string) {
   switch (type) {
     case "user_registered":
-      return "bg-blue-500/10 text-blue-500";
+      return "bg-[var(--muted)] text-[var(--primary)]";
     case "account_created":
-      return "bg-purple-500/10 text-purple-500";
+      return "bg-[var(--lilac)] text-[var(--primary-deep)]";
     case "transaction":
-      return "bg-primary-muted text-primary";
+      return "bg-[var(--accent)] text-[var(--accent-foreground)]";
     default:
-      return "bg-primary-muted text-primary";
+      return "bg-[var(--lilac)] text-[var(--primary-deep)]";
   }
 }
 

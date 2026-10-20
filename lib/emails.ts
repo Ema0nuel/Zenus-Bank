@@ -35,32 +35,32 @@ export async function sendWelcomeEmail({
     <div style="font-family: 'Segoe UI', sans-serif; padding: 24px; background-color: #f4f4f4; color: #333;">
       <div style="max-width: 600px; margin: auto; background: white; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); overflow: hidden;">
         <div style="padding: 24px; text-align: center; background-color: #180934;">
-          <h1 style="color: #f5c962; margin: 0;">Zenus Bank</h1>
-          <p style="color: #fff; margin: 8px 0 0;">Welcome to Zenus Bank</p>
+          <h1 style="color: #f5c962; margin: 0;">Ally Banks</h1>
+          <p style="color: #fff; margin: 8px 0 0;">Welcome to Ally Banks</p>
         </div>
         <div style="padding: 24px;">
           <p>Hi <strong>${name}</strong>,</p>
-          <p>Thank you for choosing <strong>Zenus Bank</strong>. Your account has been successfully created.</p>
+          <p>Thank you for choosing <strong>Ally Banks</strong>. Your account has been successfully created.</p>
           <h3 style="margin-top: 24px;">Account Details:</h3>
           <ul style="list-style: none; padding: 0;">
             <li><strong>Account Number:</strong> ${accountNumber}</li>
             <li><strong>Registered IP:</strong> ${ip}</li>
             <li><strong>Region:</strong> ${[geo.city, geo.region, geo.country].filter(Boolean).join(", ")}</li>
           </ul>
-          <p style="margin-top: 24px;">You can access your dashboard anytime at zenusbanks.com</p>
+          <p style="margin-top: 24px;">You can access your dashboard anytime at allybanks.cc</p>
           <p style="font-size: 0.9rem; color: #777; margin-top: 32px;">
             If this wasn't you, please contact our support immediately.<br/>
-            Zenus Bank, proudly serving you with security and trust.
+            Ally Banks, proudly serving you with security and trust.
           </p>
         </div>
         <div style="padding: 16px; background: #180934; color: #f5c962; text-align: center;">
-          &copy; ${new Date().getFullYear()} Zenus Bank
+          &copy; ${new Date().getFullYear()} Ally Banks
         </div>
       </div>
     </div>
   `;
 
-  await sendEmail({ to: email, subject: "Welcome to Zenus Bank", html });
+  await sendEmail({ to: email, subject: "Welcome to Ally Banks", html });
 }
 
 type OtpEmailArgs = {
@@ -72,7 +72,7 @@ type OtpEmailArgs = {
 export async function sendOtpEmail({ to, name, otp }: OtpEmailArgs) {
   const html = `
     <div style="font-family: Arial, sans-serif; color: #222;">
-      <h2 style="color: #180934;">Zenus Bank</h2>
+      <h2 style="color: #180934;">Ally Banks</h2>
       <p>Dear ${name || "User"},</p>
       <p>Your One-Time Password (OTP) for login is:</p>
       <div style="font-size: 2rem; font-weight: bold; letter-spacing: 0.2em; color: #180934; margin: 16px 0;">
@@ -80,7 +80,7 @@ export async function sendOtpEmail({ to, name, otp }: OtpEmailArgs) {
       </div>
       <p>This OTP is valid for 10 minutes. If you did not request this, please ignore this email.</p>
       <hr style="margin: 24px 0;">
-      <p style="font-size: 0.9em; color: #888;">Zenus Bank &copy; ${new Date().getFullYear()}</p>
+      <p style="font-size: 0.9em; color: #888;">Ally Banks &copy; ${new Date().getFullYear()}</p>
     </div>
   `;
 

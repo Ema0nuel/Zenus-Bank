@@ -32,23 +32,23 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        "fixed inset-y-0 left-0 z-40 hidden flex-col border-r border-border bg-sidebar transition-[width] duration-300 lg:flex",
+        "fixed inset-y-0 left-0 z-40 hidden flex-col border-r border-border bg-[var(--card)] transition-[width] duration-300 lg:flex",
         collapsed ? "w-[76px]" : "w-64"
       )}
     >
       <div className="flex h-16 items-center gap-2 border-b border-border px-3">
         <Link href="/dashboard" className="flex min-w-0 items-center gap-2.5">
           <Image
-            src="/images/logo-nobg.png"
-            alt="Zenus Bank"
+            src="/images/logo.png"
+            alt="Ally Banks"
             width={0}
             height={0}
             sizes="100vw"
             className="h-8 w-auto shrink-0 dark:hidden"
           />
           <Image
-            src="/images/logo.jpg"
-            alt="Zenus Bank"
+            src="/images/logo.png"
+            alt="Ally Banks"
             width={0}
             height={0}
             sizes="100vw"
@@ -56,7 +56,7 @@ export function Sidebar({
           />
           {!collapsed && (
             <span className="truncate font-heading text-base font-bold text-primary">
-              Zenus Bank
+              Ally Banks
             </span>
           )}
         </Link>
@@ -91,7 +91,7 @@ export function Sidebar({
                       className={cn(
                         "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors",
                         active
-                          ? "bg-primary-muted text-primary"
+                          ? "bg-[var(--lilac)] text-[var(--primary-deep)]"
                           : "text-muted-foreground hover:bg-muted hover:text-foreground",
                         collapsed && "justify-center px-0"
                       )}
@@ -124,7 +124,7 @@ export function Sidebar({
                                 className={cn(
                                   "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors",
                                   childActive
-                                    ? "bg-primary-muted font-semibold text-primary"
+                                    ? "bg-[var(--lilac)] font-semibold text-[var(--primary-deep)]"
                                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                 )}
                               >
@@ -149,7 +149,7 @@ export function Sidebar({
                     className={cn(
                       "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors",
                       active
-                        ? "bg-primary-muted text-primary"
+                        ? "bg-[var(--lilac)] text-[var(--primary-deep)]"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground",
                       collapsed && "justify-center px-0"
                     )}
@@ -212,7 +212,7 @@ export function Sidebar({
           variant="ghost"
           onClick={signOut}
           className={cn(
-            "mt-1 w-full justify-start gap-3 text-destructive hover:text-destructive",
+            "mt-1 w-full justify-start gap-3 text-[var(--primary-deep)] hover:text-[var(--primary-deep)]",
             collapsed && "justify-center px-0"
           )}
         >

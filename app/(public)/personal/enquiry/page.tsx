@@ -9,7 +9,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Home Loan Enquiry",
   description:
-    "Whether you're looking to buy or refinance, our lending specialists will assist you in your home buying journey. Make a home loan enquiry with Zenus Bank.",
+    "Whether you're looking to buy or refinance, our lending specialists will assist you in your home buying journey. Make a home loan enquiry with Ally Banks.",
   path: "/personal/enquiry",
 });
 

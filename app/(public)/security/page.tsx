@@ -18,7 +18,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Security",
   description:
-    "Keep your identity, business and family safe. Learn how to spot a scam, protect yourself online and on the phone, and reduce cheque fraud with Zenus Bank.",
+    "Keep your identity, business and family safe. Learn how to spot a scam, protect yourself online and on the phone, and reduce cheque fraud with Ally Banks.",
   path: "/security",
 });
 
@@ -130,7 +130,7 @@ export default function SecurityPage() {
         </p>
         <Link
           href="/security"
-          className="mt-2 inline-flex items-center justify-center rounded-full bg-background px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-background/90"
+          className="mt-2 inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-[var(--accent-foreground)] transition-colors hover:bg-[var(--accent)] hover:opacity-90"
         >
           View the latest scam alerts
         </Link>
@@ -149,14 +149,14 @@ export default function SecurityPage() {
             {featureTiles.map((tile) => (
               <article
                 key={tile.title}
-                className="card-hover flex flex-col rounded-xl border border-border bg-card"
+                className="card-hover flex flex-col rounded-2xl border border-border bg-card"
               >
                 <Image
                   src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80"
                   alt={tile.title}
                   width={600}
                   height={400}
-                  className="h-32 w-full rounded-t-xl object-cover"
+                  className="h-32 w-full rounded-t-2xl object-cover"
                 />
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="font-heading text-lg font-medium text-foreground">
@@ -196,9 +196,9 @@ export default function SecurityPage() {
           {highlightTiles.map((tile) => (
             <div
               key={tile.title}
-              className="card-hover flex flex-col rounded-xl border border-border bg-card p-6"
+              className="card-hover flex flex-col rounded-2xl border border-border bg-card p-6"
             >
-              <span className="mx-auto grid size-12 place-items-center rounded-xl bg-primary-muted text-primary">
+              <span className="mx-auto grid size-12 place-items-center rounded-xl bg-[var(--lilac)] text-[var(--primary-deep)]">
                 <tile.icon className="size-6" strokeWidth={1.5} />
               </span>
               <h3 className="mt-4 text-center font-heading text-lg font-medium text-foreground">
@@ -214,14 +214,14 @@ export default function SecurityPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-primary-muted py-14">
+      <section className="border-t border-border bg-muted py-14">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-6 px-6 md:flex-row md:items-center">
           <h2 className="text-xl tracking-tight text-foreground md:text-2xl">
             Think you&apos;ve received a scam message?
           </h2>
           <Link
             href="/security"
-            className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/80"
+            className="rounded-full bg-[var(--accent)] px-6 py-3 text-sm font-semibold text-[var(--accent-foreground)] transition-colors hover:bg-[var(--accent)] hover:opacity-90"
           >
             View the latest scam alerts
           </Link>

@@ -234,7 +234,7 @@ export default function AdminLoansPage() {
       <header className="flex items-center justify-between">
         <div>
           <p className="text-sm font-semibold text-muted-foreground">Admin Panel / Loans</p>
-          <h1 className="mt-1 font-heading text-3xl font-extralight tracking-tight text-foreground">
+          <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-foreground">
             Loan Management
           </h1>
         </div>
@@ -253,7 +253,7 @@ export default function AdminLoansPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+              className="h-8 rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none focus-visible:ring-3 focus-visible:ring-[var(--primary)]/50"
             >
               <option value="">All statuses</option>
               <option value="pending">Pending</option>
@@ -322,7 +322,7 @@ export default function AdminLoansPage() {
         {creating || editing ? (
               <div className="mt-4 space-y-3">
                 <Field label="User">
-                  <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.user_id} onChange={(e) => setForm((f) => ({ ...f, user_id: e.target.value, account_id: "" }))}>
+                  <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.user_id} onChange={(e) => setForm((f) => ({ ...f, user_id: e.target.value, account_id: "" }))}>
                     <option value="">Select user</option>
                     {users.map((u) => (
                       <option key={u.id} value={u.id}>{u.full_name || u.email}</option>
@@ -330,7 +330,7 @@ export default function AdminLoansPage() {
                   </select>
                 </Field>
                 <Field label="Account">
-                  <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.account_id} onChange={(e) => setForm((f) => ({ ...f, account_id: e.target.value }))}>
+                  <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.account_id} onChange={(e) => setForm((f) => ({ ...f, account_id: e.target.value }))}>
                     <option value="">Select account</option>
                     {accountOptions.map((a) => (
                       <option key={a.id} value={a.id}>{a.account_number} ({a.account_type})</option>
@@ -340,7 +340,7 @@ export default function AdminLoansPage() {
                 <Field label="Amount"><Input type="number" step="0.01" value={form.amount} onChange={(e) => setForm((f) => ({ ...f, amount: e.target.value }))} /></Field>
                 <Field label="Interest rate (%)"><Input type="number" step="0.01" value={form.interest_rate} onChange={(e) => setForm((f) => ({ ...f, interest_rate: e.target.value }))} /></Field>
                 <Field label="Status">
-                  <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.status} onChange={(e) => setForm((f) => ({ ...f, status: e.target.value }))}>
+                  <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.status} onChange={(e) => setForm((f) => ({ ...f, status: e.target.value }))}>
                     {["pending", "approved", "disbursed", "rejected", "closed"].map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}

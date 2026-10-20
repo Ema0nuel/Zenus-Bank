@@ -7,7 +7,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Financial Abuse Support",
   description:
-    "Financial abuse can happen to anyone. Learn how Zenus Bank can help you regain control of your banking, recognise the warning signs, and access confidential support.",
+    "Financial abuse can happen to anyone. Learn how Ally Banks can help you regain control of your banking, recognise the warning signs, and access confidential support.",
   path: "/financial-abuse",
 });
 
@@ -87,7 +87,7 @@ export default function FinancialAbusePage() {
           <div>
             <Link
               href="/locate"
-              className="inline-flex w-full items-center justify-center rounded-full border-2 border-primary px-6 py-3 font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+              className="inline-flex w-full items-center justify-center rounded-full bg-[var(--primary)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--primary-deep)]"
             >
               Find a branch
             </Link>

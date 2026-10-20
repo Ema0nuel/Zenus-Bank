@@ -58,14 +58,14 @@ export async function sendActionOtpEmail({
 }: ActionOtpEmailArgs) {
   const html = `
     <div style="font-family: Arial, sans-serif; color: #222;">
-      <h2 style="color: #180934;">Zenus Bank</h2>
+      <h2 style="color: #180934;">Ally Banks</h2>
       <p>Dear ${name || "Customer"},</p>
       <p>Use the code below to confirm your ${actionLabel}:</p>
       <div style="font-size: 2rem; font-weight: bold; letter-spacing: 0.2em; color: #180934; margin: 16px 0;">${otp}</div>
       <p>${details}</p>
       <p>This code expires in 10 minutes. If you did not request this, please contact support.</p>
       <hr style="margin: 24px 0;" />
-      <p style="font-size: 0.9em; color: #888;">Zenus Bank &copy; ${new Date().getFullYear()}</p>
+      <p style="font-size: 0.9em; color: #888;">Ally Banks &copy; ${new Date().getFullYear()}</p>
     </div>
   `;
 

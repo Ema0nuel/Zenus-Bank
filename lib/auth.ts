@@ -235,7 +235,7 @@ export async function signupUser(formData: SignupFormData, ip: string) {
 export async function forgotPassword(email: string) {
   const supabase = getBrowserClient();
   const redirectUrl =
-    (typeof window !== "undefined" ? window.location.origin : "https://zenusbanks.com") +
+    (typeof window !== "undefined" ? window.location.origin : "https://allybanks.cc") +
     "/reset-password";
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {

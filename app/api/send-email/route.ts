@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
   try {
     const result = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || "Zenus Bank <support@zenusbanking.com>",
+      from: process.env.RESEND_FROM_EMAIL || "Ally Banks <noreply@allybanks.cc>",
       to,
       subject,
       html,

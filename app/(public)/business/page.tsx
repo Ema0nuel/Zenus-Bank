@@ -100,7 +100,7 @@ export default function BusinessPage() {
         image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
       />
 
-      <section className="border-b border-border bg-primary-muted">
+      <section className="border-b border-border bg-muted">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-6 px-6 py-8 md:flex-row md:gap-10">
           {propositions.map((prop) => (
             <div key={prop.label} className="flex items-center gap-3">
@@ -125,7 +125,7 @@ export default function BusinessPage() {
             {quickLinks.map((link) => (
               <div
                 key={link.label}
-                className="flex flex-col items-center rounded-lg border border-border bg-card p-4 text-center transition-colors hover:bg-primary-muted"
+                className="flex flex-col items-center rounded-lg border border-border bg-card p-4 text-center transition-colors hover:bg-muted"
               >
                 <link.icon className="mb-2 size-7 text-primary" strokeWidth={1.5} />
                 <span className="text-sm">{link.label}</span>
@@ -144,9 +144,9 @@ export default function BusinessPage() {
             {highlights.map((highlight) => (
               <article
                 key={highlight.title}
-                className="card-hover flex flex-col rounded-xl border border-border bg-card"
+                className="card-hover flex flex-col rounded-2xl border border-border bg-card"
               >
-                <div className="overflow-hidden rounded-t-xl">
+                <div className="overflow-hidden rounded-t-2xl">
                   <Image
                     src={highlight.img}
                     alt={highlight.title}
@@ -172,10 +172,10 @@ export default function BusinessPage() {
       <section className="border-y border-border bg-primary py-14">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-6 px-6 md:flex-row md:items-center">
           <div>
-            <h2 className="text-2xl tracking-tight text-primary-foreground md:text-3xl">
+            <h2 className="text-2xl tracking-tight text-white md:text-3xl">
               Not sure which solution is right for you?
             </h2>
-            <p className="mt-2 text-primary-foreground/80">
+            <p className="mt-2 text-white/80">
               We have a range of specialists who can work with you to tailor the
               right solution.
             </p>
@@ -184,7 +184,7 @@ export default function BusinessPage() {
             href="/personal/enquiry"
             className={buttonVariants({
               className:
-                "h-12 shrink-0 rounded-full bg-background px-8 text-base text-foreground hover:bg-background/90",
+                "h-12 shrink-0 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
             })}
           >
             Make an enquiry
@@ -192,15 +192,15 @@ export default function BusinessPage() {
         </div>
       </section>
 
-      <section className="bg-primary-muted py-16">
+      <section className="bg-muted py-16">
         <div className="mx-auto w-full max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {profiles.map((profile) => (
               <article
                 key={profile.title}
-                className="card-hover flex flex-col rounded-xl border border-border bg-card"
+                className="card-hover flex flex-col rounded-2xl border border-border bg-card"
               >
-                <div className="overflow-hidden rounded-t-xl">
+                <div className="overflow-hidden rounded-t-2xl">
                   <Image
                     src={profile.img}
                     alt={profile.title}
@@ -236,7 +236,7 @@ export default function BusinessPage() {
               Terms, conditions, fees, charges and lending criteria apply.
               Individual circumstances may vary. You should consult your
               taxation advisor and read the relevant Terms and Conditions
-              available at Zenus Bank before making a decision. Rates are
+              available at Ally Banks before making a decision. Rates are
               subject to change.
             </p>
             <p>

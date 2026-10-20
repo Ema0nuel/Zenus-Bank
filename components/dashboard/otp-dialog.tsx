@@ -41,12 +41,12 @@ export function OtpDialog({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="w-full max-w-sm rounded-2xl border border-border bg-popover p-6 shadow-2xl"
+        className="w-full max-w-sm rounded-2xl border border-border bg-[var(--card)] p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between">
           <div>
-            <h2 className="font-heading text-lg font-medium text-foreground">{title}</h2>
+            <h2 className="font-heading text-lg font-bold text-foreground">{title}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{description}</p>
           </div>
           <Button variant="ghost" size="icon-sm" onClick={handleClose} aria-label="Close">
@@ -60,10 +60,10 @@ export function OtpDialog({
           inputMode="numeric"
           autoComplete="one-time-code"
           placeholder="000000"
-          className="mt-5 w-full rounded-lg border border-input bg-transparent px-3 py-3 text-center font-mono text-2xl tracking-[0.5em] text-foreground outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="mt-5 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-3 py-3 text-center font-mono text-2xl tracking-[0.5em] text-foreground outline-none focus-visible:border-[var(--primary)] focus-visible:ring-3 focus-visible:ring-[var(--primary)]/50"
         />
 
-        {error && <p className="mt-2 text-xs text-destructive">{error}</p>}
+        {error && <p className="mt-2 text-xs text-[var(--primary-deep)]">{error}</p>}
 
         <div className="mt-5 flex justify-end gap-2">
           <Button variant="ghost" onClick={handleClose} disabled={loading}>

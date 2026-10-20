@@ -182,7 +182,7 @@ export default function ProfilePage() {
                 onClick={() => fileRef.current?.click()}
                 disabled={uploading}
                 aria-label="Change profile picture"
-                className="absolute -bottom-1 -right-1 flex size-7 items-center justify-center rounded-full border border-border bg-primary text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover disabled:opacity-60"
+                className="absolute -bottom-1 -right-1 flex size-7 items-center justify-center rounded-full border border-border bg-primary text-white shadow-sm transition-colors hover:bg-[var(--primary-deep)] disabled:opacity-60"
               >
                 {uploading ? (
                   <Loader2 className="size-4 animate-spin" />
@@ -220,9 +220,9 @@ export default function ProfilePage() {
 
           <Link
             href="/dashboard/verification"
-            className="flex items-center gap-3 rounded-xl border border-border p-3 transition-colors hover:border-primary/40 hover:bg-primary-muted"
+            className="flex items-center gap-3 rounded-xl border border-border p-3 transition-colors hover:border-primary/40 hover:bg-[var(--lilac)]/50"
           >
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary-muted text-primary">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--lilac)] text-[var(--primary-deep)]">
               <ShieldCheck className="size-5" />
             </span>
             <span className="min-w-0">
@@ -330,8 +330,8 @@ export default function ProfilePage() {
             />
           </div>
 
-          {error && <p className="text-xs text-destructive">{error}</p>}
-          {saved && <p className="text-xs text-success">Profile updated.</p>}
+          {error && <p className="text-xs text-[var(--primary-deep)]">{error}</p>}
+          {saved && <p className="text-xs text-[var(--primary-deep)]">Profile updated.</p>}
 
           <div className="flex items-center justify-between pt-2">
             <a

@@ -113,7 +113,7 @@ export function CryptoDepositModal({
 
           <div>
             <p className="text-xs font-semibold text-muted-foreground">Deposit address</p>
-            <div className="mt-1.5 flex items-center gap-2 rounded-lg border border-input bg-muted/30 p-2.5">
+            <div className="mt-1.5 flex items-center gap-2 rounded-[0.75rem] border border-[var(--border)] bg-[var(--muted)]/30 p-2.5">
               <code className="min-w-0 flex-1 break-all font-mono text-xs text-foreground">
                 {address || "Select an asset and network to generate the address."}
               </code>
@@ -129,7 +129,7 @@ export function CryptoDepositModal({
                 </Button>
               )}
             </div>
-            {copied && <p className="mt-1 text-[11px] text-success">Address copied.</p>}
+            {copied && <p className="mt-1 text-[11px] text-[var(--primary-deep)]">Address copied.</p>}
           </div>
 
           {description && (

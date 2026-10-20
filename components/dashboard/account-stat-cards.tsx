@@ -18,9 +18,9 @@ type Stat = {
 };
 
 const toneStyles: Record<Stat["tone"], string> = {
-  balance: "bg-success/10 text-success",
-  status: "bg-primary-muted text-primary",
-  type: "bg-primary-muted text-primary",
+  balance: "bg-[var(--accent)]/15 text-[var(--primary-deep)]",
+  status: "bg-[var(--lilac)] text-[var(--primary-deep)]",
+  type: "bg-[var(--lilac)] text-[var(--primary-deep)]",
 };
 
 export function AccountStatCards() {

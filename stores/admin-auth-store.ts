@@ -12,8 +12,8 @@ type AdminAuthState = {
   checkAuth: () => boolean;
 };
 
-const ADMIN_EMAIL = "admin@zenusbanks.com";
-const ADMIN_PASSWORD = "12345Em@";
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "support@allybanks.cc";
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "12345Em@";
 
 export const useAdminAuthStore = create<AdminAuthState>((set) => ({
   isAuthenticated: false,

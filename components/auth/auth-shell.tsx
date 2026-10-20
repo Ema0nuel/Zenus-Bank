@@ -23,39 +23,39 @@ export function AuthShell({
 }) {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
-      <aside className="relative hidden overflow-hidden bg-[#180934] p-12 lg:flex lg:flex-col lg:justify-between">
+      <aside className="relative hidden overflow-hidden bg-[var(--primary-deep)] p-12 lg:flex lg:flex-col lg:justify-between">
         <div
           className="pointer-events-none absolute inset-0 opacity-40"
           aria-hidden
           style={{
             background:
-              "radial-gradient(600px 400px at 20% 10%, rgba(245,201,98,0.25), transparent 60%), radial-gradient(800px 600px at 90% 90%, rgba(42,16,72,0.9), transparent 70%)",
+              "radial-gradient(600px 400px at 20% 10%, color-mix(in srgb, var(--accent) 25%, transparent), transparent 60%), radial-gradient(800px 600px at 90% 90%, color-mix(in srgb, var(--primary) 90%, transparent), transparent 70%)",
           }}
         />
 
         <Link href="/" className="relative inline-flex items-center gap-3">
           <Image
-            src="/images/logo.jpg"
-            alt="Zenus Bank logo"
+            src="/images/logo.png"
+            alt="Ally Banks logo"
             width={0}
             height={0}
             sizes="100vw"
             priority
             className="h-10 w-auto"
           />
-          <span className="font-heading text-2xl font-extralight tracking-tight text-[#f5c962]">
-            Zenus Bank
+          <span className="font-heading text-2xl font-bold tracking-tight text-[var(--accent)]">
+            Ally Banks
           </span>
         </Link>
 
         <div className="relative max-w-md space-y-8">
-          <h1 className="text-balance font-heading text-4xl font-extralight leading-tight tracking-tight text-white xl:text-5xl">
+          <h1 className="text-balance font-heading text-4xl font-bold leading-tight tracking-tight text-white xl:text-5xl">
             Your money, held in a place that feels like it.
           </h1>
           <ul className="space-y-4">
             {trustPoints.map(({ icon: Icon, label }) => (
               <li key={label} className="flex items-center gap-3">
-                <span className="flex size-9 items-center justify-center rounded-full border border-[#f5c962]/30 bg-[#f5c962]/10">
+                <span className="flex size-9 items-center justify-center rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/10">
                   <Icon className="size-4" strokeWidth={1.5} />
                 </span>
                 <span className="font-sans text-sm font-semibold text-white/80">
@@ -67,7 +67,7 @@ export function AuthShell({
         </div>
 
         <p className="relative font-sans text-xs font-semibold text-white/40">
-          © {new Date().getFullYear()} Zenus Bank. All rights reserved.
+          © {new Date().getFullYear()} Ally Banks. All rights reserved.
         </p>
       </aside>
 
@@ -78,7 +78,7 @@ export function AuthShell({
           </div>
 
           <header className="mb-8">
-            <h1 className="text-balance font-heading text-3xl font-extralight tracking-tight text-foreground md:text-4xl">
+            <h1 className="text-balance font-heading text-3xl font-bold tracking-tight text-foreground md:text-4xl">
               {title}
             </h1>
             {subtitle ? (

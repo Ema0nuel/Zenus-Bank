@@ -47,7 +47,7 @@ export default function AdminUsersPage() {
     <div className="space-y-6">
       <header>
         <p className="text-sm font-semibold text-muted-foreground">Admin Panel / Users</p>
-        <h1 className="mt-1 font-heading text-3xl font-extralight tracking-tight text-foreground">
+        <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-foreground">
           User Management
         </h1>
       </header>
@@ -155,11 +155,11 @@ export default function AdminUsersPage() {
                         </td>
                         <td className="hidden px-4 py-3 text-center sm:table-cell">
                           {active ? (
-                            <span className="inline-flex items-center gap-1 text-success">
+                            <span className="inline-flex items-center gap-1 text-[var(--primary-deep)]">
                               <ShieldCheck className="size-4" /> Active
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-destructive">
+                            <span className="inline-flex items-center gap-1 text-[var(--primary-deep)]">
                               <ShieldX className="size-4" /> Suspended
                             </span>
                           )}

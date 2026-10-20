@@ -7,19 +7,19 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Locate a Branch, ATM or Agency",
   description:
-    "Find your nearest Zenus Bank branch, ATM or agency. View branch addresses, contact details, and an interactive map.",
+    "Find your nearest Ally Banks branch, ATM or agency. View branch addresses, contact details, and an interactive map.",
   path: "/locate",
 });
 
 const branches = [
   {
-    name: "Zenus Bank",
+    name: "Ally Banks",
     address: "36 Main Street, Box Hill VIC 3128",
-    email: "zenusbanking@gmail.com",
+    email: "support@allybanks.cc",
   },
   {
     name: "ATM iStandard GroupMarketplace",
-    address: "116 - 120 Mitchell Street, Zenus Bank 3550",
+    address: "116 - 120 Mitchell Street, Ally Banks 3550",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function LocatePage() {
             {branches.map((branch) => (
               <li
                 key={branch.name}
-                className="rounded-xl border border-border bg-card p-6"
+                className="rounded-2xl border border-border bg-card p-6"
               >
                 <h2 className="flex items-center gap-2 font-heading text-lg font-medium text-foreground">
                   <MapPin className="size-5 text-primary" strokeWidth={1.5} />
@@ -58,9 +58,9 @@ export default function LocatePage() {
             ))}
           </ul>
 
-          <div className="h-96 overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+          <div className="h-96 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <iframe
-              title="Zenus Bank branch map"
+              title="Ally Banks branch map"
               width="100%"
               height="100%"
               style={{ border: 0 }}

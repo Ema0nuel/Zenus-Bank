@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 
 const rawUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/+$/, "");
 
-export const siteUrl = rawUrl || "https://zenusbanks.com";
+export const siteUrl = rawUrl || "https://allybanks.cc";
 
 export const siteConfig = {
-  name: "Zenus Bank",
+  name: "Ally Banks",
   url: siteUrl,
   tagline: "Premium Banking Reimagined",
   description:
-    "Experience modern banking with Zenus. Secure, fast, and beautifully designed for the way you live.",
-  contactEmail: process.env.CONTACT_EMAIL || "zenusbanking@gmail.com",
+    "Experience modern banking with Ally Banks. Secure, fast, and beautifully designed for the way you live.",
+  contactEmail: process.env.CONTACT_EMAIL || "support@allybanks.cc",
   phone: "+1 (210) 279-5532",
   phoneHref: "+12102795532",
 } as const;

@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "About Us",
   description:
-    "Learn about Zenus Bank, the better big bank. Discover our history of firsts, our commitment to customers and community, and the values that guide everything we do.",
+    "Learn about Ally Banks, the better big bank. Discover our history of firsts, our commitment to customers and community, and the values that guide everything we do.",
   path: "/about",
 });
 
@@ -39,9 +39,9 @@ const features = [
   },
   {
     title: "Join our team",
-    subtitle: "Careers at Zenus Bank",
+    subtitle: "Careers at Ally Banks",
     img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-    text: "Zenus Bank is the bank you can be proud to work at. We're big enough to offer you every opportunity, but not so big that we lose the community feel.",
+    text: "Ally Banks is the bank you can be proud to work at. We're big enough to offer you every opportunity, but not so big that we lose the community feel.",
     details:
       "Explore rewarding career opportunities and become part of a team that values growth, diversity, and making a difference.",
   },
@@ -63,7 +63,7 @@ const features = [
   },
   {
     title: "How we're performing",
-    subtitle: "Zenus Bank Investor Centre",
+    subtitle: "Ally Banks Investor Centre",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
     text: "Information on our securities, financial results, announcements, sustainability reporting and other disclosures.",
     details:
@@ -114,7 +114,7 @@ export default function AboutPage() {
         showLogo
       />
 
-      <section className="border-b border-border bg-primary-muted">
+      <section className="border-b border-border bg-muted">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-6 px-6 py-8 md:flex-row md:gap-10">
           {stats.map((stat) => (
             <div key={stat.label} className="flex items-center gap-3">
@@ -133,7 +133,7 @@ export default function AboutPage() {
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-8 px-6 md:flex-row md:items-start">
           <div className="max-w-2xl">
             <h2 className="text-balance text-3xl tracking-[-0.03em] text-foreground md:text-4xl">
-              Welcome to Zenus Bank
+              Welcome to Ally Banks
             </h2>
             <p className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
               <span className="block">
@@ -157,10 +157,11 @@ export default function AboutPage() {
           <Link
             href="/switch"
             className={buttonVariants({
-              className: "h-12 rounded-full px-8 text-base",
+              className:
+                "h-12 rounded-full px-8 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
             })}
           >
-            Try Zenus Bank
+            Try Ally Banks
           </Link>
         </div>
       </section>
@@ -204,7 +205,7 @@ export default function AboutPage() {
             {features.map((feature) => (
               <article
                 key={feature.title}
-                className="card-hover flex flex-col rounded-xl border border-border bg-card p-6"
+                className="card-hover flex flex-col rounded-2xl border border-border bg-card p-6"
               >
                 <div className="overflow-hidden rounded-lg">
                   <Image
@@ -241,7 +242,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-primary-muted py-16">
+      <section className="border-t border-border bg-muted py-16">
         <div className="mx-auto w-full max-w-6xl px-6">
           <h2 className="text-balance text-center text-3xl tracking-[-0.03em] text-foreground md:text-4xl">
             What&apos;s your goal?
@@ -250,7 +251,7 @@ export default function AboutPage() {
             {goals.map((goal) => (
               <article
                 key={goal.title}
-                className="card-hover flex flex-col rounded-xl border border-border bg-card p-6"
+                className="card-hover flex flex-col rounded-2xl border border-border bg-card p-6"
               >
                 <div className="overflow-hidden rounded-lg">
                   <Image

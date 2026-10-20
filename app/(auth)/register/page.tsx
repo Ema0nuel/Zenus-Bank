@@ -20,10 +20,10 @@ const labelClass =
   "mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground";
 
 const sectionClass =
-  "col-span-1 font-heading text-lg font-normal text-primary md:col-span-2";
+  "col-span-1 font-heading text-lg font-bold text-primary md:col-span-2";
 
 const submitBtnClass =
-  "inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-all hover:bg-primary-hover active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 md:w-auto md:px-10";
+  "inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-8 text-sm font-semibold text-[var(--accent-foreground)] transition-all hover:bg-[var(--accent)]/90 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 md:w-auto md:px-10";
 
 const titles = ["Mr.", "Mrs.", "Ms.", "Dr.", "Barr."];
 
@@ -136,7 +136,7 @@ export default function RegisterPage() {
   return (
     <AuthShell
       title="Create your account"
-      subtitle="Open a Zenus account in minutes."
+      subtitle="Open an Ally Banks account in minutes."
       footer={
         <p className="text-center font-sans text-sm font-semibold text-muted-foreground">
           Already have an account?{" "}
@@ -148,7 +148,7 @@ export default function RegisterPage() {
     >
       <form onSubmit={handleSubmit} className="space-y-5">
         {error ? (
-          <p className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 font-sans text-sm font-semibold text-danger">
+          <p className="rounded-xl border border-[var(--primary-deep)]/30 bg-[var(--primary-deep)]/10 px-4 py-3 font-sans text-sm font-semibold text-[var(--primary-deep)]">
             {error}
           </p>
         ) : null}

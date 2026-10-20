@@ -4,52 +4,14 @@ import "./globals.css";
 import { siteConfig, siteUrl } from "@/lib/site";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { LanguageProvider } from "@/components/language-provider";
-import { ZohoWidget } from "@/components/zoho-widget";
 
-const anthropicSerif = localFont({
-  src: [
-    {
-      path: "../public/fonts/AnthropicSerif-Regular.woff2",
-      weight: "200",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/AnthropicSerif-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/AnthropicSerif-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-serif",
-  display: "swap",
-});
-
-const anthropicMono = localFont({
-  src: [
-    {
-      path: "../public/fonts/AnthropicMono-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/AnthropicMono-Regular.woff2",
-      weight: "600",
-      style: "normal",
-    },
-  ],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const anthropicSans = localFont({
-  src: "../public/fonts/AnthropicSans-Variable.woff2",
-  weight: "300 800",
-  style: "normal",
-  variable: "--font-sans",
+/* Figtree: bundled open-source fallback for Ally's "TruthSans".
+   Font stacks put "TruthSans" first (see globals.css); Figtree renders
+   everything when TruthSans is not installed on the device.
+   Self-hosted (next/font/local) to avoid the Turbopack Google-font bug. */
+const figtree = localFont({
+  src: [{ path: "../public/fonts/Figtree-Variable.woff2", weight: "400 800" }],
+  variable: "--font-sans-loaded",
   display: "swap",
 });
 
@@ -72,9 +34,9 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   icons: {
-    icon: "/images/logo-nobg.png",
-    shortcut: "/images/logo-nobg.png",
-    apple: "/images/logo-nobg.png",
+    icon: "/images/logo.png",
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
   },
   alternates: {
     canonical: siteUrl,
@@ -100,8 +62,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#efedec" },
+    { media: "(prefers-color-scheme: dark)", color: "#16052b" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -115,21 +77,31 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${anthropicSerif.variable} ${anthropicMono.variable} ${anthropicSans.variable} dark`}
+      className={figtree.variable}
       suppressHydrationWarning
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("zenus-theme");var d=t==="light"?false:t==="dark"?true:!window.matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.classList.toggle("dark",d);}catch(e){document.documentElement.classList.add("dark");}})();`,
+            __html: `(function(){try{var t=localStorage.getItem("zenus-theme");var d=t==="dark";document.documentElement.classList.toggle("dark",d);}catch(e){document.documentElement.classList.remove("dark");}})();`,
           }}
+        />
+        {/* Zoho SalesIQ chat widget */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}`,
+          }}
+        />
+        <script
+          id="zsiqscript"
+          src="https://salesiq.zohopublic.com/widget?wc=siq3fe391e9c0887c94e2b76f581c4388c1a798c3bf2879214ea8784e2b726c3d93"
+          defer
         />
       </head>
       <body className="min-h-screen antialiased">
         <AuthProvider />
         <LanguageProvider />
         {children}
-        <ZohoWidget />
       </body>
     </html>
   );

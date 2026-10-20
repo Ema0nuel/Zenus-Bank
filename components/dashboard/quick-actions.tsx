@@ -20,9 +20,9 @@ export function QuickActions() {
             key={label}
             href={href}
             style={{ animationDelay: `${i * 50}ms` }}
-            className="group animate-fade-in-up flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-card p-4 text-center transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary-muted active:scale-[0.97]"
+            className="group animate-fade-in-up flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-card p-4 text-center transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-[var(--lilac)]/50 active:scale-[0.97]"
           >
-            <span className="flex size-11 items-center justify-center rounded-full bg-primary-muted text-primary transition-transform duration-200 ease-out group-hover:scale-105">
+            <span className="flex size-11 items-center justify-center rounded-full bg-[var(--lilac)] text-[var(--primary-deep)] transition-transform duration-200 ease-out group-hover:scale-105">
               <Icon className="size-5" strokeWidth={1.8} />
             </span>
             <span className="text-xs font-semibold text-foreground">

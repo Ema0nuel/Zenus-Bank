@@ -53,7 +53,7 @@ export default function SettingsPage() {
     <div className="space-y-8">
       <PageHeader
         title="Settings"
-        description="Customize how Zenus Bank looks and behaves. Changes are saved on this device."
+        description="Customize how Ally Banks looks and behaves. Changes are saved on this device."
         crumbs={[{ label: "Settings" }]}
         actions={
           <Button variant="outline" onClick={reset}>
@@ -65,7 +65,7 @@ export default function SettingsPage() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <section className="space-y-4 rounded-2xl border border-border bg-card p-5">
-          <h2 className="font-heading text-lg font-medium text-foreground">Appearance</h2>
+          <h2 className="font-heading text-lg font-bold text-foreground">Appearance</h2>
           <div className="grid grid-cols-3 gap-2">
             {themeOptions.map(({ value, label, icon: Icon }) => (
               <button
@@ -75,7 +75,7 @@ export default function SettingsPage() {
                 className={cn(
                   "flex flex-col items-center gap-2 rounded-xl border border-border p-3 text-sm transition-colors",
                   theme === value
-                    ? "border-primary bg-primary-muted text-primary"
+                    ? "border-primary bg-[var(--lilac)] text-[var(--primary-deep)]"
                     : "text-muted-foreground hover:bg-muted"
                 )}
               >
@@ -87,7 +87,7 @@ export default function SettingsPage() {
         </section>
 
         <section className="space-y-4 rounded-2xl border border-border bg-card p-5">
-          <h2 className="font-heading text-lg font-medium text-foreground">
+          <h2 className="font-heading text-lg font-bold text-foreground">
             Currency & locale
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -109,7 +109,7 @@ export default function SettingsPage() {
         </section>
 
         <section className="space-y-3 rounded-2xl border border-border bg-card p-5">
-          <h2 className="font-heading text-lg font-medium text-foreground">Notifications</h2>
+          <h2 className="font-heading text-lg font-bold text-foreground">Notifications</h2>
           {bankConfig.notificationPreferences.map((pref) => (
             <div
               key={pref.key}
@@ -130,7 +130,7 @@ export default function SettingsPage() {
         </section>
 
         <section className="space-y-3 rounded-2xl border border-border bg-card p-5">
-          <h2 className="font-heading text-lg font-medium text-foreground">
+          <h2 className="font-heading text-lg font-bold text-foreground">
             Privacy & security
           </h2>
 

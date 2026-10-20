@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { updateSession } from "@/lib/supabase/middleware";
 
-const ADMIN_HOSTS = new Set(["admin.zenusbanks.com"]);
+const ADMIN_HOSTS = new Set(["admin.allybanks.cc"]);
 
 function isAllowedHost(hostname: string): boolean {
   if (ADMIN_HOSTS.has(hostname)) return true;

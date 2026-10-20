@@ -7,7 +7,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Contact Us",
   description:
-    "Get in touch with Zenus Bank. Choose the method that is most convenient for you — online form, email, or phone. Our team is here to help.",
+    "Get in touch with Ally Banks. Choose the method that is most convenient for you — online form, email, or phone. Our team is here to help.",
   path: "/contact-us",
 });
 
@@ -15,7 +15,7 @@ export default function ContactUsPage() {
   return (
     <>
       <PageHero
-        title="Contact Zenus Bank"
+        title="Contact Ally Banks"
         subtitle="Choose the method that is most convenient for you."
       />
 

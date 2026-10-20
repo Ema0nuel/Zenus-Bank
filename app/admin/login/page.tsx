@@ -11,7 +11,7 @@ const labelClass =
   "mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted-foreground";
 
 const submitBtnClass =
-  "inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-all hover:bg-primary-hover active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[var(--accent)] px-8 text-sm font-semibold text-[var(--accent-foreground)] transition-all hover:bg-[var(--accent)]/90 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -40,13 +40,13 @@ export default function AdminLoginPage() {
       subtitle="Sign in to manage the platform"
       footer={
         <p className="text-center font-sans text-sm font-semibold text-muted-foreground">
-          Zenus Bank Administration
+          Ally Banks Administration
         </p>
       }
     >
       <form onSubmit={handleSubmit} className="space-y-5">
         {error ? (
-          <p className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 font-sans text-sm font-semibold text-danger">
+          <p className="rounded-xl border border-[var(--primary-deep)]/30 bg-[var(--primary-deep)]/10 px-4 py-3 font-sans text-sm font-semibold text-[var(--primary-deep)]">
             {error}
           </p>
         ) : null}
@@ -61,7 +61,7 @@ export default function AdminLoginPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="admin@zenusbanks.com"
+            placeholder="support@allybanks.cc"
             autoComplete="email"
             required
           />

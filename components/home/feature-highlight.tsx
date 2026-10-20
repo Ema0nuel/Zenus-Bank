@@ -19,7 +19,7 @@ export function FeatureHighlight() {
           <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl ring-1 ring-border shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)] lg:max-w-none lg:aspect-[4/5]">
             <Image
               src="/images/user/util2.jpg"
-              alt="A better home loan experience with Zenus Bank"
+              alt="A better home loan experience with Ally Banks"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -55,7 +55,8 @@ export function FeatureHighlight() {
           <Link
             href="/switch"
             className={buttonVariants({
-              className: "h-12 rounded-full px-7 text-base",
+              className:
+                "h-12 rounded-full px-7 text-base bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
             })}
           >
             Switch today

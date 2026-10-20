@@ -215,7 +215,7 @@ export default function AdminCardsPage() {
       <header className="flex items-center justify-between">
         <div>
           <p className="text-sm font-semibold text-muted-foreground">Admin Panel / Cards</p>
-          <h1 className="mt-1 font-heading text-3xl font-extralight tracking-tight text-foreground">
+          <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-foreground">
             Card Management
           </h1>
         </div>
@@ -291,7 +291,7 @@ export default function AdminCardsPage() {
         {creating || editing ? (
               <div className="mt-4 space-y-3">
                 <Field label="User">
-                  <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.user_id} onChange={(e) => setForm((f) => ({ ...f, user_id: e.target.value, account_id: "" }))}>
+                  <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.user_id} onChange={(e) => setForm((f) => ({ ...f, user_id: e.target.value, account_id: "" }))}>
                     <option value="">Select user</option>
                     {users.map((u) => (
                       <option key={u.id} value={u.id}>{u.full_name || u.email}</option>
@@ -299,7 +299,7 @@ export default function AdminCardsPage() {
                   </select>
                 </Field>
                 <Field label="Account">
-                  <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.account_id} onChange={(e) => setForm((f) => ({ ...f, account_id: e.target.value }))}>
+                  <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.account_id} onChange={(e) => setForm((f) => ({ ...f, account_id: e.target.value }))}>
                     <option value="">Select account</option>
                     {accountOptions.map((a) => (
                       <option key={a.id} value={a.id}>{a.account_number} ({a.account_type})</option>
@@ -308,7 +308,7 @@ export default function AdminCardsPage() {
                 </Field>
                 <Field label="Card number"><Input value={form.card_number} onChange={(e) => setForm((f) => ({ ...f, card_number: e.target.value }))} /></Field>
                 <Field label="Card type">
-                  <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.card_type} onChange={(e) => setForm((f) => ({ ...f, card_type: e.target.value }))}>
+                  <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.card_type} onChange={(e) => setForm((f) => ({ ...f, card_type: e.target.value }))}>
                     <option value="">Select type</option>
                     {CARD_TYPES.map((t) => (
                       <option key={t} value={t}>{t}</option>
@@ -318,7 +318,7 @@ export default function AdminCardsPage() {
                 <Field label="Expiry date"><Input type="date" value={form.expiry_date} onChange={(e) => setForm((f) => ({ ...f, expiry_date: e.target.value }))} /></Field>
                 <Field label="CVV"><Input value={form.cvv} onChange={(e) => setForm((f) => ({ ...f, cvv: e.target.value }))} /></Field>
                 <Field label="Status">
-                  <select className="h-8 w-full rounded-lg border border-input bg-transparent px-2 text-sm outline-none" value={form.status} onChange={(e) => setForm((f) => ({ ...f, status: e.target.value }))}>
+                  <select className="h-8 w-full rounded-[0.75rem] border border-[var(--border)] bg-transparent px-2 text-sm outline-none" value={form.status} onChange={(e) => setForm((f) => ({ ...f, status: e.target.value }))}>
                     {["pending", "approved", "declined", "active"].map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}

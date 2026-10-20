@@ -9,9 +9,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { buildMetadata } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Switch to Zenus Bank",
+  title: "Switch to Ally Banks",
   description:
-    "Moving to Zenus Bank is easier than ever. Refinance your home loan, switch your transaction account, and join millions of customers enjoying competitive rates.",
+    "Moving to Ally Banks is easier than ever. Refinance your home loan, switch your transaction account, and join millions of customers enjoying competitive rates.",
   path: "/switch",
 });
 
@@ -89,13 +89,13 @@ export default function SwitchPage() {
   return (
     <>
       <PageHero
-        title="Moving to Zenus Bank is easier than ever"
+        title="Moving to Ally Banks is easier than ever"
         subtitle="Refinance with a bank you can feel better about and join 1.9 million customers already benefiting from our competitive rates and trusted services."
         image="https://images.unsplash.com/photo-1623282033815-40b05d96c903?auto=format&fit=crop&w=1200&q=80"
         showLogo
       />
 
-      <section className="border-b border-border bg-primary-muted">
+      <section className="border-b border-border bg-muted">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-6 px-6 py-8 md:flex-row md:gap-10">
           {stats.map((stat) => (
             <div key={stat.label} className="flex items-center gap-3">
@@ -128,7 +128,7 @@ export default function SwitchPage() {
               Refinance your home loan
             </h2>
             <div className="mt-6 flex flex-col gap-4 md:flex-row">
-              <div className="flex-1 rounded-xl border border-border bg-card p-4">
+              <div className="flex-1 rounded-2xl border border-border bg-card p-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl font-semibold tracking-tight text-foreground">
                     4.97%
@@ -139,7 +139,7 @@ export default function SwitchPage() {
                   Variable rate
                 </div>
               </div>
-              <div className="flex-1 rounded-xl border border-border bg-card p-4">
+              <div className="flex-1 rounded-2xl border border-border bg-card p-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl font-semibold tracking-tight text-foreground">
                     5.12%
@@ -163,7 +163,8 @@ export default function SwitchPage() {
               <Link
                 href="/personal"
                 className={buttonVariants({
-                  className: "h-11 rounded-full px-6",
+                  className:
+                    "h-11 rounded-full px-6 bg-[var(--primary)] text-white hover:bg-[var(--primary-deep)] border-transparent font-semibold",
                 })}
               >
                 Learn more
@@ -171,8 +172,8 @@ export default function SwitchPage() {
               <Link
                 href="/personal/enquiry"
                 className={buttonVariants({
-                  variant: "outline",
-                  className: "h-11 rounded-full px-6",
+                  className:
+                    "h-11 rounded-full px-6 bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
                 })}
               >
                 Check my eligibility
@@ -186,7 +187,7 @@ export default function SwitchPage() {
         <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-6 md:grid-cols-3">
           <div className="md:col-span-2">
             <h2 className="text-balance text-3xl tracking-[-0.03em] text-foreground md:text-4xl">
-              Great reasons to refinance your home loan with Zenus Bank
+              Great reasons to refinance your home loan with Ally Banks
             </h2>
             <p className="mt-4 text-muted-foreground">
               Our competitive rates, simplified home loan products, and
@@ -195,19 +196,20 @@ export default function SwitchPage() {
               nation&apos;s most trusted brands.
             </p>
             <p className="mt-4 text-muted-foreground">
-              See for yourself when you switch your home loan to Zenus Bank, the
+              See for yourself when you switch your home loan to Ally Banks, the
               better big bank.
             </p>
             <Link
               href="/personal/enquiry"
               className={buttonVariants({
-                className: "mt-6 h-11 rounded-full px-6",
+                className:
+                  "mt-6 h-11 rounded-full px-6 bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
               })}
             >
               Make an enquiry
             </Link>
           </div>
-          <div className="rounded-xl border border-border bg-card p-6">
+          <div className="rounded-2xl border border-border bg-card p-6">
             <h3 className="font-heading text-lg font-medium text-foreground">
               Move other banking
             </h3>
@@ -219,8 +221,8 @@ export default function SwitchPage() {
               <Link
                 href="/login"
                 className={buttonVariants({
-                  variant: "outline",
-                  className: "h-11 rounded-full",
+                  className:
+                    "h-11 rounded-full bg-[var(--primary)] text-white hover:bg-[var(--primary-deep)] border-transparent font-semibold",
                 })}
               >
                 Transaction account
@@ -228,8 +230,8 @@ export default function SwitchPage() {
               <Link
                 href="/login"
                 className={buttonVariants({
-                  variant: "outline",
-                  className: "h-11 rounded-full",
+                  className:
+                    "h-11 rounded-full bg-[var(--primary)] text-white hover:bg-[var(--primary-deep)] border-transparent font-semibold",
                 })}
               >
                 Personal loan
@@ -248,7 +250,7 @@ export default function SwitchPage() {
             {exploreTiles.map((tile) => (
               <article
                 key={`${tile.title}-${tile.subtitle}-${tile.rate}`}
-                className="card-hover flex flex-col rounded-xl border border-border bg-card p-6"
+                className="card-hover flex flex-col rounded-2xl border border-border bg-card p-6"
               >
                 <Image
                   src={tile.img}
@@ -283,8 +285,8 @@ export default function SwitchPage() {
                   <Link
                     href="/personal"
                     className={buttonVariants({
-                      variant: "outline",
-                      className: "h-10 rounded-full",
+                      className:
+                        "h-10 rounded-full bg-[var(--primary)] text-white hover:bg-[var(--primary-deep)] border-transparent font-semibold",
                     })}
                   >
                     Learn more
@@ -292,7 +294,8 @@ export default function SwitchPage() {
                   <Link
                     href="/personal/enquiry"
                     className={buttonVariants({
-                      className: "h-10 rounded-full",
+                      className:
+                        "h-10 rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold",
                     })}
                   >
                     Check my eligibility
@@ -305,8 +308,8 @@ export default function SwitchPage() {
             <Link
               href="/personal"
               className={buttonVariants({
-                variant: "secondary",
-                className: "h-11 rounded-full px-6",
+                className:
+                  "h-11 rounded-full px-6 bg-[var(--primary)] text-white hover:bg-[var(--primary-deep)] border-transparent font-semibold",
               })}
             >
               View all home loan rates
@@ -318,15 +321,15 @@ export default function SwitchPage() {
       <section className="border-t border-border bg-muted py-16">
         <div className="mx-auto w-full max-w-6xl px-6">
           <h2 className="text-balance text-3xl tracking-[-0.03em] text-foreground md:text-4xl">
-            Explore how to switch to Zenus Bank
+            Explore how to switch to Ally Banks
           </h2>
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             {numberedTiles.map((text, i) => (
               <div
                 key={text}
-                className="flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center"
+                className="flex flex-col items-center rounded-2xl border border-border bg-card p-6 text-center"
               >
-                <div className="grid size-12 place-items-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">
+                <div className="grid size-12 place-items-center rounded-full bg-primary text-2xl font-bold text-white">
                   {i + 1}
                 </div>
                 <p className="mt-4 font-semibold text-foreground">{text}</p>
@@ -346,14 +349,14 @@ export default function SwitchPage() {
               <Link
                 key={tile.title}
                 href={tile.href}
-                className="card-hover flex flex-col rounded-xl border border-border bg-card"
+                className="card-hover flex flex-col rounded-2xl border border-border bg-card"
               >
                 <Image
                   src={tile.img}
                   alt={tile.title}
                   width={600}
                   height={400}
-                  className="h-32 w-full rounded-t-xl object-cover"
+                  className="h-32 w-full rounded-t-2xl object-cover"
                 />
                 <div className="flex flex-1 flex-col justify-between p-4">
                   <h3 className="font-heading text-lg font-medium text-foreground">

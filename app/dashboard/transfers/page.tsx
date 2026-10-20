@@ -23,9 +23,9 @@ export default function TransfersPage() {
             key={t.key}
             href={`/dashboard/transfers/${t.key}`}
             style={{ animationDelay: `${i * 60}ms` }}
-            className="group flex animate-fade-in-up flex-col gap-3 rounded-2xl border border-border bg-card p-5 transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary-muted active:scale-[0.98]"
+            className="group flex animate-fade-in-up flex-col gap-3 rounded-2xl border border-border bg-card p-5 transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-[var(--lilac)]/50 active:scale-[0.98]"
           >
-            <h2 className="font-heading text-lg font-medium text-foreground">{t.label}</h2>
+            <h2 className="font-heading text-lg font-bold text-foreground">{t.label}</h2>
             <p className="text-sm text-muted-foreground">{t.description}</p>
           </Link>
         ))}

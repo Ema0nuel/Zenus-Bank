@@ -16,7 +16,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 const helpOptions = [
   "I've found my dream home, all I need is a loan",
-  "I want to switch my loan over to Zenus Bank",
+  "I want to switch my loan over to Ally Banks",
   "I'm actively house hunting",
   "I'd like to review my current loan and offset account",
   "I'm just starting out and need some advice",
@@ -45,7 +45,7 @@ export function EnquiryForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 rounded-xl border border-border bg-card p-6"
+      className="space-y-5 rounded-2xl border border-border bg-card p-6"
     >
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="space-y-1.5">
@@ -180,7 +180,7 @@ export function EnquiryForm() {
       <Button
         type="submit"
         disabled={status === "submitting"}
-        className="h-11 rounded-full px-6"
+        className="h-11 rounded-full px-6 bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent)] hover:opacity-90 font-semibold"
       >
         {status === "submitting" ? "Submitting…" : "Submit"}
       </Button>
