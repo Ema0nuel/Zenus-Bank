@@ -9,9 +9,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { buildMetadata } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Switch to Ally Banks",
+  title: "Switch to Ally",
   description:
-    "Moving to Ally Banks is easier than ever. Refinance your home loan, switch your transaction account, and join millions of customers enjoying competitive rates.",
+    "Moving to Ally is easier than ever. Refinance your home loan, switch your transaction account, and join millions of customers enjoying competitive rates.",
   path: "/switch",
 });
 
@@ -89,7 +89,7 @@ export default function SwitchPage() {
   return (
     <>
       <PageHero
-        title="Moving to Ally Banks is easier than ever"
+        title="Moving to Ally is easier than ever"
         subtitle="Refinance with a bank you can feel better about and join 1.9 million customers already benefiting from our competitive rates and trusted services."
         image="https://images.unsplash.com/photo-1623282033815-40b05d96c903?auto=format&fit=crop&w=1200&q=80"
         showLogo
@@ -187,7 +187,7 @@ export default function SwitchPage() {
         <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-6 md:grid-cols-3">
           <div className="md:col-span-2">
             <h2 className="text-balance text-3xl tracking-[-0.03em] text-foreground md:text-4xl">
-              Great reasons to refinance your home loan with Ally Banks
+              Great reasons to refinance your home loan with Ally
             </h2>
             <p className="mt-4 text-muted-foreground">
               Our competitive rates, simplified home loan products, and
@@ -196,7 +196,7 @@ export default function SwitchPage() {
               nation&apos;s most trusted brands.
             </p>
             <p className="mt-4 text-muted-foreground">
-              See for yourself when you switch your home loan to Ally Banks, the
+              See for yourself when you switch your home loan to Ally, the
               better big bank.
             </p>
             <Link
@@ -321,7 +321,7 @@ export default function SwitchPage() {
       <section className="border-t border-border bg-muted py-16">
         <div className="mx-auto w-full max-w-6xl px-6">
           <h2 className="text-balance text-3xl tracking-[-0.03em] text-foreground md:text-4xl">
-            Explore how to switch to Ally Banks
+            Explore how to switch to Ally
           </h2>
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             {numberedTiles.map((text, i) => (

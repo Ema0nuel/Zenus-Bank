@@ -16,7 +16,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 const helpOptions = [
   "I've found my dream home, all I need is a loan",
-  "I want to switch my loan over to Ally Banks",
+  "I want to switch my loan over to Ally",
   "I'm actively house hunting",
   "I'd like to review my current loan and offset account",
   "I'm just starting out and need some advice",

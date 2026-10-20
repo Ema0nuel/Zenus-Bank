@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { AuthShell } from "@/components/auth/auth-shell";
+import { CaptchaWidget } from "@/components/auth/captcha-widget";
 import { PasswordInput, inputClass } from "@/components/auth/password-input";
-import { loginAndSendOtp, verifyOtp } from "@/lib/auth";
+import { loginAndSendOtp, resendOtp, verifyOtp } from "@/lib/auth";
 import { useAuthStore } from "@/stores/auth-store";
 
 const LAST_ACCESS_KEY = "lastAccessID";
@@ -48,6 +49,13 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
+
+  function resetCaptcha() {
+    setCaptchaToken(null);
+    setCaptchaKey((k) => k + 1);
+  }
 
   const step = manualStep ?? (resumedAccessId ? "otp" : "credentials");
   const lastAccessID = manualAccessId ?? resumedAccessId;
@@ -71,9 +79,13 @@ export default function LoginPage() {
         setError("Please enter your Access ID and password.");
         return;
       }
+      if (!captchaToken) {
+        setError("Please complete the captcha challenge.");
+        return;
+      }
       setLoading(true);
       try {
-        await loginAndSendOtp(accessID.trim(), password);
+        await loginAndSendOtp(accessID.trim(), password, captchaToken);
         sessionStorage.setItem(LAST_ACCESS_KEY, accessID.trim());
         sessionStorage.setItem(
           OTP_EXPIRES_KEY,
@@ -86,6 +98,7 @@ export default function LoginPage() {
       } catch (err) {
         setError(err instanceof Error ? err.message : "Login failed.");
       } finally {
+        resetCaptcha();
         setLoading(false);
       }
       return;
@@ -113,14 +126,19 @@ export default function LoginPage() {
       setError("Please enter your Access ID and password first.");
       return;
     }
+    if (!captchaToken) {
+      setError("Please complete the captcha challenge.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
-      await loginAndSendOtp(lastAccessID, "");
+      await resendOtp(lastAccessID, captchaToken);
       setInfo("OTP resent to your email.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not resend OTP.");
+      setError(err instanceof Error ? err.message : "Could not resend code.");
     } finally {
+      resetCaptcha();
       setLoading(false);
     }
   }
@@ -135,7 +153,7 @@ export default function LoginPage() {
       }
       footer={
         <p className="text-center font-sans text-sm font-semibold text-muted-foreground">
-          New to Ally Banks?{" "}
+          New to Ally?{" "}
           <Link href="/register" className="text-primary hover:underline">
             Create an account
           </Link>
@@ -179,6 +197,8 @@ export default function LoginPage() {
               autoComplete="current-password"
             />
 
+            <CaptchaWidget key={`cap-${captchaKey}`} onToken={setCaptchaToken} />
+
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">
                 New user?{" "}
@@ -216,6 +236,8 @@ export default function LoginPage() {
               />
             </div>
 
+            <CaptchaWidget key={`cap-${captchaKey}`} onToken={setCaptchaToken} />
+
             <div className="flex items-center justify-between">
               <button
                 type="button"
@@ -231,6 +253,7 @@ export default function LoginPage() {
                   clearResume();
                   setManualStep("credentials");
                   setManualAccessId("");
+                  resetCaptcha();
                 }}
                 className="text-xs font-semibold text-muted-foreground hover:underline"
               >

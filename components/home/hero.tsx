@@ -26,7 +26,7 @@ const banners: Banner[] = [
   },
   {
     title: "Your Dream Home Awaits.",
-    desc: "Unlock exclusive member rates and personalized support. Start your journey with Ally Banks today.",
+    desc: "Unlock exclusive member rates and personalized support. Start your journey with Ally today.",
     img: "https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&w=1600&q=80",
     cta: "Start now",
     ctaLink: "/register",

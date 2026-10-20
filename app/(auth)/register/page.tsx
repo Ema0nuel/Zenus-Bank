@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { AuthShell } from "@/components/auth/auth-shell";
+import { CaptchaWidget } from "@/components/auth/captcha-widget";
 import { PasswordInput, inputClass } from "@/components/auth/password-input";
 import {
   Select,
@@ -43,6 +44,13 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
+
+  function resetCaptcha() {
+    setCaptchaToken(null);
+    setCaptchaKey((k) => k + 1);
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -95,6 +103,11 @@ export default function RegisterPage() {
       return;
     }
 
+    if (!captchaToken) {
+      setError("Please complete the captcha challenge.");
+      return;
+    }
+
     setLoading(true);
     try {
       const ip = await fetch("https://api.ipify.org?format=json")
@@ -122,13 +135,15 @@ export default function RegisterPage() {
           gender: data.gender,
           acctype: data.acctype,
         },
-        ip
+        ip,
+        captchaToken
       );
 
       sessionStorage.setItem("pendingEmail", data.email);
       router.push("/auth");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Signup failed.");
+      resetCaptcha();
       setLoading(false);
     }
   }
@@ -136,7 +151,7 @@ export default function RegisterPage() {
   return (
     <AuthShell
       title="Create your account"
-      subtitle="Open an Ally Banks account in minutes."
+      subtitle="Open an Ally account in minutes."
       footer={
         <p className="text-center font-sans text-sm font-semibold text-muted-foreground">
           Already have an account?{" "}
@@ -359,6 +374,10 @@ export default function RegisterPage() {
                 </Link>
               </span>
             </label>
+          </div>
+
+          <div className="md:col-span-2">
+            <CaptchaWidget key={`cap-${captchaKey}`} onToken={setCaptchaToken} />
           </div>
 
           <div className="md:col-span-2 flex justify-end">

@@ -8,7 +8,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Privacy Policy",
   description:
-    "Learn how Ally Banks collects, uses, discloses and protects your personal information. Read our full privacy policy.",
+    "Learn how Ally collects, uses, discloses and protects your personal information. Read our full privacy policy.",
   path: "/privacy",
 });
 
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
           <div className="mt-12 space-y-12">
             <Section id="about-this-policy" title="About this policy">
               <p>
-                This document sets out how Ally Banks safeguards your privacy.
+                This document sets out how Ally safeguards your privacy.
               </p>
               <p>
                 We recognise the importance of protecting your privacy and are

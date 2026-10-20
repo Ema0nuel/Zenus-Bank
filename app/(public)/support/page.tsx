@@ -24,7 +24,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Support Centre",
   description:
-    "Providing help and support when you need it. Find popular links, e-banking help, security guidance, and ways to contact the Ally Banks support team.",
+    "Providing help and support when you need it. Find popular links, e-banking help, security guidance, and ways to contact the Ally support team.",
   path: "/support",
 });
 

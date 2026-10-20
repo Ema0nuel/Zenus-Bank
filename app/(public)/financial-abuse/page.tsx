@@ -7,7 +7,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Financial Abuse Support",
   description:
-    "Financial abuse can happen to anyone. Learn how Ally Banks can help you regain control of your banking, recognise the warning signs, and access confidential support.",
+    "Financial abuse can happen to anyone. Learn how Ally can help you regain control of your banking, recognise the warning signs, and access confidential support.",
   path: "/financial-abuse",
 });
 

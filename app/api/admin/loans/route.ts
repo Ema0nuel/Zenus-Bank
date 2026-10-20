@@ -1,8 +1,11 @@
+import { requireAdmin } from "@/lib/admin-guard";
 import { NextResponse } from "next/server";
 
 import { getAdminClient } from "@/lib/supabase/admin";
 
 export async function POST(req: Request) {
+  const guard = await requireAdmin(req);
+  if (guard) return guard;
   const body = await req.json().catch(() => null);
   if (!body) return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
 

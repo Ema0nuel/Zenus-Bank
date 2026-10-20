@@ -236,7 +236,7 @@ export default function BusinessPage() {
               Terms, conditions, fees, charges and lending criteria apply.
               Individual circumstances may vary. You should consult your
               taxation advisor and read the relevant Terms and Conditions
-              available at Ally Banks before making a decision. Rates are
+              available at Ally before making a decision. Rates are
               subject to change.
             </p>
             <p>

@@ -63,7 +63,7 @@ export default function AccessibilityPage() {
             Inclusive and accessible design is good for everyone
           </h2>
           <p className="mt-4 max-w-3xl text-muted-foreground">
-            At Ally Banks, we value all abilities and capabilities. We want our
+            At Ally, we value all abilities and capabilities. We want our
             products, services and workplace to be accessible to all people.
             Using industry expertise and advances ensures banking with us is
             positive and seamless.
@@ -144,7 +144,7 @@ export default function AccessibilityPage() {
           <div className="mt-4 max-w-3xl space-y-4 text-muted-foreground">
             <p>
               We&apos;re committed to creating an inclusive and supportive bank
-              for our customers, staff and community. The Ally Banks Access and
+              for our customers, staff and community. The Ally Access and
               Inclusion Plan aims to do this.
             </p>
             <p>

@@ -20,14 +20,14 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Community",
   description:
-    "Be part of the Ally Banks community. Through our profit-with-purpose model, we return profits directly to the communities that generate them.",
+    "Be part of the Ally community. Through our profit-with-purpose model, we return profits directly to the communities that generate them.",
   path: "/community",
 });
 
 const propositions = [
   { icon: HandCoins, label: "$292 million reinvested back into local communities" },
   { icon: Building2, label: "Over 300 Community Bank branches" },
-  { icon: Landmark, label: "One of the nation's biggest banks" },
+  { icon: Landmark, label: "One of the nation's biggest financial groups" },
 ];
 
 const stats = [
@@ -43,7 +43,7 @@ const stats = [
 export default function CommunityPage() {
   return (
     <>
-      <PageHero title="Be part of the Ally Banks community" align="left">
+      <PageHero title="Be part of the Ally community" align="left">
         <Link
           href="/locate"
           className={buttonVariants({
@@ -125,7 +125,7 @@ export default function CommunityPage() {
         <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-8">
           <div className="flex flex-col items-start gap-4">
             <h2 className="text-2xl font-extralight tracking-[-0.03em] text-white md:text-3xl">
-              Switch to Ally Banks
+              Switch to Ally
             </h2>
             <p className="max-w-xl text-white/90">
               Be part of something bigger. See below for more information about

@@ -7,19 +7,19 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Locate a Branch, ATM or Agency",
   description:
-    "Find your nearest Ally Banks branch, ATM or agency. View branch addresses, contact details, and an interactive map.",
+    "Find your nearest Ally branch, ATM or agency. View branch addresses, contact details, and an interactive map.",
   path: "/locate",
 });
 
 const branches = [
   {
-    name: "Ally Banks",
+    name: "Ally",
     address: "36 Main Street, Box Hill VIC 3128",
     email: "support@allybanks.cc",
   },
   {
     name: "ATM iStandard GroupMarketplace",
-    address: "116 - 120 Mitchell Street, Ally Banks 3550",
+    address: "116 - 120 Mitchell Street, Ally 3550",
   },
 ];
 
@@ -60,7 +60,7 @@ export default function LocatePage() {
 
           <div className="h-96 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
             <iframe
-              title="Ally Banks branch map"
+              title="Ally branch map"
               width="100%"
               height="100%"
               style={{ border: 0 }}

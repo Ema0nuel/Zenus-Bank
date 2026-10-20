@@ -17,7 +17,7 @@ const columns = [
   {
     title: "About us",
     links: [
-      { label: "About Ally Banks", href: "/about" },
+      { label: "About Ally", href: "/about" },
       { label: "Community", href: "/community" },
       { label: "Accessibility & Inclusion", href: "/accessibility" },
     ],
@@ -77,7 +77,7 @@ export function Footer() {
         <div className="max-w-sm">
           <Image
             src="/images/logo.png"
-            alt="Ally Banks logo"
+            alt="Ally logo"
             width={0}
             height={0}
             sizes="100vw"
@@ -85,14 +85,14 @@ export function Footer() {
           />
           <Image
             src="/images/logo.png"
-            alt="Ally Banks logo"
+            alt="Ally logo"
             width={0}
             height={0}
             sizes="100vw"
             className="mb-4 hidden h-10 w-auto dark:block"
           />
           <div className="mb-2 font-heading text-base font-bold text-primary">
-            Ally Banks
+            Ally
           </div>
           <p className="mb-8 text-sm text-muted-foreground">
             Empowering your financial future.
@@ -141,7 +141,7 @@ export function Footer() {
       <Separator />
 
       <div className="mx-auto flex w-full max-w-[1400px] flex-col items-center justify-between gap-2 px-6 py-6 text-xs text-muted-foreground md:flex-row md:px-12 lg:px-16">
-        <div>&copy; {year} Ally Banks. All rights reserved.</div>
+        <div>&copy; {year} Ally. All rights reserved.</div>
         <div className="flex flex-wrap gap-x-5 gap-y-2">
           {legal.map((item) => (
             <Link key={item.href} href={item.href} className="hover:underline">

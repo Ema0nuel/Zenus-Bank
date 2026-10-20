@@ -15,7 +15,7 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Important Information",
   description:
-    "Find important information about Ally Banks including our codes of practice, disclosure documents, the Financial Claims Scheme, privacy, and more.",
+    "Find important information about Ally including our codes of practice, disclosure documents, the Financial Claims Scheme, privacy, and more.",
   path: "/important-info",
 });
 
@@ -39,7 +39,7 @@ const infoTiles = [
     href: "/important-info",
     linkText: "View our disclosure documents",
     details: [
-      "Access all Ally Banks disclosure documents, including:",
+      "Access all Ally disclosure documents, including:",
       "Terms and conditions for products and services",
       "Product disclosure statements",
       "Privacy disclosure statement",
@@ -53,7 +53,7 @@ const infoTiles = [
     href: "/about",
     linkText: "Learn more about FCS",
     details: [
-      "A government scheme that provides protection and quick access to deposits in banks, building societies and credit unions in the unlikely event that one of these financial institutions fails.",
+      "A government scheme that provides protection and quick access to deposits in financial institutions in the unlikely event that one of these financial institutions fails.",
     ],
   },
   {
@@ -63,7 +63,7 @@ const infoTiles = [
     linkText: "View our policies",
     details: [
       "Learn how we manage personal and credit related information through our:",
-      "Ally Banks Privacy Policy",
+      "Ally Privacy Policy",
       "Credit Reporting Policy",
       "Credit Reporting Statement of Notifiable Matters",
       "Consumer Data Right",
@@ -75,7 +75,7 @@ const infoTiles = [
     href: "/target-market",
     linkText: "Learn more about TMDs",
     details: [
-      "Target Market Determinations for financial products distributed by Ally Banks are to ensure that the right products end up in the hands of the right customer. We do this by focusing on our customers in the design and distribution of our financial products.",
+      "Target Market Determinations for financial products distributed by Ally are to ensure that the right products end up in the hands of the right customer. We do this by focusing on our customers in the design and distribution of our financial products.",
     ],
   },
   {
@@ -84,7 +84,7 @@ const infoTiles = [
     href: "/terms",
     linkText: "Read our terms of use",
     details: [
-      "The terms of use for the Ally Banks website sets the rules for using our website with our rights in, and restrictions on your use of, the site, product and services information, third party content and jurisdiction.",
+      "The terms of use for the Ally website sets the rules for using our website with our rights in, and restrictions on your use of, the site, product and services information, third party content and jurisdiction.",
     ],
   },
 ];

@@ -21,7 +21,7 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Personal Loans",
   description:
-    "Bring your plans to life with a Ally Banks personal loan. Compare secured and unsecured loan options, competitive rates, and flexible repayment terms.",
+    "Bring your plans to life with a Ally personal loan. Compare secured and unsecured loan options, competitive rates, and flexible repayment terms.",
   path: "/personal",
 });
 
@@ -303,7 +303,7 @@ export default function PersonalPage() {
               <div className="space-y-4 border-t border-border px-5 py-4 text-sm text-muted-foreground">
                 <p>
                   Desperate for a holiday? Or to dive into an adventure? Driven
-                  to buy your next car? Or dreaming of a home makeover? A Ally Banks personal loan can make it happen. Applying online is
+                  to buy your next car? Or dreaming of a home makeover? A Ally personal loan can make it happen. Applying online is
                   quick and easy.
                 </p>
                 <p>
@@ -328,7 +328,7 @@ export default function PersonalPage() {
       <section className="border-y border-border bg-muted py-12">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-6 px-6 md:flex-row md:items-center">
           <h2 className="text-2xl tracking-tight text-foreground md:text-3xl">
-            Looking to switch your personal loan to Ally Banks?
+            Looking to switch your personal loan to Ally?
           </h2>
           <Link
             href="/switch"

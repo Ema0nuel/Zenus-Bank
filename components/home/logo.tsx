@@ -8,7 +8,7 @@ export function Logo({ className }: { className?: string }) {
     <Link href="/" className={cn("flex items-center gap-2", className)}>
       <Image
         src="/images/logo.png"
-        alt="Ally Banks logo"
+        alt="Ally logo"
         width={0}
         height={0}
         sizes="100vw"
@@ -17,7 +17,7 @@ export function Logo({ className }: { className?: string }) {
       />
       <Image
         src="/images/logo.png"
-        alt="Ally Banks logo"
+        alt="Ally logo"
         width={0}
         height={0}
         sizes="100vw"
@@ -25,7 +25,7 @@ export function Logo({ className }: { className?: string }) {
         className="hidden h-8 w-auto dark:block"
       />
       <span className="ml-1 font-heading text-base font-bold text-primary">
-        Ally Banks
+        Ally
       </span>
     </Link>
   );

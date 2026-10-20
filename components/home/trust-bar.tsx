@@ -5,7 +5,7 @@ import { Reveal } from "./reveal";
 const proofs = [
   {
     icon: Landmark,
-    title: "One of the US's biggest banks",
+    title: "One of the US's biggest financial groups",
     value: "$120B+",
     label: "assets under management",
   },

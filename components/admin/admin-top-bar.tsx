@@ -22,7 +22,7 @@ export function AdminTopBar({ onMenuClick }: { onMenuClick: () => void }) {
         <Link href="/admin" className="flex items-center gap-2.5">
           <Image
             src="/images/logo.png"
-            alt="Ally Banks"
+            alt="Ally"
             width={0}
             height={0}
             sizes="100vw"
@@ -30,7 +30,7 @@ export function AdminTopBar({ onMenuClick }: { onMenuClick: () => void }) {
           />
           <Image
             src="/images/logo.png"
-            alt="Ally Banks"
+            alt="Ally"
             width={0}
             height={0}
             sizes="100vw"

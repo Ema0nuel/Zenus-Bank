@@ -12,7 +12,7 @@ import { Reveal } from "./reveal";
 const testimonials = [
   {
     quote:
-      "Switching to Ally Banks was the best decision for my family. The process was smooth and the rates are unbeatable.",
+      "Switching to Ally was the best decision for my family. The process was smooth and the rates are unbeatable.",
     name: "James R.",
     role: "Home loan member",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",

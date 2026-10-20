@@ -167,7 +167,7 @@ export default function HistoryPage() {
               <div className="flex items-center gap-3">
                 <Image
                   src="/images/logo.png"
-                  alt="Ally Banks"
+                  alt="Ally"
                   width={0}
                   height={0}
                   sizes="100vw"
@@ -175,7 +175,7 @@ export default function HistoryPage() {
                 />
                 <Image
                   src="/images/logo.png"
-                  alt="Ally Banks"
+                  alt="Ally"
                   width={0}
                   height={0}
                   sizes="100vw"

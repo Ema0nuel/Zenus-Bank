@@ -1,7 +1,17 @@
 import { NextResponse } from "next/server";
 import { resend } from "@/lib/resend";
+import { rateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const rl = rateLimit(`send-email:${ip}`, 5, 60_000);
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: "Too many requests" },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } }
+    );
+  }
+
   let body: { to?: string; subject?: string; html?: string };
   try {
     body = await req.json();
@@ -17,7 +27,7 @@ export async function POST(req: Request) {
 
   try {
     const result = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || "Ally Banks <noreply@allybanks.cc>",
+      from: process.env.RESEND_FROM_EMAIL || "Ally <noreply@allybanks.cc>",
       to,
       subject,
       html,

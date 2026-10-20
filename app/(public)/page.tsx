@@ -9,7 +9,7 @@ import { BlogNews } from "@/components/home/blog-news";
 import { buildMetadata, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Ally Banks — Premium Banking Reimagined",
+  title: "Ally — Premium Banking Reimagined",
   description: siteConfig.description,
   absolute: true,
 });

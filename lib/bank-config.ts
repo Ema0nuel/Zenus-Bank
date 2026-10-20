@@ -1,5 +1,5 @@
 /**
- * Central operational configuration for Ally Banks.
+ * Central operational configuration for Ally.
  *
  * Single source of truth for values that used to be hardcoded across the
  * old views (admin email, limits, durations, card types, transfer types,

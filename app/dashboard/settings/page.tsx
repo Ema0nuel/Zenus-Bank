@@ -53,7 +53,7 @@ export default function SettingsPage() {
     <div className="space-y-8">
       <PageHeader
         title="Settings"
-        description="Customize how Ally Banks looks and behaves. Changes are saved on this device."
+        description="Customize how Ally looks and behaves. Changes are saved on this device."
         crumbs={[{ label: "Settings" }]}
         actions={
           <Button variant="outline" onClick={reset}>

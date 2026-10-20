@@ -40,7 +40,7 @@ export function Sidebar({
         <Link href="/dashboard" className="flex min-w-0 items-center gap-2.5">
           <Image
             src="/images/logo.png"
-            alt="Ally Banks"
+            alt="Ally"
             width={0}
             height={0}
             sizes="100vw"
@@ -48,7 +48,7 @@ export function Sidebar({
           />
           <Image
             src="/images/logo.png"
-            alt="Ally Banks"
+            alt="Ally"
             width={0}
             height={0}
             sizes="100vw"
@@ -56,7 +56,7 @@ export function Sidebar({
           />
           {!collapsed && (
             <span className="truncate font-heading text-base font-bold text-primary">
-              Ally Banks
+              Ally
             </span>
           )}
         </Link>

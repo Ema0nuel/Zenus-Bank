@@ -7,7 +7,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Financial Difficulty Assistance",
   description:
-    "Experiencing financial difficulty? We're here to help. Learn how to apply for assistance, the options available, and the application process at Ally Banks.",
+    "Experiencing financial difficulty? We're here to help. Learn how to apply for assistance, the options available, and the application process at Ally.",
   path: "/financial-difficulty",
 });
 

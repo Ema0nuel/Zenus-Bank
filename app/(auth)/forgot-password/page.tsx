@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { AuthShell } from "@/components/auth/auth-shell";
+import { CaptchaWidget } from "@/components/auth/captcha-widget";
 import { inputClass } from "@/components/auth/password-input";
 import { forgotPassword } from "@/lib/auth";
 
@@ -23,6 +24,8 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
   const [cooldown, setCooldown] = useState(0);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -48,10 +51,15 @@ export default function ForgotPasswordPage() {
 
     if (!isValidEmail || cooldown > 0) return;
 
+    if (!captchaToken) {
+      setError("Please complete the captcha challenge.");
+      return;
+    }
+
     startCooldown(COOLDOWN_SECONDS);
     setLoading(true);
     try {
-      await forgotPassword(email.trim());
+      await forgotPassword(email.trim(), captchaToken);
       setInfo("Password reset instructions sent to your email.");
       setTimeout(() => router.push("/login"), 2000);
     } catch (err) {
@@ -65,6 +73,8 @@ export default function ForgotPasswordPage() {
       );
       startCooldown(isRateLimited ? COOLDOWN_SECONDS : 10);
     } finally {
+      setCaptchaToken(null);
+      setCaptchaKey((k) => k + 1);
       setLoading(false);
     }
   }
@@ -113,6 +123,8 @@ export default function ForgotPasswordPage() {
             autoComplete="email"
           />
         </div>
+
+        <CaptchaWidget key={`cap-${captchaKey}`} onToken={setCaptchaToken} />
 
         <button
           type="submit"

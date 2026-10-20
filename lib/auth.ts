@@ -15,6 +15,17 @@ export async function getGeoLocation(ip: string) {
   }
 }
 
+async function verifyCaptcha(captchaToken: string | null | undefined) {
+  if (!captchaToken) throw new Error("Captcha required. Please complete the challenge.");
+  const res = await fetch("/api/captcha", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token: captchaToken }),
+  });
+  if (!res.ok) throw new Error("Captcha verification failed. Please try again.");
+  return true;
+}
+
 async function findUserByAccessId(
   accessID: string
 ): Promise<{ id: string; email: string; full_name: string | null } | null> {
@@ -47,7 +58,30 @@ async function findUserByAccessId(
   return byAccount ?? null;
 }
 
-export async function loginAndSendOtp(accessID: string, password: string) {
+async function issueLoginOtp(userData: { id: string; email: string; full_name: string | null }) {
+  const supabase = getBrowserClient();
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000).toISOString();
+
+  await supabase.from("login_otps").insert({
+    user_id: userData.id,
+    otp,
+    expires_at: expiresAt,
+    used: false,
+    temp_password: null,
+  });
+
+  await sendOtpEmail({ to: userData.email, name: userData.full_name ?? undefined, otp });
+}
+
+export async function loginAndSendOtp(
+  accessID: string,
+  password: string,
+  captchaToken: string | null
+) {
+  await verifyCaptcha(captchaToken);
+
   const supabase = getBrowserClient();
 
   const userData = await findUserByAccessId(accessID);
@@ -72,6 +106,19 @@ export async function loginAndSendOtp(accessID: string, password: string) {
   });
 
   await sendOtpEmail({ to: userData.email, name: userData.full_name ?? undefined, otp });
+
+  return true;
+}
+
+// Resend issues a fresh OTP for an access ID already past the password step.
+// No password is supplied or checked here.
+export async function resendOtp(accessID: string, captchaToken: string | null) {
+  await verifyCaptcha(captchaToken);
+
+  const userData = await findUserByAccessId(accessID);
+  if (!userData || !userData.email) throw new Error("Could not resend code.");
+
+  await issueLoginOtp(userData);
 
   return true;
 }
@@ -141,7 +188,13 @@ export interface SignupFormData {
   acctype?: string;
 }
 
-export async function signupUser(formData: SignupFormData, ip: string) {
+export async function signupUser(
+  formData: SignupFormData,
+  ip: string,
+  captchaToken: string | null
+) {
+  await verifyCaptcha(captchaToken);
+
   const supabase = getBrowserClient();
   const {
     email,
@@ -232,7 +285,9 @@ export async function signupUser(formData: SignupFormData, ip: string) {
   return userId;
 }
 
-export async function forgotPassword(email: string) {
+export async function forgotPassword(email: string, captchaToken: string | null) {
+  await verifyCaptcha(captchaToken);
+
   const supabase = getBrowserClient();
   const redirectUrl =
     (typeof window !== "undefined" ? window.location.origin : "https://allybanks.cc") +

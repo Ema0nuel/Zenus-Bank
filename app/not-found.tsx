@@ -11,7 +11,7 @@ import { buildMetadata } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Page Not Found",
   description:
-    "The page you are looking for could not be found. Return to the Ally Banks homepage.",
+    "The page you are looking for could not be found. Return to the Ally homepage.",
   path: "/404",
 });
 

@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/admin-guard";
 import { NextResponse } from "next/server";
 
 import { getAdminClient } from "@/lib/supabase/admin";
@@ -6,6 +7,8 @@ export async function POST(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const guard = await requireAdmin(_req);
+  if (guard) return guard;
   const { id } = await params;
   if (!id) return NextResponse.json({ error: "Missing loan id" }, { status: 400 });
 

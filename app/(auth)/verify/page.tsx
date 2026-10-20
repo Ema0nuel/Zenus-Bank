@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { AuthShell } from "@/components/auth/auth-shell";
+import { CaptchaWidget } from "@/components/auth/captcha-widget";
 import { inputClass } from "@/components/auth/password-input";
-import { loginAndSendOtp, verifyOtp } from "@/lib/auth";
+import { resendOtp, verifyOtp } from "@/lib/auth";
 import { useAuthStore } from "@/stores/auth-store";
 
 const LAST_ACCESS_KEY = "lastAccessID";
@@ -33,6 +34,8 @@ export default function VerifyPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -61,14 +64,20 @@ export default function VerifyPage() {
       setError("Please login again to resend OTP.");
       return;
     }
+    if (!captchaToken) {
+      setError("Please complete the captcha challenge.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
-      await loginAndSendOtp(lastAccessID, "");
+      await resendOtp(lastAccessID, captchaToken);
       setInfo("OTP resent to your email.");
     } catch {
-      setError("Could not resend OTP. Please try again.");
+      setError("Could not resend code. Please try again.");
     } finally {
+      setCaptchaToken(null);
+      setCaptchaKey((k) => k + 1);
       setLoading(false);
     }
   }
@@ -121,6 +130,8 @@ export default function VerifyPage() {
             placeholder="Enter 6-digit code"
           />
         </div>
+
+        <CaptchaWidget key={`cap-${captchaKey}`} onToken={setCaptchaToken} />
 
         <button type="submit" disabled={loading} className={submitBtnClass}>
           {loading ? "Verifying..." : "Log in"}

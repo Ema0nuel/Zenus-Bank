@@ -18,7 +18,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Security",
   description:
-    "Keep your identity, business and family safe. Learn how to spot a scam, protect yourself online and on the phone, and reduce cheque fraud with Ally Banks.",
+    "Keep your identity, business and family safe. Learn how to spot a scam, protect yourself online and on the phone, and reduce cheque fraud with Ally.",
   path: "/security",
 });
 

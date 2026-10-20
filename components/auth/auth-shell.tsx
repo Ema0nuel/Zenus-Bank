@@ -36,7 +36,7 @@ export function AuthShell({
         <Link href="/" className="relative inline-flex items-center gap-3">
           <Image
             src="/images/logo.png"
-            alt="Ally Banks logo"
+            alt="Ally logo"
             width={0}
             height={0}
             sizes="100vw"
@@ -44,7 +44,7 @@ export function AuthShell({
             className="h-10 w-auto"
           />
           <span className="font-heading text-2xl font-bold tracking-tight text-[var(--accent)]">
-            Ally Banks
+            Ally
           </span>
         </Link>
 
@@ -67,7 +67,7 @@ export function AuthShell({
         </div>
 
         <p className="relative font-sans text-xs font-semibold text-white/40">
-          © {new Date().getFullYear()} Ally Banks. All rights reserved.
+          © {new Date().getFullYear()} Ally. All rights reserved.
         </p>
       </aside>
 

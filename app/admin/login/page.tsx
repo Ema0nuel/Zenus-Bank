@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
       subtitle="Sign in to manage the platform"
       footer={
         <p className="text-center font-sans text-sm font-semibold text-muted-foreground">
-          Ally Banks Administration
+          Ally Administration
         </p>
       }
     >

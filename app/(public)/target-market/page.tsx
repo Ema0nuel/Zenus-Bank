@@ -8,7 +8,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Target Market Determinations",
   description:
-    "Target Market Determinations for financial products issued and/or distributed by Ally Banks, designed to deliver better customer outcomes.",
+    "Target Market Determinations for financial products issued and/or distributed by Ally, designed to deliver better customer outcomes.",
   path: "/target-market",
 });
 
@@ -94,7 +94,7 @@ export default function TargetMarketPage() {
             <div className="p-6 text-sm text-muted-foreground">
               <p>
                 This page includes the Target Market Determinations for
-                financial products issued and/or distributed by Ally Banks.
+                financial products issued and/or distributed by Ally.
               </p>
             </div>
           </div>
