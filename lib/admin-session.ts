@@ -37,9 +37,20 @@ export async function createAdminSessionToken(): Promise<string> {
   return `${payload}|${await hmac(payload)}`;
 }
 
+// Set-Cookie percent-encodes the "|" separators, so the raw header arrives as
+// "v1%7C...". Decode before splitting. Verification stays server side only.
+function normalizeToken(token: string): string {
+  if (!token.includes("%")) return token;
+  try {
+    return decodeURIComponent(token);
+  } catch {
+    return token;
+  }
+}
+
 export async function verifyAdminSessionToken(token: string | undefined | null): Promise<boolean> {
   if (!token || !getSecret()) return false;
-  const parts = token.split("|");
+  const parts = normalizeToken(token).split("|");
   if (parts.length !== 3) return false;
   const [version, expiresRaw, sig] = parts;
   if (version !== "v1") return false;
