@@ -10,14 +10,23 @@ function isAllowedHost(hostname: string): boolean {
   return false;
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const hostname = request.headers.get("host")?.split(":")[0] ?? "";
 
-  // Gate the admin panel by hostname so it's not reachable from the public site.
+  // Bare admin subdomain lands on the panel.
+  if (pathname === "/" && ADMIN_HOSTS.has(hostname)) {
+    return NextResponse.redirect(new URL("/admin", request.url));
+  }
+
+  // The admin panel lives only on admin.allybanks.cc (and localhost in dev).
+  // Any other host gets a 404 so /admin looks nonexistent there.
   if (pathname.startsWith("/admin") || pathname.startsWith("/api/admin")) {
     if (!isAllowedHost(hostname)) {
-      return new NextResponse("Not Found", { status: 404 });
+      if (pathname.startsWith("/api/admin")) {
+        return NextResponse.json({ error: "Not Found" }, { status: 404 });
+      }
+      return NextResponse.rewrite(new URL("/admin-blocked", request.url));
     }
   }
 
@@ -25,5 +34,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*"],
+  matcher: ["/", "/admin/:path*", "/api/admin/:path*"],
 };
