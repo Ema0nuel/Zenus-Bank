@@ -64,13 +64,23 @@ async function issueLoginOtp(userData: { id: string; email: string; full_name: s
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const expiresAt = new Date(Date.now() + 10 * 60 * 1000).toISOString();
 
-  await supabase.from("login_otps").insert({
+  // Reuse the password saved at login so a resent OTP can still open a session.
+  const { data: latest } = await supabase
+    .from("login_otps")
+    .select("temp_password")
+    .eq("user_id", userData.id)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const { error: otpInsertError } = await supabase.from("login_otps").insert({
     user_id: userData.id,
     otp,
     expires_at: expiresAt,
     used: false,
-    temp_password: null,
+    temp_password: latest?.temp_password ?? null,
   });
+  if (otpInsertError) throw new Error("Could not create login code. Please try again.");
 
   await sendOtpEmail({ to: userData.email, name: userData.full_name ?? undefined, otp });
 }
@@ -97,13 +107,14 @@ export async function loginAndSendOtp(
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const expiresAt = new Date(Date.now() + 10 * 60 * 1000).toISOString();
 
-  await supabase.from("login_otps").insert({
+  const { error: otpInsertError } = await supabase.from("login_otps").insert({
     user_id: userData.id,
     otp,
     expires_at: expiresAt,
     used: false,
     temp_password: password,
   });
+  if (otpInsertError) throw new Error("Could not create login code. Please try again.");
 
   await sendOtpEmail({ to: userData.email, name: userData.full_name ?? undefined, otp });
 
@@ -112,9 +123,7 @@ export async function loginAndSendOtp(
 
 // Resend issues a fresh OTP for an access ID already past the password step.
 // No password is supplied or checked here.
-export async function resendOtp(accessID: string, captchaToken: string | null) {
-  await verifyCaptcha(captchaToken);
-
+export async function resendOtp(accessID: string) {
   const userData = await findUserByAccessId(accessID);
   if (!userData || !userData.email) throw new Error("Could not resend code.");
 
@@ -123,7 +132,7 @@ export async function resendOtp(accessID: string, captchaToken: string | null) {
   return true;
 }
 
-export async function verifyOtp(accessID: string, otp: string) {
+export async function verifyOtp(accessID: string, otp: string, password?: string | null) {
   const supabase = getBrowserClient();
 
   const userData = await findUserByAccessId(accessID);
@@ -139,27 +148,31 @@ export async function verifyOtp(accessID: string, otp: string) {
     .eq("used", false)
     .order("created_at", { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (!otpData || new Date(otpData.expires_at) < new Date()) {
     throw new Error("Invalid or expired OTP.");
   }
 
-  await supabase.from("login_otps").update({ used: true }).eq("id", otpData.id);
+  const signInPassword = password || otpData.temp_password;
+  if (!signInPassword) {
+    throw new Error("Please log in again with your password.");
+  }
 
   const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
     email: userData.email,
-    password: otpData.temp_password,
+    password: signInPassword,
   });
-
-  await supabase
-    .from("login_otps")
-    .update({ temp_password: null })
-    .eq("id", otpData.id);
 
   if (authError || !authData?.session) {
     throw new Error("Session could not be created.");
   }
+
+  // Burn the code only after the session exists so a failed attempt can retry.
+  await supabase
+    .from("login_otps")
+    .update({ used: true, temp_password: null })
+    .eq("id", otpData.id);
 
   return {
     id: authData.user.id,

@@ -94,7 +94,6 @@ export default function LoginPage() {
         setManualAccessId(accessID.trim());
         setManualStep("otp");
         setInfo("OTP sent to your email.");
-        setPassword("");
       } catch (err) {
         setError(err instanceof Error ? err.message : "Login failed.");
       } finally {
@@ -110,7 +109,7 @@ export default function LoginPage() {
     }
     setLoading(true);
     try {
-      const user = await verifyOtp(lastAccessID, otp);
+      const user = await verifyOtp(lastAccessID, otp, password);
       clearResume();
       await setAuthenticated(user);
       router.replace("/dashboard");
@@ -126,19 +125,14 @@ export default function LoginPage() {
       setError("Please enter your Access ID and password first.");
       return;
     }
-    if (!captchaToken) {
-      setError("Please complete the captcha challenge.");
-      return;
-    }
     setLoading(true);
     setError("");
     try {
-      await resendOtp(lastAccessID, captchaToken);
+      await resendOtp(lastAccessID);
       setInfo("OTP resent to your email.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not resend code.");
     } finally {
-      resetCaptcha();
       setLoading(false);
     }
   }
@@ -235,8 +229,6 @@ export default function LoginPage() {
                 placeholder="Enter 6-digit code"
               />
             </div>
-
-            <CaptchaWidget key={`cap-${captchaKey}`} onToken={setCaptchaToken} />
 
             <div className="flex items-center justify-between">
               <button
